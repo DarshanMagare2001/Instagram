@@ -12,14 +12,11 @@ import FirebaseStorage
 import FirebaseAuth
 import RxCocoa
 import RxSwift
+import RxRelay
 
 class ProfileViewModel {
     static let shared = ProfileViewModel()
     let userModelRelay = BehaviorRelay<ProfileModel?>(value: nil)
-    var userModel: ProfileModel? {
-        return userModelRelay.value
-    }
-    
     init() {
         if let uid = Auth.auth().currentUser?.uid {
             fetchUserData(uid: uid) { [weak self] result in

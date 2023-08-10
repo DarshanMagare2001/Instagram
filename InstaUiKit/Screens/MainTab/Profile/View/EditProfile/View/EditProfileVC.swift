@@ -11,6 +11,7 @@ import Kingfisher
 import ADCountryPicker
 import RxCocoa
 import RxSwift
+import RxRelay
 
 class EditProfileVC: UIViewController {
     @IBOutlet weak var nameTxtFld: UITextField!
@@ -55,9 +56,8 @@ class EditProfileVC: UIViewController {
                                 guard let self = self else { return }
                                 switch result {
                                 case .success(let profileModel):
-                                    ProfileViewModel.shared.userModelRelay.accept(profileModel)
+                                    self.updateUserModel(with: profileModel)
                                     DispatchQueue.main.async {
-                                        self.updateUI()
                                         self.activityStop()
                                     }
                                 case .failure(let error):
@@ -151,12 +151,14 @@ extension EditProfileVC {
     func updateUI() {
         
         ProfileViewModel.shared.userModelRelay
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { userModel in
-                if let url = userModel?.imageURL {
-                    self.userImg.kf.setImage(with: URL(string: url ))
-                }            })
+            .subscribe(onNext: { [weak self] userModel in
+                guard let self = self, let url = userModel?.imageURL else { return }
+                DispatchQueue.main.async {
+                    self.userImg.kf.setImage(with: URL(string: url))
+                }
+            })
             .disposed(by: disposeBag)
+        
         
         viewModel.fetchProfileFromUserDefaults { result in
             switch result {
@@ -225,6 +227,11 @@ extension EditProfileVC {
         activityPicker.stopAnimating()
     }
     
+    func updateUserModel(with newProfileModel: ProfileModel) {
+        DispatchQueue.main.async {
+            ProfileViewModel.shared.userModelRelay.accept(newProfileModel)
+        }
+    }
 }
 
 extension EditProfileVC: ImagePickerDelegate , UIViewControllerTransitioningDelegate {

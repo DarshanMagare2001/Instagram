@@ -10,6 +10,7 @@ import FirebaseAuth
 import Kingfisher
 import RxCocoa
 import RxSwift
+import RxRelay
 
 class ProfileVC: UIViewController {
     @IBOutlet weak var photosCollectionView: UICollectionView!
@@ -83,12 +84,15 @@ class ProfileVC: UIViewController {
     func updateUI(){
         
         ProfileViewModel.shared.userModelRelay
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { userModel in
-                if let url = userModel?.imageURL {
-                    self.userImg.kf.setImage(with: URL(string: url ))
-                }            })
+            .subscribe(onNext: { [weak self] userModel in
+                guard let self = self, let url = userModel?.imageURL else { return }
+                DispatchQueue.main.async {
+                    self.userImg.kf.setImage(with: URL(string: url))
+                }
+            })
             .disposed(by: disposeBag)
+        
+        
         
         EditProfileViewModel.shared.fetchProfileFromUserDefaults { result in
             switch result {
