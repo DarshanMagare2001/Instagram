@@ -68,9 +68,9 @@ class EditProfileVC: UIViewController {
                                 guard let self = self else { return }
                                 switch result {
                                 case .success(let newProfileModel):
-                                    ProfileViewModel.shared.updateUserModel(with: newProfileModel)
                                     DispatchQueue.main.async {
-                                        self.updateUI() // Update UI with the new profile data
+                                        ProfileViewModel.shared.updateUserModel(with: newProfileModel)
+                                        self.updateUI() 
                                         self.activityStop()
                                     }
                                 case .failure(let error):
@@ -162,17 +162,7 @@ extension EditProfileVC {
     
     func updateUI() {
         
-//        ProfileViewModel.shared.userModelRelay
-//            .subscribe(onNext: { [weak self] userModel in
-//                guard let self = self, let url = userModel?.imageURL else { return }
-//                DispatchQueue.main.async {
-//                    self.userImg.kf.setImage(with: URL(string: url))
-//                }
-//            })
-//            .disposed(by: disposeBag)
-        
-        
-        ProfileViewModel.shared.publish1
+         ProfileViewModel.shared.publish1
             .compactMap { $0 }
             .subscribe(onNext: { subscription in
                 DispatchQueue.main.async {
