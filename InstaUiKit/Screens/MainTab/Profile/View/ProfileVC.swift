@@ -29,6 +29,14 @@ class ProfileVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         updateUI()
         updateSideMenu()
+//        ProfileViewModel.shared.userModelRelay
+//            .subscribe(onNext: { [weak self] userModel in
+//                guard let self = self, let url = userModel?.imageURL else { return }
+//                DispatchQueue.main.async {
+//                    self.userImg.kf.setImage(with: URL(string: url))
+//                }
+//            })
+//            .disposed(by: disposeBag)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -83,15 +91,24 @@ class ProfileVC: UIViewController {
     
     func updateUI(){
         
-        ProfileViewModel.shared.userModelRelay
-            .subscribe(onNext: { [weak self] userModel in
-                guard let self = self, let url = userModel?.imageURL else { return }
+//        ProfileViewModel.shared.userModelRelay
+//            .subscribe(onNext: { [weak self] userModel in
+//                guard let self = self, let url = userModel?.imageURL else { return }
+//
+        //            })
+        //            .disposed(by: disposeBag)
+        
+        ProfileViewModel.shared.publish1
+            .compactMap { $0 }
+            .subscribe(onNext: { subscription in
                 DispatchQueue.main.async {
-                    self.userImg.kf.setImage(with: URL(string: url))
+                    if let imageURLString = subscription.imageURL, let imageURL = URL(string: imageURLString) {
+                        self.userImg.kf.setImage(with: imageURL)
+                    }
                 }
             })
             .disposed(by: disposeBag)
-        
+
         
         
         EditProfileViewModel.shared.fetchProfileFromUserDefaults { result in

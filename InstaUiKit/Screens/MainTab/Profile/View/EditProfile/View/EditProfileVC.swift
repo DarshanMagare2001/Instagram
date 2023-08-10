@@ -40,6 +40,18 @@ class EditProfileVC: UIViewController {
         
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+//        ProfileViewModel.shared.userModelRelay
+//            .subscribe(onNext: { [weak self] userModel in
+//                guard let self = self, let url = userModel?.imageURL else { return }
+//                DispatchQueue.main.async {
+//                    self.userImg.kf.setImage(with: URL(string: url))
+//                }
+//            })
+//            .disposed(by: disposeBag)
+    }
+    
     @IBAction func doneBtnPressed(_ sender: UIButton) {
         // After successful user sign-in, get the user's UID
         if let uid = Auth.auth().currentUser?.uid {
@@ -55,16 +67,16 @@ class EditProfileVC: UIViewController {
                             ProfileViewModel.shared.fetchUserData(uid: uid) { [weak self] result in
                                 guard let self = self else { return }
                                 switch result {
-                                case .success(let profileModel):
-                                    self.updateUserModel(with: profileModel)
+                                case .success(let newProfileModel):
+                                    ProfileViewModel.shared.updateUserModel(with: newProfileModel)
                                     DispatchQueue.main.async {
+                                        self.updateUI() // Update UI with the new profile data
                                         self.activityStop()
                                     }
                                 case .failure(let error):
                                     print(error)
                                 }
                             }
-                            
                         case .failure(let error):
                             print(error)
                         }
@@ -150,11 +162,23 @@ extension EditProfileVC {
     
     func updateUI() {
         
-        ProfileViewModel.shared.userModelRelay
-            .subscribe(onNext: { [weak self] userModel in
-                guard let self = self, let url = userModel?.imageURL else { return }
+//        ProfileViewModel.shared.userModelRelay
+//            .subscribe(onNext: { [weak self] userModel in
+//                guard let self = self, let url = userModel?.imageURL else { return }
+//                DispatchQueue.main.async {
+//                    self.userImg.kf.setImage(with: URL(string: url))
+//                }
+//            })
+//            .disposed(by: disposeBag)
+        
+        
+        ProfileViewModel.shared.publish1
+            .compactMap { $0 }
+            .subscribe(onNext: { subscription in
                 DispatchQueue.main.async {
-                    self.userImg.kf.setImage(with: URL(string: url))
+                    if let imageURLString = subscription.imageURL, let imageURL = URL(string: imageURLString) {
+                        self.userImg.kf.setImage(with: imageURL)
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -227,11 +251,6 @@ extension EditProfileVC {
         activityPicker.stopAnimating()
     }
     
-    func updateUserModel(with newProfileModel: ProfileModel) {
-        DispatchQueue.main.async {
-            ProfileViewModel.shared.userModelRelay.accept(newProfileModel)
-        }
-    }
 }
 
 extension EditProfileVC: ImagePickerDelegate , UIViewControllerTransitioningDelegate {

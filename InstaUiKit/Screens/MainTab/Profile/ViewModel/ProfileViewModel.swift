@@ -16,20 +16,25 @@ import RxRelay
 
 class ProfileViewModel {
     static let shared = ProfileViewModel()
-    let userModelRelay = BehaviorRelay<ProfileModel?>(value: nil)
+    let publish1 = BehaviorRelay<ProfileModel?>(value: nil)
     init() {
         if let uid = Auth.auth().currentUser?.uid {
             fetchUserData(uid: uid) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let profileModel):
-                    self.userModelRelay.accept(profileModel)
+                    self.publish1.accept(profileModel)
                 case .failure(let error):
                     print(error)
                 }
             }
         }
     }
+    
+    func updateUserModel(with newProfileModel: ProfileModel) {
+        publish1.accept(newProfileModel)
+    }
+    
     
     func saveUserToFirebase(uid: String, name: String?, username: String?, bio: String?, phoneNumber: String?, gender: String?, image: UIImage?,countryCode : String?,completion: @escaping (Result<Void, Error>) -> Void) {
         // Create a reference to the Firestore database
