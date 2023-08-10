@@ -56,13 +56,15 @@ class EditProfileVC: UIViewController {
                                 switch result {
                                 case .success(let profileModel):
                                     ProfileViewModel.shared.userModelRelay.accept(profileModel)
+                                    DispatchQueue.main.async {
+                                        self.updateUI()
+                                        self.activityStop()
+                                    }
                                 case .failure(let error):
                                     print(error)
                                 }
                             }
-                            DispatchQueue.main.async {
-                                self.activityStop()
-                            }
+                            
                         case .failure(let error):
                             print(error)
                         }
