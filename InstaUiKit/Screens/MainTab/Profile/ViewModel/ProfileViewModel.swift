@@ -10,18 +10,25 @@ import UIKit
 import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
+import RxCocoa
+import RxSwift
 
 class ProfileViewModel {
     static let shared = ProfileViewModel()
-    var userModel: ProfileModel?
+    let userModelRelay = BehaviorRelay<ProfileModel?>(value: nil)
+    var userModel: ProfileModel? {
+        return userModelRelay.value
+    }
+    
     init() {
         if let uid = Auth.auth().currentUser?.uid {
-           fetchUserData(uid: uid) { response in
-                switch response {
-                case.success(let profileData):
-                    self.userModel = profileData
-                case.failure(let Error):
-                    print(Error)
+            fetchUserData(uid: uid) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let profileModel):
+                    self.userModelRelay.accept(profileModel)
+                case .failure(let error):
+                    print(error)
                 }
             }
         }
@@ -53,7 +60,7 @@ class ProfileViewModel {
                 updateUserData()
             }
         }
-     
+        
         func updateUserData() {
             if let name = name {
                 dispatchGroup.enter()

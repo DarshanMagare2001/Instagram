@@ -8,6 +8,8 @@
 import UIKit
 import FirebaseAuth
 import Kingfisher
+import RxCocoa
+import RxSwift
 
 class ProfileVC: UIViewController {
     @IBOutlet weak var photosCollectionView: UICollectionView!
@@ -17,6 +19,7 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var userBio: UILabel!
     var viewModel1 = AuthenticationModel()
     var viewModel2 = ProfileViewModel()
+    private let disposeBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
         updateCell()
@@ -79,20 +82,15 @@ class ProfileVC: UIViewController {
     }
     
     func updateUI(){
-        if let uid = Auth.auth().currentUser?.uid {
-            viewModel2.fetchUserData(uid: uid) { response in
-                switch response {
-                case.success(let profileData):
-                    let data = profileData
-                    if let url = data.imageURL {
-                        self.userImg.kf.setImage(with: URL(string: url ))
-                    }
-                case.failure(let Error):
-                    print(Error)
-                }
-            }
-        }
-   
+        
+        ProfileViewModel.shared.userModelRelay
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { userModel in
+                if let url = userModel?.imageURL {
+                    self.userImg.kf.setImage(with: URL(string: url ))
+                }            })
+            .disposed(by: disposeBag)
+        
         EditProfileViewModel.shared.fetchProfileFromUserDefaults { result in
             switch result {
             case.success(let profileData) :
