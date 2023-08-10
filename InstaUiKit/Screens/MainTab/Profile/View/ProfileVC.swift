@@ -99,16 +99,16 @@ class ProfileVC: UIViewController {
         //            .disposed(by: disposeBag)
         
         ProfileViewModel.shared.publish1
-            .compactMap { $0 }
             .subscribe(onNext: { subscription in
                 DispatchQueue.main.async {
-                    if let imageURLString = subscription.imageURL, let imageURL = URL(string: imageURLString) {
+                    if let imageURLString = subscription?.imageURL, let imageURL = URL(string: imageURLString) {
                         self.userImg.kf.setImage(with: imageURL)
                     }
+                    
                 }
             })
             .disposed(by: disposeBag)
-
+        
         
         
         EditProfileViewModel.shared.fetchProfileFromUserDefaults { result in
