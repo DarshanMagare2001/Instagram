@@ -51,6 +51,15 @@ class EditProfileVC: UIViewController {
                         switch result {
                         case.success:
                             print("Profile successfully saved in userdefault.")
+                            ProfileViewModel.shared.fetchUserData(uid: uid) { [weak self] result in
+                                guard let self = self else { return }
+                                switch result {
+                                case .success(let profileModel):
+                                    ProfileViewModel.shared.userModelRelay.accept(profileModel)
+                                case .failure(let error):
+                                    print(error)
+                                }
+                            }
                             DispatchQueue.main.async {
                                 self.activityStop()
                             }
