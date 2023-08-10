@@ -15,7 +15,16 @@ class ProfileViewModel {
     static let shared = ProfileViewModel()
     var userModel: ProfileModel?
     init() {
-        
+        if let uid = Auth.auth().currentUser?.uid {
+           fetchUserData(uid: uid) { response in
+                switch response {
+                case.success(let profileData):
+                    self.userModel = profileData
+                case.failure(let Error):
+                    print(Error)
+                }
+            }
+        }
     }
     
     func saveUserToFirebase(uid: String, name: String?, username: String?, bio: String?, phoneNumber: String?, gender: String?, image: UIImage?,countryCode : String?,completion: @escaping (Result<Void, Error>) -> Void) {

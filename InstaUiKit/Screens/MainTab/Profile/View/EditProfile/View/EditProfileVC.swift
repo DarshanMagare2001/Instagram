@@ -30,6 +30,7 @@ class EditProfileVC: UIViewController {
     var countryCode: String = "+91"
     var selectedImg : UIImage?
     var viewModel = EditProfileViewModel()
+    var imgUrl:String?
     override func viewDidLoad() {
         super.viewDidLoad()
         configuration()
@@ -98,7 +99,7 @@ class EditProfileVC: UIViewController {
 extension EditProfileVC {
     
     func configuration(){
-        activityStart()
+        activityStop()
         updateUI()
         initViewModel()
         observeEvent()
@@ -135,6 +136,9 @@ extension EditProfileVC {
     
     
     func updateUI() {
+        if let imgUrl = imgUrl {
+            self.userImg.kf.setImage(with: URL(string: imgUrl))
+        }
         if let imageURLString = self.viewModel.userModel?.imageURL, let imageURL = URL(string: imageURLString) {
             // Use Kingfisher to set the image directly from the URL
             self.userImg.kf.setImage(with: imageURL)
