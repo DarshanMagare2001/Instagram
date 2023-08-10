@@ -9,6 +9,8 @@ import UIKit
 import FirebaseAuth
 import Kingfisher
 import ADCountryPicker
+import RxCocoa
+import RxSwift
 
 class EditProfileVC: UIViewController {
     @IBOutlet weak var nameTxtFld: UITextField!
@@ -30,7 +32,7 @@ class EditProfileVC: UIViewController {
     var countryCode: String = "+91"
     var selectedImg : UIImage?
     var viewModel = EditProfileViewModel()
-    var imgUrl:String?
+    private let disposeBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
         configuration()
@@ -56,7 +58,7 @@ class EditProfileVC: UIViewController {
                             print(error)
                         }
                     }
-                   
+                    
                 case .failure(let error):
                     print("Error saving user data: \(error)")
                 }
@@ -136,13 +138,15 @@ extension EditProfileVC {
     
     
     func updateUI() {
-        if let imgUrl = imgUrl {
-            self.userImg.kf.setImage(with: URL(string: imgUrl))
-        }
-        if let imageURLString = self.viewModel.userModel?.imageURL, let imageURL = URL(string: imageURLString) {
-            // Use Kingfisher to set the image directly from the URL
-            self.userImg.kf.setImage(with: imageURL)
-        }
+        
+        ProfileViewModel.shared.userModelRelay
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { userModel in
+                if let url = userModel?.imageURL {
+                    self.userImg.kf.setImage(with: URL(string: url ))
+                }            })
+            .disposed(by: disposeBag)
+        
         viewModel.fetchProfileFromUserDefaults { result in
             switch result {
             case.success(let profileData):
@@ -183,7 +187,7 @@ extension EditProfileVC {
                         self.btn2.setImage(UIImage(systemName: "circle.fill"), for: .normal)
                     }
                 }
-        
+                
                 
                 
                 if let countryCode = profileData.countryCode {

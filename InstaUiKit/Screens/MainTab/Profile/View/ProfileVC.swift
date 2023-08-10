@@ -54,7 +54,6 @@ class ProfileVC: UIViewController {
     @IBAction func editProfileBtnPressed(_ sender: UIButton) {
         let storyBoard: UIStoryboard = UIStoryboard(name: "MainTab", bundle: nil)
         let destinationVC = storyBoard.instantiateViewController(withIdentifier: "EditProfileVC") as! EditProfileVC
-        destinationVC.imgUrl = ProfileViewModel.shared.userModel?.imageURL
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
