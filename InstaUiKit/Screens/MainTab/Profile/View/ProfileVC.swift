@@ -77,10 +77,42 @@ class ProfileVC: UIViewController {
         self.sideMenuView.transform = CGAffineTransform(translationX: +self.sideMenuView.bounds.width, y: 0)
     }
     
-    func updateUI() {
-        guard let data: ProfileModel = viewModel2.userModel else { return }
-        if let url = data.imageURL {
-            userImg.kf.setImage(with: URL(string: url ))
+    func updateUI(){
+        if let uid = Auth.auth().currentUser?.uid {
+            viewModel2.fetchUserData(uid: uid) { response in
+                switch response {
+                case.success(let profileData):
+                    let data = profileData
+                    if let url = data.imageURL {
+                        self.userImg.kf.setImage(with: URL(string: url ))
+                    }
+                case.failure(let Error):
+                    print(Error)
+                }
+            }
+        }
+   
+        EditProfileViewModel.shared.fetchProfileFromUserDefaults { result in
+            switch result {
+            case.success(let profileData) :
+                print(profileData)
+                if let name = profileData.name {
+                    if name != "" {
+                        self.userName.text = "\(name)"
+                        print(name)
+                    }
+                }
+                
+                if let bio = profileData.bio {
+                    if bio != "" {
+                        self.userBio.text = "\(bio)"
+                        print(bio)
+                    }
+                }
+                
+            case.failure(let error):
+                print(error.localizedDescription)
+            }
         }
         
     }
