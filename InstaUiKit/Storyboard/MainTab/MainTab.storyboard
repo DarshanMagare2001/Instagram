@@ -518,7 +518,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ClZ-t7-0nM">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="703.5"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7pB-0R-Bl8">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7pB-0R-Bl8" customClass="ViewWithBorder" customModule="InstaUiKit" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EQy-8U-FuX">
@@ -551,7 +551,7 @@
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PostVCCollectionCell" id="kAm-zR-899" customClass="PostVCCollectionCell" customModule="InstaUiKit" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="109" height="105"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="rS5-mB-Nvg">
+                                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="rS5-mB-Nvg" customClass="ViewWithBorder" customModule="InstaUiKit" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="109" height="105"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <subviews>

@@ -104,3 +104,27 @@ class CircleImageView: UIImageView {
         layer.masksToBounds = true
     }
 }
+
+class ViewWithBorder: UIView {
+    // Custom border width value
+    var borderWidth: CGFloat = 1 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    // Custom border color value
+    var borderColor: UIColor = .black {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        // Set border
+        layer.borderWidth = borderWidth
+        layer.borderColor = borderColor.cgColor
+    }
+}
