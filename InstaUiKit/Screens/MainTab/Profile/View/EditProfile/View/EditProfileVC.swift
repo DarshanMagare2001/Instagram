@@ -132,6 +132,7 @@ extension EditProfileVC {
     func initViewModel(){
         viewModel.fetchProfile()
     }
+
     
     func observeEvent() {
         viewModel.eventHandler = { [weak self] event in
