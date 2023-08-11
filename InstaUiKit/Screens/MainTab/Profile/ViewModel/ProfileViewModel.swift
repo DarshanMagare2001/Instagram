@@ -10,9 +10,7 @@ import UIKit
 import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
-import RxCocoa
-import RxSwift
-import RxRelay
+
 
 class ProfileViewModel {
     static let shared = ProfileViewModel()

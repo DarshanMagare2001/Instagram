@@ -26,12 +26,11 @@ class ProfileVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         updateUI()
         updateSideMenu()
-        updateUserImage()
+//        updateUserImage()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         updateUI()
-        updateUserImage()
     }
     
     
