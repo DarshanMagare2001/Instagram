@@ -19,17 +19,14 @@ class ProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateCell()
-        updateUI()
+        configuration()
     }
     override func viewWillAppear(_ animated: Bool) {
-        updateUI()
-        updateSideMenu()
-        
+        configuration()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        updateUI()
+        configuration()
     }
     
     
@@ -63,6 +60,27 @@ class ProfileVC: UIViewController {
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
+   
+}
+
+extension ProfileVC {
+   
+    func configuration(){
+        updateCell()
+        updateUI()
+        updateSideMenu()
+        initViewModel()
+        eventObserver()
+   }
+    
+    func initViewModel(){
+        
+    }
+    
+    func eventObserver(){
+        
+    }
+    
     func updateCell() {
         // Configure the collection view flow layout
         let flowLayout = UICollectionViewFlowLayout()
@@ -79,7 +97,6 @@ class ProfileVC: UIViewController {
     }
     
     func updateUI(){
-        
         EditProfileViewModel.shared.fetchProfileFromUserDefaults { result in
             switch result {
             case.success(let profileData) :
@@ -107,6 +124,8 @@ class ProfileVC: UIViewController {
             }
         }
     }
+    
+    
 }
 
 extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource {

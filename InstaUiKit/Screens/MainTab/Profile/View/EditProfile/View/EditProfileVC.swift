@@ -38,15 +38,6 @@ class EditProfileVC: UIViewController {
     }
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        
-    }
-    
     @IBAction func doneBtnPressed(_ sender: UIButton) {
         // After successful user sign-in, get the user's UID
         if let uid = Auth.auth().currentUser?.uid {
