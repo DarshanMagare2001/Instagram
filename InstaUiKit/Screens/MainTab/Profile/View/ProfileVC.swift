@@ -29,14 +29,14 @@ class ProfileVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         updateUI()
         updateSideMenu()
-//        ProfileViewModel.shared.userModelRelay
-//            .subscribe(onNext: { [weak self] userModel in
-//                guard let self = self, let url = userModel?.imageURL else { return }
-//                DispatchQueue.main.async {
-//                    self.userImg.kf.setImage(with: URL(string: url))
-//                }
-//            })
-//            .disposed(by: disposeBag)
+        //        ProfileViewModel.shared.userModelRelay
+        //            .subscribe(onNext: { [weak self] userModel in
+        //                guard let self = self, let url = userModel?.imageURL else { return }
+        //                DispatchQueue.main.async {
+        //                    self.userImg.kf.setImage(with: URL(string: url))
+        //                }
+        //            })
+        //            .disposed(by: disposeBag)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -90,13 +90,6 @@ class ProfileVC: UIViewController {
     }
     
     func updateUI(){
-        
-//        ProfileViewModel.shared.userModelRelay
-//            .subscribe(onNext: { [weak self] userModel in
-//                guard let self = self, let url = userModel?.imageURL else { return }
-//
-        //            })
-        //            .disposed(by: disposeBag)
         
         ProfileViewModel.shared.publish1
             .subscribe(onNext: { subscription in
