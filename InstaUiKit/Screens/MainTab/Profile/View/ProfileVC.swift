@@ -8,9 +8,6 @@
 import UIKit
 import FirebaseAuth
 import Kingfisher
-import RxCocoa
-import RxSwift
-import RxRelay
 
 class ProfileVC: UIViewController {
     @IBOutlet weak var photosCollectionView: UICollectionView!
@@ -20,7 +17,7 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var userBio: UILabel!
     var viewModel1 = AuthenticationModel()
     var viewModel2 = ProfileViewModel()
-    private let disposeBag = DisposeBag()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         updateCell()
@@ -29,18 +26,12 @@ class ProfileVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         updateUI()
         updateSideMenu()
-        //        ProfileViewModel.shared.userModelRelay
-        //            .subscribe(onNext: { [weak self] userModel in
-        //                guard let self = self, let url = userModel?.imageURL else { return }
-        //                DispatchQueue.main.async {
-        //                    self.userImg.kf.setImage(with: URL(string: url))
-        //                }
-        //            })
-        //            .disposed(by: disposeBag)
+        updateUserImage()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         updateUI()
+        updateUserImage()
     }
     
     
@@ -90,20 +81,7 @@ class ProfileVC: UIViewController {
     }
     
     func updateUI(){
-        
-        ProfileViewModel.shared.publish1
-            .subscribe(onNext: { subscription in
-                DispatchQueue.main.async {
-                    if let imageURLString = subscription?.imageURL, let imageURL = URL(string: imageURLString) {
-                        self.userImg.kf.setImage(with: imageURL)
-                    }
-                    
-                }
-            })
-            .disposed(by: disposeBag)
-        
-        
-        
+        updateUserImage()
         EditProfileViewModel.shared.fetchProfileFromUserDefaults { result in
             switch result {
             case.success(let profileData) :
@@ -127,6 +105,13 @@ class ProfileVC: UIViewController {
             }
         }
         
+    }
+    
+    func updateUserImage(){
+        guard let data  = ProfileViewModel.shared.userModel else {return}
+        if let imageURLString = data.imageURL, let imageURL = URL(string: imageURLString) {
+            self.userImg.kf.setImage(with: imageURL)
+        }
     }
     
 }

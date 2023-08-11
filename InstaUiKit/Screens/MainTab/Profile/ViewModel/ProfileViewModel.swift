@@ -16,7 +16,7 @@ import RxRelay
 
 class ProfileViewModel {
     static let shared = ProfileViewModel()
-    var publish1 = BehaviorRelay<ProfileModel?>(value: nil)
+    var userModel : ProfileModel?
     init() {
         if let uid = Auth.auth().currentUser?.uid {
             fetchUserData(uid: uid) { [weak self] result in
@@ -24,15 +24,12 @@ class ProfileViewModel {
                 switch result {
                 case .success(let profileModel):
                     print(profileModel)
+                    self.userModel = profileModel
                 case .failure(let error):
                     print(error)
                 }
             }
         }
-    }
-    
-    func updateUserModel(with newProfileModel: ProfileModel) {
-        publish1.accept(newProfileModel)
     }
     
     
@@ -177,8 +174,6 @@ class ProfileViewModel {
                 // Check if the document exists and contains data
                 if let documentData = document?.data(),
                    let profileModel = ProfileModel(dictionary: documentData) {
-                    // Successfully fetched user data
-                    self.publish1.accept(profileModel)
                     completion(.success(profileModel))
                 } else {
                     // Document does not exist or does not contain valid data
