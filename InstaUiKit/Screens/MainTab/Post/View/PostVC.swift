@@ -15,7 +15,7 @@ class PostVC: UIViewController {
         configuration()
         updateCell()
     }
-     
+    
 }
 
 extension PostVC {
@@ -47,13 +47,15 @@ extension PostVC {
 
 extension PostVC : UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 50
+        return PostViewModel.shared.imagesArray.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostVCCollectionCell", for: indexPath) as! PostVCCollectionCell
-        // Configure the cell here if necessary
+        let data = PostViewModel.shared.imagesArray
+        cell.img.image = data[indexPath.row]
         return cell
     }
+    
     
 }

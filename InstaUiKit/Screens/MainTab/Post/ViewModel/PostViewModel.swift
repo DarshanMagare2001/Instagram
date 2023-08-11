@@ -6,3 +6,39 @@
 //
 
 import Foundation
+import Photos
+import UIKit
+
+class PostViewModel {
+    static let shared = PostViewModel()
+    var imagesArray: [UIImage] = []
+    init(){
+        fetchAllPhotos { images in
+            self.imagesArray = images
+        }
+    }
+    func fetchAllPhotos(completion: @escaping ([UIImage]) -> Void) {
+        var images: [UIImage] = []
+        
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        
+        let fetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
+        
+        let imageManager = PHImageManager.default()
+        
+        fetchResult.enumerateObjects { asset, _, _ in
+            let targetSize = CGSize(width: 200, height: 200) // Adjust the target size as needed
+            
+            let requestOptions = PHImageRequestOptions()
+            requestOptions.isSynchronous = true
+            
+            imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: requestOptions) { image, _ in
+                if let image = image {
+                    images.append(image)
+                }
+            }
+        }
+        completion(images)
+    }
+}
