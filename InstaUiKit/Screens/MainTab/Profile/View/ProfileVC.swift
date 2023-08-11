@@ -107,9 +107,11 @@ class ProfileVC: UIViewController {
     }
     
     func updateUserImage(){
-        guard let data  = ProfileViewModel.shared.userModel else {return}
-        if let imageURLString = data.imageURL, let imageURL = URL(string: imageURLString) {
-            self.userImg.kf.setImage(with: imageURL)
+        DispatchQueue.main.async {
+            guard let data  = ProfileViewModel.shared.userModel else {return}
+            if let imageURLString = data.imageURL, let imageURL = URL(string: imageURLString) {
+                self.userImg.kf.setImage(with: imageURL)
+            }
         }
     }
     

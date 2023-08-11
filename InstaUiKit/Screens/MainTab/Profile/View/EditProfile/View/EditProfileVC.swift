@@ -67,7 +67,7 @@ class EditProfileVC: UIViewController {
                                     ProfileViewModel.shared.userModel = newProfileModel
                                     print(ProfileViewModel.shared.userModel?.imageURL)
                                     DispatchQueue.main.async {
-                                      self.activityStop()
+                                        self.activityStop()
                                     }
                                 case .failure(let error):
                                     print(error)
@@ -218,9 +218,11 @@ extension EditProfileVC {
     }
     
     func updateUserImage(){
-        guard let data  = ProfileViewModel.shared.userModel else {return}
-        if let imageURLString = data.imageURL, let imageURL = URL(string: imageURLString) {
-            self.userImg.kf.setImage(with: imageURL)
+        DispatchQueue.main.async {
+            guard let data  = ProfileViewModel.shared.userModel else {return}
+            if let imageURLString = data.imageURL, let imageURL = URL(string: imageURLString) {
+                self.userImg.kf.setImage(with: imageURL)
+            }
         }
     }
     
