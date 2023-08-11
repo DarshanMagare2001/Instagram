@@ -9,7 +9,8 @@ import UIKit
 
 class PostVC: UIViewController {
     @IBOutlet weak var imgForPost: UIImageView!
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionView:UICollectionView!
+    @IBOutlet weak var imageView: UIView!
     var selectedImageIndex: Int?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +23,7 @@ class PostVC: UIViewController {
 extension PostVC {
     
     func configuration(){
-        imgForPost.isHidden = true
+        imageView.isHidden = true
         updateCell()
         initViewModel()
         eventObserver()
@@ -47,7 +48,7 @@ extension PostVC {
     func updateSelectedImage(index: Int) {
         let imagesArray = PostViewModel.shared.imagesArray
         if index >= 0 && index < imagesArray.count {
-            imgForPost.isHidden = false
+            imageView.isHidden = false
             imgForPost.image = imagesArray[index]
         }
     }
