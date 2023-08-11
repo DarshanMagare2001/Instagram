@@ -12,10 +12,27 @@ class PostVC: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        configuration()
         updateCell()
-        imgForPost.isHidden = true
     }
+     
+}
+
+extension PostVC {
     
+    func configuration(){
+        imgForPost.isHidden = true
+        updateCell()
+        initViewModel()
+        eventObserver()
+    }
+    func initViewModel(){
+        
+    }
+    func eventObserver(){
+        
+        
+    }
     func updateCell() {
         // Configure the collection view flow layout
         let flowLayout = UICollectionViewFlowLayout()
@@ -25,8 +42,8 @@ class PostVC: UIViewController {
         flowLayout.minimumLineSpacing = 2 // Adjust the spacing between cells vertically
         collectionView.collectionViewLayout = flowLayout
     }
-     
 }
+
 
 extension PostVC : UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
