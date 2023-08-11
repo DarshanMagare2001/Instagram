@@ -35,6 +35,7 @@
 		138BC5FC2A73BED600020297 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BC5FB2A73BED600020297 /* ImagePicker.swift */; };
 		138BC5FF2A73CABE00020297 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BC5FE2A73CABE00020297 /* ProfileModel.swift */; };
 		138BC6022A73D8CB00020297 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 138BC6012A73D8CB00020297 /* Kingfisher */; };
+		139110012A864CBD00CABCD5 /* ImageLoader+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139110002A864CBD00CABCD5 /* ImageLoader+Extensions.swift */; };
 		1392D0102A80B3BE004B6654 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392D00F2A80B3BE004B6654 /* RoundedCorner.swift */; };
 		1392D0162A80B459004B6654 /* AuthenticationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392D0152A80B459004B6654 /* AuthenticationModel.swift */; };
 		1392D0192A80B48D004B6654 /* MainTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1392D0182A80B48D004B6654 /* MainTab.storyboard */; };
@@ -76,6 +77,7 @@
 		138BC5EC2A73B7E400020297 /* PostVCCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVCCollectionCell.swift; sourceTree = "<group>"; };
 		138BC5FB2A73BED600020297 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		138BC5FE2A73CABE00020297 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		139110002A864CBD00CABCD5 /* ImageLoader+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageLoader+Extensions.swift"; sourceTree = "<group>"; };
 		1392D00F2A80B3BE004B6654 /* RoundedCorner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundedCorner.swift; path = InstaUiKit/Storyboard/Authentication/RoundedCorner.swift; sourceTree = SOURCE_ROOT; };
 		1392D0152A80B459004B6654 /* AuthenticationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthenticationModel.swift; path = InstaUiKit/Screens/Authentication/Model/AuthenticationModel.swift; sourceTree = SOURCE_ROOT; };
 		1392D0182A80B48D004B6654 /* MainTab.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = MainTab.storyboard; path = InstaUiKit/Storyboard/MainTab/MainTab.storyboard; sourceTree = SOURCE_ROOT; };
@@ -206,6 +208,7 @@
 			children = (
 				1392D00F2A80B3BE004B6654 /* RoundedCorner.swift */,
 				138BC5FB2A73BED600020297 /* ImagePicker.swift */,
+				139110002A864CBD00CABCD5 /* ImageLoader+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -649,6 +652,7 @@
 				131166382A70FB9900CD0373 /* AppDelegate.swift in Sources */,
 				138BC5DB2A7395C800020297 /* DirectMsgCell.swift in Sources */,
 				138BC5E12A739D7800020297 /* SearchVCCollectionViewCell.swift in Sources */,
+				139110012A864CBD00CABCD5 /* ImageLoader+Extensions.swift in Sources */,
 				13FB7D642A724BD200D8FC5C /* PhotosCell.swift in Sources */,
 				1392D0242A80B522004B6654 /* HomeVC.swift in Sources */,
 				138BC5D92A73922100020297 /* DirectMsgVC.swift in Sources */,
