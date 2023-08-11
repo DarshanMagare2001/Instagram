@@ -31,6 +31,7 @@ class EditProfileVC: UIViewController {
     var countryCode: String = "+91"
     var selectedImg : UIImage?
     var viewModel = EditProfileViewModel()
+    var viewModel2 = ProfileViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,11 +56,11 @@ class EditProfileVC: UIViewController {
                         switch result {
                         case.success:
                             print("Profile successfully saved in userdefault.")
-                            ProfileViewModel.shared.fetchUserData(uid: uid) { [weak self] result in
+                            self.viewModel2.fetchUserData(uid: uid) { [weak self] result in
                                 guard let self = self else { return }
                                 switch result {
                                 case .success(let newProfileModel):
-                                    ProfileViewModel.shared.userModel = newProfileModel
+                                    self.viewModel2.userModel = newProfileModel
                                     DispatchQueue.main.async {
                                       self.activityStop()
                                     }
