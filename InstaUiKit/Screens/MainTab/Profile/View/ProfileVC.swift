@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 import Kingfisher
 
 class ProfileVC: UIViewController {
@@ -17,7 +16,7 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var userBio: UILabel!
     var viewModel1 = AuthenticationModel()
     var viewModel2 = ProfileViewModel()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateCell()
@@ -26,7 +25,7 @@ class ProfileVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         updateUI()
         updateSideMenu()
-//        updateUserImage()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -80,7 +79,7 @@ class ProfileVC: UIViewController {
     }
     
     func updateUI(){
-        updateUserImage()
+        
         EditProfileViewModel.shared.fetchProfileFromUserDefaults { result in
             switch result {
             case.success(let profileData) :
@@ -99,22 +98,15 @@ class ProfileVC: UIViewController {
                     }
                 }
                 
+                if let imageURL = profileData.imageURL, !imageURL.isEmpty {
+                    let url = URL(string: imageURL)
+                    self.userImg.kf.setImage(with: url)
+                }
             case.failure(let error):
                 print(error.localizedDescription)
             }
         }
-        
     }
-    
-    func updateUserImage(){
-        DispatchQueue.main.async {
-            guard let data  = ProfileViewModel.shared.userModel else {return}
-            if let imageURLString = data.imageURL, let imageURL = URL(string: imageURLString) {
-                self.userImg.kf.setImage(with: imageURL)
-            }
-        }
-    }
-    
 }
 
 extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource {

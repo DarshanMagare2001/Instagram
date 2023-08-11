@@ -35,7 +35,7 @@ class EditProfileViewModel {
         }
     }
     
-    func saveProfileToUserDefaults(uid: String, name: String?, username: String?, bio: String?, phoneNumber: String?, gender: String?, countryCode : String? , completion: @escaping (Result<Void, Error>) -> Void) {
+    func saveProfileToUserDefaults(uid: String, name: String?, username: String?, bio: String?, phoneNumber: String?, gender: String?, countryCode : String? , imageURL : String? , completion: @escaping (Result<Void, Error>) -> Void) {
         UserDefaults.standard.set(uid, forKey: "uid")
         
         if name != "" {
@@ -77,6 +77,12 @@ class EditProfileViewModel {
             }
         }
         
+        if imageURL != "" {
+            if let imageURL = imageURL {
+                UserDefaults.standard.set(imageURL, forKey: "imageURL")
+            }
+        }
+        
         // Call the completion block with a successful result
         completion(.success(()))
     }
@@ -89,6 +95,7 @@ class EditProfileViewModel {
         let phoneNumber = UserDefaults.standard.string(forKey: "phoneNumber") ?? ""
         let gender = UserDefaults.standard.string(forKey: "gender") ?? ""
         let countryCode = UserDefaults.standard.string(forKey: "countryCode") ?? ""
+        let imageURL = UserDefaults.standard.string(forKey: "imageURL") ?? ""
         
         let dictionary: [String: Any] = [
             "uid": uid,
@@ -98,7 +105,7 @@ class EditProfileViewModel {
             "phoneNumber": phoneNumber,
             "gender": gender,
             "countryCode":countryCode,
-            "imageURL": ""
+            "imageURL":imageURL
         ]
         
         if let profileData = ProfileModel(dictionary: dictionary) {

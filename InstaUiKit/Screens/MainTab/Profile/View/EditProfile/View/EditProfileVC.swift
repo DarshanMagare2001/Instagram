@@ -39,14 +39,12 @@ class EditProfileVC: UIViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
-//        updateUserImage()
-        print("\(ProfileViewModel.shared.userModel?.imageURL)")
+        
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
-        updateUserImage()
-        print("\(ProfileViewModel.shared.userModel?.imageURL)")
+        
     }
     
     @IBAction func doneBtnPressed(_ sender: UIButton) {
@@ -57,33 +55,33 @@ class EditProfileVC: UIViewController {
                 switch result {
                 case .success:
                     print("User data saved successfully in database.")
-                    self.viewModel.saveProfileToUserDefaults(uid: uid, name: self.nameTxtFld.text ?? "", username: self.userNameTxtFld.text ?? "", bio: self.bioTxtFld.text ?? "", phoneNumber:self.phoneNumberTxtFld.text ?? "" , gender: self.gender ?? "", countryCode: self.countryCode ?? ""){ result in
+                    ProfileViewModel.shared.fetchUserData(uid: uid) { [weak self] result in
+                        guard let self = self else { return }
                         switch result {
-                        case.success:
-                            print("Profile successfully saved in userdefault.")
-                            ProfileViewModel.shared.fetchUserData(uid: uid) { [weak self] result in
-                                guard let self = self else { return }
-                                switch result {
-                                case .success(let newProfileModel):
-                                    print(newProfileModel.imageURL)
-                                    ProfileViewModel.shared.userModel = newProfileModel
-                                    print(ProfileViewModel.shared.userModel?.imageURL)
-                                    DispatchQueue.main.async {
+                        case .success(let profileData):
+                            print("User data fetched successfully from database.")
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                self.viewModel.saveProfileToUserDefaults(uid: uid, name: self.nameTxtFld.text ?? "", username: self.userNameTxtFld.text ?? "", bio: self.bioTxtFld.text ?? "", phoneNumber: self.phoneNumberTxtFld.text ?? "", gender: self.gender ?? "", countryCode: self.countryCode ?? "", imageURL: profileData.imageURL ?? "") { result in
+                                    switch result {
+                                    case .success:
+                                        print("Profile successfully saved in userdefault.")
+                                        self.updateUI()
+                                        self.activityStop()
+                                    case .failure(let error):
+                                        print(error)
                                         self.activityStop()
                                     }
-                                case .failure(let error):
-                                    print(error)
-                                    self.activityStop()
                                 }
                             }
+
                         case .failure(let error):
                             print(error)
                             self.activityStop()
                         }
                     }
-                    
                 case .failure(let error):
                     print("Error saving user data: \(error)")
+                    self.activityStop()
                 }
                 
             }
@@ -161,8 +159,7 @@ extension EditProfileVC {
     
     
     func updateUI() {
-        updateUserImage()
-        viewModel.fetchProfileFromUserDefaults { result in
+      viewModel.fetchProfileFromUserDefaults { result in
             switch result {
             case.success(let profileData):
                 if let name = profileData.name {
@@ -202,9 +199,7 @@ extension EditProfileVC {
                         self.btn2.setImage(UIImage(systemName: "circle.fill"), for: .normal)
                     }
                 }
-                
-                
-                
+               
                 if let countryCode = profileData.countryCode {
                     if countryCode != ""{
                         self.countryCode = countryCode
@@ -213,17 +208,14 @@ extension EditProfileVC {
                     }
                 }
                 
+                
+                if let imageURL = profileData.imageURL, !imageURL.isEmpty {
+                    let url = URL(string: imageURL)
+                    self.userImg.kf.setImage(with: url)
+                }
+                
             case.failure(let Error):
                 print(Error.localizedDescription)
-            }
-        }
-    }
-    
-    func updateUserImage(){
-        DispatchQueue.main.async {
-            guard let data  = ProfileViewModel.shared.userModel else {return}
-            if let imageURLString = data.imageURL, let imageURL = URL(string: imageURLString) {
-                self.userImg.kf.setImage(with: imageURL)
             }
         }
     }
