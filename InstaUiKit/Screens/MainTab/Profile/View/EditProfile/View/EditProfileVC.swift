@@ -39,12 +39,14 @@ class EditProfileVC: UIViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        updateUserImage()
+//        updateUserImage()
+        print("\(ProfileViewModel.shared.userModel?.imageURL)")
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         updateUserImage()
+        print("\(ProfileViewModel.shared.userModel?.imageURL)")
     }
     
     @IBAction func doneBtnPressed(_ sender: UIButton) {
