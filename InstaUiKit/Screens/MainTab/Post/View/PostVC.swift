@@ -10,6 +10,7 @@ import UIKit
 class PostVC: UIViewController {
     @IBOutlet weak var imgForPost: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
+    var selectedImageIndex: Int?
     override func viewDidLoad() {
         super.viewDidLoad()
         configuration()
@@ -42,6 +43,15 @@ extension PostVC {
         flowLayout.minimumLineSpacing = 2 // Adjust the spacing between cells vertically
         collectionView.collectionViewLayout = flowLayout
     }
+    
+    func updateSelectedImage(index: Int) {
+        let imagesArray = PostViewModel.shared.imagesArray
+        if index >= 0 && index < imagesArray.count {
+            imgForPost.isHidden = false
+            imgForPost.image = imagesArray[index]
+        }
+    }
+
 }
 
 
@@ -57,5 +67,9 @@ extension PostVC : UICollectionViewDelegate , UICollectionViewDataSource , UICol
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedImageIndex = indexPath.row
+        updateSelectedImage(index: indexPath.row)
+    }
     
 }
