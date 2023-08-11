@@ -212,8 +212,29 @@ extension EditProfileVC {
                 
                 if let imageURL = profileData.imageURL, !imageURL.isEmpty {
                     let url = URL(string: imageURL)
-                    self.userImg.kf.setImage(with: url)
+                    let processor = DownsamplingImageProcessor(size: self.userImg.bounds.size)
+                                     |> RoundCornerImageProcessor(cornerRadius: 20)
+                    self.userImg.kf.indicatorType = .activity
+                    self.userImg.kf.setImage(
+                        with: url,
+                        placeholder: UIImage(named:"person"),
+                        options: [
+                            .processor(processor),
+                            .scaleFactor(UIScreen.main.scale),
+                            .transition(.fade(1)),
+                            .cacheOriginalImage
+                        ])
+                    {
+                        result in
+                        switch result {
+                        case .success(let value):
+                            print("Image loaded successfully from: \(value.source.url?.absoluteString ?? "")")
+                        case .failure(let error):
+                            print("Image loading failed: \(error.localizedDescription)")
+                        }
+                    }
                 }
+
                 
             case.failure(let Error):
                 print(Error.localizedDescription)
