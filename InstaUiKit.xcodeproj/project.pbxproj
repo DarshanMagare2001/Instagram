@@ -460,6 +460,7 @@
 			isa = PBXGroup;
 			children = (
 				1392D02E2A80B60C004B6654 /* Networking */,
+				1392D0302A80B626004B6654 /* Constants */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -468,7 +469,6 @@
 			isa = PBXGroup;
 			children = (
 				1392D02F2A80B619004B6654 /* APIManager */,
-				1392D0302A80B626004B6654 /* Constants */,
 				1392D0312A80B63A004B6654 /* Endpoints */,
 			);
 			path = Networking;

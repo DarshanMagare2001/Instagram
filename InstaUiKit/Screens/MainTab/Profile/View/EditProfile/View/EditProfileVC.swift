@@ -50,7 +50,7 @@ class EditProfileVC: UIViewController {
                         switch result {
                         case .success(let profileData):
                             print("User data fetched successfully from database.")
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                            DispatchQueue.main.async(deadline: .now() + 2.0) {
                                 self.viewModel.saveProfileToUserDefaults(uid: uid, name: self.nameTxtFld.text ?? "", username: self.userNameTxtFld.text ?? "", bio: self.bioTxtFld.text ?? "", phoneNumber: self.phoneNumberTxtFld.text ?? "", gender: self.gender ?? "", countryCode: self.countryCode ?? "", imageURL: profileData.imageURL ?? "") { result in
                                     switch result {
                                     case .success:
@@ -120,12 +120,12 @@ extension EditProfileVC {
     }
     
     func initViewModel(){
-        viewModel.fetchProfile()
+        EditProfileViewModel.shared.fetchProfile()
     }
     
     
     func observeEvent() {
-        viewModel.eventHandler = { [weak self] event in
+        EditProfileViewModel.shared.eventHandler = { [weak self] event in
             guard let self = self else { return }
             switch event {
             case .loading:
@@ -137,7 +137,7 @@ extension EditProfileVC {
             case .loaded:
                 print("loaded")
                 self.activityStop()
-                print(self.viewModel.userModel?.imageURL)
+                print(self.EditProfileViewModel.shared.userModel?.imageURL)
                 DispatchQueue.main.async {
                     self.updateUI()
                 }
@@ -150,7 +150,7 @@ extension EditProfileVC {
     
     
     func updateUI() {
-        viewModel.fetchProfileFromUserDefaults { result in
+        EditProfileViewModel.shared.fetchProfileFromUserDefaults { result in
             switch result {
             case.success(let profileData):
                 if let name = profileData.name {
