@@ -30,7 +30,6 @@ class EditProfileVC: UIViewController {
     var gender : String = ""
     var countryCode: String = "+91"
     var selectedImg : UIImage?
-    var viewModel = EditProfileViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         configuration()
@@ -64,7 +63,7 @@ class EditProfileVC: UIViewController {
                                     }
                                 }
                             }
-
+                            
                         case .failure(let error):
                             print(error)
                             self.activityStop()
@@ -123,7 +122,7 @@ extension EditProfileVC {
     func initViewModel(){
         viewModel.fetchProfile()
     }
-
+    
     
     func observeEvent() {
         viewModel.eventHandler = { [weak self] event in
@@ -151,7 +150,7 @@ extension EditProfileVC {
     
     
     func updateUI() {
-      viewModel.fetchProfileFromUserDefaults { result in
+        viewModel.fetchProfileFromUserDefaults { result in
             switch result {
             case.success(let profileData):
                 if let name = profileData.name {
@@ -191,7 +190,7 @@ extension EditProfileVC {
                         self.btn2.setImage(UIImage(systemName: "circle.fill"), for: .normal)
                     }
                 }
-               
+                
                 if let countryCode = profileData.countryCode {
                     if countryCode != ""{
                         self.countryCode = countryCode
@@ -199,11 +198,11 @@ extension EditProfileVC {
                         self.countryPickerBtn.setTitle(countryCode, for: .normal)
                     }
                 }
-               
+                
                 if let imageURL = profileData.imageURL, !imageURL.isEmpty {
                     ImageLoader.loadImage(for: URL(string: imageURL), into: self.userImg, withPlaceholder: UIImage(named: "person"))
                 }
-
+                
                 
             case.failure(let Error):
                 print(Error.localizedDescription)

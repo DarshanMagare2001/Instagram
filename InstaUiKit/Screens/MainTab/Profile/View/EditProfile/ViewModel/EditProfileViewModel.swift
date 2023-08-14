@@ -13,7 +13,7 @@ class EditProfileViewModel {
     static let shared = EditProfileViewModel()
     var eventHandler: ((_ event : Event) -> Void)?
     var userModel: ProfileModel?
-    init(){
+   private init(){
         fetchProfile()
     }
     
