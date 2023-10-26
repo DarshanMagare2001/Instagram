@@ -157,7 +157,6 @@
 			children = (
 				131166542A70FEE200CD0373 /* AppDelegate */,
 				1311665C2A7100E600CD0373 /* Extensions */,
-				1392D02D2A80B600004B6654 /* Helper */,
 				131166562A70FEFA00CD0373 /* Storyboard */,
 				131166572A70FF0100CD0373 /* Screens */,
 				131166582A70FF2000CD0373 /* Resources */,
@@ -456,51 +455,11 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		1392D02D2A80B600004B6654 /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-				1392D02E2A80B60C004B6654 /* Networking */,
-				1392D0302A80B626004B6654 /* Constants */,
-			);
-			path = Helper;
-			sourceTree = "<group>";
-		};
-		1392D02E2A80B60C004B6654 /* Networking */ = {
-			isa = PBXGroup;
-			children = (
-				1392D02F2A80B619004B6654 /* APIManager */,
-				1392D0312A80B63A004B6654 /* Endpoints */,
-			);
-			path = Networking;
-			sourceTree = "<group>";
-		};
-		1392D02F2A80B619004B6654 /* APIManager */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = APIManager;
-			sourceTree = "<group>";
-		};
-		1392D0302A80B626004B6654 /* Constants */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Constants;
-			sourceTree = "<group>";
-		};
-		1392D0312A80B63A004B6654 /* Endpoints */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Endpoints;
-			sourceTree = "<group>";
-		};
 		1392D0322A80B664004B6654 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
 				1392D0332A80B671004B6654 /* Model */,
 				1392D0342A80B677004B6654 /* View */,
-				1392D0352A80B67D004B6654 /* ViewModel */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -520,13 +479,6 @@
 				1392D0362A80B6B5004B6654 /* SignIn */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		1392D0352A80B67D004B6654 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		1392D0362A80B6B5004B6654 /* SignIn */ = {
