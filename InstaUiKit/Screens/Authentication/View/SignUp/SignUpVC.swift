@@ -12,7 +12,7 @@ class SignUpVC: UIViewController {
     @IBOutlet weak var passwordTxtFld: UITextField!
     @IBOutlet weak var passwordHideShowBtn: UIButton!
     var isPasswordShow = false
-    var viewModel = AuthenticationModel()
+    var viewModel = AuthenticationViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         updateTxtFlds()

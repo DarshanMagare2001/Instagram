@@ -14,7 +14,7 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var userImg: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var userBio: UILabel!
-    var viewModel1 = AuthenticationModel()
+    var viewModel1 = AuthenticationViewModel()
     var viewModel2 = ProfileViewModel()
     
     override func viewDidLoad() {

@@ -11,7 +11,7 @@ import FirebaseAuth
 
 //This is authentication model class for all authentication
 
-class AuthenticationModel {
+class AuthenticationViewModel {
     var isLoggedIn: Bool {
         return Auth.auth().currentUser != nil
     }
@@ -83,5 +83,6 @@ class AuthenticationModel {
     }
     
 }
+
 
 

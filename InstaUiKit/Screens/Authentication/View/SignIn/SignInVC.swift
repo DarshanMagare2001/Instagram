@@ -14,7 +14,7 @@ class SignInVC: UIViewController {
     @IBOutlet weak var passwordTxtFld: UITextField!
     @IBOutlet weak var passwordHideShowBtn: UIButton!
     var isPasswordShow = false
-    var viewModel = AuthenticationModel()
+    var viewModel = AuthenticationViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: true)

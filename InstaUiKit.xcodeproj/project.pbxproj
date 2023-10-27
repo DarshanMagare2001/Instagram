@@ -44,7 +44,6 @@
 		1391101B2A86518A00CABCD5 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1391101A2A86518A00CABCD5 /* HomeModel.swift */; };
 		1391101D2A86519B00CABCD5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1391101C2A86519B00CABCD5 /* HomeViewModel.swift */; };
 		1392D0102A80B3BE004B6654 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392D00F2A80B3BE004B6654 /* RoundedCorner.swift */; };
-		1392D0162A80B459004B6654 /* AuthenticationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392D0152A80B459004B6654 /* AuthenticationModel.swift */; };
 		1392D0192A80B48D004B6654 /* MainTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1392D0182A80B48D004B6654 /* MainTab.storyboard */; };
 		1392D01E2A80B4ED004B6654 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392D01D2A80B4ED004B6654 /* SignInVC.swift */; };
 		1392D0202A80B4F6004B6654 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392D01F2A80B4F6004B6654 /* SignUpVC.swift */; };
@@ -61,6 +60,7 @@
 		13DBE77A2AEB95290006F3B9 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DBE7792AEB95290006F3B9 /* Navigator.swift */; };
 		13DBE7852AEBB85C0006F3B9 /* LoaderVCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DBE7842AEBB85C0006F3B9 /* LoaderVCViewModel.swift */; };
 		13DBE7872AEBBD130006F3B9 /* LoaderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DBE7862AEBBD130006F3B9 /* LoaderVC.swift */; };
+		13DBE7892AEBC12E0006F3B9 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DBE7882AEBC12E0006F3B9 /* AuthenticationViewModel.swift */; };
 		13FB7D5F2A722DE000D8FC5C /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FB7D5D2A722DE000D8FC5C /* FeedCell.swift */; };
 		13FB7D602A722DE000D8FC5C /* FeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13FB7D5E2A722DE000D8FC5C /* FeedCell.xib */; };
 		13FB7D622A723F0900D8FC5C /* StoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FB7D612A723F0900D8FC5C /* StoriesCell.swift */; };
@@ -101,7 +101,6 @@
 		1391101A2A86518A00CABCD5 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		1391101C2A86519B00CABCD5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		1392D00F2A80B3BE004B6654 /* RoundedCorner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundedCorner.swift; path = InstaUiKit/Utilities/RoundedCorner.swift; sourceTree = SOURCE_ROOT; };
-		1392D0152A80B459004B6654 /* AuthenticationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthenticationModel.swift; path = InstaUiKit/Screens/Authentication/Model/AuthenticationModel.swift; sourceTree = SOURCE_ROOT; };
 		1392D0182A80B48D004B6654 /* MainTab.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = MainTab.storyboard; path = InstaUiKit/Storyboard/MainTab/MainTab.storyboard; sourceTree = SOURCE_ROOT; };
 		1392D01D2A80B4ED004B6654 /* SignInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignInVC.swift; path = InstaUiKit/Screens/Authentication/View/SignIn/SignInVC.swift; sourceTree = SOURCE_ROOT; };
 		1392D01F2A80B4F6004B6654 /* SignUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignUpVC.swift; path = InstaUiKit/Screens/Authentication/View/SignUp/SignUpVC.swift; sourceTree = SOURCE_ROOT; };
@@ -116,6 +115,7 @@
 		13DBE7792AEB95290006F3B9 /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
 		13DBE7842AEBB85C0006F3B9 /* LoaderVCViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderVCViewModel.swift; sourceTree = "<group>"; };
 		13DBE7862AEBBD130006F3B9 /* LoaderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderVC.swift; sourceTree = "<group>"; };
+		13DBE7882AEBC12E0006F3B9 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		13FB7D5D2A722DE000D8FC5C /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		13FB7D5E2A722DE000D8FC5C /* FeedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedCell.xib; sourceTree = "<group>"; };
 		13FB7D612A723F0900D8FC5C /* StoriesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesCell.swift; sourceTree = "<group>"; };
@@ -472,18 +472,18 @@
 		1392D0322A80B664004B6654 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				1392D0332A80B671004B6654 /* Model */,
+				1392D0332A80B671004B6654 /* AuthenticationViewModel */,
 				1392D0342A80B677004B6654 /* View */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
 		};
-		1392D0332A80B671004B6654 /* Model */ = {
+		1392D0332A80B671004B6654 /* AuthenticationViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				1392D0152A80B459004B6654 /* AuthenticationModel.swift */,
+				13DBE7882AEBC12E0006F3B9 /* AuthenticationViewModel.swift */,
 			);
-			path = Model;
+			path = AuthenticationViewModel;
 			sourceTree = "<group>";
 		};
 		1392D0342A80B677004B6654 /* View */ = {
@@ -777,7 +777,6 @@
 			files = (
 				139110082A86503700CABCD5 /* PostViewModel.swift in Sources */,
 				1392D0282A80B538004B6654 /* PostVC.swift in Sources */,
-				1392D0162A80B459004B6654 /* AuthenticationModel.swift in Sources */,
 				1391101B2A86518A00CABCD5 /* HomeModel.swift in Sources */,
 				138BC5ED2A73B7E400020297 /* PostVCCollectionCell.swift in Sources */,
 				13DBE7752AEB938C0006F3B9 /* Storyboard+Extensions.swift in Sources */,
@@ -812,6 +811,7 @@
 				13FB7D622A723F0900D8FC5C /* StoriesCell.swift in Sources */,
 				1391100D2A86509F00CABCD5 /* LikesModel.swift in Sources */,
 				138BC5FC2A73BED600020297 /* ImagePicker.swift in Sources */,
+				13DBE7892AEBC12E0006F3B9 /* AuthenticationViewModel.swift in Sources */,
 				1392D0222A80B50C004B6654 /* MainTabVC.swift in Sources */,
 				138BC5D42A73806E00020297 /* EditProfileVC.swift in Sources */,
 				1311663A2A70FB9900CD0373 /* SceneDelegate.swift in Sources */,
