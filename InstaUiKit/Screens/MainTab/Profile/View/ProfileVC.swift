@@ -47,31 +47,35 @@ class ProfileVC: UIViewController {
     
     
     @IBAction func editProfileBtnPressed(_ sender: UIButton) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "MainTab", bundle: nil)
-        let destinationVC = storyBoard.instantiateViewController(withIdentifier: "EditProfileVC") as! EditProfileVC
-        self.navigationController?.pushViewController(destinationVC, animated: true)
+        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "EditProfileVC"){ destinationVC in
+            if let destinationVC = destinationVC {
+                self.navigationController?.pushViewController(destinationVC, animated: true)
+            }
+        }
     }
     
     
     @IBAction func logOutBtnPressed(_ sender: UIButton) {
         viewModel1.logout()
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let destinationVC = storyBoard.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
-        self.navigationController?.pushViewController(destinationVC, animated: true)
+        Navigator.shared.navigate(storyboard: UIStoryboard.Main, destinationVCIdentifier: "SignInVC"){ destinationVC in
+            if let destinationVC = destinationVC {
+                self.navigationController?.pushViewController(destinationVC, animated: true)
+            }
+        }
     }
     
-   
+    
 }
 
 extension ProfileVC {
-   
+    
     func configuration(){
         updateCell()
         updateUI()
         updateSideMenu()
         initViewModel()
         eventObserver()
-   }
+    }
     
     func initViewModel(){
         

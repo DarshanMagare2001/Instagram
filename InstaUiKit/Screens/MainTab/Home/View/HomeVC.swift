@@ -19,9 +19,11 @@ class HomeVC: UIViewController {
     
     
     @IBAction func directMsgBtnPressed(_ sender: UIButton) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "MainTab", bundle: nil)
-        let destinationVC = storyBoard.instantiateViewController(withIdentifier: "DirectMsgVC") as! DirectMsgVC
-        self.navigationController?.pushViewController(destinationVC, animated: true)
+        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "DirectMsgVC") { destinationVC in
+            if let destinationVC = destinationVC {
+                self.navigationController?.pushViewController(destinationVC, animated: true)
+            }
+        }
     }
     
 }
