@@ -25,15 +25,18 @@ class SignInVC: UIViewController {
     @IBAction func logInBtnPressed(_ sender: UIButton) {
         viewModel.login(emailTxtFld: emailTxtFld.text, passwordTxtFld: passwordTxtFld.text) { value in
             if value {
+                LoaderVCViewModel.shared.hideLoader()
                 Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
                     if let destinationVC = destinationVC {
                         self.navigationController?.pushViewController(destinationVC, animated: true)
                     }
                 }
+            }else{
+                LoaderVCViewModel.shared.hideLoader()
             }
         }
     }
-
+    
     
     @IBAction func switchAccountsBtnPressed(_ sender: UIButton) {
         
@@ -65,5 +68,5 @@ class SignInVC: UIViewController {
         passwordTxtFld.placeholder = "Enter password"
         
     }
-
+    
 }

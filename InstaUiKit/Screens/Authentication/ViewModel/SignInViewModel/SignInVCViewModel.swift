@@ -25,9 +25,12 @@ class SignInVCViewModel {
         }
         
         viewModel.signIn(email: email, password: password) { error in
+            LoaderVCViewModel.shared.showLoader()
             if let error = error {
                 print(error.localizedDescription)
-                Alert.shared.alert(title: "Error!", message: error.localizedDescription, presentingViewController: self.presentingViewController!)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    Alert.shared.alert(title: "Error!", message: error.localizedDescription, presentingViewController: self.presentingViewController!)
+                }
                 completionHandler(false)
             } else {
                 print("Sign In Successfully")
