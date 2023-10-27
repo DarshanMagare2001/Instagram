@@ -14,30 +14,20 @@ class SignInVC: UIViewController {
     @IBOutlet weak var passwordTxtFld: UITextField!
     @IBOutlet weak var passwordHideShowBtn: UIButton!
     var isPasswordShow = false
-    var viewModel = AuthenticationViewModel()
+    var viewModel: SignInVCViewModel!
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: true)
+        viewModel = SignInVCViewModel(presentingViewController: self)
         updateTxtFlds()
     }
     
-    
-    
     @IBAction func logInBtnPressed(_ sender: UIButton) {
-        if emailTxtFld.text == "" || passwordTxtFld.text == "" {
-            Alert.shared.alert(title: "Warning!", message: "Please fill in all the required fields before proceeding.", presentingViewController: self)
-        } else {
-            guard let email = emailTxtFld.text, let password = passwordTxtFld.text else { return }
-            viewModel.signIn(email: email, password: password) { error in
-                if let error = error {
-                    print(error.localizedDescription)
-                    Alert.shared.alert(title: "Error!", message: error.localizedDescription , presentingViewController: self)
-                } else {
-                    print("Sign In Successfully")
-                    Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
-                        if let destinationVC = destinationVC {
-                            self.navigationController?.pushViewController(destinationVC, animated: true)
-                        }
+        viewModel.login(emailTxtFld: emailTxtFld.text, passwordTxtFld: passwordTxtFld.text) { value in
+            if value {
+                Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
+                    if let destinationVC = destinationVC {
+                        self.navigationController?.pushViewController(destinationVC, animated: true)
                     }
                 }
             }
