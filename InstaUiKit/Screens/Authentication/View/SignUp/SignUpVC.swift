@@ -12,36 +12,28 @@ class SignUpVC: UIViewController {
     @IBOutlet weak var passwordTxtFld: UITextField!
     @IBOutlet weak var passwordHideShowBtn: UIButton!
     var isPasswordShow = false
-    var viewModel = AuthenticationViewModel()
+    var viewModel : SignUpVCViewModel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel = SignUpVCViewModel(presentingViewController: self)
         updateTxtFlds()
-        
     }
     
     @IBAction func forgetPasswordBtnPressed(_ sender: UIButton) {
         
-        
     }
     
-    
     @IBAction func signUpBtnPressed(_ sender: UIButton) {
-        if emailTxtFld.text == "" || passwordTxtFld.text == "" {
-            alert(title: "Warning!", message: "Please fill in all the required fields before proceeding.")
-        }else{
-            guard let email = emailTxtFld.text ,let password = passwordTxtFld.text else {return}
-            viewModel.signUp(email: email, password: password) { error in
-                if let error = error {
-                    print(error.localizedDescription)
-                    self.alert(title: "Error!", message: error.localizedDescription)
-                }else{
-                    print("Sign In Successfuly")
-                    Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
-                        if let destinationVC = destinationVC {
-                            self.navigationController?.pushViewController(destinationVC, animated: true)
-                        }
+        viewModel.signUp(emailTxtFld: emailTxtFld.text, passwordTxtFld: passwordTxtFld.text) { value in
+            if value {
+                LoaderVCViewModel.shared.hideLoader()
+                Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
+                    if let destinationVC = destinationVC {
+                        self.navigationController?.pushViewController(destinationVC, animated: true)
                     }
                 }
+            }else{
+                LoaderVCViewModel.shared.hideLoader()
             }
         }
     }
@@ -74,18 +66,10 @@ class SignUpVC: UIViewController {
         passwordTxtFld.isSecureTextEntry.toggle()
     }
     
-    
     func updateTxtFlds(){
         emailTxtFld.placeholder = "Enter email"
         passwordTxtFld.placeholder = "Enter password"
         
-    }
-    
-    func alert(title:String ,message : String){
-        let alertController = UIAlertController(title:title, message:message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true, completion: nil)
     }
     
 }
