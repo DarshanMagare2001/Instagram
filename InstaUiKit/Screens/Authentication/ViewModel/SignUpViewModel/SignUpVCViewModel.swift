@@ -35,9 +35,14 @@ class SignUpVCViewModel {
                 completionHandler(false)
             } else {
                 print("Sign Up Successfuly")
-                completionHandler(true)
+                if let uid = Auth.auth().currentUser?.uid {
+                    print(uid)
+                    Data.shared.saveData(uid, key: "CurrentUserId") { value in
+                        print(value)
+                        completionHandler(true)
+                    }
+                }
             }
         }
-        
     }
 }
