@@ -10,7 +10,6 @@ import FirebaseAuth
 import Kingfisher
 import ADCountryPicker
 
-
 class EditProfileVC: UIViewController {
     @IBOutlet weak var nameTxtFld: UITextField!
     @IBOutlet weak var userNameTxtFld: UITextField!
@@ -19,8 +18,6 @@ class EditProfileVC: UIViewController {
     @IBOutlet weak var userImg: UIImageView!
     @IBOutlet weak var btn1: UIButton!
     @IBOutlet weak var btn2: UIButton!
-    @IBOutlet weak var pickerView: UIView!
-    @IBOutlet weak var activityPicker: UIActivityIndicatorView!
     @IBOutlet weak var countryPickerBtn: UIButton!
     private lazy var imagePicker: ImagePicker = {
         let imagePicker = ImagePicker()
@@ -38,44 +35,44 @@ class EditProfileVC: UIViewController {
     
     
     @IBAction func doneBtnPressed(_ sender: UIButton) {
-        // After successful user sign-in, get the user's UID
-        if let uid = Auth.auth().currentUser?.uid {
-            activityStart()
-            ProfileViewModel.shared.saveUserToFirebase(uid: uid, name: nameTxtFld.text, username: userNameTxtFld.text, bio: bioTxtFld.text, phoneNumber: "\(countryCode ?? "")\(phoneNumberTxtFld.text ?? "")", gender: gender, image: selectedImg, countryCode: countryCode){ result in
-                switch result {
-                case .success:
-                    print("User data saved successfully in database.")
-                    ProfileViewModel.shared.fetchUserData(uid: uid) { [weak self] result in
-                        guard let self = self else { return }
-                        switch result {
-                        case .success(let profileData):
-                            print(profileData)
-//                            DispatchQueue.main.async(deadline: .now() + 2.0) {
-//                                self.viewModel.saveProfileToUserDefaults(uid: uid, name: self.nameTxtFld.text ?? "", username: self.userNameTxtFld.text ?? "", bio: self.bioTxtFld.text ?? "", phoneNumber: self.phoneNumberTxtFld.text ?? "", gender: self.gender ?? "", countryCode: self.countryCode ?? "", imageURL: profileData.imageURL ?? "") { result in
-//                                    switch result {
-//                                    case .success:
-//                                        print("Profile successfully saved in userdefault.")
-//                                        self.updateUI()
-//                                        self.activityStop()
-//                                    case .failure(let error):
-//                                        print(error)
-//                                        self.activityStop()
-//                                    }
-//                                }
-//                            }
-                            
-                        case .failure(let error):
-                            print(error)
-                            self.activityStop()
-                        }
-                    }
-                case .failure(let error):
-                    print("Error saving user data: \(error)")
-                    self.activityStop()
-                }
-                
-            }
-        }
+        
+        //        if let uid = Auth.auth().currentUser?.uid {
+        //            //            activityStart()
+        //            ProfileViewModel.shared.saveUserToFirebase(uid: uid, name: nameTxtFld.text, username: userNameTxtFld.text, bio: bioTxtFld.text, phoneNumber: "\(countryCode ?? "")\(phoneNumberTxtFld.text ?? "")", gender: gender, image: selectedImg, countryCode: countryCode){ result in
+        //                switch result {
+        //                case .success:
+        //                    print("User data saved successfully in database.")
+        //                    ProfileViewModel.shared.fetchUserData(uid: uid) { [weak self] result in
+//                        guard let self = self else { return }
+//                        switch result {
+//                        case .success(let profileData):
+//                            print(profileData)
+//                            //                            DispatchQueue.main.async(deadline: .now() + 2.0) {
+//                            //                                self.viewModel.saveProfileToUserDefaults(uid: uid, name: self.nameTxtFld.text ?? "", username: self.userNameTxtFld.text ?? "", bio: self.bioTxtFld.text ?? "", phoneNumber: self.phoneNumberTxtFld.text ?? "", gender: self.gender ?? "", countryCode: self.countryCode ?? "", imageURL: profileData.imageURL ?? "") { result in
+//                            //                                    switch result {
+//                            //                                    case .success:
+//                            //                                        print("Profile successfully saved in userdefault.")
+//                            //                                        self.updateUI()
+//                            //                                        self.activityStop()
+//                            //                                    case .failure(let error):
+//                            //                                        print(error)
+//                            //                                        self.activityStop()
+//                            //                                    }
+//                            //                                }
+//                            //                            }
+//
+//                        case .failure(let error):
+//                            print(error)
+//                            //                            self.activityStop()
+//                        }
+//                    }
+//                case .failure(let error):
+//                    print("Error saving user data: \(error)")
+//                    //                    self.activityStop()
+//                }
+//
+//            }
+//        }
     }
     
     @IBAction func changeProfileBtnPressed(_ sender: UIButton) {
@@ -112,7 +109,7 @@ class EditProfileVC: UIViewController {
 extension EditProfileVC {
     
     func configuration(){
-        activityStop()
+        //        activityStop()
         updateUI()
         initViewModel()
         observeEvent()
@@ -136,14 +133,14 @@ extension EditProfileVC {
                 
             case .loaded:
                 print("loaded")
-                self.activityStop()
-//                print(self.EditProfileViewModel.shared.userModel?.imageURL)
+                //                self.activityStop()
+                //                print(self.EditProfileViewModel.shared.userModel?.imageURL)
                 DispatchQueue.main.async {
                     self.updateUI()
                 }
             case .error(let error):
                 print(error)
-                self.activityStop()
+                //                self.activityStop()
             }
         }
     }
@@ -210,15 +207,6 @@ extension EditProfileVC {
         }
     }
     
-    func activityStart(){
-        pickerView.isHidden = false
-        activityPicker.startAnimating()
-    }
-    
-    func activityStop(){
-        pickerView.isHidden = true
-        activityPicker.stopAnimating()
-    }
     
 }
 

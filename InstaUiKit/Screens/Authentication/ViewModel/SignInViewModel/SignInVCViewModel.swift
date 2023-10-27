@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 class SignInVCViewModel {
     var viewModel = AuthenticationViewModel()
@@ -35,7 +36,13 @@ class SignInVCViewModel {
                 completionHandler(false)
             } else {
                 print("Sign In Successfully")
-                completionHandler(true)
+                if let uid = Auth.auth().currentUser?.uid {
+                    print(uid)
+                    Data.shared.saveData(uid, key: "CurrentUserId") { value in
+                        print(value)
+                        completionHandler(true)
+                    }
+                }
             }
         }
     }

@@ -1564,35 +1564,6 @@
                                     <constraint firstItem="R38-9N-7mz" firstAttribute="height" secondItem="lRs-OZ-P1t" secondAttribute="height" id="d5h-NA-cDD"/>
                                 </constraints>
                             </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oXw-7d-bOE">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fgb-Mc-lc5" customClass="RoundedViewWithBorder" customModule="InstaUiKit" customModuleProvider="target">
-                                        <rect key="frame" x="60" y="234" width="200" height="100"/>
-                                        <subviews>
-                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="PRB-ff-DgI">
-                                                <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </activityIndicatorView>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="B2u-Jj-aBU"/>
-                                            <constraint firstAttribute="bottom" secondItem="PRB-ff-DgI" secondAttribute="bottom" id="MWv-U1-Cuc"/>
-                                            <constraint firstItem="PRB-ff-DgI" firstAttribute="top" secondItem="Fgb-Mc-lc5" secondAttribute="top" id="Qz7-qQ-DxR"/>
-                                            <constraint firstAttribute="trailing" secondItem="PRB-ff-DgI" secondAttribute="trailing" id="RQ3-ea-vWM"/>
-                                            <constraint firstAttribute="width" constant="200" id="up1-am-T7l"/>
-                                            <constraint firstItem="PRB-ff-DgI" firstAttribute="leading" secondItem="Fgb-Mc-lc5" secondAttribute="leading" id="x13-gU-JE4"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="separatorColor"/>
-                                <constraints>
-                                    <constraint firstItem="Fgb-Mc-lc5" firstAttribute="centerY" secondItem="oXw-7d-bOE" secondAttribute="centerY" id="3cM-vX-x3R"/>
-                                    <constraint firstItem="Fgb-Mc-lc5" firstAttribute="centerX" secondItem="oXw-7d-bOE" secondAttribute="centerX" id="dxd-7D-6FP"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="SGz-Op-3da"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1600,30 +1571,24 @@
                             <constraint firstItem="SGz-Op-3da" firstAttribute="trailing" secondItem="9xp-yy-bOW" secondAttribute="trailing" id="131-XB-45R"/>
                             <constraint firstItem="9xp-yy-bOW" firstAttribute="top" secondItem="sFP-Nv-sz3" secondAttribute="top" id="5q1-Qc-1CS"/>
                             <constraint firstItem="R38-9N-7mz" firstAttribute="width" secondItem="sFP-Nv-sz3" secondAttribute="width" id="BdM-sc-HMV"/>
-                            <constraint firstItem="oXw-7d-bOE" firstAttribute="leading" secondItem="sFP-Nv-sz3" secondAttribute="leading" id="EyA-gq-i7X"/>
                             <constraint firstItem="SGz-Op-3da" firstAttribute="trailing" secondItem="lRs-OZ-P1t" secondAttribute="trailing" id="Ofh-GB-0Qd"/>
-                            <constraint firstAttribute="trailing" secondItem="oXw-7d-bOE" secondAttribute="trailing" id="QbL-za-23W"/>
                             <constraint firstItem="qTG-cU-tUS" firstAttribute="top" secondItem="9xp-yy-bOW" secondAttribute="bottom" id="a8F-kY-clZ"/>
                             <constraint firstItem="qTG-cU-tUS" firstAttribute="top" secondItem="SGz-Op-3da" secondAttribute="top" id="b93-Zl-Dzi"/>
                             <constraint firstItem="SGz-Op-3da" firstAttribute="trailing" secondItem="qTG-cU-tUS" secondAttribute="trailing" id="dhS-0H-i5v"/>
-                            <constraint firstAttribute="bottom" secondItem="oXw-7d-bOE" secondAttribute="bottom" id="edX-3z-5T1"/>
                             <constraint firstItem="lRs-OZ-P1t" firstAttribute="leading" secondItem="SGz-Op-3da" secondAttribute="leading" id="gix-Vm-Qba"/>
                             <constraint firstItem="lRs-OZ-P1t" firstAttribute="top" secondItem="qTG-cU-tUS" secondAttribute="bottom" id="qnz-Ve-eid"/>
-                            <constraint firstItem="oXw-7d-bOE" firstAttribute="top" secondItem="sFP-Nv-sz3" secondAttribute="top" id="rKC-hp-XFF"/>
                             <constraint firstItem="qTG-cU-tUS" firstAttribute="leading" secondItem="SGz-Op-3da" secondAttribute="leading" id="s7e-J3-Mm2"/>
                             <constraint firstItem="9xp-yy-bOW" firstAttribute="leading" secondItem="SGz-Op-3da" secondAttribute="leading" id="wyz-gE-nb0"/>
                             <constraint firstItem="SGz-Op-3da" firstAttribute="bottom" secondItem="lRs-OZ-P1t" secondAttribute="bottom" id="yVG-zr-CMb"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="activityPicker" destination="PRB-ff-DgI" id="4fS-UV-zdE"/>
                         <outlet property="bioTxtFld" destination="XBB-Cu-Dx2" id="qKT-FN-bja"/>
                         <outlet property="btn1" destination="ztv-qY-gSU" id="CBd-zh-iUi"/>
                         <outlet property="btn2" destination="EWF-Ot-CDR" id="Z6u-5x-ktA"/>
                         <outlet property="countryPickerBtn" destination="lyM-Vu-KnO" id="F3V-hA-Ide"/>
                         <outlet property="nameTxtFld" destination="m7b-y5-TZB" id="UP0-YB-2af"/>
                         <outlet property="phoneNumberTxtFld" destination="sG9-aV-Pxw" id="Fpi-OF-F5S"/>
-                        <outlet property="pickerView" destination="oXw-7d-bOE" id="pc3-pv-Fkc"/>
                         <outlet property="userImg" destination="ecp-6f-DAg" id="eDP-0S-0fW"/>
                         <outlet property="userNameTxtFld" destination="8Ke-oi-XRU" id="uGS-ph-szR"/>
                     </connections>
@@ -1660,9 +1625,6 @@
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="power.circle" catalog="system" width="128" height="121"/>
         <image name="xmark.app.fill" catalog="system" width="128" height="114"/>
-        <systemColor name="separatorColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

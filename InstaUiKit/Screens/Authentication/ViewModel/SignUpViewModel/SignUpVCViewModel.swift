@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 class SignUpVCViewModel {
     var viewModel = AuthenticationViewModel()
