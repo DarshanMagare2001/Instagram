@@ -95,7 +95,7 @@
 		139110152A8650FF00CABCD5 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		1391101A2A86518A00CABCD5 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		1391101C2A86519B00CABCD5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		1392D00F2A80B3BE004B6654 /* RoundedCorner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundedCorner.swift; path = InstaUiKit/Storyboard/Authentication/RoundedCorner.swift; sourceTree = SOURCE_ROOT; };
+		1392D00F2A80B3BE004B6654 /* RoundedCorner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundedCorner.swift; path = InstaUiKit/Utilities/RoundedCorner.swift; sourceTree = SOURCE_ROOT; };
 		1392D0152A80B459004B6654 /* AuthenticationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthenticationModel.swift; path = InstaUiKit/Screens/Authentication/Model/AuthenticationModel.swift; sourceTree = SOURCE_ROOT; };
 		1392D0182A80B48D004B6654 /* MainTab.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = MainTab.storyboard; path = InstaUiKit/Storyboard/MainTab/MainTab.storyboard; sourceTree = SOURCE_ROOT; };
 		1392D01D2A80B4ED004B6654 /* SignInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignInVC.swift; path = InstaUiKit/Screens/Authentication/View/SignIn/SignInVC.swift; sourceTree = SOURCE_ROOT; };
@@ -158,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				131166542A70FEE200CD0373 /* AppDelegate */,
+				13DBE7732AEB933E0006F3B9 /* Utilities */,
 				1311665C2A7100E600CD0373 /* Extensions */,
 				131166562A70FEFA00CD0373 /* Storyboard */,
 				131166572A70FF0100CD0373 /* Screens */,
@@ -223,8 +224,6 @@
 		1311665C2A7100E600CD0373 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				1392D00F2A80B3BE004B6654 /* RoundedCorner.swift */,
-				138BC5FB2A73BED600020297 /* ImagePicker.swift */,
 				139110002A864CBD00CABCD5 /* ImageLoader+Extensions.swift */,
 			);
 			path = Extensions;
@@ -556,6 +555,15 @@
 				136B84A32A83B8FC00C102F1 /* EditProfileViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		13DBE7732AEB933E0006F3B9 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				138BC5FB2A73BED600020297 /* ImagePicker.swift */,
+				1392D00F2A80B3BE004B6654 /* RoundedCorner.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		7A1121D9D6F2ECE7E142AC39 /* Frameworks */ = {
