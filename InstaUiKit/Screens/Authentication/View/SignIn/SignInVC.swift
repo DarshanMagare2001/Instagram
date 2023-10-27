@@ -34,9 +34,11 @@ class SignInVC: UIViewController {
                     self.alert(title: "Error!", message: error.localizedDescription)
                 }else{
                     print("Sign In Successfuly")
-                    let storyBoard = UIStoryboard.MainTab
-                    let destinationVC = storyBoard.instantiateViewController(withIdentifier: "MainTabVC") as! MainTabVC
-                    self.navigationController?.pushViewController(destinationVC, animated: true)
+                    Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
+                        if let destinationVC = destinationVC {
+                            self.navigationController?.pushViewController(destinationVC, animated: true)
+                        }
+                    }
                 }
             }
         }
