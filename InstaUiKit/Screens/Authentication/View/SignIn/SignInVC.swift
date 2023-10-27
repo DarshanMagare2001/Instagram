@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
 
 class SignInVC: UIViewController {
     @IBOutlet weak var emailTxtFld: UITextField!
@@ -44,9 +42,11 @@ class SignInVC: UIViewController {
     
     
     @IBAction func signUpBtnPressed(_ sender: UIButton) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let destinationVC = storyBoard.instantiateViewController(withIdentifier: "SignUpVC") as! SignUpVC
-        self.navigationController?.pushViewController(destinationVC, animated: true)
+        Navigator.shared.navigate(storyboard: UIStoryboard.Main, destinationVCIdentifier: "SignUpVC") { destinationVC in
+            if let destinationVC = destinationVC {
+                self.navigationController?.pushViewController(destinationVC, animated: true)
+            }
+        }
     }
     
     
@@ -62,11 +62,9 @@ class SignInVC: UIViewController {
         passwordTxtFld.isSecureTextEntry.toggle()
     }
     
-    
     func updateTxtFlds(){
         emailTxtFld.placeholder = "Enter email"
         passwordTxtFld.placeholder = "Enter password"
-        
     }
     
 }
