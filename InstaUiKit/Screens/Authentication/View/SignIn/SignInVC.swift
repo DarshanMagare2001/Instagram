@@ -25,15 +25,15 @@ class SignInVC: UIViewController {
     
     @IBAction func logInBtnPressed(_ sender: UIButton) {
         if emailTxtFld.text == "" || passwordTxtFld.text == "" {
-            alert(title:"Warning!" ,message : "Please fill in all the required fields before proceeding.")
-        }else{
-            guard let email = emailTxtFld.text ,let password = passwordTxtFld.text else {return}
+            Alert.shared.alert(title: "Warning!", message: "Please fill in all the required fields before proceeding.", presentingViewController: self)
+        } else {
+            guard let email = emailTxtFld.text, let password = passwordTxtFld.text else { return }
             viewModel.signIn(email: email, password: password) { error in
                 if let error = error {
                     print(error.localizedDescription)
-                    self.alert(title: "Error!", message: error.localizedDescription)
-                }else{
-                    print("Sign In Successfuly")
+                    Alert.shared.alert(title: "Error!", message: error.localizedDescription , presentingViewController: self)
+                } else {
+                    print("Sign In Successfully")
                     Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
                         if let destinationVC = destinationVC {
                             self.navigationController?.pushViewController(destinationVC, animated: true)
@@ -43,6 +43,7 @@ class SignInVC: UIViewController {
             }
         }
     }
+
     
     @IBAction func switchAccountsBtnPressed(_ sender: UIButton) {
         
@@ -74,12 +75,5 @@ class SignInVC: UIViewController {
         passwordTxtFld.placeholder = "Enter password"
         
     }
-    
-    func alert(title:String ,message : String){
-        let alertController = UIAlertController(title:title, message:message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
+
 }
