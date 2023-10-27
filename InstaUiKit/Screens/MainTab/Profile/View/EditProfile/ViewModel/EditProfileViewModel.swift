@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseAuth
+import FirebaseStorage
 import UIKit
 
 class EditProfileViewModel {
@@ -49,6 +50,43 @@ class EditProfileViewModel {
             }
         }
     }
+    
+    func saveUserImageToFirebase(image: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+        Data.shared.getData(key: "CurrentUserId") { (result: Result<String, Error>) in
+            switch result {
+            case .success(let uid):
+                let profileImagesRef = storageRef.child("profile_images/\(uid)")
+                let imageFileName = "\(UUID().uuidString).jpg"
+                if let imageData = image.jpegData(compressionQuality: 0.8) {
+                    let imageRef = profileImagesRef.child(imageFileName)
+                    let uploadTask = imageRef.putData(imageData, metadata: nil) { metadata, error in
+                        if let error = error {
+                            completion(.failure(error))
+                        } else {
+                            imageRef.downloadURL { url, error in
+                                if let downloadURL = url {
+                                    completion(.success(downloadURL))
+                                    print(url)
+                                } else {
+                                    if let error = error {
+                                        completion(.failure(error))
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    uploadTask.observe(.progress) { snapshot in
+                    }
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    
     
     func saveUserInfo(data:ProfileModel? ,completionHandler:@escaping(Bool) -> Void){
         if let data = data {

@@ -171,9 +171,24 @@ extension EditProfileVC {
             }
         }
         
+        Data.shared.getData(key: "ProfileUrl") { (result: Result<String?, Error>) in
+            switch result {
+            case .success(let urlString):
+                if let url = urlString {
+                    if let imageURL = URL(string: url) {
+                        ImageLoader.loadImage(for: imageURL, into: self.userImg, withPlaceholder: UIImage(systemName: "person"))
+                    } else {
+                        print("Invalid URL: \(url)")
+                    }
+                } else {
+                    print("URL is nil or empty")
+                }
+            case .failure(let error):
+                print("Error loading image: \(error)")
+            }
+        }
+        
     }
-    
-    
 }
 
 extension EditProfileVC: ImagePickerDelegate , UIViewControllerTransitioningDelegate {
@@ -182,7 +197,23 @@ extension EditProfileVC: ImagePickerDelegate , UIViewControllerTransitioningDele
         userImg.image = image
         selectedImg = image
         imagePicker.dismiss()
+        LoaderVCViewModel.shared.showLoader()
+        viewModel.saveUserImageToFirebase(image: image) { result in
+            switch result {
+            case .success(let url):
+                print(url)
+                // Convert the URL to a string before saving
+                let urlString = url.absoluteString
+                Data.shared.saveData(urlString, key: "ProfileUrl") { _ in
+                    LoaderVCViewModel.shared.hideLoader()
+                }
+            case .failure(let error):
+                print(error)
+                LoaderVCViewModel.shared.hideLoader()
+            }
+        }
     }
+
     
     func cancelButtonDidClick(on imageView: ImagePicker) { imagePicker.dismiss() }
     func imagePicker(_ imagePicker: ImagePicker, grantedAccess: Bool,
