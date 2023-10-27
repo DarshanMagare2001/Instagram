@@ -8,6 +8,7 @@ import UIKit
 
 class RoundedButton: UIButton {
     // Custom corner radius value
+    
     var cornerRadius: CGFloat = 10 {
         didSet {
             setNeedsLayout()
