@@ -1,30 +1,20 @@
 PODS:
   - ADCountryPicker (2.1.0)
-  - RxCocoa (6.5.0):
-    - RxRelay (= 6.5.0)
-    - RxSwift (= 6.5.0)
-  - RxRelay (6.5.0):
-    - RxSwift (= 6.5.0)
-  - RxSwift (6.5.0)
+  - IQKeyboardManagerSwift (6.5.16)
 
 DEPENDENCIES:
   - ADCountryPicker (~> 2.1.0)
-  - RxCocoa (= 6.5.0)
-  - RxSwift (= 6.5.0)
+  - IQKeyboardManagerSwift
 
 SPEC REPOS:
   trunk:
     - ADCountryPicker
-    - RxCocoa
-    - RxRelay
-    - RxSwift
+    - IQKeyboardManagerSwift
 
 SPEC CHECKSUMS:
   ADCountryPicker: 502cee76a30ea1c3834eb0df170ce635691655c9
-  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
-  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
-  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  IQKeyboardManagerSwift: 12d89768845bb77b55cc092ecc2b1f9370f06b76
 
-PODFILE CHECKSUM: 79238ff297804f25838002beb39b543e67254fba
+PODFILE CHECKSUM: f6decf276c16d102913f21a3571548bc2a5bd988
 
 COCOAPODS: 1.11.2

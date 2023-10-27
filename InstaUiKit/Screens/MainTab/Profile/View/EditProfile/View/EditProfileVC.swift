@@ -49,20 +49,20 @@ class EditProfileVC: UIViewController {
                         guard let self = self else { return }
                         switch result {
                         case .success(let profileData):
-                            print("User data fetched successfully from database.")
-                            DispatchQueue.main.async(deadline: .now() + 2.0) {
-                                self.viewModel.saveProfileToUserDefaults(uid: uid, name: self.nameTxtFld.text ?? "", username: self.userNameTxtFld.text ?? "", bio: self.bioTxtFld.text ?? "", phoneNumber: self.phoneNumberTxtFld.text ?? "", gender: self.gender ?? "", countryCode: self.countryCode ?? "", imageURL: profileData.imageURL ?? "") { result in
-                                    switch result {
-                                    case .success:
-                                        print("Profile successfully saved in userdefault.")
-                                        self.updateUI()
-                                        self.activityStop()
-                                    case .failure(let error):
-                                        print(error)
-                                        self.activityStop()
-                                    }
-                                }
-                            }
+                            print(profileData)
+//                            DispatchQueue.main.async(deadline: .now() + 2.0) {
+//                                self.viewModel.saveProfileToUserDefaults(uid: uid, name: self.nameTxtFld.text ?? "", username: self.userNameTxtFld.text ?? "", bio: self.bioTxtFld.text ?? "", phoneNumber: self.phoneNumberTxtFld.text ?? "", gender: self.gender ?? "", countryCode: self.countryCode ?? "", imageURL: profileData.imageURL ?? "") { result in
+//                                    switch result {
+//                                    case .success:
+//                                        print("Profile successfully saved in userdefault.")
+//                                        self.updateUI()
+//                                        self.activityStop()
+//                                    case .failure(let error):
+//                                        print(error)
+//                                        self.activityStop()
+//                                    }
+//                                }
+//                            }
                             
                         case .failure(let error):
                             print(error)
@@ -137,7 +137,7 @@ extension EditProfileVC {
             case .loaded:
                 print("loaded")
                 self.activityStop()
-                print(self.EditProfileViewModel.shared.userModel?.imageURL)
+//                print(self.EditProfileViewModel.shared.userModel?.imageURL)
                 DispatchQueue.main.async {
                     self.updateUI()
                 }

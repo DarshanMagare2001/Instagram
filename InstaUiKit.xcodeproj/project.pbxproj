@@ -12,7 +12,6 @@
 		1311663F2A70FB9900CD0373 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1311663D2A70FB9900CD0373 /* Main.storyboard */; };
 		131166412A70FB9A00CD0373 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 131166402A70FB9A00CD0373 /* Assets.xcassets */; };
 		131166442A70FB9A00CD0373 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 131166422A70FB9A00CD0373 /* LaunchScreen.storyboard */; };
-		131166672A711BC000CD0373 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 131166662A711BC000CD0373 /* IQKeyboardManagerSwift */; };
 		131166732A712A0700CD0373 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 131166722A712A0700CD0373 /* GoogleService-Info.plist */; };
 		136B84A22A83B8E700C102F1 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136B84A12A83B8E700C102F1 /* ProfileViewModel.swift */; };
 		136B84A42A83B8FC00C102F1 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136B84A32A83B8FC00C102F1 /* EditProfileViewModel.swift */; };
@@ -55,6 +54,8 @@
 		1392D0282A80B538004B6654 /* PostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392D0272A80B538004B6654 /* PostVC.swift */; };
 		1392D02A2A80B541004B6654 /* LikesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392D0292A80B541004B6654 /* LikesVC.swift */; };
 		1392D02C2A80B54A004B6654 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392D02B2A80B54A004B6654 /* ProfileVC.swift */; };
+		13DBE7672AEB76F90006F3B9 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 13DBE7662AEB76F90006F3B9 /* RxCocoa */; };
+		13DBE7692AEB76F90006F3B9 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 13DBE7682AEB76F90006F3B9 /* RxSwift */; };
 		13FB7D5F2A722DE000D8FC5C /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FB7D5D2A722DE000D8FC5C /* FeedCell.swift */; };
 		13FB7D602A722DE000D8FC5C /* FeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13FB7D5E2A722DE000D8FC5C /* FeedCell.xib */; };
 		13FB7D622A723F0900D8FC5C /* StoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FB7D612A723F0900D8FC5C /* StoriesCell.swift */; };
@@ -120,7 +121,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				138BC5F42A73BDC500020297 /* FirebaseDatabaseSwift in Frameworks */,
-				131166672A711BC000CD0373 /* IQKeyboardManagerSwift in Frameworks */,
+				13DBE7672AEB76F90006F3B9 /* RxCocoa in Frameworks */,
 				138BC5F02A73BDC500020297 /* FirebaseAuth in Frameworks */,
 				138BC6022A73D8CB00020297 /* Kingfisher in Frameworks */,
 				138BC5F82A73BDC500020297 /* FirebaseFirestoreSwift in Frameworks */,
@@ -128,6 +129,7 @@
 				138BC5FA2A73BDC500020297 /* FirebaseStorage in Frameworks */,
 				5FC7C3CDA91FEFEC6E4E489F /* Pods_InstaUiKit.framework in Frameworks */,
 				138BC5F62A73BDC500020297 /* FirebaseFirestore in Frameworks */,
+				13DBE7692AEB76F90006F3B9 /* RxSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,7 +594,6 @@
 			);
 			name = InstaUiKit;
 			packageProductDependencies = (
-				131166662A711BC000CD0373 /* IQKeyboardManagerSwift */,
 				138BC5EF2A73BDC500020297 /* FirebaseAuth */,
 				138BC5F12A73BDC500020297 /* FirebaseDatabase */,
 				138BC5F32A73BDC500020297 /* FirebaseDatabaseSwift */,
@@ -600,6 +601,8 @@
 				138BC5F72A73BDC500020297 /* FirebaseFirestoreSwift */,
 				138BC5F92A73BDC500020297 /* FirebaseStorage */,
 				138BC6012A73D8CB00020297 /* Kingfisher */,
+				13DBE7662AEB76F90006F3B9 /* RxCocoa */,
+				13DBE7682AEB76F90006F3B9 /* RxSwift */,
 			);
 			productName = InstaUiKit;
 			productReference = 131166342A70FB9900CD0373 /* InstaUiKit.app */;
@@ -630,9 +633,9 @@
 			);
 			mainGroup = 1311662B2A70FB9900CD0373;
 			packageReferences = (
-				131166652A711BBF00CD0373 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				138BC5EE2A73BDC500020297 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				138BC6002A73D8CB00020297 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				13DBE7652AEB76F90006F3B9 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 131166352A70FB9900CD0373 /* Products */;
 			projectDirPath = "";
@@ -967,38 +970,33 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		131166652A711BBF00CD0373 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
-			};
-		};
 		138BC5EE2A73BDC500020297 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
-				kind = exactVersion;
-				version = 9.6.0;
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.6.0;
 			};
 		};
 		138BC6002A73D8CB00020297 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
-				kind = exactVersion;
-				version = 7.8.1;
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.8.1;
+			};
+		};
+		13DBE7652AEB76F90006F3B9 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		131166662A711BC000CD0373 /* IQKeyboardManagerSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 131166652A711BBF00CD0373 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
-			productName = IQKeyboardManagerSwift;
-		};
 		138BC5EF2A73BDC500020297 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 138BC5EE2A73BDC500020297 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
@@ -1033,6 +1031,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 138BC6002A73D8CB00020297 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		13DBE7662AEB76F90006F3B9 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 13DBE7652AEB76F90006F3B9 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		13DBE7682AEB76F90006F3B9 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 13DBE7652AEB76F90006F3B9 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

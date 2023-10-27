@@ -6,9 +6,8 @@
 //
 
 import UIKit
-import IQKeyboardManagerSwift
 import Firebase
-
+import IQKeyboardManagerSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         orientationLock = .portrait
         return true
     }
+    
     
     // MARK: UISceneSession Lifecycle
     

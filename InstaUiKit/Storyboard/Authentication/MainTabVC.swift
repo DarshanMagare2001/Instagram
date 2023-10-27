@@ -8,10 +8,8 @@
 import UIKit
 
 class MainTabVC: UITabBarController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
-    
 }
