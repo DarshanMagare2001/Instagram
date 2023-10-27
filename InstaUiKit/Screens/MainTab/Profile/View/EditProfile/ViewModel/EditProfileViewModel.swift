@@ -10,114 +10,59 @@ import FirebaseAuth
 import UIKit
 
 class EditProfileViewModel {
-    static let shared = EditProfileViewModel()
     var eventHandler: ((_ event : Event) -> Void)?
     var userModel: ProfileModel?
-   private init(){
-        fetchProfile()
-    }
     
-    func fetchProfile(){
-        if let uid = Auth.auth().currentUser?.uid {
-            self.eventHandler?(.loading)
-            ProfileViewModel.shared.fetchUserData(uid: uid) { result in
-                self.eventHandler?(.stopLoading)
-                switch result {
-                case .success(let profileModel):
-                    print("Fetched user data successfully\(profileModel)")
-                    self.userModel = profileModel
-                    self.eventHandler?(.loaded)
-                case .failure(let error):
-                    print("Error fetching user data: \(error)")
-                    self.eventHandler?(.error(error))
+    func saveDataToFirebase(name:String?,username:String?,bio:String?,countryCode:String?,phoneNumber:String?,gender:String? , completionHandler:@escaping(Bool) -> Void){
+        Data.shared.getData(key: "CurrentUserId") { (result: Result<String, Error>) in
+            switch result {
+            case .success(let uid):
+                print(uid)
+                guard let name = name , let username = username , let bio = bio, let countryCode = countryCode , let phoneNumber = phoneNumber , let gender = gender else { return }
+                ProfileViewModel.shared.saveUserToFirebase(uid: uid, name: name, username: username, bio: bio, phoneNumber: phoneNumber, gender: gender, countryCode: countryCode){ result in
+                    switch result {
+                    case .success():
+                        print("User data saved successfully in database.")
+                        ProfileViewModel.shared.fetchUserData(uid: uid) { result in
+                            switch result {
+                            case .success(let data):
+                                print(data)
+                                self.saveUserInfo(data: data){ value in
+                                    print(value)
+                                    completionHandler(true)
+                                }
+                            case .failure(let failure):
+                                print(failure)
+                                completionHandler(false)
+                            }
+                        }
+                        
+                    case .failure(let error):
+                        print("Error saving user data: \(error)")
+                        completionHandler(false)
+                    }
                 }
+                
+            case .failure(let error):
+                print(error)
+                completionHandler(false)
             }
         }
     }
     
-    func saveProfileToUserDefaults(uid: String, name: String?, username: String?, bio: String?, phoneNumber: String?, gender: String?, countryCode : String? , imageURL : String? , completion: @escaping (Result<Void, Error>) -> Void) {
-        UserDefaults.standard.set(uid, forKey: "uid")
-        
-        if name != "" {
-            if let name = name {
-                UserDefaults.standard.set(name, forKey: "name")
-            }
-        }
-        
-        if username != "" {
-            if let username = username {
-                UserDefaults.standard.set(username, forKey: "username")
-            }
-        }
-        
-        
-        if bio != "" {
-            if let bio = bio {
-                UserDefaults.standard.set(bio, forKey: "bio")
-            }
-        }
-        
-        
-        if phoneNumber != "" {
-            if let phoneNumber = phoneNumber {
-                UserDefaults.standard.set(phoneNumber, forKey: "phoneNumber")
-            }
-        }
-        
-        
-        if gender != "" {
-            if let gender = gender {
-                UserDefaults.standard.set(gender, forKey: "gender")
-            }
-        }
-        
-        if countryCode != "" {
-            if let countryCode = countryCode {
-                UserDefaults.standard.set(countryCode, forKey: "countryCode")
-            }
-        }
-        
-        if imageURL != "" {
-            if let imageURL = imageURL {
-                UserDefaults.standard.set(imageURL, forKey: "imageURL")
-            }
-        }
-        
-        // Call the completion block with a successful result
-        completion(.success(()))
-    }
-    
-    func fetchProfileFromUserDefaults(completion: @escaping (Result<ProfileModel, Error>) -> Void) {
-        let uid = UserDefaults.standard.string(forKey: "uid") ?? ""
-        let name = UserDefaults.standard.string(forKey: "name") ?? ""
-        let username = UserDefaults.standard.string(forKey: "username") ?? ""
-        let bio = UserDefaults.standard.string(forKey: "bio") ?? ""
-        let phoneNumber = UserDefaults.standard.string(forKey: "phoneNumber") ?? ""
-        let gender = UserDefaults.standard.string(forKey: "gender") ?? ""
-        let countryCode = UserDefaults.standard.string(forKey: "countryCode") ?? ""
-        let imageURL = UserDefaults.standard.string(forKey: "imageURL") ?? ""
-        
-        let dictionary: [String: Any] = [
-            "uid": uid,
-            "name": name,
-            "username": username,
-            "bio": bio,
-            "phoneNumber": phoneNumber,
-            "gender": gender,
-            "countryCode":countryCode,
-            "imageURL":imageURL
-        ]
-        
-        if let profileData = ProfileModel(dictionary: dictionary) {
-            // Call the completion block with the fetched profile data
-            completion(.success(profileData))
-        } else {
-            // Handle initialization failure
-            let error = NSError(domain: "YourDomain", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to initialize ProfileModel"])
-            completion(.failure(error))
+    func saveUserInfo(data:ProfileModel? ,completionHandler:@escaping(Bool) -> Void){
+        if let data = data {
+            Data.shared.saveData(data.name, key: "Name"){ _ in}
+            Data.shared.saveData(data.username, key: "UserName") { _ in}
+            Data.shared.saveData(data.bio, key: "Bio") { _ in}
+            Data.shared.saveData(data.gender, key: "Gender") { _ in}
+            Data.shared.saveData(data.countryCode, key: "CountryCode") { _ in}
+            Data.shared.saveData(data.phoneNumber, key: "PhoneNumber") { _ in}
+            completionHandler(true)
+        }else{
+            completionHandler(false)
         }
     }
-    
     
 }
 

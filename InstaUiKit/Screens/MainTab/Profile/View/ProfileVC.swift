@@ -101,32 +101,32 @@ extension ProfileVC {
     }
     
     func updateUI(){
-        EditProfileViewModel.shared.fetchProfileFromUserDefaults { result in
-            switch result {
-            case.success(let profileData) :
-                print(profileData)
-                if let name = profileData.name {
-                    if name != "" {
-                        self.userName.text = "\(name)"
-                        print(name)
-                    }
-                }
-                
-                if let bio = profileData.bio {
-                    if bio != "" {
-                        self.userBio.text = "\(bio)"
-                        print(bio)
-                    }
-                }
-                
-                if let imageURL = profileData.imageURL, !imageURL.isEmpty {
-                    ImageLoader.loadImage(for: URL(string: imageURL), into: self.userImg, withPlaceholder: UIImage(named: "person"))
-                }
-                
-            case.failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+//        EditProfileViewModel.shared.fetchProfileFromUserDefaults { result in
+//            switch result {
+//            case.success(let profileData) :
+//                print(profileData)
+//                if let name = profileData.name {
+//                    if name != "" {
+//                        self.userName.text = "\(name)"
+//                        print(name)
+//                    }
+//                }
+//                
+//                if let bio = profileData.bio {
+//                    if bio != "" {
+//                        self.userBio.text = "\(bio)"
+//                        print(bio)
+//                    }
+//                }
+//                
+//                if let imageURL = profileData.imageURL, !imageURL.isEmpty {
+//                    ImageLoader.loadImage(for: URL(string: imageURL), into: self.userImg, withPlaceholder: UIImage(named: "person"))
+//                }
+//                
+//            case.failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
     }
     
     

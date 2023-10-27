@@ -16,28 +16,13 @@ class ProfileViewModel {
     static let shared = ProfileViewModel()
     var userModel : ProfileModel?
     init() {
-        if let uid = Auth.auth().currentUser?.uid {
-            fetchUserData(uid: uid) { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let profileModel):
-                    print(profileModel)
-                    self.userModel = profileModel
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
+        
     }
     
-    
-    func saveUserToFirebase(uid: String, name: String?, username: String?, bio: String?, phoneNumber: String?, gender: String?, image: UIImage?,countryCode : String?,completion: @escaping (Result<Void, Error>) -> Void) {
-        // Create a reference to the Firestore database
+    func saveUserToFirebase(uid: String, name: String?, username: String?, bio: String?, phoneNumber: String?, gender: String?,countryCode : String?,completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()
         let userRef = db.collection("users").document(uid)
         let dispatchGroup = DispatchGroup()
-        
-        // Check if the document exists
         userRef.getDocument { (document, error) in
             if let error = error {
                 completion(.failure(error))
@@ -58,6 +43,7 @@ class ProfileViewModel {
             }
         }
         
+        
         func updateUserData() {
             if let name = name {
                 dispatchGroup.enter()
@@ -77,82 +63,54 @@ class ProfileViewModel {
                     }
                     dispatchGroup.leave()
                 }
-            }
-            
-            if let bio = bio {
-                dispatchGroup.enter()
-                userRef.updateData(["bio": bio]) { error in
-                    if let error = error {
-                        completion(.failure(error))
-                    }
-                    dispatchGroup.leave()
-                }
-            }
-            
-            if let phoneNumber = phoneNumber {
-                dispatchGroup.enter()
-                userRef.updateData(["phoneNumber": phoneNumber]) { error in
-                    if let error = error {
-                        completion(.failure(error))
-                    }
-                    dispatchGroup.leave()
-                }
-            }
-            
-            
-            if let countryCode = countryCode {
-                dispatchGroup.enter()
-                userRef.updateData(["countryCode": countryCode]) { error in
-                    if let error = error {
-                        completion(.failure(error))
-                    }
-                    dispatchGroup.leave()
-                }
-            }
-            
-            
-            if let gender = gender {
-                dispatchGroup.enter()
-                userRef.updateData(["gender": gender]) { error in
-                    if let error = error {
-                        completion(.failure(error))
-                    }
-                    dispatchGroup.leave()
-                }
-            }
-            
-            
-            if let image = image {
-                // Save the user's profile image to Firebase Storage
-                let storageRef = Storage.storage().reference().child("profile_images").child("\(uid).jpg")
                 
-                if let imageData = image.jpegData(compressionQuality: 0.8) {
-                    storageRef.putData(imageData, metadata: nil) { (_, error) in
+                if let bio = bio {
+                    dispatchGroup.enter()
+                    userRef.updateData(["bio": bio]) { error in
                         if let error = error {
                             completion(.failure(error))
-                        } else {
-                            // Once the image is uploaded, you can get its download URL
-                            storageRef.downloadURL { (url, error) in
-                                if let imageURL = url?.absoluteString {
-                                    // Update the user data with the image URL
-                                    dispatchGroup.enter()
-                                    userRef.updateData(["imageURL": imageURL]) { error in
-                                        if let error = error {
-                                            completion(.failure(error))
-                                        }
-                                        dispatchGroup.leave()
-                                    }
-                                }
-                            }
                         }
+                        dispatchGroup.leave()
                     }
+                }
+                
+                if let phoneNumber = phoneNumber {
+                    dispatchGroup.enter()
+                    userRef.updateData(["phoneNumber": phoneNumber]) { error in
+                        if let error = error {
+                            completion(.failure(error))
+                        }
+                        dispatchGroup.leave()
+                    }
+                }
+                
+                if let countryCode = countryCode {
+                    dispatchGroup.enter()
+                    userRef.updateData(["countryCode": countryCode]) { error in
+                        if let error = error {
+                            completion(.failure(error))
+                        }
+                        dispatchGroup.leave()
+                    }
+                }
+                
+                if let gender = gender {
+                    dispatchGroup.enter()
+                    userRef.updateData(["gender": gender]) { error in
+                        if let error = error {
+                            completion(.failure(error))
+                        }
+                        dispatchGroup.leave()
+                    }
+                }
+                
+                dispatchGroup.notify(queue: .main) {
+                    completion(.success(()))
                 }
             }
             
-            dispatchGroup.notify(queue: .main) {
-                completion(.success(()))
-            }
         }
+        
     }
     
     

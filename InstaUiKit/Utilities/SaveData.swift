@@ -21,8 +21,8 @@ class Data {
         }
     }
     
-    func getData<T>(_ data: T?,key: String?,  completionhandler: @escaping (Result<T, Error>) -> Void) {
-        if let data = data , let key = key  {
+    func getData<T>( key: String?,  completionhandler: @escaping (Result<T, Error>) -> Void) {
+        if let key = key  {
             if let retrievedData = UserDefaults.standard.value(forKey: key) as? T {
                 completionhandler(.success(retrievedData))
             }

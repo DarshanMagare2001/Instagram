@@ -27,6 +27,7 @@ class EditProfileVC: UIViewController {
     var gender : String = ""
     var countryCode: String = "+91"
     var selectedImg : UIImage?
+    var viewModel = EditProfileViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         configuration()
@@ -35,44 +36,20 @@ class EditProfileVC: UIViewController {
     
     
     @IBAction func doneBtnPressed(_ sender: UIButton) {
-        
-        //        if let uid = Auth.auth().currentUser?.uid {
-        //            //            activityStart()
-        //            ProfileViewModel.shared.saveUserToFirebase(uid: uid, name: nameTxtFld.text, username: userNameTxtFld.text, bio: bioTxtFld.text, phoneNumber: "\(countryCode ?? "")\(phoneNumberTxtFld.text ?? "")", gender: gender, image: selectedImg, countryCode: countryCode){ result in
-        //                switch result {
-        //                case .success:
-        //                    print("User data saved successfully in database.")
-        //                    ProfileViewModel.shared.fetchUserData(uid: uid) { [weak self] result in
-//                        guard let self = self else { return }
-//                        switch result {
-//                        case .success(let profileData):
-//                            print(profileData)
-//                            //                            DispatchQueue.main.async(deadline: .now() + 2.0) {
-//                            //                                self.viewModel.saveProfileToUserDefaults(uid: uid, name: self.nameTxtFld.text ?? "", username: self.userNameTxtFld.text ?? "", bio: self.bioTxtFld.text ?? "", phoneNumber: self.phoneNumberTxtFld.text ?? "", gender: self.gender ?? "", countryCode: self.countryCode ?? "", imageURL: profileData.imageURL ?? "") { result in
-//                            //                                    switch result {
-//                            //                                    case .success:
-//                            //                                        print("Profile successfully saved in userdefault.")
-//                            //                                        self.updateUI()
-//                            //                                        self.activityStop()
-//                            //                                    case .failure(let error):
-//                            //                                        print(error)
-//                            //                                        self.activityStop()
-//                            //                                    }
-//                            //                                }
-//                            //                            }
-//
-//                        case .failure(let error):
-//                            print(error)
-//                            //                            self.activityStop()
-//                        }
-//                    }
-//                case .failure(let error):
-//                    print("Error saving user data: \(error)")
-//                    //                    self.activityStop()
-//                }
-//
-//            }
-//        }
+        LoaderVCViewModel.shared.showLoader()
+        viewModel.saveDataToFirebase(name: nameTxtFld.text, username: userNameTxtFld.text, bio: bioTxtFld.text, countryCode: countryCode, phoneNumber: phoneNumberTxtFld.text, gender: gender){ value in
+            if value{
+                LoaderVCViewModel.shared.hideLoader()
+                if let navigationController = self.navigationController {
+                    navigationController.popViewController(animated: true)
+                }
+            }else{
+                LoaderVCViewModel.shared.hideLoader()
+                if let navigationController = self.navigationController {
+                    navigationController.popViewController(animated: true)
+                }
+            }
+        }
     }
     
     @IBAction func changeProfileBtnPressed(_ sender: UIButton) {
@@ -117,94 +94,83 @@ extension EditProfileVC {
     }
     
     func initViewModel(){
-        EditProfileViewModel.shared.fetchProfile()
     }
     
     
     func observeEvent() {
-        EditProfileViewModel.shared.eventHandler = { [weak self] event in
-            guard let self = self else { return }
-            switch event {
-            case .loading:
-                print("loading")
-                
-            case .stopLoading:
-                print("stopLoading")
-                
-            case .loaded:
-                print("loaded")
-                //                self.activityStop()
-                //                print(self.EditProfileViewModel.shared.userModel?.imageURL)
-                DispatchQueue.main.async {
-                    self.updateUI()
-                }
-            case .error(let error):
-                print(error)
-                //                self.activityStop()
-            }
-        }
     }
     
     
     func updateUI() {
-        EditProfileViewModel.shared.fetchProfileFromUserDefaults { result in
-            switch result {
-            case.success(let profileData):
-                if let name = profileData.name {
-                    if name != "" {
-                        self.nameTxtFld.placeholder = "\(name)"
-                        print(name)
-                    }
-                }
-                
-                if let username = profileData.username {
-                    if username != "" {
-                        self.userNameTxtFld.placeholder = "\(username)"
-                        print(username)
-                    }
-                }
-                
-                if let bio = profileData.bio {
-                    if bio != "" {
-                        self.bioTxtFld.placeholder = "\(bio)"
-                        print(bio)
-                    }
-                }
-                
-                if let phoneNumber = profileData.phoneNumber {
-                    if phoneNumber != ""{
-                        self.phoneNumberTxtFld.placeholder = "\(phoneNumber)"
-                        print(phoneNumber)
-                    }
-                }
-                
-                if let gender = profileData.gender {
-                    if  gender == "Male" {
-                        self.btn1.setImage(UIImage(systemName: "circle.fill"), for: .normal)
-                        self.btn2.setImage(UIImage(systemName: "circle"), for: .normal)
-                    }else if  gender == "Female" {
-                        self.btn1.setImage(UIImage(systemName: "circle"), for: .normal)
-                        self.btn2.setImage(UIImage(systemName: "circle.fill"), for: .normal)
-                    }
-                }
-                
-                if let countryCode = profileData.countryCode {
-                    if countryCode != ""{
-                        self.countryCode = countryCode
-                        print(countryCode)
-                        self.countryPickerBtn.setTitle(countryCode, for: .normal)
-                    }
-                }
-                
-                if let imageURL = profileData.imageURL, !imageURL.isEmpty {
-                    ImageLoader.loadImage(for: URL(string: imageURL), into: self.userImg, withPlaceholder: UIImage(named: "person"))
-                }
-                
-                
-            case.failure(let Error):
-                print(Error.localizedDescription)
+        Data.shared.getData(key: "Name") { (result: Result<String, Error>) in
+            switch result{
+            case .success(let data):
+                print(data)
+                self.nameTxtFld.text = data
+            case .failure(let error):
+                print(error)
             }
         }
+        
+        Data.shared.getData(key: "UserName") { (result: Result<String, Error>) in
+            switch result{
+            case .success(let data):
+                print(data)
+                self.userNameTxtFld.text = data
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        Data.shared.getData(key: "Bio") { (result: Result<String, Error>) in
+            switch result{
+            case .success(let data):
+                print(data)
+                self.bioTxtFld.text = data
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        Data.shared.getData(key: "Gender") { (result: Result<String, Error>) in
+            switch result{
+            case .success(let data):
+                print(data)
+                self.gender  = data
+                if self.gender == "Male"{
+                    self.btn1.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+                    self.btn2.setImage(UIImage(systemName: "circle"), for: .normal)
+                }
+                if self.gender == "Female"{
+                    self.btn1.setImage(UIImage(systemName: "circle"), for: .normal)
+                    self.btn2.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        Data.shared.getData(key: "CountryCode") { (result: Result<String, Error>) in
+            switch result{
+            case .success(let data):
+                print(data)
+                self.countryCode = "\(data)"
+                self.countryPickerBtn.setTitle(data, for: .normal)
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        Data.shared.getData(key: "PhoneNumber") { (result: Result<String, Error>) in
+            switch result{
+            case .success(let data):
+                print(data)
+                self.phoneNumberTxtFld.text  = data
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
     }
     
     
