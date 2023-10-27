@@ -27,5 +27,6 @@ class LoaderVCViewModel: NSObject {
             presentedLoaderVC = nil // Reset the reference
         }
     }
+    
 }
 
