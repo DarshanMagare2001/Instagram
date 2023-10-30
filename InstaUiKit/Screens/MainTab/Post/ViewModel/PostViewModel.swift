@@ -43,7 +43,7 @@ class PostViewModel {
     }
     
     
-    func uploadImageToFirebaseStorage(image: UIImage, caption: String, location: String) {
+    func uploadImageToFirebaseStorage(image: UIImage, caption: String, location: String , completionHandler : @escaping(Bool)->Void) {
         let imageName = "\(Int(Date().timeIntervalSince1970)).jpg"
         let storageRef = Storage.storage().reference().child("images/\(imageName)")
         
@@ -51,6 +51,7 @@ class PostViewModel {
             storageRef.putData(imageData, metadata: nil) { (metadata, error) in
                 if let error = error {
                     print("Error uploading image: \(error.localizedDescription)")
+                    completionHandler(false)
                 } else {
                     // Image uploaded successfully, now you can get the download URL
                     storageRef.downloadURL { (url, error) in
@@ -77,12 +78,15 @@ class PostViewModel {
                             db.collection("images").addDocument(data: imageDocData) { (error) in
                                 if let error = error {
                                     print("Error adding document: \(error)")
+                                    completionHandler(false)
                                 } else {
                                     print("Document added successfully")
+                                    completionHandler(true)
                                 }
                             }
                         } else {
                             print("Error getting image download URL: \(error?.localizedDescription ?? "")")
+                            completionHandler(false)
                         }
                     }
                 }
@@ -90,5 +94,27 @@ class PostViewModel {
         }
     }
     
+    func fetchImageData(completion: @escaping (Result<[ImageModel], Error>) -> Void) {
+        let db = Firestore.firestore()
+        
+        db.collection("images").getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching images: \(error.localizedDescription)")
+                completion(.failure(error))
+            } else {
+                var images: [ImageModel] = []
+                for document in querySnapshot!.documents {
+                    if let imageURL = document["imageURL"] as? String,
+                       let caption = document["caption"] as? String,
+                       let location = document["location"] as? String,
+                       let uid = document["uid"] as? String {
+                        let image = ImageModel(imageURL: imageURL, caption: caption, location: location, uid: uid)
+                        images.append(image)
+                    }
+                }
+                completion(.success(images))
+            }
+        }
+    }
     
 }

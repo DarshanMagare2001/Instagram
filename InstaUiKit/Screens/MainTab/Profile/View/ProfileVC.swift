@@ -16,7 +16,7 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var userBio: UILabel!
     var viewModel1 = AuthenticationViewModel()
     var viewModel2 = ProfileViewModel()
-    
+    var allPost = [ImageModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
         configuration()
@@ -139,17 +139,37 @@ extension ProfileVC {
                 print(error)
             }
         }
+        
+        PostViewModel.shared.fetchImageData { result in
+            switch result {
+            case .success(let images):
+                // Handle the images
+                print("Fetched images: \(images)")
+                DispatchQueue.main.async {
+                    self.allPost = images
+                    self.photosCollectionView.reloadData()
+                }
+            case .failure(let error):
+                // Handle the error
+                print("Error fetching images: \(error)")
+            }
+        }
+        
     }
+    
+    
 }
 
 extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 50
+        return allPost.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosCell", for: indexPath) as! PhotosCell
-        // Configure the cell here if necessary
+        if let imageURL = URL(string: allPost[indexPath.row].imageURL) {
+            ImageLoader.loadImage(for: imageURL, into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
+        }
         return cell
     }
 }

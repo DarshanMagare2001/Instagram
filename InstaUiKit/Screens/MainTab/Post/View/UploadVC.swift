@@ -28,8 +28,21 @@ class UploadVC: UIViewController {
                                 yesHandler: { _ in
             
             print("User selected Yes")
+            LoaderVCViewModel.shared.showLoader()
             if let img = self.img, let caption = self.captionTxtFld.text, let location = self.locationTxtFld.text {
-                PostViewModel.shared.uploadImageToFirebaseStorage(image: img, caption: caption, location: location)
+                PostViewModel.shared.uploadImageToFirebaseStorage(image: img, caption: caption, location: location){ value in
+                    if value {
+                        LoaderVCViewModel.shared.hideLoader()
+                        Alert.shared.alertOk(title: "Success!", message: "Your Photo uploaded successfully.", presentingViewController: self)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    }else{
+                        LoaderVCViewModel.shared.hideLoader()
+                        Alert.shared.alertOk(title: "Error!", message: "Your Photo not uploaded.", presentingViewController: self)
+                    }
+                    
+                }
             }
         },
                                 noHandler: { _ in
