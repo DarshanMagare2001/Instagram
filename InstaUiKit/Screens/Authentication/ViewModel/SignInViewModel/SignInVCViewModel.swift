@@ -51,7 +51,23 @@ class SignInVCViewModel {
                                 print(error)
                             }
                         }
-                        completionHandler(true)
+                        
+                        EditProfileViewModel.shared.fetchUserData { result in
+                            switch result {
+                            case .success(let data):
+                                print(data)
+                                Data.shared.saveData(data.name, key: "Name"){ _ in}
+                                Data.shared.saveData(data.username, key: "UserName") { _ in}
+                                Data.shared.saveData(data.bio, key: "Bio") { _ in}
+                                Data.shared.saveData(data.gender, key: "Gender") { _ in}
+                                Data.shared.saveData(data.countryCode, key: "CountryCode") { _ in}
+                                Data.shared.saveData(data.phoneNumber, key: "PhoneNumber") { _ in}
+                                completionHandler(true)
+                            case.failure(let error):
+                                print(error)
+                                completionHandler(true)
+                            }
+                        }
                     }
                 }
             }

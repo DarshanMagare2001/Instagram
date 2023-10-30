@@ -30,5 +30,14 @@ struct ProfileModel: Codable {
     }
 }
 
+struct UserData {
+    let name: String
+    let username: String
+    let bio: String
+    let countryCode: String
+    let phoneNumber: String
+    let gender: String
+    // Add other properties as needed
+}
 
 

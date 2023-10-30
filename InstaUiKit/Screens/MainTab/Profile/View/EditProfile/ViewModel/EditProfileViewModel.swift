@@ -15,6 +15,8 @@ class EditProfileViewModel {
     var eventHandler: ((_ event : Event) -> Void)?
     var userModel: ProfileModel?
     
+    // Function which save Userinfo to firebase
+    
     func saveDataToFirebase(name:String?,username:String?,bio:String?,countryCode:String?,phoneNumber:String?,gender:String? , completionHandler:@escaping(Bool) -> Void){
         Data.shared.getData(key: "CurrentUserId") { (result: Result<String, Error>) in
             switch result {
@@ -52,6 +54,8 @@ class EditProfileViewModel {
         }
     }
     
+    // Function which save Userimage to firebase
+    
     func saveUserImageToFirebase(image: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {
         let storage = Storage.storage()
         let storageRef = storage.reference()
@@ -87,7 +91,7 @@ class EditProfileViewModel {
         }
     }
 
-    
+    // Function which save Userinfo locally in userdefault
     
     func saveUserInfo(data:ProfileModel? ,completionHandler:@escaping(Bool) -> Void){
         if let data = data {
@@ -143,6 +147,38 @@ class EditProfileViewModel {
         }
     }
    
+    // Function which fetch Userinfo from firebase
+    
+  
+
+    func fetchUserData(completion: @escaping (Result<UserData, Error>) -> Void) {
+        Data.shared.getData(key: "CurrentUserId") { (result: Result<String, Error>) in
+            switch result {
+            case .success(let uid):
+                ProfileViewModel.shared.fetchUserData(uid: uid) { userDataResult in
+                    switch userDataResult {
+                    case .success(let data):
+                        // Create a UserData instance with the retrieved data
+                        let userData = UserData(
+                            name: data.name ?? "Default Name",
+                            username: data.username ?? "Default UserName",
+                            bio: data.bio ?? "Default Bio",
+                            countryCode: data.countryCode ?? "Default Country Code",
+                            phoneNumber: data.phoneNumber ?? "Default Phone Number",
+                            gender: data.gender ?? "Default Gender"
+                            // Initialize other properties here
+                        )
+                        completion(.success(userData))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
     
 }
 
