@@ -67,7 +67,7 @@ extension HomeVC {
             }
         }
         
-        PostViewModel.shared.fetchImageData { result in
+        PostViewModel.shared.fetchAllPosts { result in
             switch result {
             case .success(let images):
                 // Handle the images
