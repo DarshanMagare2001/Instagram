@@ -20,13 +20,16 @@ class ProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configuration()
+        updateUI()
     }
     override func viewWillAppear(_ animated: Bool) {
         configuration()
+        updateUI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         configuration()
+        updateUI()
     }
     
     
@@ -71,7 +74,6 @@ extension ProfileVC {
     
     func configuration(){
         updateCell()
-        updateUI()
         updateSideMenu()
         initViewModel()
         eventObserver()
@@ -101,35 +103,43 @@ extension ProfileVC {
     }
     
     func updateUI(){
-//        EditProfileViewModel.shared.fetchProfileFromUserDefaults { result in
-//            switch result {
-//            case.success(let profileData) :
-//                print(profileData)
-//                if let name = profileData.name {
-//                    if name != "" {
-//                        self.userName.text = "\(name)"
-//                        print(name)
-//                    }
-//                }
-//                
-//                if let bio = profileData.bio {
-//                    if bio != "" {
-//                        self.userBio.text = "\(bio)"
-//                        print(bio)
-//                    }
-//                }
-//                
-//                if let imageURL = profileData.imageURL, !imageURL.isEmpty {
-//                    ImageLoader.loadImage(for: URL(string: imageURL), into: self.userImg, withPlaceholder: UIImage(named: "person"))
-//                }
-//                
-//            case.failure(let error):
-//                print(error.localizedDescription)
-//            }
-//        }
+        Data.shared.getData(key: "ProfileUrl") { (result: Result<String?, Error>) in
+            switch result {
+            case .success(let urlString):
+                if let url = urlString {
+                    if let imageURL = URL(string: url) {
+                        ImageLoader.loadImage(for: imageURL, into: self.userImg, withPlaceholder: UIImage(systemName: "person"))
+                    } else {
+                        print("Invalid URL: \(url)")
+                    }
+                } else {
+                    print("URL is nil or empty")
+                }
+            case .failure(let error):
+                print("Error loading image: \(error)")
+            }
+        }
+        
+        Data.shared.getData(key: "Name") { (result: Result<String, Error>) in
+            switch result {
+            case .success(let data):
+                print(data)
+                self.userName.text = data
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        Data.shared.getData(key: "Bio") { (result: Result<String, Error>) in
+            switch result {
+            case .success(let data):
+                print(data)
+                self.userBio.text = data
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
-    
-    
 }
 
 extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource {
