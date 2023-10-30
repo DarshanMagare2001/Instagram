@@ -12,6 +12,7 @@ class HomeVC: UIViewController {
     @IBOutlet weak var storiesCollectionView: UICollectionView!
     var imgURL : URL?
     var userName : String?
+    var allPost = [ImageModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
         let nib = UINib(nibName: "FeedCell", bundle: nil)
@@ -66,6 +67,22 @@ extension HomeVC {
             }
         }
         
+        PostViewModel.shared.fetchImageData { result in
+            switch result {
+            case .success(let images):
+                // Handle the images
+                print("Fetched images: \(images)")
+                DispatchQueue.main.async {
+                    self.allPost = images
+                    self.feedTableView.reloadData()
+                    self.storiesCollectionView.reloadData()
+                }
+            case .failure(let error):
+                // Handle the error
+                print("Error fetching images: \(error)")
+            }
+        }
+        
         feedTableView.reloadData()
         storiesCollectionView.reloadData()
         
@@ -74,7 +91,7 @@ extension HomeVC {
 
 extension HomeVC : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return allPost.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -83,6 +100,11 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource {
             ImageLoader.loadImage(for: url, into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
             ImageLoader.loadImage(for: url, into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
         }
+        
+        ImageLoader.loadImage(for: URL(string: allPost[indexPath.row].imageURL), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+        
+        cell.postLocationLbl.text = allPost[indexPath.row].location
+        cell.postCaption.text = allPost[indexPath.row].caption
         return cell
     }
     

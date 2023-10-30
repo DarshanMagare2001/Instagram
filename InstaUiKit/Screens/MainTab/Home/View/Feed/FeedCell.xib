@@ -175,6 +175,8 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="postCaption" destination="w5c-Pt-eTN" id="RHN-6i-G5U"/>
+                <outlet property="postImg" destination="LF5-lR-dk5" id="MbZ-mh-Zlf"/>
                 <outlet property="postLocationLbl" destination="BCd-Rg-aY6" id="bV0-rb-89R"/>
                 <outlet property="userImg1" destination="R1T-Wr-Tns" id="bJk-gv-GiQ"/>
                 <outlet property="userImg2" destination="GNn-9f-iqv" id="ZFN-aW-vG9"/>
