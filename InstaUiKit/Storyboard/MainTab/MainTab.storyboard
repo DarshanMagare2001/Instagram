@@ -514,6 +514,9 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Next">
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="15"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="nxtBtnPressed:" destination="X7d-2y-Bev" eventType="touchUpInside" id="EQH-36-4nu"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8rf-VP-vHc">
                                 <rect key="frame" x="0.0" y="50" width="320" height="469"/>
@@ -613,6 +616,59 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O1H-SZ-WlO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-774.375" y="68.661971830985919"/>
+        </scene>
+        <!--UploadVC-->
+        <scene sceneID="M9A-kn-oc9">
+            <objects>
+                <viewController storyboardIdentifier="UploadVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yeC-HB-ev4" customClass="UploadVC" customModule="InstaUiKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="79G-16-hJW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vAb-WA-3jc">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="60I-pK-clg"/>
+                                    <constraint firstAttribute="height" constant="50" id="byh-z9-EN8"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="BackArrow" title=" "/>
+                                <connections>
+                                    <action selector="backBtnPressed:" destination="yeC-HB-ev4" eventType="touchUpInside" id="lxd-8f-PBg"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Post" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Emj-nP-7ee">
+                                <rect key="frame" x="125.5" y="17" width="69" height="18"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1dt-N4-gMb">
+                                <rect key="frame" x="253" y="0.0" width="67" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="QCk-Kp-knU"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Share">
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="15"/>
+                                </buttonConfiguration>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ddh-y4-64K"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Emj-nP-7ee" firstAttribute="centerX" secondItem="79G-16-hJW" secondAttribute="centerX" id="8F5-cc-TSm"/>
+                            <constraint firstItem="ddh-y4-64K" firstAttribute="trailing" secondItem="1dt-N4-gMb" secondAttribute="trailing" id="ACB-pV-109"/>
+                            <constraint firstItem="vAb-WA-3jc" firstAttribute="top" secondItem="ddh-y4-64K" secondAttribute="top" id="KuR-TY-lZL"/>
+                            <constraint firstItem="Emj-nP-7ee" firstAttribute="top" secondItem="ddh-y4-64K" secondAttribute="top" constant="17" id="Lc9-Pq-RM2"/>
+                            <constraint firstItem="vAb-WA-3jc" firstAttribute="leading" secondItem="ddh-y4-64K" secondAttribute="leading" id="Ud9-WP-BcL"/>
+                            <constraint firstItem="1dt-N4-gMb" firstAttribute="top" secondItem="ddh-y4-64K" secondAttribute="top" id="YQX-y5-E9K"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CU0-fM-RzL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-778" y="736"/>
         </scene>
         <!--LikesVC-->
         <scene sceneID="0Ej-4s-sWm">

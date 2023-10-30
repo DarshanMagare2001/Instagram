@@ -18,6 +18,15 @@ class PostVC: UIViewController {
         updateCell()
     }
     
+    @IBAction func nxtBtnPressed(_ sender: UIButton) {
+        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "UploadVC") { destinationVC in
+            if let destinationVC = destinationVC {
+                self.navigationController?.pushViewController(destinationVC, animated: true)
+            }
+        }
+    }
+    
+    
 }
 
 extension PostVC {
@@ -52,7 +61,7 @@ extension PostVC {
             imgForPost.image = imagesArray[index]
         }
     }
-
+    
 }
 
 
