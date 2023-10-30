@@ -68,7 +68,7 @@
                             <constraint firstItem="R1T-Wr-Tns" firstAttribute="top" secondItem="UcO-dA-GRy" secondAttribute="top" constant="10" id="vRV-HP-QTJ"/>
                         </constraints>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DemoImg" translatesAutoresizingMaskIntoConstraints="NO" id="LF5-lR-dk5">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DemoImg" translatesAutoresizingMaskIntoConstraints="NO" id="LF5-lR-dk5">
                         <rect key="frame" x="0.0" y="80" width="616" height="300"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="300" id="5eo-ma-llv"/>

@@ -15,7 +15,7 @@ class ImageLoader {
         }
         
         let processor = DownsamplingImageProcessor(size: imageView.bounds.size)
-        |> RoundCornerImageProcessor(cornerRadius: 20)
+        |> RoundCornerImageProcessor(cornerRadius: 0)
         imageView.kf.indicatorType = .activity
         imageView.kf.setImage(
             with: url,
