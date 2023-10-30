@@ -40,6 +40,17 @@ class SignInVCViewModel {
                     print(uid)
                     Data.shared.saveData(uid, key: "CurrentUserId") { value in
                         print(value)
+                        EditProfileViewModel.shared.fetchUserProfileImageURL { result in
+                            switch result {
+                            case .success(let url):
+                                if let urlString = url?.absoluteString {
+                                    Data.shared.saveData(urlString, key: "ProfileUrl") { (value: Bool) in
+                                    }
+                                }
+                            case.failure(let error):
+                                print(error)
+                            }
+                        }
                         completionHandler(true)
                     }
                 }
