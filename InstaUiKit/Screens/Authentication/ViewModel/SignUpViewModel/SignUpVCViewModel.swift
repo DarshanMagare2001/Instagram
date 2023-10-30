@@ -39,6 +39,15 @@ class SignUpVCViewModel {
                     print(uid)
                     Data.shared.saveData(uid, key: "CurrentUserId") { value in
                         print(value)
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.removeObject(forKey: "Name")
+                        userDefaults.removeObject(forKey: "UserName")
+                        userDefaults.removeObject(forKey: "Bio")
+                        userDefaults.removeObject(forKey: "Gender")
+                        userDefaults.removeObject(forKey: "CountryCode")
+                        userDefaults.removeObject(forKey: "PhoneNumber")
+                        userDefaults.removeObject(forKey: "ProfileUrl")
+                        userDefaults.synchronize()
                         completionHandler(true)
                     }
                 }
