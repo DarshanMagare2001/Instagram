@@ -8,5 +8,6 @@
 import UIKit
 
 class StoriesCell: UICollectionViewCell {
-    
+    @IBOutlet weak var userImg: UIImageView!
+    @IBOutlet weak var userName: UILabel!
 }

@@ -20,7 +20,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UcO-dA-GRy">
                         <rect key="frame" x="0.0" y="10" width="616" height="70"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="demoAccount" translatesAutoresizingMaskIntoConstraints="NO" id="R1T-Wr-Tns">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="demoAccount" translatesAutoresizingMaskIntoConstraints="NO" id="R1T-Wr-Tns" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
                                 <rect key="frame" x="10" y="10" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="47m-kf-dyL"/>
@@ -127,7 +127,7 @@
                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WBp-Qc-C6o">
                         <rect key="frame" x="10" y="435" width="596" height="106"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="demoAccount" translatesAutoresizingMaskIntoConstraints="NO" id="GNn-9f-iqv">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="demoAccount" translatesAutoresizingMaskIntoConstraints="NO" id="GNn-9f-iqv" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="43" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="3Ez-QR-B6l"/>
@@ -172,6 +172,12 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="postLocationLbl" destination="BCd-Rg-aY6" id="bV0-rb-89R"/>
+                <outlet property="userImg1" destination="R1T-Wr-Tns" id="bJk-gv-GiQ"/>
+                <outlet property="userImg2" destination="GNn-9f-iqv" id="ZFN-aW-vG9"/>
+                <outlet property="userName" destination="iBT-zD-uem" id="t7u-er-Ofc"/>
+            </connections>
             <point key="canvasLocation" x="43.478260869565219" y="141.29464285714286"/>
         </tableViewCell>
     </objects>

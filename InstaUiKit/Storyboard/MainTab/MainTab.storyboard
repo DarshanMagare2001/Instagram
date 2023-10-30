@@ -130,7 +130,7 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dE4-I3-Da1">
                                                     <rect key="frame" x="10" y="10" width="240" height="73"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="demoAccount" translatesAutoresizingMaskIntoConstraints="NO" id="6Pk-J3-PiK">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="demoAccount" translatesAutoresizingMaskIntoConstraints="NO" id="6Pk-J3-PiK" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
                                                             <rect key="frame" x="95" y="0.0" width="50" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="50" id="JOE-OI-deI"/>
@@ -154,6 +154,10 @@
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="260" height="93"/>
+                                        <connections>
+                                            <outlet property="userImg" destination="6Pk-J3-PiK" id="75C-c4-HyO"/>
+                                            <outlet property="userName" destination="v4i-IM-kDk" id="mQe-EK-cJQ"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
