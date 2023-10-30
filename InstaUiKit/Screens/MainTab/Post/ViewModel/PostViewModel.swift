@@ -12,11 +12,7 @@ import UIKit
 class PostViewModel {
     static let shared = PostViewModel()
     var imagesArray: [UIImage] = []
-    init(){
-        fetchAllPhotos { images in
-            self.imagesArray = images
-        }
-    }
+    private init(){}
     func fetchAllPhotos(completion: @escaping ([UIImage]) -> Void) {
         var images: [UIImage] = []
         

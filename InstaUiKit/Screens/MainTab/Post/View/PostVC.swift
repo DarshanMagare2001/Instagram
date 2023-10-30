@@ -14,10 +14,18 @@ class PostVC: UIViewController {
     var selectedImageIndex: Int?
     var selectedImageIndices = Set<Int>()
     var currentlySelectedImageIndex: Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        configuration()
-        updateCell()
+        LoaderVCViewModel.shared.showLoader()
+        imageView.isHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        DispatchQueue.main.async {
+            self.configuration()
+            self.updateCell()
+        }
     }
     
     @IBAction func nxtBtnPressed(_ sender: UIButton) {
@@ -28,24 +36,31 @@ class PostVC: UIViewController {
         }
     }
     
-    
 }
 
 extension PostVC {
     
     func configuration(){
-        imageView.isHidden = true
-        updateCell()
         initViewModel()
         eventObserver()
     }
+    
     func initViewModel(){
-        
+        DispatchQueue.main.async {
+            PostViewModel.shared.fetchAllPhotos { images in
+                PostViewModel.shared.imagesArray = images
+                self.collectionView.reloadData()
+                self.updateCell()
+                LoaderVCViewModel.shared.hideLoader()
+            }
+        }
     }
+    
     func eventObserver(){
         
         
     }
+    
     func updateCell() {
         // Configure the collection view flow layout
         let flowLayout = UICollectionViewFlowLayout()
