@@ -664,22 +664,57 @@
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="15"/>
                                 </buttonConfiguration>
                             </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Fmf-cT-pLG">
+                                <rect key="frame" x="20" y="70" width="280" height="150"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="demoAccount" translatesAutoresizingMaskIntoConstraints="NO" id="ZJo-78-urP">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="150" id="JAY-dA-vcE"/>
+                                            <constraint firstAttribute="width" constant="150" id="hpj-rO-MFn"/>
+                                        </constraints>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="7fZ-LH-EIE">
+                                        <rect key="frame" x="160" y="0.0" width="120" height="150"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Write Caption" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nsq-om-ONi">
+                                                <rect key="frame" x="0.0" y="0.0" width="120" height="72.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Write Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jcD-7k-yiq">
+                                                <rect key="frame" x="0.0" y="77.5" width="120" height="72.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ddh-y4-64K"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Fmf-cT-pLG" firstAttribute="leading" secondItem="ddh-y4-64K" secondAttribute="leading" constant="20" id="7qt-U4-3Ft"/>
                             <constraint firstItem="Emj-nP-7ee" firstAttribute="centerX" secondItem="79G-16-hJW" secondAttribute="centerX" id="8F5-cc-TSm"/>
                             <constraint firstItem="ddh-y4-64K" firstAttribute="trailing" secondItem="1dt-N4-gMb" secondAttribute="trailing" id="ACB-pV-109"/>
+                            <constraint firstItem="ddh-y4-64K" firstAttribute="trailing" secondItem="Fmf-cT-pLG" secondAttribute="trailing" constant="20" id="BhO-Au-7b1"/>
                             <constraint firstItem="vAb-WA-3jc" firstAttribute="top" secondItem="ddh-y4-64K" secondAttribute="top" id="KuR-TY-lZL"/>
                             <constraint firstItem="Emj-nP-7ee" firstAttribute="top" secondItem="ddh-y4-64K" secondAttribute="top" constant="17" id="Lc9-Pq-RM2"/>
                             <constraint firstItem="vAb-WA-3jc" firstAttribute="leading" secondItem="ddh-y4-64K" secondAttribute="leading" id="Ud9-WP-BcL"/>
                             <constraint firstItem="1dt-N4-gMb" firstAttribute="top" secondItem="ddh-y4-64K" secondAttribute="top" id="YQX-y5-E9K"/>
+                            <constraint firstItem="Fmf-cT-pLG" firstAttribute="top" secondItem="vAb-WA-3jc" secondAttribute="bottom" constant="20" id="wnp-cw-m5P"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="captionTxtFld" destination="Nsq-om-ONi" id="5dv-td-mat"/>
+                        <outlet property="locationTxtFld" destination="jcD-7k-yiq" id="oaq-qq-1Ln"/>
+                        <outlet property="selectedImg" destination="ZJo-78-urP" id="ElA-DK-iKM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CU0-fM-RzL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-778" y="736"/>
+            <point key="canvasLocation" x="-778.125" y="735.21126760563379"/>
         </scene>
         <!--LikesVC-->
         <scene sceneID="0Ej-4s-sWm">

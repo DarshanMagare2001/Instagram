@@ -14,7 +14,7 @@ class PostVC: UIViewController {
     var selectedImageIndex: Int?
     var selectedImageIndices = Set<Int>()
     var currentlySelectedImageIndex: Int?
-    
+    var selectedImage : UIImage?
     override func viewDidLoad() {
         super.viewDidLoad()
         LoaderVCViewModel.shared.showLoader()
@@ -29,10 +29,13 @@ class PostVC: UIViewController {
     }
     
     @IBAction func nxtBtnPressed(_ sender: UIButton) {
-        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "UploadVC") { destinationVC in
-            if let destinationVC = destinationVC {
-                self.navigationController?.pushViewController(destinationVC, animated: true)
-            }
+        if let img = selectedImage {
+            let storyboard = UIStoryboard.MainTab
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "UploadVC") as! UploadVC
+            destinationVC.img = img
+            self.navigationController?.pushViewController(destinationVC, animated: true)
+        }else{
+            Alert.shared.alert(title: "Warning!", message: "Select Photo First", presentingViewController: self)
         }
     }
     
@@ -76,6 +79,7 @@ extension PostVC {
         if index >= 0 && index < imagesArray.count {
             imageView.isHidden = false
             imgForPost.image = imagesArray[index]
+            selectedImage = imagesArray[index]
             selectedImageIndex = index // Update the selected image index
         }
     }
