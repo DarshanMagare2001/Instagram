@@ -108,7 +108,7 @@ extension ProfileVC {
             case .success(let urlString):
                 if let url = urlString {
                     if let imageURL = URL(string: url) {
-                        ImageLoader.loadImage(for: imageURL, into: self.userImg, withPlaceholder: UIImage(systemName: "person"))
+                        ImageLoader.loadImage(for: imageURL, into: self.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
                     } else {
                         print("Invalid URL: \(url)")
                     }

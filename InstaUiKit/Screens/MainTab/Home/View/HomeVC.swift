@@ -77,8 +77,8 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
         if let url = imgURL {
-            ImageLoader.loadImage(for: url, into: cell.userImg1, withPlaceholder: UIImage(systemName: "person"))
-            ImageLoader.loadImage(for: url, into: cell.userImg2, withPlaceholder: UIImage(systemName: "person"))
+            ImageLoader.loadImage(for: url, into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
+            ImageLoader.loadImage(for: url, into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
         }
         return cell
     }
