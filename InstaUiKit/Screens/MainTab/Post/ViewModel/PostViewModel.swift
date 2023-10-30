@@ -28,7 +28,7 @@ class PostViewModel {
         let imageManager = PHImageManager.default()
         
         fetchResult.enumerateObjects { asset, _, _ in
-            let targetSize = CGSize(width: 200, height: 200) // Adjust the target size as needed
+            let targetSize = CGSize(width: 700, height: 700) // Adjust the target size as needed
             
             let requestOptions = PHImageRequestOptions()
             requestOptions.isSynchronous = true

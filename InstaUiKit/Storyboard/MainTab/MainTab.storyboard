@@ -522,27 +522,25 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="469"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7pB-0R-Bl8" customClass="ViewWithBorder" customModule="InstaUiKit" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EQy-8U-FuX">
                                                         <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="300" id="wHw-XL-bcm"/>
-                                                        </constraints>
                                                     </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="250" id="J5I-9B-WJn"/>
-                                                    <constraint firstItem="EQy-8U-FuX" firstAttribute="top" secondItem="7pB-0R-Bl8" secondAttribute="top" id="L0n-TZ-ose"/>
-                                                    <constraint firstItem="EQy-8U-FuX" firstAttribute="leading" secondItem="7pB-0R-Bl8" secondAttribute="leading" id="n5l-Qe-nFq"/>
-                                                    <constraint firstItem="EQy-8U-FuX" firstAttribute="centerX" secondItem="7pB-0R-Bl8" secondAttribute="centerX" id="uyh-o5-uFJ"/>
+                                                    <constraint firstAttribute="height" constant="300" id="J5I-9B-WJn"/>
+                                                    <constraint firstAttribute="bottom" secondItem="EQy-8U-FuX" secondAttribute="bottom" id="LZN-xL-Xa8"/>
+                                                    <constraint firstItem="EQy-8U-FuX" firstAttribute="top" secondItem="7pB-0R-Bl8" secondAttribute="top" id="YWq-6z-BML"/>
+                                                    <constraint firstItem="EQy-8U-FuX" firstAttribute="leading" secondItem="7pB-0R-Bl8" secondAttribute="leading" id="k9c-PC-pBu"/>
+                                                    <constraint firstAttribute="trailing" secondItem="EQy-8U-FuX" secondAttribute="trailing" id="kWm-Q3-IxW"/>
                                                 </constraints>
                                             </view>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eDu-9b-6Kk">
-                                                <rect key="frame" x="0.0" y="250" width="320" height="219"/>
+                                                <rect key="frame" x="0.0" y="300" width="320" height="169"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Sjk-nn-ogx">
                                                     <size key="itemSize" width="109" height="105"/>
@@ -581,12 +579,6 @@
                                                 </connections>
                                             </collectionView>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="eDu-9b-6Kk" secondAttribute="trailing" id="BW5-QF-hvd"/>
-                                            <constraint firstItem="eDu-9b-6Kk" firstAttribute="leading" secondItem="ClZ-t7-0nM" secondAttribute="leading" id="NTK-xk-Ciy"/>
-                                            <constraint firstItem="eDu-9b-6Kk" firstAttribute="top" secondItem="7pB-0R-Bl8" secondAttribute="bottom" id="dQb-ta-pH0"/>
-                                            <constraint firstAttribute="bottom" secondItem="eDu-9b-6Kk" secondAttribute="bottom" id="xKa-P3-Yie"/>
-                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
