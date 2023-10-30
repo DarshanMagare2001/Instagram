@@ -90,7 +90,7 @@ class EditProfileViewModel {
             }
         }
     }
-
+    
     // Function which save Userinfo locally in userdefault
     
     func saveUserInfo(data:ProfileModel? ,completionHandler:@escaping(Bool) -> Void){
@@ -146,11 +146,11 @@ class EditProfileViewModel {
             }
         }
     }
-   
+    
     // Function which fetch Userinfo from firebase
     
-  
-
+    
+    
     func fetchUserData(completion: @escaping (Result<UserData, Error>) -> Void) {
         Data.shared.getData(key: "CurrentUserId") { (result: Result<String, Error>) in
             switch result {
@@ -178,7 +178,38 @@ class EditProfileViewModel {
             }
         }
     }
-
+    
+    func fetchUserProfileImageURLWithUid( uid :String?,completion: @escaping (Result<URL?, Error>) -> Void) {
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+        if let uid = uid {
+            let profileImagesRef = storageRef.child("profile_images/\(uid)")
+            
+            // List all items in the profile images folder
+            profileImagesRef.listAll { (result, error) in
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    // Find the first item (profile image)
+                    if let firstItem = result?.items.first {
+                        // Get the download URL for the profile image
+                        firstItem.downloadURL { (url, error) in
+                            if let downloadURL = url {
+                                completion(.success(downloadURL))
+                            } else {
+                                if let error = error {
+                                    completion(.failure(error))
+                                }
+                            }
+                        }
+                    } else {
+                        // No profile image found
+                        completion(.success(nil))
+                    }
+                }
+            }
+        }
+    }
     
 }
 

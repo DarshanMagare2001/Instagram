@@ -128,7 +128,6 @@ class PostViewModel {
     
     func fetchAllPosts(completion: @escaping (Result<[ImageModel], Error>) -> Void) {
         let db = Firestore.firestore()
-        
         db.collection("images")
             .getDocuments { (querySnapshot, error) in
                 if let error = error {
@@ -146,7 +145,6 @@ class PostViewModel {
                             images.append(image)
                         }
                     }
-                    
                     completion(.success(images))
                 }
             }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ImageModel {
+struct ImageModel : Hashable {
     let imageURL: String
     let caption: String
     let location: String

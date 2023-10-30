@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class HomeVC: UIViewController {
     @IBOutlet weak var feedTableView: UITableView!
@@ -86,6 +87,8 @@ extension HomeVC {
         feedTableView.reloadData()
         storiesCollectionView.reloadData()
         
+        
+        
     }
 }
 
@@ -96,11 +99,22 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
-        if let url = imgURL {
-            ImageLoader.loadImage(for: url, into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
-            ImageLoader.loadImage(for: url, into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
+        let uid = allPost[indexPath.row].uid
+        print(uid)
+        DispatchQueue.main.async {
+            EditProfileViewModel.shared.fetchUserProfileImageURLWithUid(uid: uid) { result in
+                switch result{
+                case.success(let url):
+                    if let url = url {
+                        print(url)
+                        ImageLoader.loadImage(for: url, into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
+                        ImageLoader.loadImage(for: url, into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
+                    }
+                case.failure(let error):
+                    print(error)
+                }
+            }
         }
-        
         ImageLoader.loadImage(for: URL(string: allPost[indexPath.row].imageURL), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
         
         cell.postLocationLbl.text = allPost[indexPath.row].location
