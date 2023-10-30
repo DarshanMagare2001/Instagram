@@ -66,6 +66,9 @@ extension HomeVC {
             }
         }
         
+        feedTableView.reloadData()
+        storiesCollectionView.reloadData()
+        
     }
 }
 
@@ -93,7 +96,7 @@ extension HomeVC : UICollectionViewDelegate , UICollectionViewDataSource , UICol
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StoriesCell", for: indexPath) as! StoriesCell
         if let url = imgURL {
-            ImageLoader.loadImage(for: url, into: cell.userImg, withPlaceholder: UIImage(systemName: "person"))
+            ImageLoader.loadImage(for: url, into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
         }
         if let name = userName {
             cell.userName
