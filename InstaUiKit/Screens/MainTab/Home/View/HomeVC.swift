@@ -89,8 +89,15 @@ extension HomeVC {
             ImageLoader.loadImage(for: url, into: userImg, withPlaceholder: UIImage(systemName: "person.fill"))
         }
         
+        HomeVCViewModel.shared.fetchUniqueUsers { value in
+            if value{
+                self.storiesCollectionView.reloadData()
+            }else{
+                self.storiesCollectionView.reloadData()
+            }
+        }
+        
         feedTableView.reloadData()
-        storiesCollectionView.reloadData()
         
     }
 }
@@ -112,17 +119,19 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource {
                         print(url)
                         ImageLoader.loadImage(for: url, into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
                         ImageLoader.loadImage(for: url, into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
+                        
+                        ImageLoader.loadImage(for: URL(string: self.allPost[indexPath.row].imageURL), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                        
+                        cell.postLocationLbl.text = self.allPost[indexPath.row].location
+                        cell.postCaption.text = self.allPost[indexPath.row].caption
+                        cell.userName.text = self.allPost[indexPath.row].name
                     }
                 case.failure(let error):
                     print(error)
                 }
             }
         }
-        ImageLoader.loadImage(for: URL(string: allPost[indexPath.row].imageURL), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
         
-        cell.postLocationLbl.text = allPost[indexPath.row].location
-        cell.postCaption.text = allPost[indexPath.row].caption
-        cell.userName.text = allPost[indexPath.row].name
         return cell
     }
     
@@ -130,39 +139,22 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource {
 
 extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var uniqueUids = Set<String>()
-        var uniqueNames = Set<String>()
-        // Filter the allPost array to get unique uids and names
-        for post in allPost {
-            uniqueUids.insert(post.uid)
-            uniqueNames.insert(post.name)
-        }
-        return uniqueUids.count
+        return HomeVCViewModel.shared.userArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var uniqueUids = Set<String>()
-        var uniqueNames = Set<String>()
-        // Filter the allPost array to get unique uids and names
-        for post in allPost {
-            uniqueUids.insert(post.uid)
-            uniqueNames.insert(post.name)
-        }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StoriesCell", for: indexPath) as! StoriesCell
         
-        // Convert the uniqueUids and uniqueNames sets to arrays
-        let uniqueUidsArray = Array(uniqueUids)
-        let uniqueNamesArray = Array(uniqueNames)
-        
-        DispatchQueue.main.async {
-            if indexPath.row < uniqueUidsArray.count {
-                let uid = uniqueUidsArray[indexPath.row]
+        if let uid = HomeVCViewModel.shared.userArray[indexPath.row].keys.first,
+           let name = HomeVCViewModel.shared.userArray[indexPath.row].values.first {
+            DispatchQueue.main.async {
                 EditProfileViewModel.shared.fetchUserProfileImageURLWithUid(uid: uid) { result in
                     switch result {
                     case .success(let url):
                         if let url = url {
                             print(url)
                             ImageLoader.loadImage(for: url, into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                            cell.userName.text = name
                         }
                     case .failure(let error):
                         print(error)
@@ -171,12 +163,9 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
             }
         }
         
-        if indexPath.row < uniqueNamesArray.count {
-            cell.userName.text = uniqueNamesArray[indexPath.row]
-        }
-        
         return cell
     }
+    
 }
 
 
