@@ -88,7 +88,7 @@ extension HomeVC {
         if let url = imgURL {
             ImageLoader.loadImage(for: url, into: userImg, withPlaceholder: UIImage(systemName: "person.fill"))
         }
-                
+        
         feedTableView.reloadData()
         storiesCollectionView.reloadData()
         
@@ -128,19 +128,55 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource {
     
 }
 
-extension HomeVC : UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
+extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        var uniqueUids = Set<String>()
+        var uniqueNames = Set<String>()
+        // Filter the allPost array to get unique uids and names
+        for post in allPost {
+            uniqueUids.insert(post.uid)
+            uniqueNames.insert(post.name)
+        }
+        return uniqueUids.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        var uniqueUids = Set<String>()
+        var uniqueNames = Set<String>()
+        // Filter the allPost array to get unique uids and names
+        for post in allPost {
+            uniqueUids.insert(post.uid)
+            uniqueNames.insert(post.name)
+        }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StoriesCell", for: indexPath) as! StoriesCell
-        if let url = imgURL {
-            ImageLoader.loadImage(for: url, into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+        
+        // Convert the uniqueUids and uniqueNames sets to arrays
+        let uniqueUidsArray = Array(uniqueUids)
+        let uniqueNamesArray = Array(uniqueNames)
+        
+        DispatchQueue.main.async {
+            if indexPath.row < uniqueUidsArray.count {
+                let uid = uniqueUidsArray[indexPath.row]
+                EditProfileViewModel.shared.fetchUserProfileImageURLWithUid(uid: uid) { result in
+                    switch result {
+                    case .success(let url):
+                        if let url = url {
+                            print(url)
+                            ImageLoader.loadImage(for: url, into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            }
         }
-        if let name = userName {
-            cell.userName
+        
+        if indexPath.row < uniqueNamesArray.count {
+            cell.userName.text = uniqueNamesArray[indexPath.row]
         }
+        
         return cell
     }
 }
+
+
