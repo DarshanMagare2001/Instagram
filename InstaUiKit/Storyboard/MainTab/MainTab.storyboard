@@ -1324,7 +1324,10 @@
                         <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
                     <connections>
+                        <outlet property="followersCountLbl" destination="jv8-rN-ek9" id="fHd-Ri-nmR"/>
+                        <outlet property="followingCountLbl" destination="fdc-1z-3s6" id="U74-gh-uOf"/>
                         <outlet property="photosCollectionView" destination="cxU-kg-deA" id="18T-Pc-CRB"/>
+                        <outlet property="postCountLbl" destination="eWf-Wp-6ZB" id="uK1-G8-GMs"/>
                         <outlet property="sideMenuView" destination="rlx-4h-paG" id="mHt-Sp-h4X"/>
                         <outlet property="userBio" destination="cKA-ig-voD" id="dbB-gS-FaE"/>
                         <outlet property="userImg" destination="Nb4-OW-Zoo" id="vAn-Cv-P7w"/>

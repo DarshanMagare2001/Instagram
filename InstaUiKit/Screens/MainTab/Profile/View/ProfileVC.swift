@@ -14,6 +14,9 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var userImg: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var userBio: UILabel!
+    @IBOutlet weak var followingCountLbl: UILabel!
+    @IBOutlet weak var followersCountLbl: UILabel!
+    @IBOutlet weak var postCountLbl: UILabel!
     var viewModel1 = AuthenticationViewModel()
     var viewModel2 = ProfileViewModel()
     var allPost = [ImageModel]()
@@ -147,6 +150,7 @@ extension ProfileVC {
                 print("Fetched images: \(images)")
                 DispatchQueue.main.async {
                     self.allPost = images
+                    self.postCountLbl.text = "\(self.allPost.count)"
                     self.photosCollectionView.reloadData()
                 }
             case .failure(let error):
