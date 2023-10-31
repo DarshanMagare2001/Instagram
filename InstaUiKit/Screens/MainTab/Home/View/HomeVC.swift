@@ -26,10 +26,6 @@ class HomeVC: UIViewController {
         updateUI()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        updateUI()
-    }
-    
     @IBAction func directMsgBtnPressed(_ sender: UIButton) {
         Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "DirectMsgVC") { destinationVC in
             if let destinationVC = destinationVC {

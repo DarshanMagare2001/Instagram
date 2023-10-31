@@ -10,11 +10,27 @@ import UIKit
 class SearchVC: UIViewController {
     @IBOutlet weak var collectionViewOutlet: UICollectionView!
     @IBOutlet weak var tableViewOutlet: UITableView!
-    
+    var allPost = [ImageModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
         updateCell()
-        
+        SearchVCViewModel.shared.fetchAllPostURL { value in
+            if value{
+                self.collectionViewOutlet.reloadData()
+            }else{
+                self.collectionViewOutlet.reloadData()
+            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        SearchVCViewModel.shared.fetchAllPostURL { value in
+            if value{
+                self.collectionViewOutlet.reloadData()
+            }else{
+                self.collectionViewOutlet.reloadData()
+            }
+        }
     }
     
     func updateCell() {
@@ -42,14 +58,19 @@ extension SearchVC : UITableViewDelegate , UITableViewDataSource {
 }
 
 extension SearchVC : UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 50
+        return SearchVCViewModel.shared.postArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchVCCollectionViewCell", for: indexPath) as! SearchVCCollectionViewCell
+        DispatchQueue.main.async {
+            if let url = SearchVCViewModel.shared.postArray[indexPath.row]{
+                ImageLoader.loadImage(for: URL(string: url), into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
+            }
+        }
         return cell
     }
-    
     
 }
