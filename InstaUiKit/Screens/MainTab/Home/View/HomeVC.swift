@@ -119,6 +119,7 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource {
         
         cell.postLocationLbl.text = allPost[indexPath.row].location
         cell.postCaption.text = allPost[indexPath.row].caption
+        cell.userName.text = allPost[indexPath.row].name
         return cell
     }
     

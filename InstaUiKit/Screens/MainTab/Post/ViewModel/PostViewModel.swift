@@ -43,7 +43,7 @@ class PostViewModel {
     }
     
     
-    func uploadImageToFirebaseStorage(image: UIImage, caption: String, location: String , completionHandler : @escaping(Bool)->Void) {
+    func uploadImageToFirebaseStorage(image: UIImage, caption: String, location: String , name : String, completionHandler : @escaping(Bool)->Void) {
         let imageName = "\(Int(Date().timeIntervalSince1970)).jpg"
         let storageRef = Storage.storage().reference().child("images/\(imageName)")
         
@@ -72,6 +72,7 @@ class PostViewModel {
                                 "imageURL": downloadURL.absoluteString,
                                 "caption": caption,
                                 "location": location,
+                                "name": name,
                                 "uid": uid
                             ]
                             
@@ -115,8 +116,9 @@ class PostViewModel {
                     for document in querySnapshot!.documents {
                         if let imageURL = document["imageURL"] as? String,
                            let caption = document["caption"] as? String,
+                           let name = document["name"] as? String,
                            let location = document["location"] as? String {
-                            let image = ImageModel(imageURL: imageURL, caption: caption, location: location, uid: uid)
+                            let image = ImageModel(imageURL: imageURL, caption: caption, location: location, uid: uid, name: name)
                             images.append(image)
                         }
                     }
@@ -140,8 +142,9 @@ class PostViewModel {
                         if let imageURL = document["imageURL"] as? String,
                            let caption = document["caption"] as? String,
                            let location = document["location"] as? String,
+                           let name = document["name"] as? String,
                            let uid = document["uid"] as? String {
-                            let image = ImageModel(imageURL: imageURL, caption: caption, location: location, uid: uid)
+                            let image = ImageModel(imageURL: imageURL, caption: caption, location: location, uid: uid, name: name)
                             images.append(image)
                         }
                     }

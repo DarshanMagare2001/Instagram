@@ -29,19 +29,27 @@ class UploadVC: UIViewController {
             
             print("User selected Yes")
             LoaderVCViewModel.shared.showLoader()
-            if let img = self.img, let caption = self.captionTxtFld.text, let location = self.locationTxtFld.text {
-                PostViewModel.shared.uploadImageToFirebaseStorage(image: img, caption: caption, location: location){ value in
-                    if value {
-                        LoaderVCViewModel.shared.hideLoader()
-                        Alert.shared.alertOk(title: "Success!", message: "Your Photo uploaded successfully.", presentingViewController: self)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
-                            self.navigationController?.popViewController(animated: true)
+            Data.shared.getData(key: "Name") { (result: Result<String?, Error>) in
+                switch result {
+                case .success(let name):
+                    guard let name = name else {return}
+                    if let img = self.img, let caption = self.captionTxtFld.text, let location = self.locationTxtFld.text{
+                        PostViewModel.shared.uploadImageToFirebaseStorage(image: img, caption: caption, location: location, name: name){ value in
+                            if value {
+                                LoaderVCViewModel.shared.hideLoader()
+                                Alert.shared.alertOk(title: "Success!", message: "Your Photo uploaded successfully.", presentingViewController: self)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
+                                    self.navigationController?.popViewController(animated: true)
+                                }
+                            }else{
+                                LoaderVCViewModel.shared.hideLoader()
+                                Alert.shared.alertOk(title: "Error!", message: "Your Photo not uploaded.", presentingViewController: self)
+                            }
                         }
-                    }else{
-                        LoaderVCViewModel.shared.hideLoader()
-                        Alert.shared.alertOk(title: "Error!", message: "Your Photo not uploaded.", presentingViewController: self)
                     }
                     
+                case .failure(let error):
+                    print("Error loading image: \(error)")
                 }
             }
         },
