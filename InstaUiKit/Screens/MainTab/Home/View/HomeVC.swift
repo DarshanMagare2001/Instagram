@@ -11,6 +11,7 @@ import SwiftUI
 class HomeVC: UIViewController {
     @IBOutlet weak var feedTableView: UITableView!
     @IBOutlet weak var storiesCollectionView: UICollectionView!
+    @IBOutlet weak var userImg: CircleImageView!
     var imgURL : URL?
     var userName : String?
     var allPost = [ImageModel]()
@@ -84,10 +85,12 @@ extension HomeVC {
             }
         }
         
+        if let url = imgURL {
+            ImageLoader.loadImage(for: url, into: userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+        }
+                
         feedTableView.reloadData()
         storiesCollectionView.reloadData()
-        
-        
         
     }
 }
