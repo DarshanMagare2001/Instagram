@@ -8,9 +8,11 @@
 import Foundation
 import FirebaseFirestore
 
-class UserInfo {
-    static let shared = UserInfo()
+class StoreUserInfo {
+    static let shared = StoreUserInfo()
     private init(){}
+    
+    // MARK: - Save Users FMCToken And Uid
     
     func saveUsersFMCTokenAndUid(uid: String, fcmToken: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()
@@ -61,6 +63,9 @@ class UserInfo {
             }
         }
     }
+    
+    
+    
     
     
 }
