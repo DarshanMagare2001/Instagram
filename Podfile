@@ -11,6 +11,6 @@ target 'InstaUiKit' do
 use_frameworks!
 pod 'ADCountryPicker', '~> 2.1.0'
 pod 'IQKeyboardManagerSwift'
-
+pod 'FirebaseMessaging'
 
 end

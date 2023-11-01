@@ -85,6 +85,7 @@
 		134F7F412AEF7C6800B6C31E /* UploadVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVC.swift; sourceTree = "<group>"; };
 		136B84A12A83B8E700C102F1 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		136B84A32A83B8FC00C102F1 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
+		1378138E2AF1175B00E0AFE3 /* InstaUiKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InstaUiKit.entitlements; sourceTree = "<group>"; };
 		138BC5D32A73806E00020297 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		138BC5D82A73922100020297 /* DirectMsgVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectMsgVC.swift; sourceTree = "<group>"; };
 		138BC5DA2A7395C800020297 /* DirectMsgCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectMsgCell.swift; sourceTree = "<group>"; };
@@ -177,6 +178,7 @@
 		131166362A70FB9900CD0373 /* InstaUiKit */ = {
 			isa = PBXGroup;
 			children = (
+				1378138E2AF1175B00E0AFE3 /* InstaUiKit.entitlements */,
 				131166542A70FEE200CD0373 /* AppDelegate */,
 				13DBE7732AEB933E0006F3B9 /* Utilities */,
 				1311665C2A7100E600CD0373 /* Extensions */,
@@ -1014,11 +1016,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = InstaUiKit/InstaUiKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = M36758779V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = InstaUiKit/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need your permission";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need your permission";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1043,11 +1048,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = InstaUiKit/InstaUiKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = M36758779V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = InstaUiKit/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need your permission";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need your permission";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
