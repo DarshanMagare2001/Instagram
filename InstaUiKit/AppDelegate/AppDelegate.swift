@@ -11,10 +11,15 @@ import IQKeyboardManagerSwift
 import FirebaseMessaging
 import FirebaseCore
 
+protocol MsgDelegate: AnyObject {
+    func didReceiveFCMToken(_ token: String?)
+}
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var orientationLock = UIInterfaceOrientationMask.portrait
     let gcmMessageIDKey = "gcm.Message_ID"
+    weak var messagingDelegate: MsgDelegate?
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return orientationLock
     }
@@ -62,15 +67,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate : MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("Firebase registration token: \(String(describing: fcmToken))")
-        
+        if let fcmToken = fcmToken {
+            Data.shared.saveData(fcmToken, key: "FCMToken") { _ in}
+            messagingDelegate?.didReceiveFCMToken(fcmToken)
+        }
         let dataDict: [String: String] = ["token": fcmToken ?? ""]
         NotificationCenter.default.post(
             name: Notification.Name("FCMToken"),
             object: nil,
             userInfo: dataDict
         )
-        // TODO: If necessary send token to application server.
-        // Note: This callback is fired at each app startup and whenever a new token is generated.
     }
     
 }
