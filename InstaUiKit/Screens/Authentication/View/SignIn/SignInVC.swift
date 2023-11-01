@@ -40,7 +40,7 @@ class SignInVC: UIViewController {
                     case .success(let uid):
                         if let uid = uid {
                             if let fcmToken = self.fcmToken {
-                                StoreUserInfo.shared.saveUsersFMCTokenAndUid(uid: uid, fcmToken: fcmToken) { result in
+                                StoreUserInfo.shared.saveUsersFMCTokenAndUidToFirebase(uid: uid, fcmToken: fcmToken) { result in
                                     switch result {
                                     case .success(let success):
                                         print(success)

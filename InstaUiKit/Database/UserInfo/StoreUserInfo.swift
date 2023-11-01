@@ -14,7 +14,7 @@ class StoreUserInfo {
     
     // MARK: - Save Users FMCToken And Uid
     
-    func saveUsersFMCTokenAndUid(uid: String, fcmToken: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func saveUsersFMCTokenAndUidToFirebase(uid: String, fcmToken: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()
         let userRef = db.collection("users").document(uid)
         // Check if the document exists
