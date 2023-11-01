@@ -8,11 +8,7 @@
 import UIKit
 import SwiftUI
 
-class HomeVC: UIViewController ,MsgDelegate {
-    func didReceiveFCMToken(_ token: String?) {
-        print(token)
-    }
-    
+class HomeVC: UIViewController {
     @IBOutlet weak var feedTableView: UITableView!
     @IBOutlet weak var storiesCollectionView: UICollectionView!
     @IBOutlet weak var userImg: CircleImageView!
@@ -28,8 +24,6 @@ class HomeVC: UIViewController ,MsgDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         updateUI()
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.messagingDelegate = self
     }
     
     @IBAction func directMsgBtnPressed(_ sender: UIButton) {
