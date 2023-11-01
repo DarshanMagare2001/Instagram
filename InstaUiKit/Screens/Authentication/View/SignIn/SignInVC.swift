@@ -40,7 +40,7 @@ class SignInVC: UIViewController {
                     case .success(let uid):
                         if let uid = uid {
                             if let fcmToken = self.fcmToken {
-                                self.viewModel.saveUserFCMTokenToFirebase(uid: uid, fcmToken: fcmToken) { result in
+                                UserInfo.shared.saveUsersFMCTokenAndUid(uid: uid, fcmToken: fcmToken) { result in
                                     switch result {
                                     case .success(let success):
                                         print(success)
@@ -75,7 +75,6 @@ class SignInVC: UIViewController {
             }
         }
     }
-    
     
     @IBAction func switchAccountsBtnPressed(_ sender: UIButton) {
         

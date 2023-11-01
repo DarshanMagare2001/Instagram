@@ -69,6 +69,7 @@
 		13FC20762AF23E6400D7EEFD /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 13FC20752AF23E6400D7EEFD /* FirebaseFirestoreSwift */; };
 		13FC20782AF23E6400D7EEFD /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 13FC20772AF23E6400D7EEFD /* FirebaseMessaging */; };
 		13FC207A2AF23E6400D7EEFD /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 13FC20792AF23E6400D7EEFD /* FirebaseStorage */; };
+		13FC207F2AF2687D00D7EEFD /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FC207E2AF2687D00D7EEFD /* UserInfo.swift */; };
 		5FC7C3CDA91FEFEC6E4E489F /* Pods_InstaUiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEBF60A2EEA38CC296EFB81 /* Pods_InstaUiKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -130,6 +131,7 @@
 		13FB7D612A723F0900D8FC5C /* StoriesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesCell.swift; sourceTree = "<group>"; };
 		13FB7D632A724BD200D8FC5C /* PhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCell.swift; sourceTree = "<group>"; };
 		13FC207B2AF2449900D7EEFD /* InstaUiKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InstaUiKit.entitlements; sourceTree = "<group>"; };
+		13FC207E2AF2687D00D7EEFD /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		3A55025370778E801932B594 /* Pods-InstaUiKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaUiKit.debug.xcconfig"; path = "Target Support Files/Pods-InstaUiKit/Pods-InstaUiKit.debug.xcconfig"; sourceTree = "<group>"; };
 		5FEBF60A2EEA38CC296EFB81 /* Pods_InstaUiKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaUiKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		750337433BA13E892417DBEB /* Pods-InstaUiKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaUiKit.release.xcconfig"; path = "Target Support Files/Pods-InstaUiKit/Pods-InstaUiKit.release.xcconfig"; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				13FC207B2AF2449900D7EEFD /* InstaUiKit.entitlements */,
 				131166542A70FEE200CD0373 /* AppDelegate */,
 				13DBE7732AEB933E0006F3B9 /* Utilities */,
+				13FC207C2AF267E100D7EEFD /* Database */,
 				1311665C2A7100E600CD0373 /* Extensions */,
 				13DBE77B2AEB986A0006F3B9 /* Common */,
 				131166562A70FEFA00CD0373 /* Storyboard */,
@@ -668,6 +671,22 @@
 			path = Alert;
 			sourceTree = "<group>";
 		};
+		13FC207C2AF267E100D7EEFD /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				13FC207D2AF2685E00D7EEFD /* UserInfo */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		13FC207D2AF2685E00D7EEFD /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				13FC207E2AF2687D00D7EEFD /* UserInfo.swift */,
+			);
+			path = UserInfo;
+			sourceTree = "<group>";
+		};
 		7A1121D9D6F2ECE7E142AC39 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -827,6 +846,7 @@
 				138BC5ED2A73B7E400020297 /* PostVCCollectionCell.swift in Sources */,
 				13DBE7752AEB938C0006F3B9 /* Storyboard+Extensions.swift in Sources */,
 				13FB7D5F2A722DE000D8FC5C /* FeedCell.swift in Sources */,
+				13FC207F2AF2687D00D7EEFD /* UserInfo.swift in Sources */,
 				136B84A42A83B8FC00C102F1 /* EditProfileViewModel.swift in Sources */,
 				13DBE7902AEBC20C0006F3B9 /* SignInVCViewModel.swift in Sources */,
 				139110142A8650ED00CABCD5 /* SearchModel.swift in Sources */,

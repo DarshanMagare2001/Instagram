@@ -44,22 +44,26 @@ class SignUpVC: UIViewController {
                     case .success(let uid):
                         if let uid = uid {
                             if let fcmToken = self.fcmToken {
-                                self.viewModel.saveUserFCMTokenToFirebase(uid: uid, fcmToken: fcmToken) { result in
+                                UserInfo.shared.saveUsersFMCTokenAndUid(uid: uid, fcmToken: fcmToken) { result in
                                     switch result {
                                     case .success(let success):
                                         print(success)
-                                        LoaderVCViewModel.shared.hideLoader()
-                                        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
-                                            if let destinationVC = destinationVC {
-                                                self.navigationController?.pushViewController(destinationVC, animated: true)
+                                        DispatchQueue.main.async {
+                                            LoaderVCViewModel.shared.hideLoader()
+                                            Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
+                                                if let destinationVC = destinationVC {
+                                                    self.navigationController?.pushViewController(destinationVC, animated: true)
+                                                }
                                             }
                                         }
                                     case .failure(let failure):
                                         print(failure)
-                                        LoaderVCViewModel.shared.hideLoader()
-                                        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
-                                            if let destinationVC = destinationVC {
-                                                self.navigationController?.pushViewController(destinationVC, animated: true)
+                                        DispatchQueue.main.async {
+                                            LoaderVCViewModel.shared.hideLoader()
+                                            Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
+                                                if let destinationVC = destinationVC {
+                                                    self.navigationController?.pushViewController(destinationVC, animated: true)
+                                                }
                                             }
                                         }
                                     }
