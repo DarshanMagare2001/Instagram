@@ -8,7 +8,9 @@
 import UIKit
 
 class SearchVCTableViewCell: UITableViewCell {
-
+    @IBOutlet weak var userImg: UIImageView!
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var userName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
        
