@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class SignUpVC: UIViewController {
     @IBOutlet weak var emailTxtFld: UITextField!
@@ -13,10 +14,22 @@ class SignUpVC: UIViewController {
     @IBOutlet weak var passwordHideShowBtn: UIButton!
     var isPasswordShow = false
     var viewModel : SignUpVCViewModel!
+    var fcmToken : String?
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = SignUpVCViewModel(presentingViewController: self)
         updateTxtFlds()
+        Data.shared.getData(key: "FCMToken") { (result:Result<String?,Error>) in
+            switch result {
+            case .success(let fcmtoken):
+                if let fcmtoken = fcmtoken {
+                    print(fcmtoken)
+                    self.fcmToken = fcmtoken
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     @IBAction func forgetPasswordBtnPressed(_ sender: UIButton) {
@@ -26,10 +39,35 @@ class SignUpVC: UIViewController {
     @IBAction func signUpBtnPressed(_ sender: UIButton) {
         viewModel.signUp(emailTxtFld: emailTxtFld.text, passwordTxtFld: passwordTxtFld.text) { value in
             if value {
-                LoaderVCViewModel.shared.hideLoader()
-                Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
-                    if let destinationVC = destinationVC {
-                        self.navigationController?.pushViewController(destinationVC, animated: true)
+                Data.shared.getData(key: "CurrentUserId") { (result:Result<String?,Error>) in
+                    switch result {
+                    case .success(let uid):
+                        if let uid = uid {
+                            if let fcmToken = self.fcmToken {
+                                self.viewModel.saveUserFCMTokenToFirebase(uid: uid, fcmToken: fcmToken) { result in
+                                    switch result {
+                                    case .success(let success):
+                                        print(success)
+                                        LoaderVCViewModel.shared.hideLoader()
+                                        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
+                                            if let destinationVC = destinationVC {
+                                                self.navigationController?.pushViewController(destinationVC, animated: true)
+                                            }
+                                        }
+                                    case .failure(let failure):
+                                        print(failure)
+                                        LoaderVCViewModel.shared.hideLoader()
+                                        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
+                                            if let destinationVC = destinationVC {
+                                                self.navigationController?.pushViewController(destinationVC, animated: true)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    case .failure(let failure):
+                        print(failure)
                     }
                 }
             }else{
@@ -69,7 +107,6 @@ class SignUpVC: UIViewController {
     func updateTxtFlds(){
         emailTxtFld.placeholder = "Enter email"
         passwordTxtFld.placeholder = "Enter password"
-        
     }
     
 }
