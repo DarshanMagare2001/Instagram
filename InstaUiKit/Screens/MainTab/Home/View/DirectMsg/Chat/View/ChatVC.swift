@@ -11,6 +11,9 @@ class ChatVC: UIViewController {
     @IBOutlet weak var userImg: CircleImageView!
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var tableViewOutlet: UITableView!
+    
+    @IBOutlet weak var msgTxtFld: UITextField!
+    
     var user : UserModel?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +27,11 @@ class ChatVC: UIViewController {
     @IBAction func backBtnPressed(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }
+    
+    @IBAction func sendBtnPressed(_ sender: UIButton) {
+        
+    }
+    
 }
 
 extension ChatVC : UITableViewDelegate , UITableViewDataSource {

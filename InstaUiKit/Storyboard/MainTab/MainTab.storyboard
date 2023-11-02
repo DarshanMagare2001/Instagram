@@ -524,6 +524,9 @@
                                                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
                                                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </buttonConfiguration>
+                                                                <connections>
+                                                                    <action selector="sendBtnPressed:" destination="Jhn-dv-jpa" eventType="touchUpInside" id="Zwp-P6-VQ1"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -579,6 +582,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="msgTxtFld" destination="gxI-jG-pds" id="rnQ-wD-LAH"/>
                         <outlet property="nameLbl" destination="axb-LL-mgl" id="lEz-7H-XPv"/>
                         <outlet property="tableViewOutlet" destination="JBv-Og-hdg" id="ukg-5l-v4n"/>
                         <outlet property="userImg" destination="MYV-yA-bab" id="V4G-Hv-q0z"/>
