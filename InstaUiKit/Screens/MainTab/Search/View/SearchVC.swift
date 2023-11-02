@@ -17,6 +17,8 @@ class SearchVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let nib = UINib(nibName: "FollowingCell", bundle: nil)
+        tableViewOutlet.register(nib, forCellReuseIdentifier: "FollowingCell")
         updateCell()
         SearchVCViewModel.shared.fetchAllPostURL { value in
             if value{
@@ -64,7 +66,7 @@ extension SearchVC : UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchVCTableViewCell", for: indexPath) as! SearchVCTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FollowingCell", for: indexPath) as! FollowingCell
         
         if let uid = HomeVCViewModel.shared.userArray[indexPath.row].keys.first,
            let name = HomeVCViewModel.shared.userArray[indexPath.row].values.first {
@@ -75,7 +77,7 @@ extension SearchVC : UITableViewDelegate , UITableViewDataSource {
                         if let url = url {
                             print(url)
                             ImageLoader.loadImage(for: url, into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
-                            cell.name.text = name
+                            cell.nameLbl.text = name
                         }
                     case .failure(let error):
                         print(error)

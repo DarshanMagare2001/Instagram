@@ -28,7 +28,6 @@
 		138BC5D42A73806E00020297 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BC5D32A73806E00020297 /* EditProfileVC.swift */; };
 		138BC5D92A73922100020297 /* DirectMsgVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BC5D82A73922100020297 /* DirectMsgVC.swift */; };
 		138BC5DB2A7395C800020297 /* DirectMsgCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BC5DA2A7395C800020297 /* DirectMsgCell.swift */; };
-		138BC5DF2A739D4E00020297 /* SearchVCTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BC5DE2A739D4E00020297 /* SearchVCTableViewCell.swift */; };
 		138BC5E12A739D7800020297 /* SearchVCCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BC5E02A739D7800020297 /* SearchVCCollectionViewCell.swift */; };
 		138BC5E52A73A4B300020297 /* LikesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BC5E32A73A4B300020297 /* LikesCell.swift */; };
 		138BC5E62A73A4B300020297 /* LikesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 138BC5E42A73A4B300020297 /* LikesCell.xib */; };
@@ -92,7 +91,6 @@
 		138BC5D32A73806E00020297 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		138BC5D82A73922100020297 /* DirectMsgVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectMsgVC.swift; sourceTree = "<group>"; };
 		138BC5DA2A7395C800020297 /* DirectMsgCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectMsgCell.swift; sourceTree = "<group>"; };
-		138BC5DE2A739D4E00020297 /* SearchVCTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVCTableViewCell.swift; sourceTree = "<group>"; };
 		138BC5E02A739D7800020297 /* SearchVCCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVCCollectionViewCell.swift; sourceTree = "<group>"; };
 		138BC5E32A73A4B300020297 /* LikesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesCell.swift; sourceTree = "<group>"; };
 		138BC5E42A73A4B300020297 /* LikesCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikesCell.xib; sourceTree = "<group>"; };
@@ -326,6 +324,15 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		13127A822AF367DC008C7927 /* FollowingCell */ = {
+			isa = PBXGroup;
+			children = (
+				138BC5E72A73A4D300020297 /* FollowingCell.swift */,
+				138BC5E82A73A4D300020297 /* FollowingCell.xib */,
+			);
+			path = FollowingCell;
+			sourceTree = "<group>";
+		};
 		138BC5D52A7391DB00020297 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
@@ -352,14 +359,6 @@
 			path = DirectMsg;
 			sourceTree = "<group>";
 		};
-		138BC5DC2A739CAC00020297 /* TableView */ = {
-			isa = PBXGroup;
-			children = (
-				138BC5DE2A739D4E00020297 /* SearchVCTableViewCell.swift */,
-			);
-			path = TableView;
-			sourceTree = "<group>";
-		};
 		138BC5DD2A739CBD00020297 /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -373,8 +372,6 @@
 			children = (
 				138BC5E32A73A4B300020297 /* LikesCell.swift */,
 				138BC5E42A73A4B300020297 /* LikesCell.xib */,
-				138BC5E72A73A4D300020297 /* FollowingCell.swift */,
-				138BC5E82A73A4D300020297 /* FollowingCell.xib */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -450,7 +447,6 @@
 			isa = PBXGroup;
 			children = (
 				1392D0252A80B52E004B6654 /* SearchVC.swift */,
-				138BC5DC2A739CAC00020297 /* TableView */,
 				138BC5DD2A739CBD00020297 /* CollectionView */,
 			);
 			path = View;
@@ -614,6 +610,7 @@
 		13DBE77B2AEB986A0006F3B9 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				13127A822AF367DC008C7927 /* FollowingCell */,
 				13DBE7912AEBC3190006F3B9 /* Alert */,
 				13DBE7812AEBB82B0006F3B9 /* Loader */,
 			);
@@ -863,7 +860,6 @@
 				13DBE7902AEBC20C0006F3B9 /* SignInVCViewModel.swift in Sources */,
 				139110142A8650ED00CABCD5 /* SearchModel.swift in Sources */,
 				1392D0102A80B3BE004B6654 /* RoundedCorner.swift in Sources */,
-				138BC5DF2A739D4E00020297 /* SearchVCTableViewCell.swift in Sources */,
 				136B84A22A83B8E700C102F1 /* ProfileViewModel.swift in Sources */,
 				138BC5E92A73A4D300020297 /* FollowingCell.swift in Sources */,
 				13DBE78E2AEBC1F60006F3B9 /* SignUpVCViewModel.swift in Sources */,

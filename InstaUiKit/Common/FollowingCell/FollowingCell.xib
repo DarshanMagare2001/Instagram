@@ -18,26 +18,27 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Jgv-Sg-oIo">
-                        <rect key="frame" x="10" y="10" width="389" height="85"/>
+                        <rect key="frame" x="10" y="10" width="384" height="85"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="demoAccount" translatesAutoresizingMaskIntoConstraints="NO" id="A4z-dX-qye">
-                                <rect key="frame" x="0.0" y="12.5" width="60" height="60"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="A4z-dX-qye" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="4" width="80" height="77"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="635-Tm-tZH"/>
-                                    <constraint firstAttribute="width" constant="60" id="saD-D9-i7P"/>
+                                    <constraint firstAttribute="height" constant="80" id="635-Tm-tZH"/>
+                                    <constraint firstAttribute="width" constant="80" id="saD-D9-i7P"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="xQF-a7-fqQ">
-                                <rect key="frame" x="70" y="19" width="209" height="47"/>
+                                <rect key="frame" x="90" y="19" width="154" height="47"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Darshan" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qal-TT-RXl">
-                                        <rect key="frame" x="0.0" y="0.0" width="209" height="18"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="154" height="18"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="_darsh_242" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2bG-ha-mjj">
-                                        <rect key="frame" x="0.0" y="29" width="209" height="18"/>
+                                        <rect key="frame" x="0.0" y="29" width="154" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -45,10 +46,10 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JSS-sI-RNW" customClass="RoundedButtonWithBorder" customModule="InstaUiKit" customModuleProvider="target">
-                                <rect key="frame" x="289" y="26.5" width="100" height="32"/>
+                                <rect key="frame" x="254" y="26.5" width="130" height="32"/>
                                 <color key="backgroundColor" systemColor="linkColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="Sim-re-0Xa"/>
+                                    <constraint firstAttribute="width" constant="130" id="Sim-re-0Xa"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
@@ -62,16 +63,22 @@
                 <constraints>
                     <constraint firstItem="Jgv-Sg-oIo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="H1e-sS-Kbd"/>
                     <constraint firstAttribute="bottom" secondItem="Jgv-Sg-oIo" secondAttribute="bottom" constant="10" id="Igg-wM-qAM"/>
-                    <constraint firstAttribute="trailing" secondItem="Jgv-Sg-oIo" secondAttribute="trailing" constant="10" id="Ktd-Bv-0M1"/>
+                    <constraint firstAttribute="trailing" secondItem="Jgv-Sg-oIo" secondAttribute="trailing" constant="15" id="Ktd-Bv-0M1"/>
                     <constraint firstItem="Jgv-Sg-oIo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="UQW-QZ-JX1"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <point key="canvasLocation" x="216.66666666666669" y="120.87053571428571"/>
+            <connections>
+                <outlet property="followBtn" destination="JSS-sI-RNW" id="jFW-Uz-ytT"/>
+                <outlet property="nameLbl" destination="qal-TT-RXl" id="8Sr-fR-Eaa"/>
+                <outlet property="userImg" destination="A4z-dX-qye" id="GGv-8C-Lt9"/>
+                <outlet property="userNameLbl" destination="2bG-ha-mjj" id="rzs-Aa-llY"/>
+            </connections>
+            <point key="canvasLocation" x="215" y="111"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="demoAccount" width="85" height="85"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
