@@ -93,6 +93,18 @@ extension HomeVC {
             }
         }
         
+        FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    print(data)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        
         feedTableView.reloadData()
         
     }

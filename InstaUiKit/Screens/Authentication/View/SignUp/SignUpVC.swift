@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftUI
+import FirebaseAuth
 
 class SignUpVC: UIViewController {
     @IBOutlet weak var emailTxtFld: UITextField!

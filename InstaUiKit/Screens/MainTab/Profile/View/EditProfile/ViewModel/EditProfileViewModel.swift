@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseAuth
 import FirebaseStorage
+import FirebaseFirestore
 import UIKit
 
 class EditProfileViewModel {
@@ -112,12 +113,10 @@ class EditProfileViewModel {
     func fetchUserProfileImageURL(completion: @escaping (Result<URL?, Error>) -> Void) {
         let storage = Storage.storage()
         let storageRef = storage.reference()
-        
         Data.shared.getData(key: "CurrentUserId") { (result: Result<String, Error>) in
             switch result {
             case .success(let uid):
                 let profileImagesRef = storageRef.child("profile_images/\(uid)")
-                
                 // List all items in the profile images folder
                 profileImagesRef.listAll { (result, error) in
                     if let error = error {
@@ -210,6 +209,38 @@ class EditProfileViewModel {
             }
         }
     }
+    
+    
+    func saveUserProfileImageToFirebaseDatabase(uid: String, imageUrl: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(uid)
+        // Check if the document exists
+        userRef.getDocument { (document, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            if let document = document, document.exists {
+                if let imageUrl = imageUrl {
+                    userRef.updateData(["imageUrl": imageUrl]) { error in
+                        if let error = error {
+                            completion(.failure(error))
+                        } else {
+                            completion(.success(()))
+                        }
+                    }
+                } else {
+                }
+            } else {
+                // Handle the case where the user document doesn't exist
+                completion(.failure(error as! Error))
+            }
+        }
+    }
+
+    
+    
     
 }
 

@@ -205,7 +205,25 @@ extension EditProfileVC: ImagePickerDelegate , UIViewControllerTransitioningDele
                 // Convert the URL to a string before saving
                 let urlString = url.absoluteString
                 Data.shared.saveData(urlString, key: "ProfileUrl") { _ in
-                    LoaderVCViewModel.shared.hideLoader()
+                    Data.shared.getData(key: "CurrentUserId") { (result:Result<String?,Error>) in
+                        switch result {
+                        case .success(let uid):
+                            if let uid = uid {
+                                self.viewModel.saveUserProfileImageToFirebaseDatabase(uid: uid, imageUrl: urlString) { result in
+                                    switch result {
+                                    case .success(let data):
+                                        print(data)
+                                        LoaderVCViewModel.shared.hideLoader()
+                                    case .failure(let error):
+                                        print(error)
+                                        LoaderVCViewModel.shared.hideLoader()
+                                    }
+                                }
+                            }
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
                 }
             case .failure(let error):
                 print(error)
@@ -213,7 +231,7 @@ extension EditProfileVC: ImagePickerDelegate , UIViewControllerTransitioningDele
             }
         }
     }
-
+    
     
     func cancelButtonDidClick(on imageView: ImagePicker) { imagePicker.dismiss() }
     func imagePicker(_ imagePicker: ImagePicker, grantedAccess: Bool,
