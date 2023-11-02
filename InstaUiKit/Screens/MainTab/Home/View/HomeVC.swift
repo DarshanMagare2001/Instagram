@@ -20,7 +20,6 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         let nib = UINib(nibName: "FeedCell", bundle: nil)
         feedTableView.register(nib, forCellReuseIdentifier: "FeedCell")
-        updateUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
