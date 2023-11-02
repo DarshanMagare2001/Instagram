@@ -17,7 +17,7 @@ class ChatVC: UIViewController {
     var chatRoomID: String?
     var messagesRef: DatabaseReference?
     var messages: [Message] = [] // Store chat messages here
-    
+    var currentUid : String?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,6 +33,7 @@ class ChatVC: UIViewController {
                 case .success(let uid):
                     if let currentUID = uid {
                         // Generate a chat room ID using sender and receiver's UIDs
+                        self.currentUid = currentUID
                         self.chatRoomID = self.generateChatRoomID(senderID: currentUID, receiverID: receiverUser.uid ?? "")
                         self.messagesRef = Database.database().reference().child("chats").child(self.chatRoomID ?? "").child("messages")
                         
@@ -104,7 +105,7 @@ class ChatVC: UIViewController {
             }
         }
     }
-
+    
 }
 
 struct Message {
@@ -122,6 +123,15 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MsgCell", for: indexPath) as! MsgCell
         cell.msgLbl.text = messages[indexPath.row].text
+        if let currentUid = currentUid {
+            if messages[indexPath.row].senderID == currentUid {
+                cell.v2.isHidden = true
+                cell.v1.isHidden = false
+            }else{
+                cell.v1.isHidden = true
+                cell.v2.isHidden = false
+            }
+        }
         return cell
     }
 }

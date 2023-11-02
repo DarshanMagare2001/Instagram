@@ -430,20 +430,20 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FfD-76-XuO">
-                                                                    <rect key="frame" x="0.0" y="20" width="300" height="66"/>
+                                                                    <rect key="frame" x="0.0" y="15" width="300" height="76"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="51A-bo-HMW">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="70" height="66"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="70" height="76"/>
                                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="70" id="Bxu-Rr-4KX"/>
                                                                             </constraints>
                                                                         </view>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U77-0N-guj" customClass="RoundedViewWithBorder" customModule="InstaUiKit" customModuleProvider="target">
-                                                                            <rect key="frame" x="70" y="0.0" width="160" height="66"/>
+                                                                            <rect key="frame" x="70" y="0.0" width="160" height="76"/>
                                                                             <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HfF-QC-mrD">
-                                                                                    <rect key="frame" x="5" y="5" width="150" height="56"/>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HfF-QC-mrD">
+                                                                                    <rect key="frame" x="5" y="5" width="150" height="66"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="nbj-DA-Yb2"/>
                                                                                     </constraints>
@@ -461,7 +461,7 @@
                                                                             </constraints>
                                                                         </view>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zim-pZ-qBy">
-                                                                            <rect key="frame" x="230" y="0.0" width="70" height="66"/>
+                                                                            <rect key="frame" x="230" y="0.0" width="70" height="76"/>
                                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="70" id="hOa-Gb-ww9"/>
@@ -472,9 +472,9 @@
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstAttribute="trailing" secondItem="FfD-76-XuO" secondAttribute="trailing" id="Oru-AQ-ssk"/>
-                                                                <constraint firstAttribute="bottom" secondItem="FfD-76-XuO" secondAttribute="bottom" constant="20" id="Tvq-B7-Qmh"/>
+                                                                <constraint firstAttribute="bottom" secondItem="FfD-76-XuO" secondAttribute="bottom" constant="15" id="Tvq-B7-Qmh"/>
                                                                 <constraint firstItem="FfD-76-XuO" firstAttribute="leading" secondItem="W4f-hH-BRk" secondAttribute="leading" id="cmz-Mi-7GB"/>
-                                                                <constraint firstItem="FfD-76-XuO" firstAttribute="top" secondItem="W4f-hH-BRk" secondAttribute="top" constant="20" id="nkv-Ue-IdY"/>
+                                                                <constraint firstItem="FfD-76-XuO" firstAttribute="top" secondItem="W4f-hH-BRk" secondAttribute="top" constant="15" id="nkv-Ue-IdY"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
                                                         <connections>
