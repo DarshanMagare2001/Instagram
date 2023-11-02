@@ -56,11 +56,10 @@ extension DirectMsgVC : UITableViewDelegate , UITableViewDataSource {
                             cell.nameLbl.text = name
                             cell.userNameLbl.text = userName
                             cell.directMsgButtonTapped = { [weak self] in
-                                Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "ChatVC") { destinationVC in
-                                    if let destinationVC = destinationVC {
-                                        self?.navigationController?.pushViewController(destinationVC, animated: true)
-                                    }
-                                }
+                                let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
+                                let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChatVC") as! ChatVC
+                                destinationVC.user = self?.allUniqueUsersArray[indexPath.row]
+                                self?.navigationController?.pushViewController(destinationVC, animated: true)
                             }
                         }
                     case .failure(let error):
