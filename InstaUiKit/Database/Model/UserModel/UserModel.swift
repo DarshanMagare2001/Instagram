@@ -8,15 +8,15 @@
 import Foundation
 
 struct UserModel {
-    var uid: String
-    var bio: String
-    var fcmToken: String
-    var phoneNumber: String
-    var countryCode: String
-    var name: String
-    var imageUrl: String
-    var gender: String
-    var username: String
+    var uid: String?
+    var bio: String?
+    var fcmToken: String?
+    var phoneNumber: String?
+    var countryCode: String?
+    var name: String?
+    var imageUrl: String?
+    var gender: String?
+    var username: String?
 
     init(uid: String, bio: String, fcmToken: String, phoneNumber: String, countryCode: String, name: String, imageUrl: String, gender: String, username: String) {
         self.uid = uid

@@ -15,6 +15,7 @@ class HomeVC: UIViewController {
     var imgURL : URL?
     var userName : String?
     var allPost = [ImageModel]()
+    var allUniqueUsersArray = [UserModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
         let nib = UINib(nibName: "FeedCell", bundle: nil)
@@ -85,19 +86,14 @@ extension HomeVC {
             ImageLoader.loadImage(for: url, into: userImg, withPlaceholder: UIImage(systemName: "person.fill"))
         }
         
-        HomeVCViewModel.shared.fetchUniqueUsers { value in
-            if value{
-                self.storiesCollectionView.reloadData()
-            }else{
-                self.storiesCollectionView.reloadData()
-            }
-        }
-        
         FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {
                     print(data)
+                    self.allUniqueUsersArray = data
+                    self.storiesCollectionView.reloadData()
+                    self.feedTableView.reloadData()
                 }
             case .failure(let error):
                 print(error)
@@ -105,7 +101,7 @@ extension HomeVC {
         }
         
         
-        feedTableView.reloadData()
+        
         
     }
 }
@@ -147,14 +143,13 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource {
 
 extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return HomeVCViewModel.shared.userArray.count
+        return allUniqueUsersArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StoriesCell", for: indexPath) as! StoriesCell
-        
-        if let uid = HomeVCViewModel.shared.userArray[indexPath.row].keys.first,
-           let name = HomeVCViewModel.shared.userArray[indexPath.row].values.first {
+        if let uid = allUniqueUsersArray[indexPath.row].uid,
+           let name = allUniqueUsersArray[indexPath.row].name {
             DispatchQueue.main.async {
                 EditProfileViewModel.shared.fetchUserProfileImageURLWithUid(uid: uid) { result in
                     switch result {
@@ -170,7 +165,6 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
                 }
             }
         }
-        
         return cell
     }
     
