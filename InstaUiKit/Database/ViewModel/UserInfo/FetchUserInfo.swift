@@ -40,7 +40,7 @@ class FetchUserInfo {
                                    let uid = document["uid"] as? String,
                                    let username = document["username"] as? String {
                                     if uid != currentUid { // Check if the uid is not the current user's uid
-                                        let user = UserModel(uid: uid, bio: bio, fcmToken: fcmToken, phoneNumber: phoneNumber, countryCode: countryCode, name: name, imageUrl: imageURL, gender: username, username: imageURL)
+                                        let user = UserModel(uid: uid, bio: bio, fcmToken: fcmToken, phoneNumber: phoneNumber, countryCode: countryCode, name: name, imageUrl: imageURL, gender: gender, username: username)
                                         users.append(user)
                                         print(users)
                                     }
@@ -57,7 +57,6 @@ class FetchUserInfo {
             }
         }
     }
-
 
 
 }

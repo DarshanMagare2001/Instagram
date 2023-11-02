@@ -14,7 +14,7 @@ class SearchVC: UIViewController {
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     var allPost = [ImageModel]()
-    
+    var allUniqueUsersArray = [UserModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
         let nib = UINib(nibName: "FollowingCell", bundle: nil)
@@ -27,15 +27,6 @@ class SearchVC: UIViewController {
                 self.collectionViewOutlet.reloadData()
             }
         }
-        
-        HomeVCViewModel.shared.fetchUniqueUsers { value in
-            if value{
-                self.tableViewOutlet.reloadData()
-            }else{
-                self.tableViewOutlet.reloadData()
-            }
-        }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,6 +37,20 @@ class SearchVC: UIViewController {
                 self.collectionViewOutlet.reloadData()
             }
         }
+        
+        FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    print(data)
+                    self.allUniqueUsersArray = data
+                    self.tableViewOutlet.reloadData()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
     }
     
     func updateCell() {
@@ -62,14 +67,15 @@ class SearchVC: UIViewController {
 
 extension SearchVC : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return HomeVCViewModel.shared.userArray.count
+        return allUniqueUsersArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FollowingCell", for: indexPath) as! FollowingCell
         
-        if let uid = HomeVCViewModel.shared.userArray[indexPath.row].keys.first,
-           let name = HomeVCViewModel.shared.userArray[indexPath.row].values.first {
+        if let uid = allUniqueUsersArray[indexPath.row].uid,
+           let name = allUniqueUsersArray[indexPath.row].name,
+           let userName = allUniqueUsersArray[indexPath.row].username {
             DispatchQueue.main.async {
                 EditProfileViewModel.shared.fetchUserProfileImageURLWithUid(uid: uid) { result in
                     switch result {
@@ -78,6 +84,7 @@ extension SearchVC : UITableViewDelegate , UITableViewDataSource {
                             print(url)
                             ImageLoader.loadImage(for: url, into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
                             cell.nameLbl.text = name
+                            cell.userNameLbl.text = userName
                         }
                     case .failure(let error):
                         print(error)
@@ -85,7 +92,7 @@ extension SearchVC : UITableViewDelegate , UITableViewDataSource {
                 }
             }
         }
-       
+        
         return cell
     }
     
