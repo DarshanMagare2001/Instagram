@@ -258,7 +258,7 @@
                                 </constraints>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8ut-ot-BsM">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8ut-ot-BsM">
                                 <rect key="frame" x="0.0" y="140" width="320" height="428"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
@@ -272,7 +272,7 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pnk-I6-p7g">
                                                     <rect key="frame" x="16" y="11" width="288" height="84"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="WKb-OS-atc">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="WKb-OS-atc" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="13.5" width="60" height="57"/>
                                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -305,6 +305,9 @@
                                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <state key="normal" title="Button"/>
                                                             <buttonConfiguration key="configuration" style="plain" image="paperplane" catalog="system" title=" "/>
+                                                            <connections>
+                                                                <action selector="directMsgBtnPressed:" destination="Xco-cg-V5x" eventType="touchUpInside" id="8e1-Z3-ro8"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                 </stackView>
@@ -316,6 +319,12 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="pnk-I6-p7g" secondAttribute="trailing" id="h2e-QE-JiS"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="directMsgBtn" destination="QjL-t2-BcZ" id="Woj-Er-iIO"/>
+                                            <outlet property="nameLbl" destination="kgc-Ff-XwQ" id="xCi-IA-akl"/>
+                                            <outlet property="userImg" destination="WKb-OS-atc" id="IHZ-Y0-yc4"/>
+                                            <outlet property="userNameLbl" destination="tW4-SE-PWI" id="xcC-Fa-y52"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -345,6 +354,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z9K-wg-Ekl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2100" y="739.43661971830988"/>
+        </scene>
+        <!--ChatVC-->
+        <scene sceneID="yL8-Od-JRv">
+            <objects>
+                <viewController storyboardIdentifier="ChatVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Jhn-dv-jpa" customClass="ChatVC" customModule="InstaUiKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cZX-ER-YBi">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HH2-Re-gL4">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="48y-ee-yrb"/>
+                                    <constraint firstAttribute="height" constant="50" id="LOI-Iq-5Xh"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="BackArrow" title=" "/>
+                                <connections>
+                                    <action selector="backBtnPressed:" destination="Jhn-dv-jpa" eventType="touchUpInside" id="edn-Y1-vDM"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ih1-Ck-u54"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="HH2-Re-gL4" firstAttribute="leading" secondItem="ih1-Ck-u54" secondAttribute="leading" id="c5G-YH-YGk"/>
+                            <constraint firstItem="HH2-Re-gL4" firstAttribute="top" secondItem="ih1-Ck-u54" secondAttribute="top" id="oqB-CO-rA3"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Vt-hw-sch" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2106" y="1403"/>
         </scene>
         <!--SearchVC-->
         <scene sceneID="GrE-8Q-M1k">
@@ -714,7 +756,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Fmf-cT-pLG">
                                 <rect key="frame" x="20" y="70" width="280" height="150"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="demoAccount" translatesAutoresizingMaskIntoConstraints="NO" id="ZJo-78-urP">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZJo-78-urP">
                                         <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="150" id="JAY-dA-vcE"/>
@@ -1758,7 +1800,6 @@
         <image name="camera" catalog="system" width="128" height="94"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="circle" catalog="system" width="128" height="121"/>
-        <image name="demoAccount" width="85" height="85"/>
         <image name="line.3.horizontal" catalog="system" width="128" height="64"/>
         <image name="lock.fill" catalog="system" width="128" height="128"/>
         <image name="paperplane" catalog="system" width="128" height="118"/>
