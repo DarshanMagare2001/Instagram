@@ -11,8 +11,11 @@ class FollowingCell: UITableViewCell {
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var userImg: UIImageView!
     @IBOutlet weak var userNameLbl: UILabel!
-    @IBOutlet weak var followBtn: RoundedButtonWithBorder!
-    
+    @IBOutlet weak var followBtn: UIButton!
+    var followBtnTapped: (() -> Void)?
+    @IBAction func followBtnPressed(_ sender: UIButton) {
+        followBtnTapped?()
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         

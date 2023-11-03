@@ -56,6 +56,9 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Follow">
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="15"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="followBtnPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="9SZ-YR-Iu6"/>
+                                </connections>
                             </button>
                         </subviews>
                     </stackView>

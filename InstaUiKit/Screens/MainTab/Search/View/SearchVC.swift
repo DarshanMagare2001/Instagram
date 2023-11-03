@@ -95,6 +95,12 @@ extension SearchVC {
                         ImageLoader.loadImage(for: URL(string: imgUrl), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
                         cell.nameLbl.text = name
                         cell.userNameLbl.text = userName
+                        cell.followBtnTapped = { [weak self] in
+                            let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
+                            let destinationVC = storyboard.instantiateViewController(withIdentifier: "UsersProfileView") as! UsersProfileView
+//                            destinationVC.receiverUser = element
+                            self?.navigationController?.pushViewController(destinationVC, animated: true)
+                        }
                     }
                 }
             }

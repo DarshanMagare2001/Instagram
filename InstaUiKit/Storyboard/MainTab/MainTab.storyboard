@@ -843,6 +843,21 @@
             </objects>
             <point key="canvasLocation" x="-774.375" y="68.661971830985919"/>
         </scene>
+        <!--Users Profile View-->
+        <scene sceneID="4Ud-qp-GRG">
+            <objects>
+                <viewController storyboardIdentifier="UsersProfileView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5Lu-aU-N0U" customClass="UsersProfileView" customModule="InstaUiKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xb6-tW-tGg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="W7K-Ma-Y3a"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sw9-lz-1NI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1429" y="744"/>
+        </scene>
         <!--UploadVC-->
         <scene sceneID="M9A-kn-oc9">
             <objects>
