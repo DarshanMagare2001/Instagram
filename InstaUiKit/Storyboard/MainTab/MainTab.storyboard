@@ -624,7 +624,23 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hyY-cu-P0b">
                                 <rect key="frame" x="0.0" y="80" width="320" height="439"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OXc-Iy-5sl">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gy6-Gg-g0z" userLabel="tableView">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="439"/>
+                                        <subviews>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="3Iq-d7-inL">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="439"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            </tableView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="3Iq-d7-inL" secondAttribute="bottom" id="BIN-Iu-ieb"/>
+                                            <constraint firstItem="3Iq-d7-inL" firstAttribute="top" secondItem="gy6-Gg-g0z" secondAttribute="top" id="XBZ-gL-qp6"/>
+                                            <constraint firstItem="3Iq-d7-inL" firstAttribute="leading" secondItem="gy6-Gg-g0z" secondAttribute="leading" id="aCp-UR-m8J"/>
+                                            <constraint firstAttribute="trailing" secondItem="3Iq-d7-inL" secondAttribute="trailing" id="ynk-0N-QmX"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OXc-Iy-5sl" userLabel="collectionView">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="439"/>
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="oGL-o2-fM0">
@@ -675,22 +691,6 @@
                                             <constraint firstItem="oGL-o2-fM0" firstAttribute="top" secondItem="OXc-Iy-5sl" secondAttribute="top" id="elG-BL-85I"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gy6-Gg-g0z">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="439"/>
-                                        <subviews>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="3Iq-d7-inL">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="439"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                            </tableView>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="3Iq-d7-inL" secondAttribute="bottom" id="BIN-Iu-ieb"/>
-                                            <constraint firstItem="3Iq-d7-inL" firstAttribute="top" secondItem="gy6-Gg-g0z" secondAttribute="top" id="XBZ-gL-qp6"/>
-                                            <constraint firstItem="3Iq-d7-inL" firstAttribute="leading" secondItem="gy6-Gg-g0z" secondAttribute="leading" id="aCp-UR-m8J"/>
-                                            <constraint firstAttribute="trailing" secondItem="3Iq-d7-inL" secondAttribute="trailing" id="ynk-0N-QmX"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <constraints>
@@ -721,8 +721,10 @@
                         <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
                     <connections>
+                        <outlet property="collectionView" destination="OXc-Iy-5sl" id="tzJ-mK-4UY"/>
                         <outlet property="collectionViewOutlet" destination="oGL-o2-fM0" id="fUA-tz-Ctf"/>
                         <outlet property="searchBar" destination="BdX-06-8kQ" id="N9f-2q-BmI"/>
+                        <outlet property="tableView" destination="gy6-Gg-g0z" id="GJy-oK-WhA"/>
                         <outlet property="tableViewOutlet" destination="3Iq-d7-inL" id="6z0-Tp-4wd"/>
                     </connections>
                 </viewController>

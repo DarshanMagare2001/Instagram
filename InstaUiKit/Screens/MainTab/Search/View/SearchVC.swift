@@ -13,6 +13,8 @@ class SearchVC: UIViewController {
     @IBOutlet weak var collectionViewOutlet: UICollectionView!
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UIView!
+    @IBOutlet weak var collectionView: UIView!
     var allPost = [ImageModel]()
     var allUniqueUsersArray = [UserModel]()
     let disposeBag = DisposeBag()
@@ -60,19 +62,16 @@ class SearchVC: UIViewController {
     func addDoneButtonToSearchBarKeyboard() {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
-        
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
-        
         toolbar.items = [flexibleSpace, doneButton]
-        
         searchBar.inputAccessoryView = toolbar
     }
     
     @objc func doneButtonTapped() {
         searchBar.resignFirstResponder() // Dismiss the keyboard
     }
-
+    
     
 }
 
@@ -86,17 +85,17 @@ extension SearchVC {
         // Bind the filtered user data to the table view
         filteredUsers
             .bind(to: tableViewOutlet
-                .rx
-                .items(cellIdentifier: "FollowingCell", cellType: FollowingCell.self)) { (row, element, cell) in
-                    if let name = element.name , let userName = element.username , let imgUrl = element.imageUrl {
-                        DispatchQueue.main.async {
-                            ImageLoader.loadImage(for: URL(string: imgUrl), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
-                            cell.nameLbl.text = name
-                            cell.userNameLbl.text = userName
-                        }
+                    .rx
+                    .items(cellIdentifier: "FollowingCell", cellType: FollowingCell.self)) { (row, element, cell) in
+                if let name = element.name , let userName = element.username , let imgUrl = element.imageUrl {
+                    DispatchQueue.main.async {
+                        ImageLoader.loadImage(for: URL(string: imgUrl), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                        cell.nameLbl.text = name
+                        cell.userNameLbl.text = userName
                     }
+                }
             }
-            .disposed(by: disposeBag)
+                    .disposed(by: disposeBag)
         
         // Observe changes in the search bar text
         searchBar.rx.text
@@ -108,9 +107,13 @@ extension SearchVC {
                 let filteredData = self?.allUniqueUsersArray.filter { user in
                     if query.isEmpty {
                         // Show all users if the query is empty
+                        self?.tableView.isHidden = true
+                        self?.collectionView.isHidden = false
                         return true
                     } else {
                         // Filter users whose name contains the query
+                        self?.tableView.isHidden = false
+                        self?.collectionView.isHidden = true
                         return (user.name?.lowercased().contains(query.lowercased()) == true)
                     }
                 }
