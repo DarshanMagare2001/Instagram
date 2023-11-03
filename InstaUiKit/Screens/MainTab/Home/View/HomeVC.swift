@@ -130,25 +130,15 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StoriesCell", for: indexPath) as! StoriesCell
         if let uid = allUniqueUsersArray[indexPath.row].uid,
-           let name = allUniqueUsersArray[indexPath.row].name {
+           let name = allUniqueUsersArray[indexPath.row].name,
+           let imgUrl = allUniqueUsersArray[indexPath.row].imageUrl{
             DispatchQueue.main.async {
-                EditProfileViewModel.shared.fetchUserProfileImageURLWithUid(uid: uid) { result in
-                    switch result {
-                    case .success(let url):
-                        if let url = url {
-                            print(url)
-                            ImageLoader.loadImage(for: url, into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
-                            cell.userName.text = name
-                        }
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
+                ImageLoader.loadImage(for: URL(string: imgUrl), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                cell.userName.text = name
             }
         }
         return cell
     }
-    
 }
 
 
