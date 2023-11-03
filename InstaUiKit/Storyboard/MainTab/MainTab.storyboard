@@ -681,63 +681,6 @@
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="3Iq-d7-inL">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="439"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchVCTableViewCell" rowHeight="81" id="NXm-hD-CNb" customClass="SearchVCTableViewCell" customModule="InstaUiKit" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="44.5" width="320" height="81"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NXm-hD-CNb" id="N8P-Qt-aAX">
-                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="81"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                            <subviews>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="mfi-sc-ODa">
-                                                                    <rect key="frame" x="16" y="11" width="288" height="59"/>
-                                                                    <subviews>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="69H-fs-wJL" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
-                                                                            <rect key="frame" x="0.0" y="1.5" width="60" height="56"/>
-                                                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" constant="60" id="nGG-yG-X4b"/>
-                                                                                <constraint firstAttribute="height" constant="60" id="oMP-BK-3Qy"/>
-                                                                            </constraints>
-                                                                        </imageView>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aWF-YS-I8l">
-                                                                            <rect key="frame" x="70" y="0.0" width="218" height="59"/>
-                                                                            <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Darshan" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lZo-8u-TBF">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="218" height="24.5"/>
-                                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                                                    <nil key="textColor"/>
-                                                                                    <nil key="highlightedColor"/>
-                                                                                </label>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="_darsh_242" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4YJ-PU-X7u">
-                                                                                    <rect key="frame" x="0.0" y="34.5" width="218" height="24.5"/>
-                                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                    <nil key="highlightedColor"/>
-                                                                                </label>
-                                                                            </subviews>
-                                                                        </stackView>
-                                                                    </subviews>
-                                                                </stackView>
-                                                            </subviews>
-                                                            <constraints>
-                                                                <constraint firstItem="mfi-sc-ODa" firstAttribute="leading" secondItem="N8P-Qt-aAX" secondAttribute="leadingMargin" id="8xD-bV-Y9m"/>
-                                                                <constraint firstAttribute="trailingMargin" secondItem="mfi-sc-ODa" secondAttribute="trailing" id="cJV-KW-Ege"/>
-                                                                <constraint firstItem="mfi-sc-ODa" firstAttribute="top" secondItem="N8P-Qt-aAX" secondAttribute="topMargin" id="jbY-tx-bOW"/>
-                                                                <constraint firstAttribute="bottomMargin" secondItem="mfi-sc-ODa" secondAttribute="bottom" id="rVQ-Ni-5mJ"/>
-                                                            </constraints>
-                                                        </tableViewCellContentView>
-                                                        <connections>
-                                                            <outlet property="name" destination="lZo-8u-TBF" id="6lt-Yd-v9c"/>
-                                                            <outlet property="userImg" destination="69H-fs-wJL" id="cTb-r8-nYG"/>
-                                                            <outlet property="userName" destination="4YJ-PU-X7u" id="gih-ee-yr1"/>
-                                                        </connections>
-                                                    </tableViewCell>
-                                                </prototypes>
-                                                <connections>
-                                                    <outlet property="dataSource" destination="S0h-Lf-XLg" id="zwd-GW-5iE"/>
-                                                    <outlet property="delegate" destination="S0h-Lf-XLg" id="29s-FL-tcW"/>
-                                                </connections>
                                             </tableView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemOrangeColor"/>
