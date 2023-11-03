@@ -145,6 +145,5 @@ extension SearchVC {
                 }
             }
             .disposed(by: disposeBag)
-        
     }
 }

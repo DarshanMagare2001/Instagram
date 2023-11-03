@@ -6,13 +6,17 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class DirectMsgVC: UIViewController {
     @IBOutlet weak var tableViewOutlet: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     var allUniqueUsersArray = [UserModel]()
+    let disposeBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        addDoneButtonToSearchBarKeyboard()
         
     }
     
@@ -22,7 +26,7 @@ class DirectMsgVC: UIViewController {
             case.success(let data):
                 DispatchQueue.main.async {
                     self.allUniqueUsersArray = data
-                    self.tableViewOutlet.reloadData()
+                    self.updateTableView()
                 }
             case.failure(let error):
                 print(error)
@@ -34,41 +38,64 @@ class DirectMsgVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-}
-
-extension DirectMsgVC : UITableViewDelegate , UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allUniqueUsersArray.count
+    func addDoneButtonToSearchBarKeyboard() {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
+        toolbar.items = [flexibleSpace, doneButton]
+        searchBar.inputAccessoryView = toolbar
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DirectMsgCell", for: indexPath) as! DirectMsgCell
-        if let uid = allUniqueUsersArray[indexPath.row].uid,
-           let name = allUniqueUsersArray[indexPath.row].name,
-           let userName = allUniqueUsersArray[indexPath.row].username {
-            DispatchQueue.main.async {
-                EditProfileViewModel.shared.fetchUserProfileImageURLWithUid(uid: uid) { result in
-                    switch result {
-                    case .success(let url):
-                        if let url = url {
-                            print(url)
-                            ImageLoader.loadImage(for: url, into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
-                            cell.nameLbl.text = name
-                            cell.userNameLbl.text = userName
-                            cell.directMsgButtonTapped = { [weak self] in
-                                let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
-                                let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChatVC") as! ChatVC
-                                destinationVC.receiverUser = self?.allUniqueUsersArray[indexPath.row]
-                                self?.navigationController?.pushViewController(destinationVC, animated: true)
-                            }
+    @objc func doneButtonTapped() {
+        searchBar.resignFirstResponder() // Dismiss the keyboard
+    }
+    
+}
+
+extension DirectMsgVC {
+    func updateTableView() {
+        tableViewOutlet.dataSource = nil
+        tableViewOutlet.delegate = nil
+        // Create a BehaviorRelay to hold the filtered user data
+        let filteredUsers = BehaviorRelay<[UserModel]>(value: allUniqueUsersArray)
+        // Bind the filtered user data to the table view
+        filteredUsers
+            .bind(to: tableViewOutlet
+                    .rx
+                    .items(cellIdentifier: "DirectMsgCell", cellType: DirectMsgCell.self)) { (row, element, cell) in
+                if let name = element.name , let userName = element.username , let imgUrl = element.imageUrl {
+                    DispatchQueue.main.async {
+                        ImageLoader.loadImage(for: URL(string: imgUrl), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                        cell.nameLbl.text = name
+                        cell.userNameLbl.text = userName
+                        cell.directMsgButtonTapped = { [weak self] in
+                            let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
+                            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChatVC") as! ChatVC
+                            destinationVC.receiverUser = element
+                            self?.navigationController?.pushViewController(destinationVC, animated: true)
                         }
-                    case .failure(let error):
-                        print(error)
                     }
                 }
             }
-        }
-        return cell
+                    .disposed(by: disposeBag)
+        // Observe changes in the search bar text
+        searchBar.rx.text
+            .orEmpty
+            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] query in
+                // Filter the user data based on the search query
+                let filteredData = self?.allUniqueUsersArray.filter { user in
+                    if query.isEmpty {
+                        return true
+                    } else {
+                        return (user.name?.lowercased().contains(query.lowercased()) == true)
+                    }
+                }
+                // Update the filteredUsers BehaviorRelay with the filtered data
+                filteredUsers.accept(filteredData ?? [])
+            })
+            .disposed(by: disposeBag)
     }
-    
 }
