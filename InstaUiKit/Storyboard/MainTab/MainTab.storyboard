@@ -850,8 +850,26 @@
                     <view key="view" contentMode="scaleToFill" id="xb6-tW-tGg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tqr-Hr-9KN">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="U3T-Eq-wXr"/>
+                                    <constraint firstAttribute="height" constant="50" id="ngw-VY-OrL"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="BackArrow" title=" "/>
+                                <connections>
+                                    <action selector="backBtnPressed:" destination="5Lu-aU-N0U" eventType="touchUpInside" id="6ML-Yz-GlD"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="W7K-Ma-Y3a"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="tqr-Hr-9KN" firstAttribute="leading" secondItem="W7K-Ma-Y3a" secondAttribute="leading" id="18P-ag-MRQ"/>
+                            <constraint firstItem="tqr-Hr-9KN" firstAttribute="top" secondItem="W7K-Ma-Y3a" secondAttribute="top" id="1jz-KI-5Y0"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sw9-lz-1NI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
