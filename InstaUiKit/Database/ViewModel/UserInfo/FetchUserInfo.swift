@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import Firebase
 
 class FetchUserInfo {
     static let shared = FetchUserInfo()
@@ -58,5 +59,29 @@ class FetchUserInfo {
         }
     }
 
+    // MARK: - Fetch FMCToken
+    
+    func getFCMToken(completion: @escaping (String?) -> Void) {
+           // Check if Firebase is configured
+           guard let _ = FirebaseApp.app() else {
+               completion(nil)
+               return
+           }
+           // Get the FCM token
+           if let token = Messaging.messaging().fcmToken {
+               completion(token)
+           } else {
+               // FCM token not available, try to refresh it
+               Messaging.messaging().token { token, error in
+                   if let token = token {
+                       completion(token)
+                   } else {
+                       completion(nil)
+                       print("Error fetching FCM token: \(error?.localizedDescription ?? "Unknown error")")
+                   }
+               }
+           }
+       }
+    
 
 }

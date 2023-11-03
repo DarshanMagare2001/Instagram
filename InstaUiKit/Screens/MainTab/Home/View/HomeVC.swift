@@ -98,10 +98,6 @@ extension HomeVC {
                 print(error)
             }
         }
-        
-        
-        
-        
     }
 }
 

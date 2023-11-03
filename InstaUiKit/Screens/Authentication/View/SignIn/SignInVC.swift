@@ -13,23 +13,11 @@ class SignInVC: UIViewController {
     @IBOutlet weak var passwordHideShowBtn: UIButton!
     var isPasswordShow = false
     var viewModel: SignInVCViewModel!
-    var fcmToken : String?
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: true)
         viewModel = SignInVCViewModel(presentingViewController: self)
         updateTxtFlds()
-        Data.shared.getData(key: "FCMToken") { (result:Result<String?,Error>) in
-            switch result {
-            case .success(let fcmtoken):
-                if let fcmtoken = fcmtoken {
-                    print(fcmtoken)
-                    self.fcmToken = fcmtoken
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
     }
     
     @IBAction func logInBtnPressed(_ sender: UIButton) {
@@ -39,26 +27,28 @@ class SignInVC: UIViewController {
                     switch result {
                     case .success(let uid):
                         if let uid = uid {
-                            if let fcmToken = self.fcmToken {
-                                StoreUserInfo.shared.saveUsersFMCTokenAndUidToFirebase(uid: uid, fcmToken: fcmToken) { result in
-                                    switch result {
-                                    case .success(let success):
-                                        print(success)
-                                        DispatchQueue.main.async {
-                                            LoaderVCViewModel.shared.hideLoader()
-                                            Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
-                                                if let destinationVC = destinationVC {
-                                                    self.navigationController?.pushViewController(destinationVC, animated: true)
+                            FetchUserInfo.shared.getFCMToken { fcmToken in
+                                if let fcmToken = fcmToken {
+                                    StoreUserInfo.shared.saveUsersFMCTokenAndUidToFirebase(uid: uid, fcmToken: fcmToken) { result in
+                                        switch result {
+                                        case .success(let success):
+                                            print(success)
+                                            DispatchQueue.main.async {
+                                                LoaderVCViewModel.shared.hideLoader()
+                                                Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
+                                                    if let destinationVC = destinationVC {
+                                                        self.navigationController?.pushViewController(destinationVC, animated: true)
+                                                    }
                                                 }
                                             }
-                                        }
-                                    case .failure(let failure):
-                                        print(failure)
-                                        DispatchQueue.main.async {
-                                            LoaderVCViewModel.shared.hideLoader()
-                                            Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
-                                                if let destinationVC = destinationVC {
-                                                    self.navigationController?.pushViewController(destinationVC, animated: true)
+                                        case .failure(let failure):
+                                            print(failure)
+                                            DispatchQueue.main.async {
+                                                LoaderVCViewModel.shared.hideLoader()
+                                                Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
+                                                    if let destinationVC = destinationVC {
+                                                        self.navigationController?.pushViewController(destinationVC, animated: true)
+                                                    }
                                                 }
                                             }
                                         }
