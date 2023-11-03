@@ -43,54 +43,63 @@ class PostViewModel {
     }
     
     
-    func uploadImageToFirebaseStorage(image: UIImage, caption: String, location: String , name : String, completionHandler : @escaping(Bool)->Void) {
-        let imageName = "\(Int(Date().timeIntervalSince1970)).jpg"
-        let storageRef = Storage.storage().reference().child("images/\(imageName)")
-        
-        if let imageData = image.jpegData(compressionQuality: 0.5) {
-            storageRef.putData(imageData, metadata: nil) { (metadata, error) in
-                if let error = error {
-                    print("Error uploading image: \(error.localizedDescription)")
-                    completionHandler(false)
-                } else {
-                    // Image uploaded successfully, now you can get the download URL
-                    storageRef.downloadURL { (url, error) in
-                        if let downloadURL = url {
-                            // The downloadURL contains the URL to the uploaded image
-                            print("Image uploaded to: \(downloadURL)")
-                            
-                            // Get the UID of the currently authenticated user
-                            guard let uid = Auth.auth().currentUser?.uid else {
-                                print("User is not authenticated.")
-                                return
-                            }
-                            
-                            let db = Firestore.firestore()
-                            
-                            // Include UID in the document data
-                            let imageDocData: [String: Any] = [
-                                "imageURL": downloadURL.absoluteString,
-                                "caption": caption,
-                                "location": location,
-                                "name": name,
-                                "uid": uid
-                            ]
-                            
-                            db.collection("images").addDocument(data: imageDocData) { (error) in
-                                if let error = error {
-                                    print("Error adding document: \(error)")
-                                    completionHandler(false)
-                                } else {
-                                    print("Document added successfully")
-                                    completionHandler(true)
+    func uploadImageToFirebaseStorage(image: UIImage, caption: String, location: String, completionHandler : @escaping(Bool)->Void) {
+        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+            switch result {
+            case.success(let data):
+                if let data = data {
+                    let imageName = "\(Int(Date().timeIntervalSince1970)).jpg"
+                    let storageRef = Storage.storage().reference().child("images/\(imageName)")
+                    if let imageData = image.jpegData(compressionQuality: 0.5) {
+                        storageRef.putData(imageData, metadata: nil) { (metadata, error) in
+                            if let error = error {
+                                print("Error uploading image: \(error.localizedDescription)")
+                                completionHandler(false)
+                            } else {
+                                // Image uploaded successfully, now you can get the download URL
+                                storageRef.downloadURL { (url, error) in
+                                    if let downloadURL = url {
+                                        // The downloadURL contains the URL to the uploaded image
+                                        print("Image uploaded to: \(downloadURL)")
+                                        
+                                        // Get the UID of the currently authenticated user
+                                        guard let uid = Auth.auth().currentUser?.uid else {
+                                            print("User is not authenticated.")
+                                            return
+                                        }
+                                        
+                                        let db = Firestore.firestore()
+                                        if let name = data.name , let profileImageUrl = data.imageUrl {
+                                            // Include UID in the document data
+                                            let imageDocData: [String: Any] = [
+                                                "postImageURL": downloadURL.absoluteString,
+                                                "caption": caption,
+                                                "location": location,
+                                                "name": name,
+                                                "profileImageUrl": profileImageUrl,
+                                                "uid": uid
+                                            ]
+                                            db.collection("images").addDocument(data: imageDocData) { (error) in
+                                                if let error = error {
+                                                    print("Error adding document: \(error)")
+                                                    completionHandler(false)
+                                                } else {
+                                                    print("Document added successfully")
+                                                    completionHandler(true)
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        print("Error getting image download URL: \(error?.localizedDescription ?? "")")
+                                        completionHandler(false)
+                                    }
                                 }
                             }
-                        } else {
-                            print("Error getting image download URL: \(error?.localizedDescription ?? "")")
-                            completionHandler(false)
                         }
                     }
                 }
+            case.failure(let error):
+                print(error)
             }
         }
     }

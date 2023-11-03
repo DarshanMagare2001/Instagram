@@ -15,7 +15,7 @@ class FetchUserInfo {
         
     }
     
-    // MARK: - Fetch Unique Users
+    // MARK: - Fetch Unique Users From Firebase
     
     func fetchUniqueUsersFromFirebase(completionHandler: @escaping (Result<[UserModel], Error>) -> Void) {
         Data.shared.getData(key: "CurrentUserId") { (result: Result<String?, Error>) in
@@ -58,6 +58,50 @@ class FetchUserInfo {
             }
         }
     }
+    
+    // MARK: - Fetch CurrentUser From Firebase
+    
+    func fetchCurrentUserFromFirebase(completionHandler: @escaping (Result<UserModel?, Error>) -> Void) {
+        Data.shared.getData(key: "CurrentUserId") { (result: Result<String?, Error>) in
+            switch result {
+            case .success(let currentUid):
+                if let currentUid = currentUid{
+                    let db = Firestore.firestore()
+                    db.collection("users").document(currentUid).getDocument { (document, error) in
+                        if let error = error {
+                            print("Error fetching current user: \(error.localizedDescription)")
+                            completionHandler(.failure(error))
+                        } else if let document = document, document.exists {
+                            print("Fetched current user document: \(document.data())")
+                            if let imageURL = document["imageUrl"] as? String,
+                               let bio = document["bio"] as? String,
+                               let countryCode = document["countryCode"] as? String,
+                               let fcmToken = document["fcmToken"] as? String,
+                               let gender = document["gender"] as? String,
+                               let name = document["name"] as? String,
+                               let phoneNumber = document["phoneNumber"] as? String,
+                               let uid = document["uid"] as? String,
+                               let username = document["username"] as? String {
+                                let user = UserModel(uid: uid, bio: bio, fcmToken: fcmToken, phoneNumber: phoneNumber, countryCode: countryCode, name: name, imageUrl: imageURL, gender: gender, username: username)
+                                DispatchQueue.main.async {
+                                    completionHandler(.success(user))
+                                }
+                            }
+                        } else {
+                            // User document not found
+                            DispatchQueue.main.async {
+                                completionHandler(.success(nil))
+                            }
+                        }
+                }
+                }
+            case .failure(let failure):
+                print(failure)
+                completionHandler(.failure(failure))
+            }
+        }
+    }
+    
 
     // MARK: - Fetch FMCToken
     
