@@ -37,6 +37,7 @@ class SignUpVCViewModel {
                 print("Sign Up Successfuly")
                 if let uid = Auth.auth().currentUser?.uid {
                     print(uid)
+                    UserDefaults.standard.removeObject(forKey: "CurrentUserId")
                     Data.shared.saveData(uid, key: "CurrentUserId") { value in
                         print(value)
                         let userDefaults = UserDefaults.standard

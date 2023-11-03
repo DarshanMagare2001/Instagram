@@ -33,6 +33,7 @@ class SignUpVC: UIViewController {
                     case .success(let uid):
                         if let uid = uid {
                             FetchUserInfo.shared.getFCMToken { fcmToken in
+                                print(fcmToken)
                                 if let fcmToken = fcmToken {
                                     StoreUserInfo.shared.saveUsersFMCTokenAndUidToFirebase(uid: uid, fcmToken: fcmToken) { result in
                                         switch result {
