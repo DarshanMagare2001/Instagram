@@ -14,7 +14,7 @@ class HomeVC: UIViewController {
     @IBOutlet weak var userImg: CircleImageView!
     var imgURL : URL?
     var userName : String?
-    var allPost = [ImageModel]()
+    var allPost = [PostModel]()
     var allUniqueUsersArray = [UserModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,9 +118,7 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource {
                         print(url)
                         ImageLoader.loadImage(for: url, into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
                         ImageLoader.loadImage(for: url, into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
-                        
-                        ImageLoader.loadImage(for: URL(string: self.allPost[indexPath.row].imageURL), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
-                        
+                        ImageLoader.loadImage(for: URL(string: self.allPost[indexPath.row].postImageURL), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
                         cell.postLocationLbl.text = self.allPost[indexPath.row].location
                         cell.postCaption.text = self.allPost[indexPath.row].caption
                         cell.userName.text = self.allPost[indexPath.row].name

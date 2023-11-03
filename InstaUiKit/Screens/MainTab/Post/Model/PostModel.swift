@@ -7,18 +7,21 @@
 
 import Foundation
 
-struct ImageModel : Hashable {
-    let imageURL: String
+struct PostModel: Hashable {
+    let postImageURL: String
     let caption: String
     let location: String
     let name: String
     let uid: String
+    let profileImageUrl: String
 
-    init(imageURL: String, caption: String, location: String, uid: String , name: String) {
-        self.imageURL = imageURL
+    init(postImageURL: String, caption: String, location: String, name: String, uid: String, profileImageUrl: String) {
+        self.postImageURL = postImageURL
         self.caption = caption
         self.location = location
-        self.uid = uid
         self.name = name
+        self.uid = uid
+        self.profileImageUrl = profileImageUrl
     }
 }
+

@@ -19,7 +19,7 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var postCountLbl: UILabel!
     var viewModel1 = AuthenticationViewModel()
     var viewModel2 = ProfileViewModel()
-    var allPost = [ImageModel]()
+    var allPost = [PostModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
         configuration()
@@ -143,7 +143,7 @@ extension ProfileVC {
             }
         }
         
-        PostViewModel.shared.fetchImageData { result in
+        PostViewModel.shared.fetchPostDataOfCurrentUser { result in
             switch result {
             case .success(let images):
                 // Handle the images
@@ -171,7 +171,7 @@ extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosCell", for: indexPath) as! PhotosCell
-        if let imageURL = URL(string: allPost[indexPath.row].imageURL) {
+        if let imageURL = URL(string: allPost[indexPath.row].postImageURL) {
             ImageLoader.loadImage(for: imageURL, into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
         }
         return cell

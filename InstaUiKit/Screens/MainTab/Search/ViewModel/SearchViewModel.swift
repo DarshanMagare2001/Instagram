@@ -18,8 +18,8 @@ class SearchVCViewModel {
                 var postArray = [String?]()
                 DispatchQueue.main.async {
                     for i in images {
-                        if !postArray.contains(i.imageURL) {
-                            postArray.append(i.imageURL)
+                        if !postArray.contains(i.postImageURL) {
+                            postArray.append(i.postImageURL)
                         }
                     }
                     completionHandler(.success(postArray))

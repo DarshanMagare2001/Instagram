@@ -104,7 +104,7 @@ class PostViewModel {
         }
     }
     
-    func fetchImageData(completion: @escaping (Result<[ImageModel], Error>) -> Void) {
+    func fetchPostDataOfCurrentUser(completion: @escaping (Result<[PostModel], Error>) -> Void) {
         let db = Firestore.firestore()
         
         // Get the UID of the currently authenticated user
@@ -112,7 +112,6 @@ class PostViewModel {
             print("User is not authenticated.")
             return
         }
-        
         // Query the "images" collection with a filter for the current user's UID
         db.collection("images")
             .whereField("uid", isEqualTo: uid)
@@ -121,13 +120,15 @@ class PostViewModel {
                     print("Error fetching images: \(error.localizedDescription)")
                     completion(.failure(error))
                 } else {
-                    var images: [ImageModel] = []
+                    var images: [PostModel] = []
                     for document in querySnapshot!.documents {
-                        if let imageURL = document["imageURL"] as? String,
+                        if let postImageURL = document["postImageURL"] as? String,
                            let caption = document["caption"] as? String,
+                           let location = document["location"] as? String,
                            let name = document["name"] as? String,
-                           let location = document["location"] as? String {
-                            let image = ImageModel(imageURL: imageURL, caption: caption, location: location, uid: uid, name: name)
+                           let uid = document["uid"] as? String ,
+                           let profileImageUrl = document["profileImageUrl"] as? String {
+                            let image = PostModel(postImageURL: postImageURL, caption: caption, location: location, name: name, uid: uid, profileImageUrl: profileImageUrl)
                             images.append(image)
                         }
                     }
@@ -137,7 +138,7 @@ class PostViewModel {
     }
     
     
-    func fetchAllPosts(completion: @escaping (Result<[ImageModel], Error>) -> Void) {
+    func fetchAllPosts(completion: @escaping (Result<[PostModel], Error>) -> Void) {
         let db = Firestore.firestore()
         db.collection("images")
             .getDocuments { (querySnapshot, error) in
@@ -145,15 +146,15 @@ class PostViewModel {
                     print("Error fetching images: \(error.localizedDescription)")
                     completion(.failure(error))
                 } else {
-                    var images: [ImageModel] = []
-                    
+                    var images: [PostModel] = []
                     for document in querySnapshot!.documents {
-                        if let imageURL = document["imageURL"] as? String,
+                        if let postImageURL = document["postImageURL"] as? String,
                            let caption = document["caption"] as? String,
                            let location = document["location"] as? String,
                            let name = document["name"] as? String,
-                           let uid = document["uid"] as? String {
-                            let image = ImageModel(imageURL: imageURL, caption: caption, location: location, uid: uid, name: name)
+                           let uid = document["uid"] as? String ,
+                           let profileImageUrl = document["profileImageUrl"] as? String {
+                            let image = PostModel(postImageURL: postImageURL, caption: caption, location: location, name: name, uid: uid, profileImageUrl: profileImageUrl)
                             images.append(image)
                         }
                     }
