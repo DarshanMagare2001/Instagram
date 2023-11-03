@@ -677,10 +677,6 @@
                                                         </connections>
                                                     </collectionViewCell>
                                                 </cells>
-                                                <connections>
-                                                    <outlet property="dataSource" destination="S0h-Lf-XLg" id="FA6-z0-n5k"/>
-                                                    <outlet property="delegate" destination="S0h-Lf-XLg" id="rNf-TB-j4k"/>
-                                                </connections>
                                             </collectionView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemGreenColor"/>

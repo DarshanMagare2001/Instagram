@@ -15,8 +15,8 @@ class SearchVC: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UIView!
     @IBOutlet weak var collectionView: UIView!
-    var allPost = [ImageModel]()
     var allUniqueUsersArray = [UserModel]()
+    var allPostUrls = [String?]()
     let disposeBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,11 +27,14 @@ class SearchVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        SearchVCViewModel.shared.fetchAllPostURL { value in
-            if value{
-                self.collectionViewOutlet.reloadData()
-            }else{
-                self.collectionViewOutlet.reloadData()
+        SearchVCViewModel.shared.fetchAllPostURL { result in
+            switch result {
+            case.success(let data):
+                print(data)
+                self.allPostUrls = data
+                self.updateCollectionView()
+            case.failure(let error):
+                print(error)
             }
         }
         
@@ -126,20 +129,34 @@ extension SearchVC {
 
 
 
-extension SearchVC : UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
+extension SearchVC {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return SearchVCViewModel.shared.postArray.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchVCCollectionViewCell", for: indexPath) as! SearchVCCollectionViewCell
-        DispatchQueue.main.async {
-            if let url = SearchVCViewModel.shared.postArray[indexPath.row]{
-                ImageLoader.loadImage(for: URL(string: url), into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
+    func updateCollectionView(){
+        collectionViewOutlet.dataSource = nil
+        collectionViewOutlet.delegate = nil
+        let collectionViewItems = Observable.just(allPostUrls)
+        collectionViewItems
+            .bind(to: collectionViewOutlet
+                        .rx
+                        .items(cellIdentifier: "SearchVCCollectionViewCell" , cellType: SearchVCCollectionViewCell.self)) { (row, element, cell) in
+                DispatchQueue.main.async {
+                    if let url = element {
+                        ImageLoader.loadImage(for: URL(string: url), into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
+                    }
+                }
             }
-        }
-        return cell
+            .disposed(by: disposeBag)
+        
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return SearchVCViewModel.shared.postArray.count
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchVCCollectionViewCell", for: indexPath) as! SearchVCCollectionViewCell
+//
+//        return cell
+//    }
     
 }
