@@ -61,15 +61,6 @@
                                             <constraint firstAttribute="width" constant="100" id="oE4-1p-cQM"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FZ7-vP-c0o">
-                                        <rect key="frame" x="220" y="0.0" width="50" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="2Yi-cC-PnK"/>
-                                            <constraint firstAttribute="height" constant="50" id="jU6-zm-Biz"/>
-                                        </constraints>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="IGTV" title=" "/>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6uv-cv-S6P">
                                         <rect key="frame" x="270" y="0.0" width="50" height="50"/>
                                         <constraints>
@@ -87,17 +78,13 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="6uv-cv-S6P" secondAttribute="bottom" id="6wk-rr-WFY"/>
-                                    <constraint firstItem="6uv-cv-S6P" firstAttribute="leading" secondItem="FZ7-vP-c0o" secondAttribute="trailing" id="8k3-Za-z7g"/>
                                     <constraint firstAttribute="trailing" secondItem="6uv-cv-S6P" secondAttribute="trailing" id="H8c-S2-o22"/>
                                     <constraint firstItem="6uv-cv-S6P" firstAttribute="top" secondItem="E6M-dW-uI0" secondAttribute="top" id="Psi-oa-oeh"/>
-                                    <constraint firstAttribute="bottom" secondItem="FZ7-vP-c0o" secondAttribute="bottom" id="RSJ-Yf-cpd"/>
-                                    <constraint firstItem="6uv-cv-S6P" firstAttribute="leading" secondItem="FZ7-vP-c0o" secondAttribute="trailing" id="SaZ-uG-3ds"/>
                                     <constraint firstItem="uAK-kj-RTh" firstAttribute="centerX" secondItem="E6M-dW-uI0" secondAttribute="centerX" id="Wmy-7Y-SIw"/>
                                     <constraint firstItem="uAK-kj-RTh" firstAttribute="centerX" secondItem="E6M-dW-uI0" secondAttribute="centerX" id="eAG-sg-vE5"/>
                                     <constraint firstItem="2mA-bD-hVn" firstAttribute="leading" secondItem="E6M-dW-uI0" secondAttribute="leading" id="hCH-7I-9RZ"/>
                                     <constraint firstItem="uAK-kj-RTh" firstAttribute="top" secondItem="E6M-dW-uI0" secondAttribute="top" id="i2x-hW-MIz"/>
                                     <constraint firstItem="2mA-bD-hVn" firstAttribute="top" secondItem="E6M-dW-uI0" secondAttribute="top" id="mh1-VS-tNG"/>
-                                    <constraint firstItem="FZ7-vP-c0o" firstAttribute="top" secondItem="E6M-dW-uI0" secondAttribute="top" id="oep-c6-KB5"/>
                                     <constraint firstAttribute="bottom" secondItem="2mA-bD-hVn" secondAttribute="bottom" id="uZi-3M-8oz"/>
                                 </constraints>
                             </view>
@@ -1928,7 +1915,6 @@
         <image name="DemoImg" width="375" height="375"/>
         <image name="Discover People" width="24.5" height="18.5"/>
         <image name="DownArrow" width="11.5" height="7.5"/>
-        <image name="IGTV" width="24" height="25.5"/>
         <image name="InstaHome" width="22" height="24.5"/>
         <image name="InstaLogo" width="182" height="49"/>
         <image name="InstaMagnifyGlass" width="24.5" height="24.5"/>
