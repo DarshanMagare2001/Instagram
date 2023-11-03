@@ -130,7 +130,6 @@ extension SearchVC {
 
 
 extension SearchVC {
-    
     func updateCollectionView(){
         collectionViewOutlet.dataSource = nil
         collectionViewOutlet.delegate = nil
@@ -148,15 +147,4 @@ extension SearchVC {
             .disposed(by: disposeBag)
         
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return SearchVCViewModel.shared.postArray.count
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchVCCollectionViewCell", for: indexPath) as! SearchVCCollectionViewCell
-//
-//        return cell
-//    }
-    
 }
