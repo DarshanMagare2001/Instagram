@@ -101,38 +101,26 @@ extension HomeVC {
     }
 }
 
-extension HomeVC : UITableViewDelegate , UITableViewDataSource {
+extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allPost.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
-        let uid = allPost[indexPath.row].uid
-        print(uid)
+        let post = allPost[indexPath.row]
         DispatchQueue.main.async {
-            EditProfileViewModel.shared.fetchUserProfileImageURLWithUid(uid: uid) { result in
-                switch result{
-                case.success(let url):
-                    if let url = url {
-                        print(url)
-                        ImageLoader.loadImage(for: url, into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
-                        ImageLoader.loadImage(for: url, into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
-                        ImageLoader.loadImage(for: URL(string: self.allPost[indexPath.row].postImageURL), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
-                        cell.postLocationLbl.text = self.allPost[indexPath.row].location
-                        cell.postCaption.text = self.allPost[indexPath.row].caption
-                        cell.userName.text = self.allPost[indexPath.row].name
-                    }
-                case.failure(let error):
-                    print(error)
-                }
-            }
+            ImageLoader.loadImage(for: URL(string: post.profileImageUrl), into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
+            ImageLoader.loadImage(for: URL(string: post.profileImageUrl), into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
+            ImageLoader.loadImage(for: URL(string: post.postImageURL), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+            cell.postLocationLbl.text = post.location
+            cell.postCaption.text = post.caption
+            cell.userName.text = post.name
         }
-        
         return cell
     }
-    
 }
+
 
 extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
