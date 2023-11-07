@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftUI
+import FirebaseAuth
 
 class HomeVC: UIViewController {
     @IBOutlet weak var feedTableView: UITableView!
@@ -116,6 +117,11 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
             cell.postLocationLbl.text = post.location
             cell.postCaption.text = post.caption
             cell.userName.text = post.name
+            cell.likeBtnTapped = { [weak self] in
+                if let uid = Auth.auth().currentUser?.uid {
+                    PostViewModel.shared.likePost(postDocumentID: post.postImageURL, userUID: uid)
+                }
+            }
         }
         return cell
     }

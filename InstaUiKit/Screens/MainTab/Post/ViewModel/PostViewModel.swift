@@ -79,7 +79,7 @@ class PostViewModel {
                                                 "profileImageUrl": profileImageUrl,
                                                 "uid": uid
                                             ]
-                                            db.collection("images").addDocument(data: imageDocData) { (error) in
+                                            db.collection("post").addDocument(data: imageDocData) { (error) in
                                                 if let error = error {
                                                     print("Error adding document: \(error)")
                                                     completionHandler(false)
@@ -107,7 +107,7 @@ class PostViewModel {
     func fetchPostDataOfPerticularUser(forUID uid: String, completion: @escaping (Result<[PostModel], Error>) -> Void) {
         let db = Firestore.firestore()
         // Query the "images" collection with a filter for the provided UID
-        db.collection("images")
+        db.collection("post")
             .whereField("uid", isEqualTo: uid)
             .getDocuments { (querySnapshot, error) in
                 if let error = error {
@@ -136,12 +136,12 @@ class PostViewModel {
                 }
             }
     }
-
+    
     
     
     func fetchAllPosts(completion: @escaping (Result<[PostModel], Error>) -> Void) {
         let db = Firestore.firestore()
-        db.collection("images")
+        db.collection("post")
             .getDocuments { (querySnapshot, error) in
                 if let error = error {
                     print("Error fetching images: \(error.localizedDescription)")
@@ -163,6 +163,67 @@ class PostViewModel {
                 }
             }
     }
+    
+    
+    func likePost(postDocumentID: String, userUID: String) {
+        let db = Firestore.firestore()
+        let postDocumentRef = db.collection("post").document(postDocumentID)
+        let likesCollectionRef = postDocumentRef.collection("likes")
+        
+        // To add a like, set a document with the user's UID and liked: true
+        likesCollectionRef.document(userUID).setData(["liked": true]) { error in
+            if let error = error {
+                print("Error liking post: \(error.localizedDescription)")
+            } else {
+                print("Post liked by user with UID: \(userUID)")
+                // Call a function here to increment the likes count for the post
+                self.incrementLikesCountForPost(postDocumentRef: postDocumentRef)
+            }
+        }
+    }
+
+    
+    // Function to unlike a post
+    func unlikePost(postImageURL: String, userUID: String) {
+        let db = Firestore.firestore()
+        let postDocumentRef = db.collection("post").document(postImageURL)
+        let likesCollectionRef = postDocumentRef.collection("likes")
+        
+        // To remove a like, delete the document with the user's UID
+        likesCollectionRef.document(userUID).delete { error in
+            if let error = error {
+                print("Error unliking post: \(error.localizedDescription)")
+            } else {
+                print("Post unliked by user with UID: \(userUID)")
+                // Call a function here to decrement the likes count for the post
+                self.decrementLikesCountForPost(postDocumentRef: postDocumentRef)
+            }
+        }
+    }
+    
+    
+    // Function to increment the likes count for a post
+    func incrementLikesCountForPost(postDocumentRef: DocumentReference) {
+        postDocumentRef.updateData(["likesCount": FieldValue.increment(Int64(1))]) { error in
+            if let error = error {
+                print("Error incrementing likes count: \(error.localizedDescription)")
+            } else {
+                print("Likes count incremented for post")
+            }
+        }
+    }
+    
+    // Function to decrement the likes count for a post
+    func decrementLikesCountForPost(postDocumentRef: DocumentReference) {
+        postDocumentRef.updateData(["likesCount": FieldValue.increment(Int64(-1))]) { error in
+            if let error = error {
+                print("Error decrementing likes count: \(error.localizedDescription)")
+            } else {
+                print("Likes count decremented for post")
+            }
+        }
+    }
+    
     
     
     

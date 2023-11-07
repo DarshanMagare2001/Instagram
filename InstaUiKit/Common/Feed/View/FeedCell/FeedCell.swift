@@ -14,8 +14,19 @@ class FeedCell: UITableViewCell {
     @IBOutlet weak var postLocationLbl: UILabel!
     @IBOutlet weak var postImg: UIImageView!
     @IBOutlet weak var postCaption: UILabel!
+    @IBOutlet weak var commentBtn: UIButton!
+    @IBOutlet weak var likeBtn: UIButton!
+    var likeBtnTapped: (() -> Void)?
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+    }
+    
+    @IBAction func likeBtnPressed(_ sender: UIButton) {
+        likeBtnTapped?()
+    }
+    
+    @IBAction func commentBtnPressed(_ sender: UIButton) {
         
     }
     
