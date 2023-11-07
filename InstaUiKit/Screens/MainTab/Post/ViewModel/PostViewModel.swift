@@ -43,10 +43,10 @@ class PostViewModel {
     }
     
     
-    func uploadImageToFirebaseStorage(image: UIImage, caption: String, location: String, completionHandler : @escaping(Bool)->Void) {
+    func uploadImageToFirebaseStorage(image: UIImage, caption: String, location: String, completionHandler: @escaping (Bool) -> Void) {
         FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
             switch result {
-            case.success(let data):
+            case .success(let data):
                 if let data = data {
                     let imageName = "\(Int(Date().timeIntervalSince1970)).jpg"
                     let storageRef = Storage.storage().reference().child("images/\(imageName)")
@@ -69,9 +69,9 @@ class PostViewModel {
                                         }
                                         
                                         let db = Firestore.firestore()
-                                        if let name = data.name , let profileImageUrl = data.imageUrl {
+                                        if let name = data.name, let profileImageUrl = data.imageUrl {
                                             // Include UID in the document data
-                                            let imageDocData: [String: Any] = [
+                                            var imageDocData: [String: Any] = [
                                                 "postImageURL": downloadURL.absoluteString,
                                                 "caption": caption,
                                                 "location": location,
@@ -79,12 +79,28 @@ class PostViewModel {
                                                 "profileImageUrl": profileImageUrl,
                                                 "uid": uid
                                             ]
-                                            db.collection("post").addDocument(data: imageDocData) { (error) in
+                                            
+                                            // Declare documentRef outside of the closure
+                                            var documentRef: DocumentReference!
+                                            
+                                            // Add the document to Firestore and get the generated document ID
+                                            documentRef = db.collection("post").addDocument(data: imageDocData) { (error) in
                                                 if let error = error {
                                                     print("Error adding document: \(error)")
                                                     completionHandler(false)
                                                 } else {
                                                     print("Document added successfully")
+                                                    
+                                                    // Retrieve the generated document ID
+                                                    let documentID = documentRef.documentID
+                                                    
+                                                    // Update the document with the postDocumentID
+                                                    db.collection("post").document(documentID).setData(["postDocumentID": documentID], merge: true) { error in
+                                                        if let error = error {
+                                                            print("Error updating document: \(error)")
+                                                        }
+                                                    }
+                                                    
                                                     completionHandler(true)
                                                 }
                                             }
@@ -98,11 +114,14 @@ class PostViewModel {
                         }
                     }
                 }
-            case.failure(let error):
+            case .failure(let error):
                 print(error)
             }
         }
     }
+
+    
+    
     
     func fetchPostDataOfPerticularUser(forUID uid: String, completion: @escaping (Result<[PostModel], Error>) -> Void) {
         let db = Firestore.firestore()
@@ -181,7 +200,7 @@ class PostViewModel {
             }
         }
     }
-
+    
     
     // Function to unlike a post
     func unlikePost(postImageURL: String, userUID: String) {
