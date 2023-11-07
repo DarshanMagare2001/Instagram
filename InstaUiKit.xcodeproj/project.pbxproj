@@ -441,8 +441,8 @@
 		138BC5D52A7391DB00020297 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
-				13FB7D5D2A722DE000D8FC5C /* FeedCell.swift */,
-				13FB7D5E2A722DE000D8FC5C /* FeedCell.xib */,
+				13B4B3E92AFA396100EB13EE /* View */,
+				13B4B3E82AFA395A00EB13EE /* ViewModel */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -692,6 +692,30 @@
 				136B84A32A83B8FC00C102F1 /* EditProfileViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		13B4B3E82AFA395A00EB13EE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		13B4B3E92AFA396100EB13EE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				13B4B3EA2AFA396C00EB13EE /* FeedCell */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		13B4B3EA2AFA396C00EB13EE /* FeedCell */ = {
+			isa = PBXGroup;
+			children = (
+				13FB7D5E2A722DE000D8FC5C /* FeedCell.xib */,
+				13FB7D5D2A722DE000D8FC5C /* FeedCell.swift */,
+			);
+			path = FeedCell;
 			sourceTree = "<group>";
 		};
 		13DBE7732AEB933E0006F3B9 /* Utilities */ = {
