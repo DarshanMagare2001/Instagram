@@ -119,7 +119,7 @@ class PostViewModel {
             }
         }
     }
-
+    
     
     
     
@@ -189,38 +189,40 @@ class PostViewModel {
     func likePost(postDocumentID: String, userUID: String) {
         let db = Firestore.firestore()
         let postDocumentRef = db.collection("post").document(postDocumentID)
-        let likesCollectionRef = postDocumentRef.collection("likes")
         
-        // To add a like, set a document with the user's UID and liked: true
-        likesCollectionRef.document(userUID).setData(["liked": true]) { error in
+        // Update the 'likedBy' array to add the user's UID and increment the 'likesCount'
+        let batch = db.batch()
+        batch.updateData(["likedBy": FieldValue.arrayUnion([userUID])], forDocument: postDocumentRef)
+        batch.updateData(["likesCount": FieldValue.increment(Int64(1))], forDocument: postDocumentRef)
+        
+        batch.commit { error in
             if let error = error {
                 print("Error liking post: \(error.localizedDescription)")
             } else {
                 print("Post liked by user with UID: \(userUID)")
-                // Call a function here to increment the likes count for the post
-                self.incrementLikesCountForPost(postDocumentRef: postDocumentRef)
             }
         }
     }
-    
-    
-    // Function to unlike a post
-    func unlikePost(postImageURL: String, userUID: String) {
+
+    func unlikePost(postDocumentID: String, userUID: String) {
         let db = Firestore.firestore()
-        let postDocumentRef = db.collection("post").document(postImageURL)
-        let likesCollectionRef = postDocumentRef.collection("likes")
+        let postDocumentRef = db.collection("post").document(postDocumentID)
         
-        // To remove a like, delete the document with the user's UID
-        likesCollectionRef.document(userUID).delete { error in
+        // Update the 'likedBy' array to remove the user's UID and decrement the 'likesCount'
+        let batch = db.batch()
+        batch.updateData(["likedBy": FieldValue.arrayRemove([userUID])], forDocument: postDocumentRef)
+        batch.updateData(["likesCount": FieldValue.increment(Int64(-1))], forDocument: postDocumentRef)
+        
+        batch.commit { error in
             if let error = error {
                 print("Error unliking post: \(error.localizedDescription)")
             } else {
                 print("Post unliked by user with UID: \(userUID)")
-                // Call a function here to decrement the likes count for the post
-                self.decrementLikesCountForPost(postDocumentRef: postDocumentRef)
             }
         }
     }
+
+    
     
     
     // Function to increment the likes count for a post
