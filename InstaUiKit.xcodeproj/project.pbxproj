@@ -580,7 +580,6 @@
 			children = (
 				1392D0232A80B522004B6654 /* HomeVC.swift */,
 				138BC5D62A7391ED00020297 /* Stories */,
-				138BC5D52A7391DB00020297 /* Feed */,
 				138BC5D72A7391FC00020297 /* DirectMsg */,
 			);
 			path = View;
@@ -717,6 +716,7 @@
 		13DBE77B2AEB986A0006F3B9 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				138BC5D52A7391DB00020297 /* Feed */,
 				13127A822AF367DC008C7927 /* FollowingCell */,
 				13DBE7912AEBC3190006F3B9 /* Alert */,
 				13DBE7812AEBB82B0006F3B9 /* Loader */,
