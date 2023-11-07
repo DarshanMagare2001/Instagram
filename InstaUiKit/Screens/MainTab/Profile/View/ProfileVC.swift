@@ -192,6 +192,7 @@ extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource , UIGe
     @objc func imageTapped(_ sender: UITapGestureRecognizer) {
         let storyboard = UIStoryboard.Common
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedViewVC") as! FeedViewVC
+        destinationVC.allPost = allPost
         navigationController?.pushViewController(destinationVC, animated: true)
     }
 }
