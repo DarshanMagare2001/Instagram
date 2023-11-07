@@ -28,29 +28,27 @@
                                     <constraint firstAttribute="height" constant="80" id="tfj-bG-Vh0"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GnU-A4-J1f">
-                                <rect key="frame" x="100" y="10" width="79" height="80"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="GnU-A4-J1f">
+                                <rect key="frame" x="100" y="10" width="506" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Darshan" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iBT-zD-uem">
-                                        <rect key="frame" x="0.0" y="0.0" width="79" height="35"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="506" height="40"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="India" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BCd-Rg-aY6">
-                                        <rect key="frame" x="0.0" y="45" width="33" height="35"/>
+                                        <rect key="frame" x="0.0" y="40" width="506" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="BCd-Rg-aY6" firstAttribute="top" secondItem="iBT-zD-uem" secondAttribute="bottom" constant="10" id="V14-y3-3Rs"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="GnU-A4-J1f" secondAttribute="trailing" constant="10" id="2jN-FV-f3Z"/>
                             <constraint firstItem="GnU-A4-J1f" firstAttribute="top" secondItem="UcO-dA-GRy" secondAttribute="top" constant="10" id="6Ye-1W-uSz"/>
                             <constraint firstItem="R1T-Wr-Tns" firstAttribute="leading" secondItem="UcO-dA-GRy" secondAttribute="leading" constant="10" id="8rR-Jy-P29"/>
                             <constraint firstItem="GnU-A4-J1f" firstAttribute="leading" secondItem="R1T-Wr-Tns" secondAttribute="trailing" constant="10" id="GaA-mx-aOZ"/>
