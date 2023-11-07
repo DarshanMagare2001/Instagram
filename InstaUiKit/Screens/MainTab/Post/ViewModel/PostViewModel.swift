@@ -120,12 +120,8 @@ class PostViewModel {
         }
     }
     
-    
-    
-    
     func fetchPostDataOfPerticularUser(forUID uid: String, completion: @escaping (Result<[PostModel], Error>) -> Void) {
         let db = Firestore.firestore()
-        // Query the "images" collection with a filter for the provided UID
         db.collection("post")
             .whereField("uid", isEqualTo: uid)
             .getDocuments { (querySnapshot, error) in
@@ -140,6 +136,8 @@ class PostViewModel {
                            let location = document["location"] as? String,
                            let name = document["name"] as? String,
                            let postDocumentID = document["postDocumentID"] as? String,
+                           let likedBy = document["likedBy"] as? [String],
+                           let likesCount = document["likesCount"] as? Int, // Corrected the type
                            let profileImageUrl = document["profileImageUrl"] as? String {
                             let image = PostModel(
                                 postImageURL: postImageURL,
@@ -147,7 +145,10 @@ class PostViewModel {
                                 location: location,
                                 name: name,
                                 uid: uid,
-                                profileImageUrl: profileImageUrl, postDocumentID: postDocumentID
+                                profileImageUrl: profileImageUrl,
+                                postDocumentID: postDocumentID,
+                                likedBy: likedBy,
+                                likesCount: likesCount
                             )
                             images.append(image)
                         }
@@ -156,8 +157,6 @@ class PostViewModel {
                 }
             }
     }
-    
-    
     
     func fetchAllPosts(completion: @escaping (Result<[PostModel], Error>) -> Void) {
         let db = Firestore.firestore()
@@ -173,10 +172,22 @@ class PostViewModel {
                            let caption = document["caption"] as? String,
                            let location = document["location"] as? String,
                            let name = document["name"] as? String,
-                           let uid = document["uid"] as? String ,
-                           let postDocumentID = document["postDocumentID"] as? String ,
+                           let uid = document["uid"] as? String,
+                           let postDocumentID = document["postDocumentID"] as? String,
+                           let likedBy = document["likedBy"] as? [String],
+                           let likesCount = document["likesCount"] as? Int, // Corrected the type
                            let profileImageUrl = document["profileImageUrl"] as? String {
-                            let image = PostModel(postImageURL: postImageURL, caption: caption, location: location, name: name, uid: uid, profileImageUrl: profileImageUrl, postDocumentID: postDocumentID)
+                            let image = PostModel(
+                                postImageURL: postImageURL,
+                                caption: caption,
+                                location: location,
+                                name: name,
+                                uid: uid,
+                                profileImageUrl: profileImageUrl,
+                                postDocumentID: postDocumentID,
+                                likedBy: likedBy,
+                                likesCount: likesCount
+                            )
                             images.append(image)
                         }
                     }
@@ -184,6 +195,7 @@ class PostViewModel {
                 }
             }
     }
+    
     
     
     func likePost(postDocumentID: String, userUID: String) {
@@ -203,7 +215,7 @@ class PostViewModel {
             }
         }
     }
-
+    
     func unlikePost(postDocumentID: String, userUID: String) {
         let db = Firestore.firestore()
         let postDocumentRef = db.collection("post").document(postDocumentID)
@@ -221,7 +233,7 @@ class PostViewModel {
             }
         }
     }
-
+    
     
     
     

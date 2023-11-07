@@ -5,8 +5,6 @@
 //  Created by IPS-161 on 11/08/23.
 //
 
-import Foundation
-
 struct PostModel: Hashable {
     let postImageURL: String
     let caption: String
@@ -14,9 +12,11 @@ struct PostModel: Hashable {
     let name: String
     let uid: String
     let profileImageUrl: String
-    let postDocumentID : String
-    
-    init(postImageURL: String, caption: String, location: String, name: String, uid: String, profileImageUrl: String , postDocumentID : String) {
+    let postDocumentID: String
+    let likedBy: [String]
+    let likesCount: Int // Changed the type to Int
+
+    init(postImageURL: String, caption: String, location: String, name: String, uid: String, profileImageUrl: String, postDocumentID: String, likedBy: [String], likesCount: Int) {
         self.postImageURL = postImageURL
         self.caption = caption
         self.location = location
@@ -24,6 +24,8 @@ struct PostModel: Hashable {
         self.uid = uid
         self.profileImageUrl = profileImageUrl
         self.postDocumentID = postDocumentID
+        self.likedBy = likedBy
+        self.likesCount = likesCount
     }
 }
 
