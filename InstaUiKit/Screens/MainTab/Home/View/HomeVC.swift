@@ -119,7 +119,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
             cell.userName.text = post.name
             cell.likeBtnTapped = { [weak self] in
                 if let uid = Auth.auth().currentUser?.uid {
-                    PostViewModel.shared.likePost(postDocumentID: post.postImageURL, userUID: uid)
+                    PostViewModel.shared.likePost(postDocumentID: post.postDocumentID, userUID: uid)
                 }
             }
         }

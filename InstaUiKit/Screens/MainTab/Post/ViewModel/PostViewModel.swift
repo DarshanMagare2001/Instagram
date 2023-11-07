@@ -139,6 +139,7 @@ class PostViewModel {
                            let caption = document["caption"] as? String,
                            let location = document["location"] as? String,
                            let name = document["name"] as? String,
+                           let postDocumentID = document["postDocumentID"] as? String,
                            let profileImageUrl = document["profileImageUrl"] as? String {
                             let image = PostModel(
                                 postImageURL: postImageURL,
@@ -146,7 +147,7 @@ class PostViewModel {
                                 location: location,
                                 name: name,
                                 uid: uid,
-                                profileImageUrl: profileImageUrl
+                                profileImageUrl: profileImageUrl, postDocumentID: postDocumentID
                             )
                             images.append(image)
                         }
@@ -173,8 +174,9 @@ class PostViewModel {
                            let location = document["location"] as? String,
                            let name = document["name"] as? String,
                            let uid = document["uid"] as? String ,
+                           let postDocumentID = document["postDocumentID"] as? String ,
                            let profileImageUrl = document["profileImageUrl"] as? String {
-                            let image = PostModel(postImageURL: postImageURL, caption: caption, location: location, name: name, uid: uid, profileImageUrl: profileImageUrl)
+                            let image = PostModel(postImageURL: postImageURL, caption: caption, location: location, name: name, uid: uid, profileImageUrl: profileImageUrl, postDocumentID: postDocumentID)
                             images.append(image)
                         }
                     }

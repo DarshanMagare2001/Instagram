@@ -14,14 +14,16 @@ struct PostModel: Hashable {
     let name: String
     let uid: String
     let profileImageUrl: String
-
-    init(postImageURL: String, caption: String, location: String, name: String, uid: String, profileImageUrl: String) {
+    let postDocumentID : String
+    
+    init(postImageURL: String, caption: String, location: String, name: String, uid: String, profileImageUrl: String , postDocumentID : String) {
         self.postImageURL = postImageURL
         self.caption = caption
         self.location = location
         self.name = name
         self.uid = uid
         self.profileImageUrl = profileImageUrl
+        self.postDocumentID = postDocumentID
     }
 }
 
