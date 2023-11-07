@@ -85,11 +85,19 @@
                                     <action selector="backBtnPressed:" destination="ee3-WU-IEE" eventType="touchUpInside" id="7Ys-Sr-X5L"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Posts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ywY-Ae-vAV">
+                                <rect key="frame" x="128" y="15" width="64" height="18"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hIO-71-ENG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="vdP-TW-I8T" firstAttribute="top" secondItem="hIO-71-ENG" secondAttribute="top" id="4PX-Ey-6ah"/>
+                            <constraint firstItem="ywY-Ae-vAV" firstAttribute="top" secondItem="hIO-71-ENG" secondAttribute="top" constant="15" id="6ga-5I-a4M"/>
+                            <constraint firstItem="ywY-Ae-vAV" firstAttribute="centerX" secondItem="zPs-W1-0Up" secondAttribute="centerX" id="Exf-qq-EJC"/>
                             <constraint firstItem="vdP-TW-I8T" firstAttribute="leading" secondItem="hIO-71-ENG" secondAttribute="leading" id="xB5-zC-Gmb"/>
                         </constraints>
                     </view>
