@@ -17,14 +17,19 @@ class FeedCell: UITableViewCell {
     @IBOutlet weak var commentBtn: UIButton!
     @IBOutlet weak var likeBtn: UIButton!
     var likeBtnTapped: (() -> Void)?
+    var isLiked: Bool = false
     override func awakeFromNib() {
         super.awakeFromNib()
         
     }
     
     @IBAction func likeBtnPressed(_ sender: UIButton) {
+        isLiked.toggle()
+        let imageName = isLiked ? "heart.fill" : "heart"
+        likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
         likeBtnTapped?()
     }
+
     
     @IBAction func commentBtnPressed(_ sender: UIButton) {
         

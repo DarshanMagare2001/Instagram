@@ -118,6 +118,9 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
             cell.postCaption.text = post.caption
             cell.userName.text = post.name
             cell.likeBtnTapped = { [weak self] in
+//                cell.isLiked = post.isLiked // Set the initial state based on your data model
+                let imageName = cell.isLiked ? "heart.fill" : "heart"
+                cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
                 if let uid = Auth.auth().currentUser?.uid {
                     PostViewModel.shared.likePost(postDocumentID: post.postDocumentID, userUID: uid)
                 }
