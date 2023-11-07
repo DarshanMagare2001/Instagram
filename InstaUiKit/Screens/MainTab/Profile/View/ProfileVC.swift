@@ -164,7 +164,7 @@ extension ProfileVC {
     
 }
 
-extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource , UIGestureRecognizerDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return allPost.count
     }
@@ -173,7 +173,17 @@ extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosCell", for: indexPath) as! PhotosCell
         if let imageURL = URL(string: allPost[indexPath.row].postImageURL) {
             ImageLoader.loadImage(for: imageURL, into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+            tapGesture.delegate = self
+            cell.img.addGestureRecognizer(tapGesture)
+            cell.img.isUserInteractionEnabled = true
         }
         return cell
+    }
+    
+    @objc func imageTapped(_ sender: UITapGestureRecognizer) {
+        let storyboard = UIStoryboard.Common
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedViewVC") as! FeedViewVC
+        navigationController?.pushViewController(destinationVC, animated: true)
     }
 }
