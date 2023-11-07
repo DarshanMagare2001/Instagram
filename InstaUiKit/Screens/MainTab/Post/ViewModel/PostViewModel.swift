@@ -104,7 +104,7 @@ class PostViewModel {
         }
     }
     
-    func fetchPostDataOfCurrentUser(forUID uid: String, completion: @escaping (Result<[PostModel], Error>) -> Void) {
+    func fetchPostDataOfPerticularUser(forUID uid: String, completion: @escaping (Result<[PostModel], Error>) -> Void) {
         let db = Firestore.firestore()
         // Query the "images" collection with a filter for the provided UID
         db.collection("images")

@@ -147,7 +147,7 @@ extension ProfileVC {
             switch result {
             case .success(let uid):
                 if let uid = uid {
-                    PostViewModel.shared.fetchPostDataOfCurrentUser(forUID: uid) { result in
+                    PostViewModel.shared.fetchPostDataOfPerticularUser(forUID: uid) { result in
                         switch result {
                         case .success(let images):
                             // Handle the images
