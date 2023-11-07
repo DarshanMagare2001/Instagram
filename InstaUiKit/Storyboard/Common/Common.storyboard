@@ -91,16 +91,27 @@
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="b9l-Vg-iEu">
+                                <rect key="frame" x="0.0" y="60" width="320" height="508"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hIO-71-ENG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="vdP-TW-I8T" firstAttribute="top" secondItem="hIO-71-ENG" secondAttribute="top" id="4PX-Ey-6ah"/>
+                            <constraint firstItem="hIO-71-ENG" firstAttribute="bottom" secondItem="b9l-Vg-iEu" secondAttribute="bottom" id="4aq-rq-wt1"/>
                             <constraint firstItem="ywY-Ae-vAV" firstAttribute="top" secondItem="hIO-71-ENG" secondAttribute="top" constant="15" id="6ga-5I-a4M"/>
+                            <constraint firstItem="hIO-71-ENG" firstAttribute="trailing" secondItem="b9l-Vg-iEu" secondAttribute="trailing" id="7XQ-Ef-aVa"/>
                             <constraint firstItem="ywY-Ae-vAV" firstAttribute="centerX" secondItem="zPs-W1-0Up" secondAttribute="centerX" id="Exf-qq-EJC"/>
+                            <constraint firstItem="b9l-Vg-iEu" firstAttribute="top" secondItem="vdP-TW-I8T" secondAttribute="bottom" constant="10" id="Ig9-gL-1kM"/>
                             <constraint firstItem="vdP-TW-I8T" firstAttribute="leading" secondItem="hIO-71-ENG" secondAttribute="leading" id="xB5-zC-Gmb"/>
+                            <constraint firstItem="b9l-Vg-iEu" firstAttribute="leading" secondItem="hIO-71-ENG" secondAttribute="leading" id="yFd-Vj-ddX"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="postTableViewOutlet" destination="b9l-Vg-iEu" id="e2f-Jl-8zt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HAu-km-dbU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

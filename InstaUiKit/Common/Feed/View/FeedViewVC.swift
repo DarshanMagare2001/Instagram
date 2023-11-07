@@ -8,7 +8,8 @@
 import UIKit
 
 class FeedViewVC: UIViewController {
-
+    
+    @IBOutlet weak var postTableViewOutlet: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
     }

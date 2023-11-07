@@ -104,15 +104,9 @@ class PostViewModel {
         }
     }
     
-    func fetchPostDataOfCurrentUser(completion: @escaping (Result<[PostModel], Error>) -> Void) {
+    func fetchPostDataOfCurrentUser(forUID uid: String, completion: @escaping (Result<[PostModel], Error>) -> Void) {
         let db = Firestore.firestore()
-        
-        // Get the UID of the currently authenticated user
-        guard let uid = Auth.auth().currentUser?.uid else {
-            print("User is not authenticated.")
-            return
-        }
-        // Query the "images" collection with a filter for the current user's UID
+        // Query the "images" collection with a filter for the provided UID
         db.collection("images")
             .whereField("uid", isEqualTo: uid)
             .getDocuments { (querySnapshot, error) in
@@ -126,9 +120,15 @@ class PostViewModel {
                            let caption = document["caption"] as? String,
                            let location = document["location"] as? String,
                            let name = document["name"] as? String,
-                           let uid = document["uid"] as? String ,
                            let profileImageUrl = document["profileImageUrl"] as? String {
-                            let image = PostModel(postImageURL: postImageURL, caption: caption, location: location, name: name, uid: uid, profileImageUrl: profileImageUrl)
+                            let image = PostModel(
+                                postImageURL: postImageURL,
+                                caption: caption,
+                                location: location,
+                                name: name,
+                                uid: uid,
+                                profileImageUrl: profileImageUrl
+                            )
                             images.append(image)
                         }
                     }
@@ -136,6 +136,7 @@ class PostViewModel {
                 }
             }
     }
+
     
     
     func fetchAllPosts(completion: @escaping (Result<[PostModel], Error>) -> Void) {

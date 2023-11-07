@@ -143,22 +143,30 @@ extension ProfileVC {
             }
         }
         
-        PostViewModel.shared.fetchPostDataOfCurrentUser { result in
+        Data.shared.getData(key: "CurrentUserId") { (result:Result<String? , Error>) in
             switch result {
-            case .success(let images):
-                // Handle the images
-                print("Fetched images: \(images)")
-                DispatchQueue.main.async {
-                    self.allPost = images
-                    self.postCountLbl.text = "\(self.allPost.count)"
-                    self.photosCollectionView.reloadData()
+            case .success(let uid):
+                if let uid = uid {
+                    PostViewModel.shared.fetchPostDataOfCurrentUser(forUID: uid) { result in
+                        switch result {
+                        case .success(let images):
+                            // Handle the images
+                            print("Fetched images: \(images)")
+                            DispatchQueue.main.async {
+                                self.allPost = images
+                                self.postCountLbl.text = "\(self.allPost.count)"
+                                self.photosCollectionView.reloadData()
+                            }
+                        case .failure(let error):
+                            // Handle the error
+                            print("Error fetching images: \(error)")
+                        }
+                    }
                 }
             case .failure(let error):
-                // Handle the error
-                print("Error fetching images: \(error)")
+                print(error)
             }
         }
-        
     }
     
     
