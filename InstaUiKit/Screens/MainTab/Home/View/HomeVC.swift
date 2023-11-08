@@ -17,10 +17,14 @@ class HomeVC: UIViewController {
     var userName : String?
     var allPost = [PostModel]()
     var allUniqueUsersArray = [UserModel]()
+    var uid : String?
     override func viewDidLoad() {
         super.viewDidLoad()
         let nib = UINib(nibName: "FeedCell", bundle: nil)
         feedTableView.register(nib, forCellReuseIdentifier: "FeedCell")
+        if let currentUid = Auth.auth().currentUser?.uid {
+            uid = currentUid
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,44 +115,52 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
         let post = allPost[indexPath.row]
-
+        
         ImageLoader.loadImage(for: URL(string: post.profileImageUrl), into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
         ImageLoader.loadImage(for: URL(string: post.profileImageUrl), into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
         ImageLoader.loadImage(for: URL(string: post.postImageURL), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
         cell.postLocationLbl.text = post.location
         cell.postCaption.text = post.caption
         cell.userName.text = post.name
-        if let uid = Auth.auth().currentUser?.uid {
-            let isLiked = cell.isLiked // Store the initial liked state
-            let newIsLiked: Bool
-
-            if isLiked {
-                // User has already liked, so unlike the post
-                newIsLiked = false
-                PostViewModel.shared.unlikePost(postDocumentID: post.postDocumentID, userUID: uid) { success in
-                    if success {
-                        // Update the UI: Set the correct image for the like button
-                        cell.likeBtn.setImage(UIImage(systemName: "heart"), for: .normal)
+        if let uid = uid {
+            if (post.likedBy.contains(uid)){
+                cell.isLiked = true
+                let imageName = cell.isLiked ? "heart.fill" : "heart"
+                cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+            }else{
+                cell.isLiked = false
+                let imageName = cell.isLiked ? "heart.fill" : "heart"
+                cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+            }
+            
+            cell.likeBtnTapped = { [weak self] in
+                if cell.isLiked {
+                    // User has already liked, so unlike the post
+                    PostViewModel.shared.likePost(postDocumentID: post.postDocumentID, userUID: uid) { success in
+                        if success {
+                            // Update the UI: Set the correct image for the like button
+                            cell.isLiked = true
+                            let imageName = cell.isLiked ? "heart.fill" : "heart"
+                            cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+                        }
                     }
-                }
-            } else {
-                // User has not liked, so like the post
-                newIsLiked = true
-                PostViewModel.shared.likePost(postDocumentID: post.postDocumentID, userUID: uid) { success in
-                    if success {
-                        // Update the UI: Set the correct image for the like button
-                        cell.likeBtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                    
+                } else {
+                    // User has not liked, so like the post
+                    PostViewModel.shared.unlikePost(postDocumentID: post.postDocumentID, userUID: uid) { success in
+                        if success {
+                            // Update the UI: Set the correct image for the like button
+                            cell.isLiked = false
+                            let imageName = cell.isLiked ? "heart.fill" : "heart"
+                            cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+                        }
                     }
                 }
             }
-            
-            // Update the cell's liked state after the operation is complete
-            cell.isLiked = newIsLiked
         }
-        
         return cell
     }
-
+    
     
 }
 
