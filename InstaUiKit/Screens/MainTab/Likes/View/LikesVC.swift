@@ -91,8 +91,9 @@ extension LikesVC : UITableViewDelegate , UITableViewDataSource {
                         switch result {
                         case.success(let data):
                             print(data)
-                            if let imgUrl = data.imageUrl{
+                            if let imgUrl = data.imageUrl , let name = data.name {
                                 ImageLoader.loadImage(for: URL(string: imgUrl), into: likesCell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                                likesCell.likeByLbl.text = "\(name) liked your post"
                             }
                         case.failure(let error):
                             print(error)
