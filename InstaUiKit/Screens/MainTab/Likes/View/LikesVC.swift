@@ -11,6 +11,7 @@ class LikesVC: UIViewController {
     @IBOutlet weak var segmentControllOutlet: UISegmentedControl!
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    var allPost = [PostModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
         let nibLikes = UINib (nibName: "LikesCell", bundle: nil)
@@ -18,6 +19,33 @@ class LikesVC: UIViewController {
         tableViewOutlet.register(nibLikes, forCellReuseIdentifier: "LikesCell")
         tableViewOutlet.register(nibFollowing, forCellReuseIdentifier: "FollowingCell")
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        Data.shared.getData(key: "CurrentUserId") { (result:Result<String? , Error>) in
+            switch result {
+            case .success(let uid):
+                if let uid = uid {
+                    PostViewModel.shared.fetchPostDataOfPerticularUser(forUID: uid) { result in
+                        switch result {
+                        case .success(let images):
+                            // Handle the images
+                            print("Fetched images: \(images)")
+                            DispatchQueue.main.async {
+                                self.allPost = images
+                                self.tableViewOutlet.reloadData()
+                            }
+                        case .failure(let error):
+                            // Handle the error
+                            print("Error fetching images: \(error)")
+                        }
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     
     @IBAction func segmentControlDidChange(_ sender: UISegmentedControl) {
         let selectedSegmentIndex = segmentControllOutlet.selectedSegmentIndex
@@ -34,7 +62,7 @@ class LikesVC: UIViewController {
 
 extension LikesVC : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return allPost.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -46,7 +74,9 @@ extension LikesVC : UITableViewDelegate , UITableViewDataSource {
             return followingCell
         } else {
             let likesCell = tableView.dequeueReusableCell(withIdentifier: "LikesCell", for: indexPath) as! LikesCell
-            // Configure the LikesCell with data based on indexPath or any other logic
+            if let imageURL = URL(string: allPost[indexPath.row].postImageURL) {
+                ImageLoader.loadImage(for: imageURL, into: likesCell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+            }
             return likesCell
         }
     }
