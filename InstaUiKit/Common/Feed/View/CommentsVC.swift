@@ -6,18 +6,39 @@
 //
 
 import UIKit
+import SwiftUI
 
 class CommentsVC: UIViewController {
     @IBOutlet weak var tableViewOutlet: UITableView!
+    @IBOutlet weak var userImg: CircleImageView!
+    @IBOutlet weak var commentTxtFld: UITextField!
     var allPost : PostModel?
     override func viewDidLoad() {
         super.viewDidLoad()
-     
         
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        Data.shared.getData(key: "ProfileUrl") { (result:Result<String?,Error>) in
+            switch result {
+            case .success(let url):
+                if let url = url {
+                    ImageLoader.loadImage(for: URL(string: url), into: self.userImg , withPlaceholder: UIImage(systemName: "person.fill"))
+                }
+            case .failure(let failure):
+                print(failure)
+            }
+        }
     }
     
     @IBAction func backBtnPressed(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
+    }
+    
+    
+    @IBAction func postBtnPressed(_ sender: UIButton) {
+        
     }
     
 }

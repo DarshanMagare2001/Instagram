@@ -157,7 +157,7 @@
                                                 <rect key="frame" x="0.0" y="448" width="320" height="70"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="chc-Sr-7ex">
-                                                        <rect key="frame" x="5" y="5" width="310" height="60"/>
+                                                        <rect key="frame" x="10" y="5" width="300" height="60"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="s8k-FB-xIo" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="1.5" width="60" height="57"/>
@@ -168,10 +168,10 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6BG-0s-OzF" customClass="RoundedViewWithBorder" customModule="InstaUiKit" customModuleProvider="target">
-                                                                <rect key="frame" x="70" y="0.0" width="170" height="60"/>
+                                                                <rect key="frame" x="70" y="0.0" width="160" height="60"/>
                                                                 <subviews>
                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add a comment" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3lF-Bh-PXR">
-                                                                        <rect key="frame" x="5" y="5" width="160" height="50"/>
+                                                                        <rect key="frame" x="5" y="5" width="150" height="50"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits"/>
                                                                     </textField>
@@ -185,22 +185,25 @@
                                                                 </constraints>
                                                             </view>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jle-0W-ylH">
-                                                                <rect key="frame" x="250" y="0.0" width="60" height="60"/>
+                                                                <rect key="frame" x="240" y="0.0" width="60" height="60"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="60" id="5OB-uA-CAt"/>
                                                                     <constraint firstAttribute="width" constant="60" id="MO6-EL-3lU"/>
                                                                 </constraints>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain" title="Post"/>
+                                                                <connections>
+                                                                    <action selector="postBtnPressed:" destination="i6f-QH-PdU" eventType="touchUpInside" id="4wX-Z3-X1R"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="chc-Sr-7ex" secondAttribute="bottom" constant="5" id="JXI-l0-De8"/>
-                                                    <constraint firstItem="chc-Sr-7ex" firstAttribute="leading" secondItem="XWE-HA-WhK" secondAttribute="leading" constant="5" id="OXl-1i-rMD"/>
+                                                    <constraint firstItem="chc-Sr-7ex" firstAttribute="leading" secondItem="XWE-HA-WhK" secondAttribute="leading" constant="10" id="OXl-1i-rMD"/>
                                                     <constraint firstItem="chc-Sr-7ex" firstAttribute="top" secondItem="XWE-HA-WhK" secondAttribute="top" constant="5" id="WDh-BZ-aIJ"/>
-                                                    <constraint firstAttribute="trailing" secondItem="chc-Sr-7ex" secondAttribute="trailing" constant="5" id="qDx-pv-s6b"/>
+                                                    <constraint firstAttribute="trailing" secondItem="chc-Sr-7ex" secondAttribute="trailing" constant="10" id="qDx-pv-s6b"/>
                                                 </constraints>
                                             </view>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="DTA-sg-Khx">
@@ -257,7 +260,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="commentTxtFld" destination="3lF-Bh-PXR" id="tMb-Lk-lx0"/>
                         <outlet property="tableViewOutlet" destination="DTA-sg-Khx" id="Ujy-um-5xb"/>
+                        <outlet property="userImg" destination="s8k-FB-xIo" id="sf7-8x-wNs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="byq-s8-jcp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
