@@ -67,18 +67,22 @@ extension LikesVC : UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let selectedSegmentIndex = segmentControllOutlet.selectedSegmentIndex
-        
         if selectedSegmentIndex == 0 {
             let followingCell = tableView.dequeueReusableCell(withIdentifier: "FollowingCell", for: indexPath) as! FollowingCell
             // Configure the FollowingCell with data based on indexPath or any other logic
             return followingCell
         } else {
             let likesCell = tableView.dequeueReusableCell(withIdentifier: "LikesCell", for: indexPath) as! LikesCell
-            if let imageURL = URL(string: allPost[indexPath.row].postImageURL) {
-                ImageLoader.loadImage(for: imageURL, into: likesCell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+            let section = indexPath.section
+            let row = indexPath.row
+            if section < allPost.count && row < allPost[section].likedBy.count {
+                if let imageURL = URL(string: allPost[section].postImageURL) {
+                    ImageLoader.loadImage(for: imageURL, into: likesCell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                }
             }
             return likesCell
         }
     }
+    
     
 }
