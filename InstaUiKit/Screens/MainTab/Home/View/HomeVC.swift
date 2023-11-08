@@ -122,7 +122,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         cell.postLocationLbl.text = post.location
         cell.postCaption.text = post.caption
         cell.userName.text = post.name
-        cell.totalLikesCount.text = "Likes \(post.likesCount)"
+        cell.totalLikesCount.text = "\(post.likesCount) Likes"
         
         if let randomLikedByUID = post.likedBy.randomElement() {
             ProfileViewModel.shared.fetchUserData(uid: randomLikedByUID) { result in
