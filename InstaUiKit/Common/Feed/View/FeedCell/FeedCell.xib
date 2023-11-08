@@ -168,6 +168,7 @@
             <connections>
                 <outlet property="commentBtn" destination="h9R-Fp-jcg" id="Xps-xP-Lod"/>
                 <outlet property="likeBtn" destination="Rfr-if-cBN" id="Hmf-Ha-deo"/>
+                <outlet property="likedByLbl" destination="62D-D4-fLa" id="1j6-m0-tdH"/>
                 <outlet property="postCaption" destination="w5c-Pt-eTN" id="RHN-6i-G5U"/>
                 <outlet property="postImg" destination="LF5-lR-dk5" id="MbZ-mh-Zlf"/>
                 <outlet property="postLocationLbl" destination="BCd-Rg-aY6" id="bV0-rb-89R"/>

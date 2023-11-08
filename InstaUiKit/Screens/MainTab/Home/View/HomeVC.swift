@@ -123,6 +123,20 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         cell.postCaption.text = post.caption
         cell.userName.text = post.name
         cell.totalLikesCount.text = "Likes \(post.likesCount)"
+        
+        if let randomLikedByUID = post.likedBy.randomElement() {
+            ProfileViewModel.shared.fetchUserData(uid: randomLikedByUID) { result in
+                switch result {
+                case .success(let data):
+                    if let name = data.name {
+                        cell.likedByLbl.text = "Liked by \(name) and \(Int(post.likedBy.count - 1)) others."
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        
         if let uid = uid {
             if (post.likedBy.contains(uid)){
                 cell.isLiked = true
@@ -164,7 +178,6 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         }
         return cell
     }
-    
     
 }
 

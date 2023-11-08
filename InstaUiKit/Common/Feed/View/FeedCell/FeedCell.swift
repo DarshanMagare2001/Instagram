@@ -17,6 +17,7 @@ class FeedCell: UITableViewCell {
     @IBOutlet weak var commentBtn: UIButton!
     @IBOutlet weak var likeBtn: UIButton!
     @IBOutlet weak var totalLikesCount: UILabel!
+    @IBOutlet weak var likedByLbl: UILabel!
     var likeBtnTapped: (() -> Void)?
     var commentsBtnTapped: (() -> Void)?
     var isLiked: Bool = false
