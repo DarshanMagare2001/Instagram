@@ -83,9 +83,24 @@ extension LikesVC : UITableViewDelegate , UITableViewDataSource {
             let likesCell = tableView.dequeueReusableCell(withIdentifier: "LikesCell", for: indexPath) as! LikesCell
             let section = indexPath.section
             let row = indexPath.row
+            let uid = allPost[section].likedBy[indexPath.row]
+            print(uid)
             if section < allPost.count && row < allPost[section].likedBy.count {
-                if let imageURL = URL(string: allPost[section].postImageURL) {
-                    ImageLoader.loadImage(for: imageURL, into: likesCell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                DispatchQueue.main.async {
+                    ProfileViewModel.shared.fetchUserData(uid: uid) { result in
+                        switch result {
+                        case.success(let data):
+                            print(data)
+                            if let imgUrl = data.imageUrl{
+                                ImageLoader.loadImage(for: URL(string: imgUrl), into: likesCell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                            }
+                        case.failure(let error):
+                            print(error)
+                        }
+                    }
+                    if let imageURL = URL(string: self.allPost[section].postImageURL) {
+                        ImageLoader.loadImage(for: imageURL, into: likesCell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                    }
                 }
             }
             return likesCell

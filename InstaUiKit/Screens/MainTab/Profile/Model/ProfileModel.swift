@@ -14,9 +14,9 @@ struct ProfileModel: Codable {
     var bio: String?
     var phoneNumber: String?
     var gender: String?
-    var imageURL: String?
+    var imageUrl: String?
     var countryCode : String?
-    
+    var fcmToken : String?
     // Custom initializer to create ProfileModel from a dictionary
     init?(dictionary: [String: Any]) {
         self.uid = dictionary["uid"] as? String
@@ -25,8 +25,9 @@ struct ProfileModel: Codable {
         self.bio = dictionary["bio"] as? String
         self.phoneNumber = dictionary["phoneNumber"] as? String
         self.gender = dictionary["gender"] as? String
-        self.imageURL = dictionary["imageURL"] as? String
+        self.imageUrl = dictionary["imageUrl"] as? String
         self.countryCode = dictionary["countryCode"] as? String
+        self.fcmToken = dictionary["fcmToken"] as? String
     }
 }
 
