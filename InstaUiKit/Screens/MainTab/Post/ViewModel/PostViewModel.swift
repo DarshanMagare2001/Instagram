@@ -271,6 +271,39 @@ class PostViewModel {
     }
     
     
+    func addCommentToPost(postDocumentID: String, commentText: String, completion: @escaping (Bool) -> Void) {
+        // Get the current user's UID
+        if let userUID = Auth.auth().currentUser?.uid {
+            let db = Firestore.firestore()
+            let postDocumentRef = db.collection("post").document(postDocumentID)
+            
+            // Create a dictionary to represent the comment
+            let commentData: [String: Any] = [
+                "uid": userUID,
+                "comment": commentText
+            ]
+            
+            // Update the 'comments' array in the post
+            let batch = db.batch()
+            batch.updateData(["comments": FieldValue.arrayUnion([commentData])], forDocument: postDocumentRef)
+            
+            batch.commit { error in
+                if let error = error {
+                    print("Error adding comment to post: \(error.localizedDescription)")
+                    completion(false) // Notify that the operation failed
+                } else {
+                    print("Comment added to post by user with UID: \(userUID)")
+                    completion(true) // Notify that the operation succeeded
+                }
+            }
+        } else {
+            // Handle the case when the current user is not authenticated
+            print("User is not authenticated.")
+            completion(false) // Notify that the operation failed
+        }
+    }
+    
+    
     
     
 }

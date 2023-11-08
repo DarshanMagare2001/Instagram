@@ -9,8 +9,10 @@ import UIKit
 
 class CommentsVC: UIViewController {
     @IBOutlet weak var tableViewOutlet: UITableView!
+    var allPost : PostModel?
     override func viewDidLoad() {
         super.viewDidLoad()
+     
         
     }
     

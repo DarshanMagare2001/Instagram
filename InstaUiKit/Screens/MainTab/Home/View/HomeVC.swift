@@ -178,6 +178,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         cell.commentsBtnTapped = { [weak self] in
             let storyboard = UIStoryboard.Common
             let destinationVC = storyboard.instantiateViewController(withIdentifier: "CommentsVC") as! CommentsVC
+            destinationVC.allPost = post
             self?.navigationController?.pushViewController(destinationVC, animated: true)
         }
         return cell
