@@ -12,6 +12,7 @@ class LikesVC: UIViewController {
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     var allPost = [PostModel]()
+    var currentUserUid : String?
     override func viewDidLoad() {
         super.viewDidLoad()
         let nibLikes = UINib (nibName: "LikesCell", bundle: nil)
@@ -25,6 +26,7 @@ class LikesVC: UIViewController {
             switch result {
             case .success(let uid):
                 if let uid = uid {
+                    self.currentUserUid = uid
                     PostViewModel.shared.fetchPostDataOfPerticularUser(forUID: uid) { result in
                         switch result {
                         case .success(let images):
@@ -68,7 +70,8 @@ extension LikesVC : UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section < allPost.count {
-            return allPost[section].likedBy.count
+            let filteredLikes = allPost[section].likedBy.filter { $0 != currentUserUid }
+            return filteredLikes.count
         }
         return 0
     }
@@ -83,19 +86,17 @@ extension LikesVC : UITableViewDelegate , UITableViewDataSource {
             let likesCell = tableView.dequeueReusableCell(withIdentifier: "LikesCell", for: indexPath) as! LikesCell
             let section = indexPath.section
             let row = indexPath.row
-            let uid = allPost[section].likedBy[indexPath.row]
-            print(uid)
             if section < allPost.count && row < allPost[section].likedBy.count {
+                let uid = allPost[section].likedBy.filter { $0 != currentUserUid }
                 DispatchQueue.main.async {
-                    ProfileViewModel.shared.fetchUserData(uid: uid) { result in
+                    ProfileViewModel.shared.fetchUserData(uid: uid[indexPath.row]) { result in
                         switch result {
-                        case.success(let data):
-                            print(data)
-                            if let imgUrl = data.imageUrl , let name = data.name {
+                        case .success(let data):
+                            if let imgUrl = data.imageUrl, let name = data.name {
                                 ImageLoader.loadImage(for: URL(string: imgUrl), into: likesCell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
                                 likesCell.likeByLbl.text = "\(name) liked your post"
                             }
-                        case.failure(let error):
+                        case .failure(let error):
                             print(error)
                         }
                     }
@@ -107,6 +108,7 @@ extension LikesVC : UITableViewDelegate , UITableViewDataSource {
             return likesCell
         }
     }
+    
     
     
 }
