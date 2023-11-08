@@ -11,6 +11,7 @@ import UIKit
 import FirebaseStorage
 import FirebaseFirestore
 import FirebaseAuth
+import Firebase
 
 class PostViewModel {
     static let shared = PostViewModel()
@@ -126,72 +127,76 @@ class PostViewModel {
             .whereField("uid", isEqualTo: uid)
             .getDocuments { (querySnapshot, error) in
                 if let error = error {
-                    print("Error fetching images: \(error.localizedDescription)")
+                    print("Error fetching data: \(error.localizedDescription)")
                     completion(.failure(error))
                 } else {
-                    var images: [PostModel] = []
+                    var posts: [PostModel] = []
                     for document in querySnapshot!.documents {
-                        if let postImageURL = document["postImageURL"] as? String,
-                           let caption = document["caption"] as? String,
-                           let location = document["location"] as? String,
-                           let name = document["name"] as? String,
-                           let postDocumentID = document["postDocumentID"] as? String,
-                           let likedBy = document["likedBy"] as? [String],
-                           let likesCount = document["likesCount"] as? Int, // Corrected the type
-                           let profileImageUrl = document["profileImageUrl"] as? String {
-                            let image = PostModel(
-                                postImageURL: postImageURL,
-                                caption: caption,
-                                location: location,
-                                name: name,
-                                uid: uid,
-                                profileImageUrl: profileImageUrl,
-                                postDocumentID: postDocumentID,
-                                likedBy: likedBy,
-                                likesCount: likesCount
-                            )
-                            images.append(image)
-                        }
+                        let data = document.data()
+                        print("Document ID: \(document.documentID)")
+                        print("Data: \(data)")
+                        let postImageURL = data["postImageURL"] as? String ?? ""
+                        let caption = data["caption"] as? String ?? ""
+                        let location = data["location"] as? String ?? ""
+                        let name = data["name"] as? String ?? ""
+                        let profileImageUrl = data["profileImageUrl"] as? String ?? ""
+                        let postDocumentID = data["postDocumentID"] as? String ?? ""
+                        let likedBy = data["likedBy"] as? [String] ?? []
+                        let likesCount = data["likesCount"] as? Int ?? 0
+                        let post = PostModel(
+                            postImageURL: postImageURL,
+                            caption: caption,
+                            location: location,
+                            name: name,
+                            uid: uid,
+                            profileImageUrl: profileImageUrl,
+                            postDocumentID: postDocumentID,
+                            likedBy: likedBy,
+                            likesCount: likesCount
+                        )
+                        posts.append(post)
                     }
-                    completion(.success(images))
+                    print("Fetched \(posts.count) posts.")
+                    completion(.success(posts))
                 }
             }
     }
+    
     
     func fetchAllPosts(completion: @escaping (Result<[PostModel], Error>) -> Void) {
         let db = Firestore.firestore()
         db.collection("post")
             .getDocuments { (querySnapshot, error) in
                 if let error = error {
-                    print("Error fetching images: \(error.localizedDescription)")
+                    print("Error fetching data: \(error.localizedDescription)")
                     completion(.failure(error))
                 } else {
-                    var images: [PostModel] = []
+                    var posts: [PostModel] = []
                     for document in querySnapshot!.documents {
-                        if let postImageURL = document["postImageURL"] as? String,
-                           let caption = document["caption"] as? String,
-                           let location = document["location"] as? String,
-                           let name = document["name"] as? String,
-                           let uid = document["uid"] as? String,
-                           let postDocumentID = document["postDocumentID"] as? String,
-                           let likedBy = document["likedBy"] as? [String],
-                           let likesCount = document["likesCount"] as? Int, // Corrected the type
-                           let profileImageUrl = document["profileImageUrl"] as? String {
-                            let image = PostModel(
-                                postImageURL: postImageURL,
-                                caption: caption,
-                                location: location,
-                                name: name,
-                                uid: uid,
-                                profileImageUrl: profileImageUrl,
-                                postDocumentID: postDocumentID,
-                                likedBy: likedBy,
-                                likesCount: likesCount
-                            )
-                            images.append(image)
-                        }
+                        let data = document.data()
+                        let postImageURL = data["postImageURL"] as? String ?? ""
+                        let caption = data["caption"] as? String ?? ""
+                        let location = data["location"] as? String ?? ""
+                        let name = data["name"] as? String ?? ""
+                        let uid = data["uid"] as? String ?? ""
+                        let profileImageUrl = data["profileImageUrl"] as? String ?? ""
+                        let postDocumentID = data["postDocumentID"] as? String ?? ""
+                        let likedBy = data["likedBy"] as? [String] ?? []
+                        let likesCount = data["likesCount"] as? Int ?? 0
+                        let post = PostModel(
+                            postImageURL: postImageURL,
+                            caption: caption,
+                            location: location,
+                            name: name,
+                            uid: uid,
+                            profileImageUrl: profileImageUrl,
+                            postDocumentID: postDocumentID,
+                            likedBy: likedBy,
+                            likesCount: likesCount
+                        )
+                        posts.append(post)
                     }
-                    completion(.success(images))
+                    completion(.success(posts))
                 }
             }
     }

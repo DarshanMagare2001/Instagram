@@ -5,18 +5,28 @@
 //  Created by IPS-161 on 11/08/23.
 //
 
-struct PostModel: Hashable {
-    let postImageURL: String
-    let caption: String
-    let location: String
-    let name: String
-    let uid: String
-    let profileImageUrl: String
-    let postDocumentID: String
-    let likedBy: [String]
-    let likesCount: Int // Changed the type to Int
+struct PostModel {
+    var postImageURL: String
+    var caption: String
+    var location: String
+    var name: String
+    var uid: String
+    var profileImageUrl: String
+    var postDocumentID: String
+    var likedBy: [String]
+    var likesCount: Int
 
-    init(postImageURL: String, caption: String, location: String, name: String, uid: String, profileImageUrl: String, postDocumentID: String, likedBy: [String], likesCount: Int) {
+    init(
+        postImageURL: String,
+        caption: String,
+        location: String,
+        name: String,
+        uid: String,
+        profileImageUrl: String,
+        postDocumentID: String,
+        likedBy: [String],
+        likesCount: Int
+    ) {
         self.postImageURL = postImageURL
         self.caption = caption
         self.location = location

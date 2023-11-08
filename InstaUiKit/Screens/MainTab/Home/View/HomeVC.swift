@@ -73,6 +73,7 @@ extension HomeVC {
                 print("Fetched images: \(images)")
                 DispatchQueue.main.async {
                     self.allPost = images
+                    print(images)
                     self.feedTableView.reloadData()
                     self.storiesCollectionView.reloadData()
                 }
@@ -117,17 +118,24 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
             cell.postLocationLbl.text = post.location
             cell.postCaption.text = post.caption
             cell.userName.text = post.name
-            cell.likeBtnTapped = { [weak self] in
-//                cell.isLiked = post.isLiked // Set the initial state based on your data model
+            if let uid = Auth.auth().currentUser?.uid {
+                cell.isLiked = post.likedBy.contains(uid)
                 let imageName = cell.isLiked ? "heart.fill" : "heart"
                 cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
-                if let uid = Auth.auth().currentUser?.uid {
-                    PostViewModel.shared.likePost(postDocumentID: post.postDocumentID, userUID: uid)
+                cell.likeBtnTapped = { [weak self] in
+                    if cell.isLiked {
+                        // User has already liked, so unlike the post
+                        PostViewModel.shared.unlikePost(postDocumentID: post.postDocumentID, userUID: uid)
+                    } else {
+                        // User has not liked, so like the post
+                        PostViewModel.shared.likePost(postDocumentID: post.postDocumentID, userUID: uid)
+                    }
                 }
             }
         }
         return cell
     }
+    
 }
 
 
