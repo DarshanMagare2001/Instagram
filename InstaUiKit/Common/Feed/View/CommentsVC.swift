@@ -38,7 +38,11 @@ class CommentsVC: UIViewController {
     
     
     @IBAction func postBtnPressed(_ sender: UIButton) {
-        
+        if let allPost = allPost , let comment = commentTxtFld.text {
+            PostViewModel.shared.addCommentToPost(postDocumentID: allPost.postDocumentID, commentText: comment) { value in
+                self.tableViewOutlet.reloadData()
+            }
+        }
     }
     
 }
