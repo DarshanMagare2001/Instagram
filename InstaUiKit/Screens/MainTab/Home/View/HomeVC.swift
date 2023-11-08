@@ -122,6 +122,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         cell.postLocationLbl.text = post.location
         cell.postCaption.text = post.caption
         cell.userName.text = post.name
+        cell.totalLikesCount.text = "Likes \(post.likesCount)"
         if let uid = uid {
             if (post.likedBy.contains(uid)){
                 cell.isLiked = true

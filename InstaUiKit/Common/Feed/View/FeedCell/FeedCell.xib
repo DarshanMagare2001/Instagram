@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -10,11 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedCell" rowHeight="606" id="KGk-i7-Jjw" customClass="FeedCell" customModule="InstaUiKit" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="616" height="606"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedCell" rowHeight="651" id="KGk-i7-Jjw" customClass="FeedCell" customModule="InstaUiKit" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="616" height="651"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="616" height="606"/>
+                <rect key="frame" x="0.0" y="0.0" width="616" height="651"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UcO-dA-GRy">
@@ -64,48 +65,62 @@
                         </constraints>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gMO-aV-oUu">
-                        <rect key="frame" x="0.0" y="410" width="616" height="50"/>
+                        <rect key="frame" x="0.0" y="410" width="616" height="86.5"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="80o-Ci-FWM">
-                                <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="VxQ-Tz-42W">
+                                <rect key="frame" x="10" y="5" width="100" height="76.5"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rfr-if-cBN">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="9Fw-LZ-aer"/>
-                                            <constraint firstAttribute="width" constant="50" id="d9w-BL-may"/>
-                                        </constraints>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system" title=" "/>
-                                        <connections>
-                                            <action selector="likeBtnPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="DCj-VY-SLt"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h9R-Fp-jcg">
-                                        <rect key="frame" x="50" y="0.0" width="50" height="50"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="bubble.right" catalog="system" title=" "/>
-                                        <connections>
-                                            <action selector="commentBtnPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Lde-vZ-SQT"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="80o-Ci-FWM">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rfr-if-cBN">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="Lxh-m7-pI3"/>
+                                                    <constraint firstAttribute="width" constant="50" id="ZTQ-ay-gjq"/>
+                                                </constraints>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title=" " imagePadding="0.0">
+                                                    <imageReference key="image" image="heart" catalog="system" symbolScale="large"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="likeBtnPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="DCj-VY-SLt"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h9R-Fp-jcg">
+                                                <rect key="frame" x="50" y="0.0" width="50" height="50"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="bubble.right" catalog="system" title=" "/>
+                                                <connections>
+                                                    <action selector="commentBtnPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Lde-vZ-SQT"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T9r-vC-fcc">
+                                        <rect key="frame" x="0.0" y="55" width="100" height="21.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="80o-Ci-FWM" firstAttribute="leading" secondItem="gMO-aV-oUu" secondAttribute="leading" id="PQA-Tl-PSW"/>
-                            <constraint firstAttribute="bottom" secondItem="80o-Ci-FWM" secondAttribute="bottom" id="a4i-SG-m0v"/>
-                            <constraint firstItem="80o-Ci-FWM" firstAttribute="top" secondItem="gMO-aV-oUu" secondAttribute="top" id="nQK-ox-IX5"/>
+                            <constraint firstItem="VxQ-Tz-42W" firstAttribute="leading" secondItem="gMO-aV-oUu" secondAttribute="leading" constant="10" id="3L7-YP-v15"/>
+                            <constraint firstAttribute="bottom" secondItem="VxQ-Tz-42W" secondAttribute="bottom" constant="5" id="R8U-UU-iYU"/>
+                            <constraint firstItem="VxQ-Tz-42W" firstAttribute="top" secondItem="gMO-aV-oUu" secondAttribute="top" constant="5" id="bQu-qW-8jG"/>
                         </constraints>
                     </view>
                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WBp-Qc-C6o">
-                        <rect key="frame" x="10" y="465" width="596" height="76"/>
+                        <rect key="frame" x="10" y="501.5" width="596" height="84.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="GNn-9f-iqv" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="19.5" width="40" height="37"/>
+                                <rect key="frame" x="0.0" y="24" width="40" height="37"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="3Ez-QR-B6l"/>
@@ -113,7 +128,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62D-D4-fLa">
-                                <rect key="frame" x="50" y="28" width="546" height="20.5"/>
+                                <rect key="frame" x="50" y="32" width="546" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -121,7 +136,7 @@
                         </subviews>
                     </stackView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w5c-Pt-eTN">
-                        <rect key="frame" x="10" y="546" width="596" height="50"/>
+                        <rect key="frame" x="10" y="591" width="596" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="Z3W-CQ-Fad"/>
                         </constraints>
@@ -156,11 +171,12 @@
                 <outlet property="postCaption" destination="w5c-Pt-eTN" id="RHN-6i-G5U"/>
                 <outlet property="postImg" destination="LF5-lR-dk5" id="MbZ-mh-Zlf"/>
                 <outlet property="postLocationLbl" destination="BCd-Rg-aY6" id="bV0-rb-89R"/>
+                <outlet property="totalLikesCount" destination="T9r-vC-fcc" id="Rr8-K8-VQF"/>
                 <outlet property="userImg1" destination="R1T-Wr-Tns" id="bJk-gv-GiQ"/>
                 <outlet property="userImg2" destination="GNn-9f-iqv" id="ZFN-aW-vG9"/>
                 <outlet property="userName" destination="iBT-zD-uem" id="t7u-er-Ofc"/>
             </connections>
-            <point key="canvasLocation" x="43.478260869565219" y="141.29464285714286"/>
+            <point key="canvasLocation" x="43.478260869565219" y="156.36160714285714"/>
         </tableViewCell>
     </objects>
     <resources>

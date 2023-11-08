@@ -16,6 +16,7 @@ class FeedCell: UITableViewCell {
     @IBOutlet weak var postCaption: UILabel!
     @IBOutlet weak var commentBtn: UIButton!
     @IBOutlet weak var likeBtn: UIButton!
+    @IBOutlet weak var totalLikesCount: UILabel!
     var likeBtnTapped: (() -> Void)?
     var isLiked: Bool = false
     override func awakeFromNib() {
