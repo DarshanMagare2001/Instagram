@@ -142,10 +142,12 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                 cell.isLiked = true
                 let imageName = cell.isLiked ? "heart.fill" : "heart"
                 cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+                cell.likeBtn.tintColor = cell.isLiked ? .red : .black
             }else{
                 cell.isLiked = false
                 let imageName = cell.isLiked ? "heart.fill" : "heart"
                 cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+                cell.likeBtn.tintColor = cell.isLiked ? .red : .black
             }
             
             cell.likeBtnTapped = { [weak self] in
@@ -156,6 +158,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                             cell.isLiked = false
                             let imageName = cell.isLiked ? "heart.fill" : "heart"
                             cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+                            cell.likeBtn.tintColor = cell.isLiked ? .red : .black
                         }
                     }
                 } else {
@@ -165,6 +168,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                             cell.isLiked = true
                             let imageName = cell.isLiked ? "heart.fill" : "heart"
                             cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+                            cell.likeBtn.tintColor = cell.isLiked ? .red : .black
                         }
                     }
                 }
