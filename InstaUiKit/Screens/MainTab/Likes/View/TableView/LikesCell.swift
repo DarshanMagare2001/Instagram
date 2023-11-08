@@ -8,7 +8,9 @@
 import UIKit
 
 class LikesCell: UITableViewCell {
-
+    @IBOutlet weak var postImg: UIImageView!
+    @IBOutlet weak var likeByLbl: UILabel!
+    @IBOutlet weak var userImg: CircleImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         

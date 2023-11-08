@@ -19,8 +19,9 @@
                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="j5C-u7-iYQ">
                         <rect key="frame" x="10" y="10" width="340" height="91"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="demoAccount" translatesAutoresizingMaskIntoConstraints="NO" id="aOW-1s-Psm">
-                                <rect key="frame" x="0.0" y="15.5" width="60" height="60"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="aOW-1s-Psm" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="17" width="60" height="57"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="WWE-kN-Loo"/>
                                     <constraint firstAttribute="width" constant="60" id="eUn-Bc-FRD"/>
@@ -32,7 +33,7 @@
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DemoImg" translatesAutoresizingMaskIntoConstraints="NO" id="QHU-kC-Ptg">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QHU-kC-Ptg">
                                 <rect key="frame" x="280" y="15.5" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="ssV-E5-sVh"/>
@@ -50,11 +51,15 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="likeByLbl" destination="FUI-pu-MH8" id="smF-Hj-G6l"/>
+                <outlet property="postImg" destination="QHU-kC-Ptg" id="zVd-Ao-WeL"/>
+                <outlet property="userImg" destination="aOW-1s-Psm" id="9xX-Nv-Kou"/>
+            </connections>
             <point key="canvasLocation" x="182.60869565217394" y="116.18303571428571"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="DemoImg" width="375" height="375"/>
-        <image name="demoAccount" width="85" height="85"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
     </resources>
 </document>
