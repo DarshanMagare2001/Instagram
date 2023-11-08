@@ -95,7 +95,7 @@
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" image="bubble.right" catalog="system" title=" "/>
                                                 <connections>
-                                                    <action selector="commentBtnPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Lde-vZ-SQT"/>
+                                                    <action selector="commentBtnPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="SYK-4b-N7A"/>
                                                 </connections>
                                             </button>
                                         </subviews>
