@@ -108,7 +108,4 @@ extension LikesVC : UITableViewDelegate , UITableViewDataSource {
             return likesCell
         }
     }
-    
-    
-    
 }
