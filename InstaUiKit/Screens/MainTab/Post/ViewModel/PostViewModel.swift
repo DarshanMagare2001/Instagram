@@ -143,6 +143,7 @@ class PostViewModel {
                         let postDocumentID = data["postDocumentID"] as? String ?? ""
                         let likedBy = data["likedBy"] as? [String] ?? []
                         let likesCount = data["likesCount"] as? Int ?? 0
+                        let comments = data["comments"] as? [[String : Any]] ?? []
                         let post = PostModel(
                             postImageURL: postImageURL,
                             caption: caption,
@@ -152,7 +153,8 @@ class PostViewModel {
                             profileImageUrl: profileImageUrl,
                             postDocumentID: postDocumentID,
                             likedBy: likedBy,
-                            likesCount: likesCount
+                            likesCount: likesCount,
+                            comments: comments
                         )
                         posts.append(post)
                     }
@@ -183,6 +185,7 @@ class PostViewModel {
                         let postDocumentID = data["postDocumentID"] as? String ?? ""
                         let likedBy = data["likedBy"] as? [String] ?? []
                         let likesCount = data["likesCount"] as? Int ?? 0
+                        let comments = data["comments"] as? [[String : Any]] ?? []
                         let post = PostModel(
                             postImageURL: postImageURL,
                             caption: caption,
@@ -192,7 +195,8 @@ class PostViewModel {
                             profileImageUrl: profileImageUrl,
                             postDocumentID: postDocumentID,
                             likedBy: likedBy,
-                            likesCount: likesCount
+                            likesCount: likesCount,
+                            comments: comments
                         )
                         posts.append(post)
                     }
@@ -303,7 +307,40 @@ class PostViewModel {
         }
     }
     
-    
-    
-    
+    func fetchPostbyPostDocumentID(byPostDocumentID postDocumentID: String, completion: @escaping (Result<PostModel?, Error>) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("post").document(postDocumentID)
+            .getDocument { (documentSnapshot, error) in
+                if let error = error {
+                    print("Error fetching post data: \(error.localizedDescription)")
+                    completion(.failure(error))
+                } else {
+                    let data = documentSnapshot?.data() ?? [:]
+                    let postImageURL = data["postImageURL"] as? String ?? ""
+                    let caption = data["caption"] as? String ?? ""
+                    let location = data["location"] as? String ?? ""
+                    let name = data["name"] as? String ?? ""
+                    let uid = data["uid"] as? String ?? ""
+                    let profileImageUrl = data["profileImageUrl"] as? String ?? ""
+                    let likedBy = data["likedBy"] as? [String] ?? []
+                    let likesCount = data["likesCount"] as? Int ?? 0
+                    let comments = data["comments"] as? [[String: Any]] ?? []
+                    
+                    let post = PostModel(
+                        postImageURL: postImageURL,
+                        caption: caption,
+                        location: location,
+                        name: name,
+                        uid: uid,
+                        profileImageUrl: profileImageUrl,
+                        postDocumentID: postDocumentID,
+                        likedBy: likedBy,
+                        likesCount: likesCount,
+                        comments: comments
+                    )
+                    completion(.success(post))
+                }
+            }
+    }
+   
 }

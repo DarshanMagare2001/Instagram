@@ -30,6 +30,20 @@ class CommentsVC: UIViewController {
                 print(failure)
             }
         }
+        
+        if let allPost = allPost {
+            PostViewModel.shared.fetchPostbyPostDocumentID(byPostDocumentID: allPost.postDocumentID) { result in
+                switch result {
+                case.success(let data):
+                    if let data = data {
+                        print(data)
+                    }
+                case.failure(let error):
+                    print(error)
+                }
+            }
+        }
+        
     }
     
     @IBAction func backBtnPressed(_ sender: UIButton) {

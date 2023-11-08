@@ -15,6 +15,7 @@ struct PostModel {
     var postDocumentID: String
     var likedBy: [String]
     var likesCount: Int
+    var comments : [[String : Any]]
 
     init(
         postImageURL: String,
@@ -25,7 +26,8 @@ struct PostModel {
         profileImageUrl: String,
         postDocumentID: String,
         likedBy: [String],
-        likesCount: Int
+        likesCount: Int,
+        comments : [[String : Any]]
     ) {
         self.postImageURL = postImageURL
         self.caption = caption
@@ -36,6 +38,7 @@ struct PostModel {
         self.postDocumentID = postDocumentID
         self.likedBy = likedBy
         self.likesCount = likesCount
+        self.comments = comments
     }
 }
 
