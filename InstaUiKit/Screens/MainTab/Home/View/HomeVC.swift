@@ -136,22 +136,19 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
             
             cell.likeBtnTapped = { [weak self] in
                 if cell.isLiked {
-                    // User has already liked, so unlike the post
-                    PostViewModel.shared.likePost(postDocumentID: post.postDocumentID, userUID: uid) { success in
-                        if success {
-                            // Update the UI: Set the correct image for the like button
-                            cell.isLiked = true
-                            let imageName = cell.isLiked ? "heart.fill" : "heart"
-                            cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
-                        }
-                    }
-                    
-                } else {
-                    // User has not liked, so like the post
                     PostViewModel.shared.unlikePost(postDocumentID: post.postDocumentID, userUID: uid) { success in
                         if success {
                             // Update the UI: Set the correct image for the like button
                             cell.isLiked = false
+                            let imageName = cell.isLiked ? "heart.fill" : "heart"
+                            cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+                        }
+                    }
+                } else {
+                    PostViewModel.shared.likePost(postDocumentID: post.postDocumentID, userUID: uid) { success in
+                        if success {
+                            // Update the UI: Set the correct image for the like button
+                            cell.isLiked = true
                             let imageName = cell.isLiked ? "heart.fill" : "heart"
                             cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
                         }
