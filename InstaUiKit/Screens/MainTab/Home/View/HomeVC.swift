@@ -111,30 +111,44 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
         let post = allPost[indexPath.row]
-        DispatchQueue.main.async {
-            ImageLoader.loadImage(for: URL(string: post.profileImageUrl), into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
-            ImageLoader.loadImage(for: URL(string: post.profileImageUrl), into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
-            ImageLoader.loadImage(for: URL(string: post.postImageURL), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
-            cell.postLocationLbl.text = post.location
-            cell.postCaption.text = post.caption
-            cell.userName.text = post.name
-            if let uid = Auth.auth().currentUser?.uid {
-                cell.isLiked = post.likedBy.contains(uid)
-                let imageName = cell.isLiked ? "heart.fill" : "heart"
-                cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
-                cell.likeBtnTapped = { [weak self] in
-                    if cell.isLiked {
-                        // User has already liked, so unlike the post
-                        PostViewModel.shared.unlikePost(postDocumentID: post.postDocumentID, userUID: uid)
-                    } else {
-                        // User has not liked, so like the post
-                        PostViewModel.shared.likePost(postDocumentID: post.postDocumentID, userUID: uid)
+
+        ImageLoader.loadImage(for: URL(string: post.profileImageUrl), into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
+        ImageLoader.loadImage(for: URL(string: post.profileImageUrl), into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
+        ImageLoader.loadImage(for: URL(string: post.postImageURL), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+        cell.postLocationLbl.text = post.location
+        cell.postCaption.text = post.caption
+        cell.userName.text = post.name
+        if let uid = Auth.auth().currentUser?.uid {
+            let isLiked = cell.isLiked // Store the initial liked state
+            let newIsLiked: Bool
+
+            if isLiked {
+                // User has already liked, so unlike the post
+                newIsLiked = false
+                PostViewModel.shared.unlikePost(postDocumentID: post.postDocumentID, userUID: uid) { success in
+                    if success {
+                        // Update the UI: Set the correct image for the like button
+                        cell.likeBtn.setImage(UIImage(systemName: "heart"), for: .normal)
+                    }
+                }
+            } else {
+                // User has not liked, so like the post
+                newIsLiked = true
+                PostViewModel.shared.likePost(postDocumentID: post.postDocumentID, userUID: uid) { success in
+                    if success {
+                        // Update the UI: Set the correct image for the like button
+                        cell.likeBtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
                     }
                 }
             }
+            
+            // Update the cell's liked state after the operation is complete
+            cell.isLiked = newIsLiked
         }
+        
         return cell
     }
+
     
 }
 

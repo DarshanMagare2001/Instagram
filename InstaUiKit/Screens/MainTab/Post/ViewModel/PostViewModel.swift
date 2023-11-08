@@ -203,7 +203,8 @@ class PostViewModel {
     
     
     
-    func likePost(postDocumentID: String, userUID: String) {
+    // Remove trailing closure from likePost and unlikePost methods
+    func likePost(postDocumentID: String, userUID: String, completion: @escaping (Bool) -> Void) {
         let db = Firestore.firestore()
         let postDocumentRef = db.collection("post").document(postDocumentID)
         
@@ -215,13 +216,15 @@ class PostViewModel {
         batch.commit { error in
             if let error = error {
                 print("Error liking post: \(error.localizedDescription)")
+                completion(false) // Notify that the operation failed
             } else {
                 print("Post liked by user with UID: \(userUID)")
+                completion(true) // Notify that the operation succeeded
             }
         }
     }
     
-    func unlikePost(postDocumentID: String, userUID: String) {
+    func unlikePost(postDocumentID: String, userUID: String, completion: @escaping (Bool) -> Void) {
         let db = Firestore.firestore()
         let postDocumentRef = db.collection("post").document(postDocumentID)
         
@@ -233,11 +236,14 @@ class PostViewModel {
         batch.commit { error in
             if let error = error {
                 print("Error unliking post: \(error.localizedDescription)")
+                completion(false) // Notify that the operation failed
             } else {
                 print("Post unliked by user with UID: \(userUID)")
+                completion(true) // Notify that the operation succeeded
             }
         }
     }
+    
     
     
     
