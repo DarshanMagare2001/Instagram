@@ -16,7 +16,7 @@ class SearchVC: UIViewController {
     @IBOutlet weak var tableView: UIView!
     @IBOutlet weak var collectionView: UIView!
     var allUniqueUsersArray = [UserModel]()
-    var allPostUrls = [String?]()
+    var allPost = [PostModel?]()
     let disposeBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +30,7 @@ class SearchVC: UIViewController {
             switch result {
             case.success(let data):
                 print(data)
-                self.allPostUrls = data
+                self.allPost = data
                 self.updateCollectionView()
             case.failure(let error):
                 print(error)
@@ -126,37 +126,37 @@ extension SearchVC {
 
 
 extension SearchVC {
-    func updateCollectionView(){
+    func updateCollectionView() {
         collectionViewOutlet.dataSource = nil
         collectionViewOutlet.delegate = nil
         SearchVCViewModel.shared.getComposnalLayout { layout in
             self.collectionViewOutlet.collectionViewLayout = layout
         }
-        let collectionViewItems = Observable.just(allPostUrls)
-        collectionViewItems
+
+        Observable.just(allPost)
+            .do(onNext: { [weak self] _ in
+                self?.collectionViewOutlet.reloadData()
+            })
             .bind(to: collectionViewOutlet
                     .rx
-                    .items(cellIdentifier: "SearchVCCollectionViewCell" , cellType: SearchVCCollectionViewCell.self)) { (row, element, cell) in
-                DispatchQueue.main.async {
-                    if let url = element {
-                        ImageLoader.loadImage(for: URL(string: url), into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
+                    .items(cellIdentifier: "SearchVCCollectionViewCell", cellType: SearchVCCollectionViewCell.self)) { (row, element, cell) in
+                        DispatchQueue.main.async {
+                            if let url = element?.postImageURL {
+                                ImageLoader.loadImage(for: URL(string: url), into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
+                            }
+                        }
+
+                        // Handle tap action
+                        cell.tapAction = { [weak self] in
+                            self?.handleCellTap(at: row)
+                        }
                     }
-                }
-                
-                // Handle tap action
-                cell.tapAction = { [weak self] in
-                    self?.handleCellTap(at: row)
-                }
-                
-            }
                     .disposed(by: disposeBag)
     }
-    
+
     func handleCellTap(at index: Int) {
         // Handle the tap action for the cell at the specified index
         print("Cell at index \(index) tapped!")
         // Add your logic here
     }
-
-    
 }

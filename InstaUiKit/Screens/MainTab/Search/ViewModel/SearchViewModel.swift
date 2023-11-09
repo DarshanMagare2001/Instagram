@@ -10,17 +10,19 @@ import UIKit
 
 class SearchVCViewModel {
     static let shared = SearchVCViewModel()
-    func fetchAllPostURL(completionHandler: @escaping (Result<[String?],Error>) -> Void) {
+  
+    func fetchAllPostURL(completionHandler: @escaping (Result<[PostModel?], Error>) -> Void) {
         PostViewModel.shared.fetchAllPosts { result in
             switch result {
             case .success(let images):
                 // Handle the images
                 print("Fetched images: \(images)")
-                var postArray = [String?]()
+                var postArray = [PostModel?]()
                 DispatchQueue.main.async {
                     for i in images {
-                        if !postArray.contains(i.postImageURL) {
-                            postArray.append(i.postImageURL)
+                        // Use the contains method with a closure
+                        if !postArray.contains(where: { $0?.postDocumentID == i.postDocumentID }) {
+                            postArray.append(i)
                         }
                     }
                     completionHandler(.success(postArray))
@@ -28,10 +30,12 @@ class SearchVCViewModel {
             case .failure(let error):
                 // Handle the error
                 print("Error fetching images: \(error)")
-                completionHandler(.failure(error.localizedDescription as! Error))
+                completionHandler(.failure(error))
             }
         }
     }
+
+    
     
     func getComposnalLayout(completionHandler : @escaping (UICollectionViewLayout) -> Void ){
         
