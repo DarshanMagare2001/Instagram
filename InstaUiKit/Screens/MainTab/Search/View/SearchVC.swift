@@ -132,31 +132,36 @@ extension SearchVC {
         SearchVCViewModel.shared.getComposnalLayout { layout in
             self.collectionViewOutlet.collectionViewLayout = layout
         }
-
+        
         Observable.just(allPost)
             .do(onNext: { [weak self] _ in
                 self?.collectionViewOutlet.reloadData()
             })
-            .bind(to: collectionViewOutlet
-                    .rx
-                    .items(cellIdentifier: "SearchVCCollectionViewCell", cellType: SearchVCCollectionViewCell.self)) { (row, element, cell) in
-                        DispatchQueue.main.async {
-                            if let url = element?.postImageURL {
-                                ImageLoader.loadImage(for: URL(string: url), into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
-                            }
-                        }
-
-                        // Handle tap action
-                        cell.tapAction = { [weak self] in
-                            self?.handleCellTap(at: row)
+                .bind(to: collectionViewOutlet
+                        .rx
+                        .items(cellIdentifier: "SearchVCCollectionViewCell", cellType: SearchVCCollectionViewCell.self)) { (row, element, cell) in
+                    DispatchQueue.main.async {
+                        if let url = element?.postImageURL {
+                            ImageLoader.loadImage(for: URL(string: url), into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
                         }
                     }
-                    .disposed(by: disposeBag)
+                    // Handle tap action
+                    cell.tapAction = { [weak self] in
+                        if let data = element {
+                            var tempData = [PostModel]()
+                            tempData.append(data)
+                            self?.handleCellTap(at: row, data: tempData)
+                        }
+                    }
+                }
+                        .disposed(by: disposeBag)
     }
-
-    func handleCellTap(at index: Int) {
-        // Handle the tap action for the cell at the specified index
-        print("Cell at index \(index) tapped!")
-        // Add your logic here
+    
+    func handleCellTap(at index: Int , data : [PostModel] ) {
+        print(data)
+        let storyboard = UIStoryboard.Common
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedViewVC") as! FeedViewVC
+        destinationVC.allPost = data
+        navigationController?.pushViewController(destinationVC, animated: true)
     }
 }
