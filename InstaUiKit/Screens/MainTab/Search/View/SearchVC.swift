@@ -22,7 +22,7 @@ class SearchVC: UIViewController {
         super.viewDidLoad()
         let nib = UINib(nibName: "FollowingCell", bundle: nil)
         tableViewOutlet.register(nib, forCellReuseIdentifier: "FollowingCell")
-//        updateCell()
+        //        updateCell()
         getComposnalLayout()
         addDoneButtonToSearchBarKeyboard()
     }
@@ -54,28 +54,50 @@ class SearchVC: UIViewController {
     }
     
     func getComposnalLayout(){
-        let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/3)))
         
-        item.contentInsets = NSDirectionalEdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1)
+        //        Group 1
         
-        let group1Item1 = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/2), heightDimension: .fractionalHeight(1)))
+        let group1Item1 = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.665), heightDimension: .fractionalHeight(1)))
         group1Item1.contentInsets = NSDirectionalEdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1)
         
         let nestedGroup1Item1 = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/2)))
         nestedGroup1Item1.contentInsets = NSDirectionalEdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1)
-       
-        let nestedGroup1 = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/2), heightDimension: .fractionalHeight(1)), subitems: [nestedGroup1Item1])
+        
+        let nestedGroup1 = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.335), heightDimension: .fractionalHeight(1)), subitems: [nestedGroup1Item1])
         
         
         let group1 = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/3)), subitems: [nestedGroup1,group1Item1])
         
-        let group2Item1 = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalHeight(1)))
-        group2Item1.contentInsets = NSDirectionalEdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1)
-        
-        let group2 = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/3)), subitems: [group2Item1])
+        //        Group 2
         
         
-        let containerGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(800)), subitems: [item , group1 , group2 ])
+        let nestedGroup2Item1 = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/2)))
+        nestedGroup1Item1.contentInsets = NSDirectionalEdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1)
+        
+        let nestedGroup21 = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.335), heightDimension: .fractionalHeight(1)), subitems: [nestedGroup1Item1])
+        
+        
+        let nestedGroup2Item2 = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/2)))
+        nestedGroup2Item2.contentInsets = NSDirectionalEdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1)
+        
+        let subGroupsItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/2), heightDimension: .fractionalHeight(1)))
+        subGroupsItem.contentInsets = NSDirectionalEdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1)
+        
+        let subGroupOf21 = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/2)), subitems: [subGroupsItem])
+        
+        let subGroupOf22 = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/2)), subitems: [subGroupsItem])
+        
+        
+        let nestedGroup22 = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.665), heightDimension: .fractionalHeight(1)), subitems: [subGroupOf21 , subGroupOf22 ])
+        
+        
+        
+        let group2 = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/3)), subitems: [nestedGroup21 , nestedGroup22 ])
+        
+        let group3 = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/3)), subitems: [group1Item1 , nestedGroup1])
+        
+        
+        let containerGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(700)), subitems: [group1 , group2 , group3])
         
         let section = NSCollectionLayoutSection(group: containerGroup)
         
@@ -131,7 +153,7 @@ extension SearchVC {
                         cell.followBtnTapped = { [weak self] in
                             let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
                             let destinationVC = storyboard.instantiateViewController(withIdentifier: "UsersProfileView") as! UsersProfileView
-//                            destinationVC.receiverUser = element
+                            //                            destinationVC.receiverUser = element
                             self?.navigationController?.pushViewController(destinationVC, animated: true)
                         }
                     }
@@ -175,14 +197,14 @@ extension SearchVC {
         let collectionViewItems = Observable.just(allPostUrls)
         collectionViewItems
             .bind(to: collectionViewOutlet
-                        .rx
-                        .items(cellIdentifier: "SearchVCCollectionViewCell" , cellType: SearchVCCollectionViewCell.self)) { (row, element, cell) in
+                    .rx
+                    .items(cellIdentifier: "SearchVCCollectionViewCell" , cellType: SearchVCCollectionViewCell.self)) { (row, element, cell) in
                 DispatchQueue.main.async {
                     if let url = element {
                         ImageLoader.loadImage(for: URL(string: url), into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
                     }
                 }
             }
-            .disposed(by: disposeBag)
+                    .disposed(by: disposeBag)
     }
 }
