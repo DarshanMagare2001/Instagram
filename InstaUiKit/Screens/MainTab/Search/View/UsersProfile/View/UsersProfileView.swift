@@ -65,10 +65,13 @@ class UsersProfileView: UIViewController {
     }
     
     @IBAction func messageBtnPressed(_ sender: UIButton) {
-        
+        if let user = user {
+            let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChatVC") as! ChatVC
+            destinationVC.receiverUser = user
+            self.navigationController?.pushViewController(destinationVC, animated: true)
+        }
     }
-    
-    
 }
 
 extension UsersProfileView: UICollectionViewDelegate, UICollectionViewDataSource , UIGestureRecognizerDelegate {
