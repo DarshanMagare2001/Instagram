@@ -9,6 +9,14 @@ import UIKit
 
 class UsersProfileView: UIViewController {
     @IBOutlet weak var collectionViewOutlet: UICollectionView!
+    @IBOutlet weak var userImg: CircleImageView!
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var userBio: UILabel!
+    @IBOutlet weak var totalPostCount: UILabel!
+    @IBOutlet weak var totalFollowersCount: UILabel!
+    @IBOutlet weak var totalFollowingCount: UILabel!
+    @IBOutlet weak var folloBtn: UIButton!
+    @IBOutlet weak var headLine: UILabel!
     var allPost = [PostModel]()
     var user : UserModel?
     override func viewDidLoad() {
@@ -29,6 +37,12 @@ class UsersProfileView: UIViewController {
                     }
                 }
             }
+            if let imgUrl = user.imageUrl , let names = user.name , let bio = user.bio  , let username = user.username {
+                ImageLoader.loadImage(for: URL(string: imgUrl), into: self.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                name.text = username
+                headLine.text = names
+                userBio.text = bio
+            }
         }
     }
     
@@ -45,6 +59,16 @@ class UsersProfileView: UIViewController {
     @IBAction func backBtnPressed(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }
+    
+    @IBAction func folloBtnPressed(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func messageBtnPressed(_ sender: UIButton) {
+        
+    }
+    
+    
 }
 
 extension UsersProfileView: UICollectionViewDelegate, UICollectionViewDataSource , UIGestureRecognizerDelegate {

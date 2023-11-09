@@ -973,6 +973,9 @@
                                                 <buttonConfiguration key="configuration" style="plain" title="Follow">
                                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="15"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="folloBtnPressed:" destination="5Lu-aU-N0U" eventType="touchUpInside" id="ZvD-XY-QV2"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9V7-Pr-9pb" customClass="RoundedButtonWithBorder" customModule="InstaUiKit" customModuleProvider="target">
                                                 <rect key="frame" x="155" y="0.0" width="145" height="30"/>
@@ -984,6 +987,9 @@
                                                 <buttonConfiguration key="configuration" style="plain" title="Message">
                                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="15"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="messageBtnPressed:" destination="5Lu-aU-N0U" eventType="touchUpInside" id="nOW-RK-He7"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -1044,6 +1050,12 @@
                                     <outlet property="delegate" destination="5Lu-aU-N0U" id="Lsg-t0-9iI"/>
                                 </connections>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n4f-bd-geU">
+                                <rect key="frame" x="138" y="15" width="44.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="W7K-Ma-Y3a"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1052,8 +1064,10 @@
                             <constraint firstItem="tqr-Hr-9KN" firstAttribute="top" secondItem="W7K-Ma-Y3a" secondAttribute="top" id="1jz-KI-5Y0"/>
                             <constraint firstItem="ZNa-lc-dua" firstAttribute="top" secondItem="tqr-Hr-9KN" secondAttribute="bottom" constant="10" id="1nd-na-dxV"/>
                             <constraint firstItem="ZNa-lc-dua" firstAttribute="trailing" secondItem="W7K-Ma-Y3a" secondAttribute="trailing" id="5hl-07-n4J"/>
+                            <constraint firstItem="n4f-bd-geU" firstAttribute="top" secondItem="W7K-Ma-Y3a" secondAttribute="top" constant="15" id="5nN-JI-buh"/>
                             <constraint firstItem="sAw-W7-k0a" firstAttribute="top" secondItem="ZNa-lc-dua" secondAttribute="bottom" constant="10" id="8py-3M-O9v"/>
                             <constraint firstItem="ZNa-lc-dua" firstAttribute="leading" secondItem="W7K-Ma-Y3a" secondAttribute="leading" id="PjU-I6-IUC"/>
+                            <constraint firstItem="n4f-bd-geU" firstAttribute="centerX" secondItem="xb6-tW-tGg" secondAttribute="centerX" id="k1P-eB-3i7"/>
                             <constraint firstItem="W7K-Ma-Y3a" firstAttribute="bottom" secondItem="sAw-W7-k0a" secondAttribute="bottom" id="nKi-Ly-iAT"/>
                             <constraint firstItem="W7K-Ma-Y3a" firstAttribute="trailing" secondItem="sAw-W7-k0a" secondAttribute="trailing" id="tc8-an-ezg"/>
                             <constraint firstItem="sAw-W7-k0a" firstAttribute="leading" secondItem="W7K-Ma-Y3a" secondAttribute="leading" id="z9A-Qy-rdV"/>
@@ -1061,6 +1075,14 @@
                     </view>
                     <connections>
                         <outlet property="collectionViewOutlet" destination="sAw-W7-k0a" id="0Z7-uG-2GD"/>
+                        <outlet property="folloBtn" destination="A7a-OE-5zp" id="qDD-8e-h1m"/>
+                        <outlet property="headLine" destination="n4f-bd-geU" id="PsW-wp-TRr"/>
+                        <outlet property="name" destination="Ovh-5v-qTN" id="NRN-1R-Yrc"/>
+                        <outlet property="totalFollowersCount" destination="kR5-2T-U5f" id="ZS1-kc-q1h"/>
+                        <outlet property="totalFollowingCount" destination="yoC-HC-JIY" id="D9g-pV-sIf"/>
+                        <outlet property="totalPostCount" destination="HIk-pw-jrv" id="dvd-6g-4eX"/>
+                        <outlet property="userBio" destination="91h-Vb-3wy" id="f7m-R9-9r6"/>
+                        <outlet property="userImg" destination="U4j-4U-XQS" id="Vze-Qa-lj3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sw9-lz-1NI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
