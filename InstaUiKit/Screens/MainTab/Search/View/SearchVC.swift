@@ -142,7 +142,21 @@ extension SearchVC {
                         ImageLoader.loadImage(for: URL(string: url), into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
                     }
                 }
+                
+                // Handle tap action
+                cell.tapAction = { [weak self] in
+                    self?.handleCellTap(at: row)
+                }
+                
             }
                     .disposed(by: disposeBag)
     }
+    
+    func handleCellTap(at index: Int) {
+        // Handle the tap action for the cell at the specified index
+        print("Cell at index \(index) tapped!")
+        // Add your logic here
+    }
+
+    
 }
