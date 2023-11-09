@@ -1262,31 +1262,14 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="XP7-IZ-JGL">
-                                                <rect key="frame" x="99.5" y="15" width="121" height="20"/>
+                                                <rect key="frame" x="129.5" y="16" width="61" height="18"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lock.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="NY2-nI-J7J">
-                                                        <rect key="frame" x="0.0" y="0.5" width="20" height="18.5"/>
-                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="20" id="OXC-Ln-5VT"/>
-                                                            <constraint firstAttribute="width" constant="20" id="bML-f7-mJj"/>
-                                                        </constraints>
-                                                    </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Darshan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5KY-3K-su7">
-                                                        <rect key="frame" x="30" y="0.0" width="61" height="20"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="61" height="18"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vOU-F7-GM8">
-                                                        <rect key="frame" x="101" y="0.0" width="20" height="20"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="20" id="6Bl-L3-UYF"/>
-                                                            <constraint firstAttribute="height" constant="20" id="GKi-QV-ckr"/>
-                                                        </constraints>
-                                                        <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" image="DownArrow" title=" "/>
-                                                    </button>
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ll4-Hh-6V9">
@@ -1750,9 +1733,11 @@
                     <connections>
                         <outlet property="followersCountLbl" destination="jv8-rN-ek9" id="fHd-Ri-nmR"/>
                         <outlet property="followingCountLbl" destination="fdc-1z-3s6" id="U74-gh-uOf"/>
+                        <outlet property="headerName" destination="5KY-3K-su7" id="zoD-M8-7Tk"/>
                         <outlet property="photosCollectionView" destination="cxU-kg-deA" id="18T-Pc-CRB"/>
                         <outlet property="postCountLbl" destination="eWf-Wp-6ZB" id="uK1-G8-GMs"/>
                         <outlet property="sideMenuView" destination="rlx-4h-paG" id="mHt-Sp-h4X"/>
+                        <outlet property="sideMenueName" destination="Yi0-lJ-REj" id="fp8-yn-NYx"/>
                         <outlet property="userBio" destination="cKA-ig-voD" id="dbB-gS-FaE"/>
                         <outlet property="userImg" destination="Nb4-OW-Zoo" id="vAn-Cv-P7w"/>
                         <outlet property="userName" destination="d3k-Mr-PbR" id="hy0-d9-Fhj"/>
@@ -2159,7 +2144,6 @@
         <image name="BackArrow" width="10" height="18"/>
         <image name="Close Friends" width="25.5" height="24.5"/>
         <image name="Discover People" width="24.5" height="18.5"/>
-        <image name="DownArrow" width="11.5" height="7.5"/>
         <image name="InstaHome" width="22" height="24.5"/>
         <image name="InstaLogo" width="182" height="49"/>
         <image name="InstaMagnifyGlass" width="24.5" height="24.5"/>
@@ -2174,7 +2158,6 @@
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="circle" catalog="system" width="128" height="121"/>
         <image name="line.3.horizontal" catalog="system" width="128" height="64"/>
-        <image name="lock.fill" catalog="system" width="128" height="128"/>
         <image name="paperplane" catalog="system" width="128" height="118"/>
         <image name="paperplane.fill" catalog="system" width="128" height="118"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>

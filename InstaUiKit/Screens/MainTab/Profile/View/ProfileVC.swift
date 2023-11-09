@@ -17,6 +17,8 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var followingCountLbl: UILabel!
     @IBOutlet weak var followersCountLbl: UILabel!
     @IBOutlet weak var postCountLbl: UILabel!
+    @IBOutlet weak var sideMenueName: UILabel!
+    @IBOutlet weak var headerName: UILabel!
     var viewModel1 = AuthenticationViewModel()
     var viewModel2 = ProfileViewModel()
     var allPost = [PostModel]()
@@ -128,6 +130,8 @@ extension ProfileVC {
             case .success(let data):
                 print(data)
                 self.userName.text = data
+                self.sideMenueName.text = data
+                self.headerName.text = data
             case .failure(let error):
                 print(error)
             }
