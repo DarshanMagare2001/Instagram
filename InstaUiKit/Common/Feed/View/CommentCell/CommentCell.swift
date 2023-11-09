@@ -8,7 +8,8 @@
 import UIKit
 
 class CommentCell: UITableViewCell {
-
+    @IBOutlet weak var commentLbl: UILabel!
+    @IBOutlet weak var userImg: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
     }

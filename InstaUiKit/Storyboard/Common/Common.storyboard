@@ -206,17 +206,60 @@
                                                     <constraint firstAttribute="trailing" secondItem="chc-Sr-7ex" secondAttribute="trailing" constant="10" id="qDx-pv-s6b"/>
                                                 </constraints>
                                             </view>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="DTA-sg-Khx">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="DTA-sg-Khx">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="448"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommentCell" rowHeight="123" id="CeM-AA-UmE" customClass="CommentCell" customModule="InstaUiKit" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="44.5" width="320" height="123"/>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommentCell" rowHeight="62" id="CeM-AA-UmE" customClass="CommentCell" customModule="InstaUiKit" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="44.5" width="320" height="62"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CeM-AA-UmE" id="cxs-f9-gHR">
-                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="123"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
                                                             <autoresizingMask key="autoresizingMask"/>
+                                                            <subviews>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Mo-kQ-88D">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
+                                                                    <subviews>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="NN9-SL-Qyf" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
+                                                                            <rect key="frame" x="5" y="6.5" width="50" height="47"/>
+                                                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="50" id="rCa-co-wsA"/>
+                                                                                <constraint firstAttribute="height" constant="50" id="rTJ-VY-jfA"/>
+                                                                            </constraints>
+                                                                        </imageView>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PPy-Np-ffT">
+                                                                            <rect key="frame" x="65" y="5" width="250" height="52"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="gEG-nf-1gY"/>
+                                                                            </constraints>
+                                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                    <constraints>
+                                                                        <constraint firstItem="NN9-SL-Qyf" firstAttribute="top" secondItem="4Mo-kQ-88D" secondAttribute="top" constant="5" id="1P5-H1-9v0"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="PPy-Np-ffT" secondAttribute="trailing" constant="5" id="J8O-QR-I7x"/>
+                                                                        <constraint firstItem="PPy-Np-ffT" firstAttribute="leading" secondItem="NN9-SL-Qyf" secondAttribute="trailing" constant="10" id="QvQ-i3-Out"/>
+                                                                        <constraint firstItem="NN9-SL-Qyf" firstAttribute="leading" secondItem="4Mo-kQ-88D" secondAttribute="leading" constant="5" id="Sah-qR-vda"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="PPy-Np-ffT" secondAttribute="bottom" constant="5" id="Spu-MM-wrw"/>
+                                                                        <constraint firstItem="PPy-Np-ffT" firstAttribute="top" secondItem="4Mo-kQ-88D" secondAttribute="top" constant="5" id="mHx-6L-njc"/>
+                                                                    </constraints>
+                                                                </view>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="4Mo-kQ-88D" firstAttribute="leading" secondItem="cxs-f9-gHR" secondAttribute="leading" id="BRT-Vr-H6J"/>
+                                                                <constraint firstAttribute="bottom" secondItem="4Mo-kQ-88D" secondAttribute="bottom" id="FCv-1v-KBu"/>
+                                                                <constraint firstAttribute="trailing" secondItem="4Mo-kQ-88D" secondAttribute="trailing" id="FOi-qP-Qff"/>
+                                                                <constraint firstItem="4Mo-kQ-88D" firstAttribute="top" secondItem="cxs-f9-gHR" secondAttribute="top" id="fwc-W8-wOh"/>
+                                                            </constraints>
                                                         </tableViewCellContentView>
+                                                        <connections>
+                                                            <outlet property="commentLbl" destination="PPy-Np-ffT" id="gVn-Yf-trl"/>
+                                                            <outlet property="userImg" destination="NN9-SL-Qyf" id="gWa-uD-BGk"/>
+                                                        </connections>
                                                     </tableViewCell>
                                                 </prototypes>
                                                 <connections>

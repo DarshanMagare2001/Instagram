@@ -13,6 +13,7 @@ class CommentsVC: UIViewController {
     @IBOutlet weak var userImg: CircleImageView!
     @IBOutlet weak var commentTxtFld: UITextField!
     var allPost : PostModel?
+    var currentPostData : PostModel?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,20 +31,7 @@ class CommentsVC: UIViewController {
                 print(failure)
             }
         }
-        
-        if let allPost = allPost {
-            PostViewModel.shared.fetchPostbyPostDocumentID(byPostDocumentID: allPost.postDocumentID) { result in
-                switch result {
-                case.success(let data):
-                    if let data = data {
-                        print(data)
-                    }
-                case.failure(let error):
-                    print(error)
-                }
-            }
-        }
-        
+        fetchCurrentPostData()
     }
     
     @IBAction func backBtnPressed(_ sender: UIButton) {
@@ -54,7 +42,24 @@ class CommentsVC: UIViewController {
     @IBAction func postBtnPressed(_ sender: UIButton) {
         if let allPost = allPost , let comment = commentTxtFld.text {
             PostViewModel.shared.addCommentToPost(postDocumentID: allPost.postDocumentID, commentText: comment) { value in
-                self.tableViewOutlet.reloadData()
+                self.fetchCurrentPostData()
+            }
+        }
+    }
+    
+    func fetchCurrentPostData(){
+        if let allPost = allPost {
+            PostViewModel.shared.fetchPostbyPostDocumentID(byPostDocumentID: allPost.postDocumentID) { result in
+                switch result {
+                case.success(let data):
+                    if let data = data {
+                        print(data)
+                        self.currentPostData = data
+                        self.tableViewOutlet.reloadData()
+                    }
+                case.failure(let error):
+                    print(error)
+                }
             }
         }
     }
@@ -63,11 +68,29 @@ class CommentsVC: UIViewController {
 
 extension CommentsVC : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return currentPostData?.comments.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentCell
+        if let postData = currentPostData?.comments[indexPath.row],
+           let uid = postData["uid"] as? String,
+           let comment = postData["comment"] as? String {
+            DispatchQueue.main.async {
+                ProfileViewModel.shared.fetchUserData(uid: uid) { result in
+                    switch result {
+                    case .success(let data):
+                        if let url = data.imageUrl {
+                            ImageLoader.loadImage(for: URL(string: url), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+                cell.commentLbl.text = comment
+            }
+        }
+        
         return cell
     }
 }
