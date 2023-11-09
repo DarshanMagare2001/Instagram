@@ -629,7 +629,7 @@
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="oGL-o2-fM0">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="439"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VRn-yV-paT">
                                                     <size key="itemSize" width="210" height="176"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
