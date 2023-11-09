@@ -22,7 +22,8 @@ class SearchVC: UIViewController {
         super.viewDidLoad()
         let nib = UINib(nibName: "FollowingCell", bundle: nil)
         tableViewOutlet.register(nib, forCellReuseIdentifier: "FollowingCell")
-        updateCell()
+//        updateCell()
+        getComposnalLayout()
         addDoneButtonToSearchBarKeyboard()
     }
     
@@ -51,6 +52,28 @@ class SearchVC: UIViewController {
             }
         }
     }
+    
+    func getComposnalLayout(){
+        let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/3)))
+        
+        let group1Item1 = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/2), heightDimension: .fractionalHeight(1)))
+        
+        let group1 = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/3)), subitems: [group1Item1])
+        
+        let group2Item1 = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalHeight(1)))
+        
+        let group2 = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/3)), subitems: [group2Item1])
+        
+        
+        let containerGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(600)), subitems: [item , group1 , group2 ])
+        
+        let section = NSCollectionLayoutSection(group: containerGroup)
+        
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        
+        collectionViewOutlet.collectionViewLayout = layout
+    }
+    
     
     func updateCell() {
         // Configure the collection view flow layout
