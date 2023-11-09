@@ -28,6 +28,7 @@
 		13127A922AF3B412008C7927 /* MsgCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13127A912AF3B412008C7927 /* MsgCell.swift */; };
 		13127A942AF3BED1008C7927 /* ChatVCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13127A932AF3BED1008C7927 /* ChatVCViewModel.swift */; };
 		13127A962AF3CC67008C7927 /* ChatVCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13127A952AF3CC67008C7927 /* ChatVCModel.swift */; };
+		132847232AFCEB4600A2397F /* UsersProfileViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132847222AFCEB4600A2397F /* UsersProfileViewCell.swift */; };
 		134F7F422AEF7C6800B6C31E /* UploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134F7F412AEF7C6800B6C31E /* UploadVC.swift */; };
 		136B84A22A83B8E700C102F1 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136B84A12A83B8E700C102F1 /* ProfileViewModel.swift */; };
 		136B84A42A83B8FC00C102F1 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136B84A32A83B8FC00C102F1 /* EditProfileViewModel.swift */; };
@@ -103,6 +104,7 @@
 		13127A912AF3B412008C7927 /* MsgCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgCell.swift; sourceTree = "<group>"; };
 		13127A932AF3BED1008C7927 /* ChatVCViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVCViewModel.swift; sourceTree = "<group>"; };
 		13127A952AF3CC67008C7927 /* ChatVCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVCModel.swift; sourceTree = "<group>"; };
+		132847222AFCEB4600A2397F /* UsersProfileViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersProfileViewCell.swift; sourceTree = "<group>"; };
 		134F7F412AEF7C6800B6C31E /* UploadVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVC.swift; sourceTree = "<group>"; };
 		136B84A12A83B8E700C102F1 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		136B84A32A83B8FC00C102F1 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
@@ -416,36 +418,37 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		1385F38A2AF5200D006C8363 /* UsersProfile */ = {
+		132847202AFCE7ED00A2397F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1385F38D2AF52032006C8363 /* Model */,
-				1385F38C2AF5202C006C8363 /* View */,
-				1385F38B2AF52022006C8363 /* ViewModel */,
 			);
-			path = UsersProfile;
+			path = Model;
 			sourceTree = "<group>";
 		};
-		1385F38B2AF52022006C8363 /* ViewModel */ = {
+		132847212AFCE7F200A2397F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		1385F38A2AF5200D006C8363 /* UsersProfile */ = {
+			isa = PBXGroup;
+			children = (
+				132847202AFCE7ED00A2397F /* Model */,
+				1385F38C2AF5202C006C8363 /* View */,
+				132847212AFCE7F200A2397F /* ViewModel */,
+			);
+			path = UsersProfile;
+			sourceTree = "<group>";
+		};
 		1385F38C2AF5202C006C8363 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				1385F38E2AF5205F006C8363 /* UsersProfileView.swift */,
+				132847222AFCEB4600A2397F /* UsersProfileViewCell.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		1385F38D2AF52032006C8363 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		138BC5D52A7391DB00020297 /* Feed */ = {
@@ -1018,6 +1021,7 @@
 				136B84A42A83B8FC00C102F1 /* EditProfileViewModel.swift in Sources */,
 				13DBE7902AEBC20C0006F3B9 /* SignInVCViewModel.swift in Sources */,
 				139627602AFBA57D0034F139 /* CommentsViewModel.swift in Sources */,
+				132847232AFCEB4600A2397F /* UsersProfileViewCell.swift in Sources */,
 				13127A942AF3BED1008C7927 /* ChatVCViewModel.swift in Sources */,
 				139110142A8650ED00CABCD5 /* SearchModel.swift in Sources */,
 				1396275E2AFBA5050034F139 /* CommentsVC.swift in Sources */,
