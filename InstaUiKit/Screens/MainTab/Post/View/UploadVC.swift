@@ -33,13 +33,12 @@ class UploadVC: UIViewController {
                 PostViewModel.shared.uploadImageToFirebaseStorage(image: img, caption: caption, location: location){ value in
                     if value {
                         LoaderVCViewModel.shared.hideLoader()
-                        Alert.shared.alertOk(title: "Success!", message: "Your Photo uploaded successfully.", presentingViewController: self)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
+                        Alert.shared.alertOk(title: "Success!", message: "Your Photo uploaded successfully.", presentingViewController: self){ _ in
                             self.navigationController?.popViewController(animated: true)
                         }
                     }else{
                         LoaderVCViewModel.shared.hideLoader()
-                        Alert.shared.alertOk(title: "Error!", message: "Your Photo not uploaded.", presentingViewController: self)
+                        Alert.shared.alertOk(title: "Error!", message: "Your Photo not uploaded.", presentingViewController: self){ _ in}
                     }
                 }
             }

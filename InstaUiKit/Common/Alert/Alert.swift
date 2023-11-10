@@ -12,12 +12,15 @@ class Alert {
     private init() {}
 
     // Function to display an alert with "OK" button
-    func alertOk(title: String, message: String, presentingViewController: UIViewController) {
+    func alertOk(title: String, message: String, presentingViewController: UIViewController, completion: @escaping (Bool) -> Void) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            completion(true)
+        }
         alertController.addAction(okAction)
         presentingViewController.present(alertController, animated: true, completion: nil)
     }
+
     
     // Function to display an alert with "Yes" and "No" buttons
     func alertYesNo(title: String, message: String, presentingViewController: UIViewController, yesHandler: ((UIAlertAction) -> Void)?, noHandler: ((UIAlertAction) -> Void)?) {

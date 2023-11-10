@@ -35,7 +35,7 @@ class PostVC: UIViewController {
             destinationVC.img = img
             self.navigationController?.pushViewController(destinationVC, animated: true)
         }else{
-            Alert.shared.alertOk(title: "Warning!", message: "Select Photo First", presentingViewController: self)
+            Alert.shared.alertOk(title: "Warning!", message: "Select Photo First", presentingViewController: self){ _ in}
         }
     }
     

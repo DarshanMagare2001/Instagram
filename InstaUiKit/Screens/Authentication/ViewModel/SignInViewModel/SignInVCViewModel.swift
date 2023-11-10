@@ -21,7 +21,7 @@ class SignInVCViewModel {
         LoaderVCViewModel.shared.showLoader()
         guard let email = emailTxtFld, let password = passwordTxtFld, !email.isEmpty, !password.isEmpty else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                Alert.shared.alertOk(title: "Warning!", message: "Please fill in all the required fields before proceeding.", presentingViewController: self.presentingViewController!)
+                Alert.shared.alertOk(title: "Warning!", message: "Please fill in all the required fields before proceeding.", presentingViewController: self.presentingViewController!){ _ in}
             }
             completionHandler(false)
             return
@@ -31,7 +31,7 @@ class SignInVCViewModel {
             if let error = error {
                 print(error.localizedDescription)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    Alert.shared.alertOk(title: "Error!", message: error.localizedDescription, presentingViewController: self.presentingViewController!)
+                    Alert.shared.alertOk(title: "Error!", message: error.localizedDescription, presentingViewController: self.presentingViewController!){ _ in}
                 }
                 completionHandler(false)
             } else {
