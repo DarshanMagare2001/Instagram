@@ -249,30 +249,44 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OoX-eE-Xjk">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NYa-Oz-Dql">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="80" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="1p8-pF-3R3"/>
-                                    <constraint firstAttribute="width" constant="50" id="pEC-M3-IH3"/>
+                                    <constraint firstAttribute="height" constant="40" id="1p8-pF-3R3"/>
+                                    <constraint firstAttribute="width" constant="80" id="pEC-M3-IH3"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="BackArrow" title=" "/>
+                                <buttonConfiguration key="configuration" style="plain" title=" Cancle">
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="15"/>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
                                 <connections>
-                                    <action selector="backBtnPressed:" destination="Sl1-9m-735" eventType="touchUpInside" id="DXr-SM-ULr"/>
+                                    <action selector="backBtnPressed:" destination="Sl1-9m-735" eventType="touchUpInside" id="Lzl-zX-b6m"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nfh-CK-4dz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="OoX-eE-Xjk" secondAttribute="trailing" id="Ben-FM-VOt"/>
                             <constraint firstItem="NYa-Oz-Dql" firstAttribute="leading" secondItem="fHt-v0-FYP" secondAttribute="leading" id="MgK-ic-kNE"/>
                             <constraint firstItem="NYa-Oz-Dql" firstAttribute="top" secondItem="nfh-CK-4dz" secondAttribute="top" id="cyS-a2-Z7E"/>
+                            <constraint firstItem="OoX-eE-Xjk" firstAttribute="leading" secondItem="fHt-v0-FYP" secondAttribute="leading" id="ncM-wV-G5h"/>
+                            <constraint firstAttribute="bottom" secondItem="OoX-eE-Xjk" secondAttribute="bottom" id="rNF-7U-M1R"/>
+                            <constraint firstItem="OoX-eE-Xjk" firstAttribute="top" secondItem="fHt-v0-FYP" secondAttribute="top" id="yOk-fz-xNY"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="cameraView" destination="OoX-eE-Xjk" id="vPQ-4p-xF6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MFP-x4-ttx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2760" y="737"/>
+            <point key="canvasLocation" x="-2760" y="736.26760563380287"/>
         </scene>
         <!--Direct MsgVC-->
         <scene sceneID="77z-u7-XjP">
