@@ -38,31 +38,26 @@ extension FeedViewVC: UITableViewDelegate, UITableViewDataSource {
         return 0
     }
     
-    //    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    //        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
-    //        if let post = allPost?[indexPath.row] {
-    //            DispatchQueue.main.async {
-    //                ImageLoader.loadImage(for: URL(string: post.profileImageUrl), into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
-    //                ImageLoader.loadImage(for: URL(string: post.profileImageUrl), into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
-    //                ImageLoader.loadImage(for: URL(string: post.postImageURL), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
-    //                cell.postLocationLbl.text = post.location
-    //                cell.postCaption.text = post.caption
-    //                cell.userName.text = post.name
-    //            }
-    //            return cell
-    //        }
-    //        return UITableViewCell()
-    //    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
         if let post = allPost?[indexPath.row] {
-            ImageLoader.loadImage(for: URL(string: post.profileImageUrl), into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
-            ImageLoader.loadImage(for: URL(string: post.profileImageUrl), into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
+            DispatchQueue.main.async {
+                ProfileViewModel.shared.fetchUserData(uid: post.uid) { result in
+                    switch result {
+                    case.success(let data):
+                        if let imgUrl = data.imageUrl , let name = data.name {
+                            ImageLoader.loadImage(for: URL(string:imgUrl), into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
+                            ImageLoader.loadImage(for: URL(string:imgUrl), into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
+                            cell.userName.text = name
+                        }
+                    case.failure(let error):
+                        print(error)
+                    }
+                }
+            }
             ImageLoader.loadImage(for: URL(string: post.postImageURL), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
             cell.postLocationLbl.text = post.location
             cell.postCaption.text = post.caption
-            cell.userName.text = post.name
             cell.totalLikesCount.text = "\(post.likesCount) Likes"
             
             if let randomLikedByUID = post.likedBy.randomElement() {
