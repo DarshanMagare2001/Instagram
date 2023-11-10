@@ -62,13 +62,14 @@ class PostViewModel {
                                     if let downloadURL = url {
                                         // The downloadURL contains the URL to the uploaded image
                                         print("Image uploaded to: \(downloadURL)")
-                                        
+
                                         // Get the UID of the currently authenticated user
                                         guard let uid = Auth.auth().currentUser?.uid else {
                                             print("User is not authenticated.")
+                                            completionHandler(false)
                                             return
                                         }
-                                        
+
                                         let db = Firestore.firestore()
                                         if let name = data.name, let profileImageUrl = data.imageUrl {
                                             // Include UID in the document data
@@ -78,12 +79,13 @@ class PostViewModel {
                                                 "location": location,
                                                 "name": name,
                                                 "profileImageUrl": profileImageUrl,
-                                                "uid": uid
+                                                "uid": uid,
+                                                "timestamp": FieldValue.serverTimestamp() // Add timestamp
                                             ]
-                                            
+
                                             // Declare documentRef outside of the closure
                                             var documentRef: DocumentReference!
-                                            
+
                                             // Add the document to Firestore and get the generated document ID
                                             documentRef = db.collection("post").addDocument(data: imageDocData) { (error) in
                                                 if let error = error {
@@ -91,17 +93,17 @@ class PostViewModel {
                                                     completionHandler(false)
                                                 } else {
                                                     print("Document added successfully")
-                                                    
+
                                                     // Retrieve the generated document ID
                                                     let documentID = documentRef.documentID
-                                                    
+
                                                     // Update the document with the postDocumentID
                                                     db.collection("post").document(documentID).setData(["postDocumentID": documentID], merge: true) { error in
                                                         if let error = error {
                                                             print("Error updating document: \(error)")
                                                         }
                                                     }
-                                                    
+
                                                     completionHandler(true)
                                                 }
                                             }
@@ -117,9 +119,11 @@ class PostViewModel {
                 }
             case .failure(let error):
                 print(error)
+                completionHandler(false)
             }
         }
     }
+
     
     func fetchPostDataOfPerticularUser(forUID uid: String, completion: @escaping (Result<[PostModel], Error>) -> Void) {
         let db = Firestore.firestore()
