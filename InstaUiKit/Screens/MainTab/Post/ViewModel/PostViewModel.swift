@@ -80,30 +80,16 @@ class PostViewModel {
                                                 "name": name,
                                                 "profileImageUrl": profileImageUrl,
                                                 "uid": uid,
-                                                "timestamp": FieldValue.serverTimestamp() // Add timestamp
+                                                "timestamp": FieldValue.serverTimestamp() // Add timestamp as FieldValue
                                             ]
                                             
-                                            // Declare documentRef outside of the closure
-                                            var documentRef: DocumentReference!
-                                            
                                             // Add the document to Firestore and get the generated document ID
-                                            documentRef = db.collection("post").addDocument(data: imageDocData) { (error) in
+                                            db.collection("post").addDocument(data: imageDocData) { (error) in
                                                 if let error = error {
                                                     print("Error adding document: \(error)")
                                                     completionHandler(false)
                                                 } else {
                                                     print("Document added successfully")
-                                                    
-                                                    // Retrieve the generated document ID
-                                                    let documentID = documentRef.documentID
-                                                    
-                                                    // Update the document with the postDocumentID
-                                                    db.collection("post").document(documentID).setData(["postDocumentID": documentID], merge: true) { error in
-                                                        if let error = error {
-                                                            print("Error updating document: \(error)")
-                                                        }
-                                                    }
-                                                    
                                                     completionHandler(true)
                                                 }
                                             }
@@ -124,6 +110,7 @@ class PostViewModel {
         }
     }
     
+    
     func fetchPostDataOfPerticularUser(forUID uid: String, completion: @escaping (Result<[PostModel], Error>) -> Void) {
         let db = Firestore.firestore()
         db.collection("post")
@@ -143,27 +130,29 @@ class PostViewModel {
                         let location = data["location"] as? String ?? ""
                         let name = data["name"] as? String ?? ""
                         let profileImageUrl = data["profileImageUrl"] as? String ?? ""
-                        let postDocumentID = data["postDocumentID"] as? String ?? ""
+                        let postDocumentID = document.documentID
                         let likedBy = data["likedBy"] as? [String] ?? []
                         let likesCount = data["likesCount"] as? Int ?? 0
-                        let comments = data["comments"] as? [[String : Any]] ?? []
-                        // Correctly initialize timestamp with FieldValue.serverTimestamp()
-                        let timestamp = data["timestamp"] as? FieldValue ?? FieldValue.serverTimestamp()
-                        let post = PostModel(
-                            postImageURL: postImageURL,
-                            caption: caption,
-                            location: location,
-                            name: name,
-                            uid: uid,
-                            profileImageUrl: profileImageUrl,
-                            postDocumentID: postDocumentID,
-                            likedBy: likedBy,
-                            likesCount: likesCount,
-                            comments: comments,
-                            timestamp: timestamp
-                        )
-                        posts.append(post)
+                        let comments = data["comments"] as? [[String: Any]] ?? []
+                        if let timestamp = data["timestamp"] as? Timestamp {
+                            let post = PostModel(
+                                postImageURL: postImageURL,
+                                caption: caption,
+                                location: location,
+                                name: name,
+                                uid: uid,
+                                profileImageUrl: profileImageUrl,
+                                postDocumentID: postDocumentID,
+                                likedBy: likedBy,
+                                likesCount: likesCount,
+                                comments: comments,
+                                timestamp: timestamp
+                            )
+                            posts.append(post)
+                        }
                     }
+                    // Sort the posts by timestamp in descending order
+                    posts.sort { $0.timestamp.seconds > $1.timestamp.seconds }
                     print("Fetched \(posts.count) posts.")
                     completion(.success(posts))
                 }
@@ -176,6 +165,7 @@ class PostViewModel {
     func fetchAllPosts(completion: @escaping (Result<[PostModel], Error>) -> Void) {
         let db = Firestore.firestore()
         db.collection("post")
+            .order(by: "timestamp", descending: true) // Sort by the timestamp field in descending order
             .getDocuments { (querySnapshot, error) in
                 if let error = error {
                     print("Error fetching data: \(error.localizedDescription)")
@@ -190,31 +180,32 @@ class PostViewModel {
                         let name = data["name"] as? String ?? ""
                         let uid = data["uid"] as? String ?? ""
                         let profileImageUrl = data["profileImageUrl"] as? String ?? ""
-                        let postDocumentID = data["postDocumentID"] as? String ?? ""
+                        let postDocumentID = document.documentID // Get document ID
                         let likedBy = data["likedBy"] as? [String] ?? []
                         let likesCount = data["likesCount"] as? Int ?? 0
-                        let comments = data["comments"] as? [[String : Any]] ?? []
-                        let timestamp = data["timestamp"] as? FieldValue ?? FieldValue.serverTimestamp()
-                        let post = PostModel(
-                            postImageURL: postImageURL,
-                            caption: caption,
-                            location: location,
-                            name: name,
-                            uid: uid,
-                            profileImageUrl: profileImageUrl,
-                            postDocumentID: postDocumentID,
-                            likedBy: likedBy,
-                            likesCount: likesCount,
-                            comments: comments,
-                            timestamp: timestamp
-                        )
-                        posts.append(post)
+                        let comments = data["comments"] as? [[String: Any]] ?? []
+                        if let timestamp = data["timestamp"] as? Timestamp {
+                            let post = PostModel(
+                                postImageURL: postImageURL,
+                                caption: caption,
+                                location: location,
+                                name: name,
+                                uid: uid,
+                                profileImageUrl: profileImageUrl,
+                                postDocumentID: postDocumentID,
+                                likedBy: likedBy,
+                                likesCount: likesCount,
+                                comments: comments,
+                                timestamp: timestamp
+                            )
+                            posts.append(post)
+                        }
                     }
+                    print("Fetched \(posts.count) posts.")
                     completion(.success(posts))
                 }
             }
     }
-    
     
     
     // Remove trailing closure from likePost and unlikePost methods
@@ -238,6 +229,7 @@ class PostViewModel {
         }
     }
     
+    
     func unlikePost(postDocumentID: String, userUID: String, completion: @escaping (Bool) -> Void) {
         let db = Firestore.firestore()
         let postDocumentRef = db.collection("post").document(postDocumentID)
@@ -257,9 +249,6 @@ class PostViewModel {
             }
         }
     }
-    
-    
-    
     
     
     // Function to increment the likes count for a post
@@ -335,22 +324,22 @@ class PostViewModel {
                     let likedBy = data["likedBy"] as? [String] ?? []
                     let likesCount = data["likesCount"] as? Int ?? 0
                     let comments = data["comments"] as? [[String: Any]] ?? []
-                    let timestamp = data["timestamp"] as? FieldValue ?? FieldValue.serverTimestamp()
-                    
-                    let post = PostModel(
-                        postImageURL: postImageURL,
-                        caption: caption,
-                        location: location,
-                        name: name,
-                        uid: uid,
-                        profileImageUrl: profileImageUrl,
-                        postDocumentID: postDocumentID,
-                        likedBy: likedBy,
-                        likesCount: likesCount,
-                        comments: comments,
-                        timestamp: timestamp
-                    )
-                    completion(.success(post))
+                    if let timestamp = data["timestamp"] as? Timestamp {
+                        let post = PostModel(
+                            postImageURL: postImageURL,
+                            caption: caption,
+                            location: location,
+                            name: name,
+                            uid: uid,
+                            profileImageUrl: profileImageUrl,
+                            postDocumentID: postDocumentID,
+                            likedBy: likedBy,
+                            likesCount: likesCount,
+                            comments: comments,
+                            timestamp: timestamp
+                        )
+                        completion(.success(post))
+                    }
                 }
             }
     }

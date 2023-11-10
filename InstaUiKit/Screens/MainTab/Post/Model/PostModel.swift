@@ -18,7 +18,7 @@ struct PostModel {
     var likedBy: [String]
     var likesCount: Int
     var comments: [[String: Any]]
-    var timestamp: FieldValue
+    var timestamp: Timestamp // Change to Timestamp
 
     init(
         postImageURL: String,
@@ -31,7 +31,7 @@ struct PostModel {
         likedBy: [String],
         likesCount: Int,
         comments: [[String: Any]],
-        timestamp: FieldValue
+        timestamp: Timestamp // Change to Timestamp
     ) {
         self.postImageURL = postImageURL
         self.caption = caption
@@ -43,6 +43,6 @@ struct PostModel {
         self.likedBy = likedBy
         self.likesCount = likesCount
         self.comments = comments
-        self.timestamp = FieldValue.serverTimestamp()
+        self.timestamp = timestamp // Assign the provided Timestamp directly
     }
 }
