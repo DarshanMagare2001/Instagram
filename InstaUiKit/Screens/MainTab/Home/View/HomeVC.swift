@@ -51,6 +51,12 @@ class HomeVC: UIViewController {
     }
     
     
+    @IBAction func cameraBtnPressed(_ sender: UIButton) {
+        let storyboard = UIStoryboard.MainTab
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "CameraVC") as! CameraVC
+        navigationController?.pushViewController(destinationVC, animated: true)
+    }
+    
     @IBAction func directMsgBtnPressed(_ sender: UIButton) {
         Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "DirectMsgVC") { destinationVC in
             if let destinationVC = destinationVC {

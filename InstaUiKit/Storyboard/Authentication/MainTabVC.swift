@@ -12,4 +12,5 @@ class MainTabVC: UITabBarController {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
+    
 }
