@@ -31,6 +31,7 @@ class UsersProfileView: UIViewController {
                     switch result {
                     case.success(let data):
                         self.allPost = data
+                        self.totalPostCount.text = "\(data.count)"
                         self.collectionViewOutlet.reloadData()
                     case.failure(let error):
                         print(error)
