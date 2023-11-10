@@ -18,14 +18,26 @@ class SearchVC: UIViewController {
     var allUniqueUsersArray = [UserModel]()
     var allPost = [PostModel?]()
     let disposeBag = DisposeBag()
+    var tableViewRefreshControl = UIRefreshControl()
+    var collectionViewRefreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
         let nib = UINib(nibName: "FollowingCell", bundle: nil)
         tableViewOutlet.register(nib, forCellReuseIdentifier: "FollowingCell")
         addDoneButtonToSearchBarKeyboard()
+        collectionViewOutlet.addSubview(collectionViewRefreshControl)
+        collectionViewRefreshControl.addTarget(self, action: #selector(refreshCollectionView), for: .valueChanged)
+        fetchData()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    @objc func refreshCollectionView() {
+        DispatchQueue.main.asyncAfter(deadline: .now()+2){
+            self.fetchData()
+            self.collectionViewRefreshControl.endRefreshing()
+        }
+    }
+    
+    func fetchData(){
         SearchVCViewModel.shared.fetchAllPostURL { result in
             switch result {
             case.success(let data):
@@ -49,7 +61,6 @@ class SearchVC: UIViewController {
                 print(error)
             }
         }
-        
     }
     
     func addDoneButtonToSearchBarKeyboard() {
@@ -137,24 +148,24 @@ extension SearchVC {
             .do(onNext: { [weak self] _ in
                 self?.collectionViewOutlet.reloadData()
             })
-                .bind(to: collectionViewOutlet
-                        .rx
-                        .items(cellIdentifier: "SearchVCCollectionViewCell", cellType: SearchVCCollectionViewCell.self)) { (row, element, cell) in
-                    DispatchQueue.main.async {
-                        if let url = element?.postImageURL {
-                            ImageLoader.loadImage(for: URL(string: url), into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
-                        }
-                    }
-                    // Handle tap action
-                    cell.tapAction = { [weak self] in
-                        if let data = element {
-                            var tempData = [PostModel]()
-                            tempData.append(data)
-                            self?.handleCellTap(at: row, data: tempData)
-                        }
+            .bind(to: collectionViewOutlet
+                    .rx
+                    .items(cellIdentifier: "SearchVCCollectionViewCell", cellType: SearchVCCollectionViewCell.self)) { (row, element, cell) in
+                DispatchQueue.main.async {
+                    if let url = element?.postImageURL {
+                        ImageLoader.loadImage(for: URL(string: url), into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
                     }
                 }
-                        .disposed(by: disposeBag)
+                // Handle tap action
+                cell.tapAction = { [weak self] in
+                    if let data = element {
+                        var tempData = [PostModel]()
+                        tempData.append(data)
+                        self?.handleCellTap(at: row, data: tempData)
+                    }
+                }
+            }
+                    .disposed(by: disposeBag)
     }
     
     func handleCellTap(at index: Int , data : [PostModel] ) {

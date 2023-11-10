@@ -674,13 +674,13 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hyY-cu-P0b">
-                                <rect key="frame" x="0.0" y="80" width="320" height="439"/>
+                                <rect key="frame" x="0.0" y="60" width="320" height="459"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gy6-Gg-g0z" userLabel="tableView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="439"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="459"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="3Iq-d7-inL">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="439"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="459"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </tableView>
                                         </subviews>
@@ -693,11 +693,11 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OXc-Iy-5sl" userLabel="collectionView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="439"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="459"/>
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="oGL-o2-fM0">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="439"/>
-                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="459"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VRn-yV-paT">
                                                     <size key="itemSize" width="210" height="176"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -774,7 +774,7 @@
                             <constraint firstItem="S91-E3-5Kk" firstAttribute="bottom" secondItem="hyY-cu-P0b" secondAttribute="bottom" id="FM9-zQ-uaD"/>
                             <constraint firstItem="hyY-cu-P0b" firstAttribute="leading" secondItem="S91-E3-5Kk" secondAttribute="leading" id="L3h-sb-ZSQ"/>
                             <constraint firstItem="fzn-7x-KWL" firstAttribute="top" secondItem="S91-E3-5Kk" secondAttribute="top" constant="10" id="Zsn-eR-Cyp"/>
-                            <constraint firstItem="hyY-cu-P0b" firstAttribute="top" secondItem="fzn-7x-KWL" secondAttribute="bottom" constant="20" id="axs-G7-bdA"/>
+                            <constraint firstItem="hyY-cu-P0b" firstAttribute="top" secondItem="fzn-7x-KWL" secondAttribute="bottom" id="axs-G7-bdA"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="InstaMagnifyGlass" id="h4J-kq-sjr">
