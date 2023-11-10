@@ -9,6 +9,7 @@ import UIKit
 import SwiftUI
 import FirebaseAuth
 import SkeletonView
+import FirebaseFirestore
 
 class HomeVC: UIViewController {
     @IBOutlet weak var feedTableView: UITableView!
@@ -96,14 +97,23 @@ extension HomeVC {
             case .success(let images):
                 // Handle the images
                 print("Fetched images: \(images)")
-                DispatchQueue.main.async{
-                    self.allPost = images
-                    print(images)
+                DispatchQueue.main.async {
+                    // Sort the images based on timestamp in descending order
+                    let sortedImages = images.sorted { (post1, post2) -> Bool in
+                        if let timestamp1 = post1.timestamp as? Timestamp,
+                           let timestamp2 = post2.timestamp as? Timestamp {
+                            return timestamp1.compare(timestamp2) == .orderedDescending
+                        }
+                        return false
+                    }
+                    self.allPost = sortedImages
+                    print(sortedImages)
                     self.feedTableView.stopSkeletonAnimation()
                     self.view.stopSkeletonAnimation()
                     self.feedTableView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
                     self.feedTableView.reloadData()
                 }
+
             case .failure(let error):
                 // Handle the error
                 print("Error fetching images: \(error)")

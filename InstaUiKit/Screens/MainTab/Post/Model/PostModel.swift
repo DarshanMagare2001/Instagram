@@ -5,6 +5,8 @@
 //  Created by IPS-161 on 11/08/23.
 //
 
+import FirebaseFirestore
+
 struct PostModel {
     var postImageURL: String
     var caption: String
@@ -15,7 +17,8 @@ struct PostModel {
     var postDocumentID: String
     var likedBy: [String]
     var likesCount: Int
-    var comments : [[String : Any]]
+    var comments: [[String: Any]]
+    var timestamp: FieldValue
 
     init(
         postImageURL: String,
@@ -27,7 +30,8 @@ struct PostModel {
         postDocumentID: String,
         likedBy: [String],
         likesCount: Int,
-        comments : [[String : Any]]
+        comments: [[String: Any]],
+        timestamp: FieldValue
     ) {
         self.postImageURL = postImageURL
         self.caption = caption
@@ -39,6 +43,6 @@ struct PostModel {
         self.likedBy = likedBy
         self.likesCount = likesCount
         self.comments = comments
+        self.timestamp = FieldValue.serverTimestamp()
     }
 }
-
