@@ -664,6 +664,9 @@
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zt4-Ib-s9P">
                                                                     <rect key="frame" x="0.0" y="0.0" width="210" height="176"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                                    </userDefinedRuntimeAttributes>
                                                                 </imageView>
                                                             </subviews>
                                                             <constraints>
@@ -672,13 +675,22 @@
                                                                 <constraint firstItem="Zt4-Ib-s9P" firstAttribute="top" secondItem="14o-LX-9Xy" secondAttribute="top" id="QPl-G6-uBX"/>
                                                                 <constraint firstAttribute="bottom" secondItem="Zt4-Ib-s9P" secondAttribute="bottom" id="Z9F-yC-KLl"/>
                                                             </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                            </userDefinedRuntimeAttributes>
                                                         </collectionViewCellContentView>
                                                         <size key="customSize" width="210" height="176"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <outlet property="img" destination="Zt4-Ib-s9P" id="0hS-gF-uGd"/>
                                                         </connections>
                                                     </collectionViewCell>
                                                 </cells>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
                                             </collectionView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemGreenColor"/>
