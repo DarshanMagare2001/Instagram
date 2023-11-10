@@ -36,6 +36,8 @@ class HomeVC: UIViewController {
         }
         self.storiesCollectionView.isSkeletonable = true
         self.storiesCollectionView.showAnimatedGradientSkeleton()
+        self.feedTableView.isSkeletonable = true
+        self.feedTableView.showAnimatedGradientSkeleton()
         
     }
     
@@ -84,9 +86,12 @@ extension HomeVC {
             case .success(let images):
                 // Handle the images
                 print("Fetched images: \(images)")
-                DispatchQueue.main.async {
+                DispatchQueue.main.async{
                     self.allPost = images
                     print(images)
+                    self.feedTableView.stopSkeletonAnimation()
+                    self.view.stopSkeletonAnimation()
+                    self.feedTableView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
                     self.feedTableView.reloadData()
                 }
             case .failure(let error):
@@ -118,11 +123,20 @@ extension HomeVC {
     }
 }
 
-extension HomeVC: UITableViewDelegate, UITableViewDataSource {
+extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allPost.count
     }
     
+    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        10
+    }
+
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return "FeedCell"
+    }
+   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
         let post = allPost[indexPath.row]
