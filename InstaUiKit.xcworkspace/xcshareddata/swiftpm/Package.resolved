@@ -119,6 +119,15 @@
         }
       },
       {
+        "package": "SkeletonView",
+        "repositoryURL": "https://github.com/Juanpe/SkeletonView.git",
+        "state": {
+          "branch": "main",
+          "revision": "0f5eaf82e82441690d38abfc4118c961f113881c",
+          "version": null
+        }
+      },
+      {
         "package": "SwiftProtobuf",
         "repositoryURL": "https://github.com/apple/swift-protobuf.git",
         "state": {

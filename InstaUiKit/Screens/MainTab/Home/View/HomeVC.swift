@@ -8,6 +8,7 @@
 import UIKit
 import SwiftUI
 import FirebaseAuth
+import SkeletonView
 
 class HomeVC: UIViewController {
     @IBOutlet weak var feedTableView: UITableView!
@@ -22,13 +23,20 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         let nib = UINib(nibName: "FeedCell", bundle: nil)
         feedTableView.register(nib, forCellReuseIdentifier: "FeedCell")
+        self.view.showAnimatedGradientSkeleton()
         if let currentUid = Auth.auth().currentUser?.uid {
             uid = currentUid
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        updateUI()
+        super.viewWillAppear(animated)
+        DispatchQueue.main.async {
+            self.updateUI()
+        }
+        self.storiesCollectionView.isSkeletonable = true
+        self.storiesCollectionView.showAnimatedGradientSkeleton()
+        
     }
     
     @IBAction func directMsgBtnPressed(_ sender: UIButton) {
@@ -43,6 +51,7 @@ class HomeVC: UIViewController {
 
 extension HomeVC {
     func updateUI(){
+        
         Data.shared.getData(key: "ProfileUrl") { (result: Result<String?, Error>) in
             switch result {
             case .success(let urlString):
@@ -79,7 +88,6 @@ extension HomeVC {
                     self.allPost = images
                     print(images)
                     self.feedTableView.reloadData()
-                    self.storiesCollectionView.reloadData()
                 }
             case .failure(let error):
                 // Handle the error
@@ -94,16 +102,19 @@ extension HomeVC {
         FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
             switch result {
             case .success(let data):
-                DispatchQueue.main.async {
+                DispatchQueue.main.async{
                     print(data)
                     self.allUniqueUsersArray = data
+                    self.storiesCollectionView.stopSkeletonAnimation()
+                    self.view.stopSkeletonAnimation()
+                    self.storiesCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
                     self.storiesCollectionView.reloadData()
-                    self.feedTableView.reloadData()
                 }
             case .failure(let error):
                 print(error)
             }
         }
+        
     }
 }
 
@@ -187,12 +198,20 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
 }
 
 
-extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension HomeVC: SkeletonCollectionViewDataSource  , SkeletonCollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allUniqueUsersArray.count
+        allUniqueUsersArray.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionSkeletonView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        5
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return "StoriesCell"
+    }
+    
+    func collectionView (_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StoriesCell", for: indexPath) as! StoriesCell
         if let uid = allUniqueUsersArray[indexPath.row].uid,
            let name = allUniqueUsersArray[indexPath.row].name,
@@ -204,6 +223,8 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         }
         return cell
     }
+    
+    
 }
 
 

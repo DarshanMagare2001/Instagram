@@ -30,6 +30,7 @@
 		13127A962AF3CC67008C7927 /* ChatVCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13127A952AF3CC67008C7927 /* ChatVCModel.swift */; };
 		132847232AFCEB4600A2397F /* UsersProfileViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132847222AFCEB4600A2397F /* UsersProfileViewCell.swift */; };
 		134F7F422AEF7C6800B6C31E /* UploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134F7F412AEF7C6800B6C31E /* UploadVC.swift */; };
+		1361C9672AFDEA9D00C00A71 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 1361C9662AFDEA9D00C00A71 /* SkeletonView */; };
 		136B84A22A83B8E700C102F1 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136B84A12A83B8E700C102F1 /* ProfileViewModel.swift */; };
 		136B84A42A83B8FC00C102F1 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136B84A32A83B8FC00C102F1 /* EditProfileViewModel.swift */; };
 		1385F38F2AF5205F006C8363 /* UsersProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1385F38E2AF5205F006C8363 /* UsersProfileView.swift */; };
@@ -178,6 +179,7 @@
 				13127A712AF36017008C7927 /* FirebaseAuth in Frameworks */,
 				138BC6022A73D8CB00020297 /* Kingfisher in Frameworks */,
 				13127A772AF36017008C7927 /* FirebaseFirestore in Frameworks */,
+				1361C9672AFDEA9D00C00A71 /* SkeletonView in Frameworks */,
 				13127A812AF36017008C7927 /* FirebaseStorage in Frameworks */,
 				5FC7C3CDA91FEFEC6E4E489F /* Pods_InstaUiKit.framework in Frameworks */,
 				13DBE7692AEB76F90006F3B9 /* RxSwift in Frameworks */,
@@ -899,6 +901,7 @@
 				13127A7C2AF36017008C7927 /* FirebaseInAppMessagingSwift-Beta */,
 				13127A7E2AF36017008C7927 /* FirebaseMessaging */,
 				13127A802AF36017008C7927 /* FirebaseStorage */,
+				1361C9662AFDEA9D00C00A71 /* SkeletonView */,
 			);
 			productName = InstaUiKit;
 			productReference = 131166342A70FB9900CD0373 /* InstaUiKit.app */;
@@ -932,6 +935,7 @@
 				138BC6002A73D8CB00020297 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				13DBE7652AEB76F90006F3B9 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				13127A6F2AF36017008C7927 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				1361C9652AFDEA9D00C00A71 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = 131166352A70FB9900CD0373 /* Products */;
 			projectDirPath = "";
@@ -1303,6 +1307,14 @@
 				version = 9.6.0;
 			};
 		};
+		1361C9652AFDEA9D00C00A71 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		138BC6002A73D8CB00020297 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -1366,6 +1378,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 13127A6F2AF36017008C7927 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		1361C9662AFDEA9D00C00A71 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1361C9652AFDEA9D00C00A71 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
 		};
 		138BC6012A73D8CB00020297 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
