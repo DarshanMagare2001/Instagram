@@ -19,27 +19,37 @@ class HomeVC: UIViewController {
     var allPost = [PostModel]()
     var allUniqueUsersArray = [UserModel]()
     var uid : String?
+    var refreshControll = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
         let nib = UINib(nibName: "FeedCell", bundle: nil)
         feedTableView.register(nib, forCellReuseIdentifier: "FeedCell")
         self.view.showAnimatedGradientSkeleton()
+        refreshControll.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        feedTableView.addSubview(refreshControll)
         if let currentUid = Auth.auth().currentUser?.uid {
             uid = currentUid
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         DispatchQueue.main.async {
             self.updateUI()
+            self.storiesCollectionView.isSkeletonable = true
+            self.storiesCollectionView.showAnimatedGradientSkeleton()
+            self.feedTableView.isSkeletonable = true
+            self.feedTableView.showAnimatedGradientSkeleton()
         }
-        self.storiesCollectionView.isSkeletonable = true
-        self.storiesCollectionView.showAnimatedGradientSkeleton()
-        self.feedTableView.isSkeletonable = true
-        self.feedTableView.showAnimatedGradientSkeleton()
-        
     }
+    
+    @objc func refresh(send:UIRefreshControl){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.updateUI()
+            self.storiesCollectionView.isSkeletonable = true
+            self.storiesCollectionView.showAnimatedGradientSkeleton()
+            self.feedTableView.isSkeletonable = true
+            self.feedTableView.showAnimatedGradientSkeleton()
+            self.refreshControll.endRefreshing()
+        }
+    }
+    
     
     @IBAction func directMsgBtnPressed(_ sender: UIButton) {
         Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "DirectMsgVC") { destinationVC in
@@ -132,11 +142,11 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
     func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int{
         10
     }
-
+    
     func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
         return "FeedCell"
     }
-   
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
         let post = allPost[indexPath.row]
