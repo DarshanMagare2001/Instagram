@@ -14,18 +14,32 @@ class LikesVC: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     var allPost = [PostModel]()
     var currentUserUid : String?
+    var refreshControll = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
         let nibLikes = UINib (nibName: "LikesCell", bundle: nil)
         let nibFollowing = UINib (nibName: "FollowingCell", bundle: nil)
         tableViewOutlet.register(nibLikes, forCellReuseIdentifier: "LikesCell")
         tableViewOutlet.register(nibFollowing, forCellReuseIdentifier: "FollowingCell")
+        refreshControll.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        tableViewOutlet.addSubview(refreshControll)
+        fetchData()
         self.view.showAnimatedGradientSkeleton()
         self.tableViewOutlet.isSkeletonable = true
         self.tableViewOutlet.showAnimatedGradientSkeleton()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    @objc func refresh(send:UIRefreshControl){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.fetchData()
+            self.view.showAnimatedGradientSkeleton()
+            self.tableViewOutlet.isSkeletonable = true
+            self.tableViewOutlet.showAnimatedGradientSkeleton()
+            self.refreshControll.endRefreshing()
+        }
+    }
+    
+    func fetchData(){
         Data.shared.getData(key: "CurrentUserId") { (result:Result<String? , Error>) in
             switch result {
             case .success(let uid):
