@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import SkeletonView
 
 class ProfileVC: UIViewController {
     @IBOutlet weak var photosCollectionView: UICollectionView!
@@ -24,19 +25,20 @@ class ProfileVC: UIViewController {
     var allPost = [PostModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.showAnimatedGradientSkeleton()
         configuration()
         updateUI()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
-        configuration()
-        updateUI()
+        super.viewWillAppear(animated)
+        DispatchQueue.main.async {
+            self.configuration()
+            self.updateUI()
+        }
+        self.photosCollectionView.isSkeletonable = true
+        self.photosCollectionView.showAnimatedGradientSkeleton()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        configuration()
-        updateUI()
-    }
-    
     
     @IBAction func sideMenuBtnPressed(_ sender: UIButton) {
         UIView.animate(withDuration: 0.5) {
@@ -156,11 +158,16 @@ extension ProfileVC {
                         case .success(let images):
                             // Handle the images
                             print("Fetched images: \(images)")
-                            DispatchQueue.main.async {
+                            
+                            DispatchQueue.main.async{
                                 self.allPost = images
                                 self.postCountLbl.text = "\(self.allPost.count)"
+                                self.photosCollectionView.stopSkeletonAnimation()
+                                self.view.stopSkeletonAnimation()
+                                self.photosCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
                                 self.photosCollectionView.reloadData()
                             }
+                            
                         case .failure(let error):
                             // Handle the error
                             print("Error fetching images: \(error)")
@@ -176,10 +183,19 @@ extension ProfileVC {
     
 }
 
-extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource , UIGestureRecognizerDelegate {
+extension ProfileVC:  SkeletonCollectionViewDataSource  , SkeletonCollectionViewDelegate , UIGestureRecognizerDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return allPost.count
     }
+    
+    func collectionSkeletonView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        20
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return "PhotosCell"
+    }
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosCell", for: indexPath) as! PhotosCell

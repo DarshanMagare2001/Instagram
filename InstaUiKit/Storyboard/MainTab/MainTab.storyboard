@@ -1460,6 +1460,9 @@
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XYa-5P-UIv">
                                                             <rect key="frame" x="0.0" y="0.0" width="247" height="182"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                            </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                     </subviews>
                                                     <constraints>
@@ -1468,13 +1471,22 @@
                                                         <constraint firstItem="XYa-5P-UIv" firstAttribute="top" secondItem="Log-a1-3Vv" secondAttribute="top" id="bO6-aN-zn9"/>
                                                         <constraint firstAttribute="bottom" secondItem="XYa-5P-UIv" secondAttribute="bottom" id="em3-Hy-aJ4"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </collectionViewCellContentView>
                                                 <size key="customSize" width="247" height="182"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <outlet property="img" destination="XYa-5P-UIv" id="LOY-NI-2Zg"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="dataSource" destination="rgj-nZ-O2o" id="aOt-SB-ZA8"/>
                                             <outlet property="delegate" destination="rgj-nZ-O2o" id="MA5-mB-ezF"/>
