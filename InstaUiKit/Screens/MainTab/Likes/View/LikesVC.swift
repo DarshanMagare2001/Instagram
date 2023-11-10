@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class LikesVC: UIViewController {
     @IBOutlet weak var segmentControllOutlet: UISegmentedControl!
@@ -19,6 +20,9 @@ class LikesVC: UIViewController {
         let nibFollowing = UINib (nibName: "FollowingCell", bundle: nil)
         tableViewOutlet.register(nibLikes, forCellReuseIdentifier: "LikesCell")
         tableViewOutlet.register(nibFollowing, forCellReuseIdentifier: "FollowingCell")
+        self.view.showAnimatedGradientSkeleton()
+        self.tableViewOutlet.isSkeletonable = true
+        self.tableViewOutlet.showAnimatedGradientSkeleton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,6 +38,9 @@ class LikesVC: UIViewController {
                             print("Fetched images: \(images)")
                             DispatchQueue.main.async {
                                 self.allPost = images
+                                self.tableViewOutlet.stopSkeletonAnimation()
+                                self.view.stopSkeletonAnimation()
+                                self.tableViewOutlet.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
                                 self.tableViewOutlet.reloadData()
                             }
                         case .failure(let error):
@@ -62,11 +69,20 @@ class LikesVC: UIViewController {
     
 }
 
-extension LikesVC : UITableViewDelegate , UITableViewDataSource {
+extension LikesVC : SkeletonTableViewDataSource, SkeletonTableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return allPost.count
     }
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        10
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return "LikesCell"
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section < allPost.count {

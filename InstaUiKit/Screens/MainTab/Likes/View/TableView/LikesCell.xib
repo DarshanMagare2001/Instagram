@@ -26,12 +26,18 @@
                                     <constraint firstAttribute="height" constant="60" id="WWE-kN-Loo"/>
                                     <constraint firstAttribute="width" constant="60" id="eUn-Bc-FRD"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUI-pu-MH8">
                                 <rect key="frame" x="70" y="45.5" width="200" height="0.0"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QHU-kC-Ptg">
                                 <rect key="frame" x="280" y="15.5" width="60" height="60"/>
@@ -39,8 +45,14 @@
                                     <constraint firstAttribute="height" constant="60" id="ssV-E5-sVh"/>
                                     <constraint firstAttribute="width" constant="60" id="tmc-CG-0fx"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                         </subviews>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </stackView>
                 </subviews>
                 <constraints>
@@ -49,8 +61,14 @@
                     <constraint firstItem="j5C-u7-iYQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="KZJ-bp-C1s"/>
                     <constraint firstItem="j5C-u7-iYQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="SLS-Pr-CVg"/>
                 </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="likeByLbl" destination="FUI-pu-MH8" id="smF-Hj-G6l"/>
                 <outlet property="postImg" destination="QHU-kC-Ptg" id="zVd-Ao-WeL"/>
