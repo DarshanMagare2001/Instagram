@@ -62,7 +62,18 @@ class UsersProfileView: UIViewController {
     }
     
     @IBAction func folloBtnPressed(_ sender: UIButton) {
-        
+        Data.shared.getData(key: "Name") {  (result: Result<String?, Error>) in
+            switch result {
+            case .success(let name):
+                if let name = name {
+                    if let fmcToken = self.user?.fcmToken {
+                        PushNotification.shared.sendPushNotification(to: fmcToken, title: "Follow Request" , body: "\(name) Wants to Follow you.")
+                    }
+                }
+            case.failure(let error):
+                print(error)
+            }
+        }
     }
     
     @IBAction func messageBtnPressed(_ sender: UIButton) {

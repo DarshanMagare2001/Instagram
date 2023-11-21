@@ -72,7 +72,6 @@ class ChatVC: UIViewController {
                                         print(error)
                                     }
                                 }
-                                
                             }
                         }
                         self.msgTxtFld.text = ""
