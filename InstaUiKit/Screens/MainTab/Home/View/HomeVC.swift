@@ -37,10 +37,6 @@ class HomeVC: UIViewController {
             self.feedTableView.isSkeletonable = true
             self.feedTableView.showAnimatedGradientSkeleton()
         }
-        
-        let fcmToken = "cOxUfk1p9ky3r-y1vgdyZz:APA91bGJGXUkUHzAjYr2yNDXDdEQFzBUKWXSzpTih5uLyYlsW2KAkzUnj2FzGdDgmYpQgEWWb1iM7avrCHAvNukp22epq6i2FO2pljzCUTyGGEUK193_rRBMKHpjaaJ6NuJSqzZbvrPk"
-        PushNotification.shared.sendPushNotification(to: fcmToken, title: "InstaUiKit", body: "Hi Darshan")
-     
     }
    
     
