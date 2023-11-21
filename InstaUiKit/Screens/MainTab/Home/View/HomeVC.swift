@@ -221,6 +221,27 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                             let imageName = cell.isLiked ? "heart.fill" : "heart"
                             cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
                             cell.likeBtn.tintColor = cell.isLiked ? .red : .black
+                            
+                            ProfileViewModel.shared.fetchUserData(uid: post.uid) { result in
+                                switch result {
+                                case.success(let data):
+                                    if let fmcToken = data.fcmToken {
+                                        Data.shared.getData(key: "Name") {  (result: Result<String?, Error>) in
+                                            switch result {
+                                            case .success(let name):
+                                                if let name = name {
+                                                    PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Liked your post.")
+                                                }
+                                            case.failure(let error):
+                                                print(error)
+                                            }
+                                        }
+                                    }
+                                case.failure(let error):
+                                    print(error)
+                                }
+                            }
+                            
                         }
                     }
                 }
