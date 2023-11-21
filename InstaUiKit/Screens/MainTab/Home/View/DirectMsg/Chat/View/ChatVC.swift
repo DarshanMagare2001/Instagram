@@ -61,6 +61,9 @@ class ChatVC: UIViewController {
                     if let messageText = self.msgTxtFld.text, !messageText.isEmpty {
                         if let receiverID = self.receiverUser?.uid {
                             self.sendMessage(senderID: uid, receiverID: receiverID, text: messageText)
+                            if let fmcToken = self.receiverUser?.fcmToken {
+                                PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit", body: messageText)
+                            }
                         }
                         self.msgTxtFld.text = ""
                     }
