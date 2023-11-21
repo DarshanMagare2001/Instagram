@@ -39,7 +39,7 @@ class HomeVC: UIViewController {
         }
         
         let fcmToken = "cOxUfk1p9ky3r-y1vgdyZz:APA91bGJGXUkUHzAjYr2yNDXDdEQFzBUKWXSzpTih5uLyYlsW2KAkzUnj2FzGdDgmYpQgEWWb1iM7avrCHAvNukp22epq6i2FO2pljzCUTyGGEUK193_rRBMKHpjaaJ6NuJSqzZbvrPk"
-        sendPushNotification(to: fcmToken, title: "Your Title", body: "Your Notification Body")
+        sendPushNotification(to: fcmToken, title: "InstaUiKit", body: "Hi Darshan")
      
     }
    
