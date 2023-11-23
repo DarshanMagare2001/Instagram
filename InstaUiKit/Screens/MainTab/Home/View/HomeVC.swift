@@ -71,25 +71,44 @@ class HomeVC: UIViewController {
 
 extension HomeVC {
     func updateUI() {
-        fetchData()
-        loadProfileImage()
-        loadUserName()
+        disPatchGroup.enter()
+        DispatchQueue.main.async {
+            self.fetchData()
+            self.disPatchGroup.leave()
+        }
+        disPatchGroup.enter()
+        DispatchQueue.main.async {
+            self.loadProfileImage()
+            self.disPatchGroup.leave()
+        }
+        disPatchGroup.enter()
+        DispatchQueue.main.async {
+            self.loadUserName()
+            self.disPatchGroup.leave()
+        }
+        disPatchGroup.notify(queue: .main){}
     }
 
     private func fetchData() {
+        disPatchGroup.enter()
         Data.shared.getData(key: "ProfileUrl") { (result:Result< String? , Error >) in
+            self.disPatchGroup.leave()
             if case .success(let urlString) = result, let url = URL(string: urlString ?? "") {
                 self.imgURL = url
             }
         }
 
+        disPatchGroup.enter()
         Data.shared.getData(key: "Name") { (result:Result< String? , Error >) in
+            self.disPatchGroup.leave()
             if case .success(let data) = result {
                 self.userName = data
             }
         }
 
+        disPatchGroup.enter()
         PostViewModel.shared.fetchAllPosts { result in
+            self.disPatchGroup.leave()
             if case .success(let images) = result {
                 self.allPost = images
                 self.feedTableView.stopSkeletonAnimation()
@@ -98,9 +117,20 @@ extension HomeVC {
                 self.feedTableView.reloadData()
             }
         }
-
-        loadProfileImage()
-        fetchUniqueUsers()
+        disPatchGroup.enter()
+        DispatchQueue.main.async {
+            self.loadProfileImage()
+            self.disPatchGroup.leave()
+        }
+        
+        disPatchGroup.enter()
+        DispatchQueue.main.async {
+            self.fetchUniqueUsers()
+            self.disPatchGroup.leave()
+        }
+      
+        disPatchGroup.notify(queue: .main){}
+        
     }
 
     private func loadProfileImage() {
