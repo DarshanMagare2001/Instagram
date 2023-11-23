@@ -6,137 +6,127 @@
 //
 
 import UIKit
-import SwiftUI
 import FirebaseAuth
 import SkeletonView
+import RxSwift
 
 class HomeVC: UIViewController {
     @IBOutlet weak var feedTableView: UITableView!
     @IBOutlet weak var storiesCollectionView: UICollectionView!
     @IBOutlet weak var userImg: CircleImageView!
-    var imgURL : URL?
-    var userName : String?
+
+    var imgURL: URL?
+    var userName: String?
     var allPost = [PostModel]()
     var allUniqueUsersArray = [UserModel]()
-    var uid : String?
-    var refreshControll = UIRefreshControl()
+    var uid: String?
+    var refreshControl = UIRefreshControl()
+    let disPatchGroup = DispatchGroup()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureTableView()
+        setupRefreshControl()
+        configureUI()
+    }
+
+    private func configureTableView() {
         let nib = UINib(nibName: "FeedCell", bundle: nil)
         feedTableView.register(nib, forCellReuseIdentifier: "FeedCell")
-        self.view.showAnimatedGradientSkeleton()
-        refreshControll.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
-        feedTableView.addSubview(refreshControll)
-        if let currentUid = Auth.auth().currentUser?.uid {
-            uid = currentUid
-        }
-        DispatchQueue.main.async {
+        makeSkeletonable()
+    }
+    
+    private func makeSkeletonable(){
+        feedTableView.isSkeletonable = true
+        feedTableView.showAnimatedGradientSkeleton()
+        storiesCollectionView.isSkeletonable = true
+        storiesCollectionView.showAnimatedGradientSkeleton()
+    }
+
+    private func setupRefreshControl() {
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        feedTableView.addSubview(refreshControl)
+    }
+
+    @objc private func refresh() {
+        self.makeSkeletonable()
+        disPatchGroup.enter()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.updateUI()
-            self.storiesCollectionView.isSkeletonable = true
-            self.storiesCollectionView.showAnimatedGradientSkeleton()
-            self.feedTableView.isSkeletonable = true
-            self.feedTableView.showAnimatedGradientSkeleton()
+            self.disPatchGroup.leave()
+        }
+        disPatchGroup.notify(queue: .main) {
+            self.refreshControl.endRefreshing()
         }
     }
-   
-    
-    @objc func refresh(send:UIRefreshControl){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.updateUI()
-            self.storiesCollectionView.isSkeletonable = true
-            self.storiesCollectionView.showAnimatedGradientSkeleton()
-            self.feedTableView.isSkeletonable = true
-            self.feedTableView.showAnimatedGradientSkeleton()
-            self.refreshControll.endRefreshing()
-        }
+
+    private func configureUI() {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        uid = currentUid
+        updateUI()
     }
-    
-    
-    @IBAction func cameraBtnPressed(_ sender: UIButton) {
-        let storyboard = UIStoryboard.MainTab
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "CameraVC") as! CameraVC
-        navigationController?.pushViewController(destinationVC, animated: true)
-    }
-    
-    @IBAction func directMsgBtnPressed(_ sender: UIButton) {
-        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "DirectMsgVC") { destinationVC in
-            if let destinationVC = destinationVC {
-                self.navigationController?.pushViewController(destinationVC, animated: true)
-            }
-        }
-    }
-    
 }
 
-extension HomeVC {
-    func updateUI(){
-        
-        Data.shared.getData(key: "ProfileUrl") { (result: Result<String?, Error>) in
-            switch result {
-            case .success(let urlString):
-                if let url = urlString {
-                    if let imageURL = URL(string: url) {
-                        self.imgURL = imageURL
-                    } else {
-                        print("Invalid URL: \(url)")
-                    }
-                } else {
-                    print("URL is nil or empty")
-                }
-            case .failure(let error):
-                print("Error loading image: \(error)")
-            }
-        }
-        
-        Data.shared.getData(key: "Name") { (result: Result<String, Error>) in
-            switch result{
-            case .success(let data):
-                print(data)
-                self.userName = data
-            case .failure(let error):
-                print(error)
-            }
-        }
-        
-        PostViewModel.shared.fetchAllPosts { result in
-            switch result {
-            case .success(let images):
-                // Handle the images
-                print("Fetched images: \(images)")
-                DispatchQueue.main.async {
-                    self.allPost = images
-                    self.feedTableView.stopSkeletonAnimation()
-                    self.view.stopSkeletonAnimation()
-                    self.feedTableView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
-                    self.feedTableView.reloadData()
-                }
+// MARK: - Update UI
 
-            case .failure(let error):
-                // Handle the error
-                print("Error fetching images: \(error)")
+extension HomeVC {
+    func updateUI() {
+        fetchData()
+        loadProfileImage()
+        loadUserName()
+    }
+
+    private func fetchData() {
+        Data.shared.getData(key: "ProfileUrl") { (result:Result< String? , Error >) in
+            if case .success(let urlString) = result, let url = URL(string: urlString ?? "") {
+                self.imgURL = url
             }
         }
-        
+
+        Data.shared.getData(key: "Name") { (result:Result< String? , Error >) in
+            if case .success(let data) = result {
+                self.userName = data
+            }
+        }
+
+        PostViewModel.shared.fetchAllPosts { result in
+            if case .success(let images) = result {
+                self.allPost = images
+                self.feedTableView.stopSkeletonAnimation()
+                self.view.stopSkeletonAnimation()
+                self.feedTableView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+                self.feedTableView.reloadData()
+            }
+        }
+
+        loadProfileImage()
+        fetchUniqueUsers()
+    }
+
+    private func loadProfileImage() {
         if let url = imgURL {
             ImageLoader.loadImage(for: url, into: userImg, withPlaceholder: UIImage(systemName: "person.fill"))
         }
-        
-        FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
-            switch result {
-            case .success(let data):
-                DispatchQueue.main.async{
-                    print(data)
-                    self.allUniqueUsersArray = data
-                    self.storiesCollectionView.stopSkeletonAnimation()
-                    self.view.stopSkeletonAnimation()
-                    self.storiesCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
-                    self.storiesCollectionView.reloadData()
-                }
-            case .failure(let error):
-                print(error)
+    }
+
+    private func loadUserName() {
+        Data.shared.getData(key: "Name") { (result:Result< String? , Error >) in
+            if case .success(let data) = result {
+                self.userName = data
             }
         }
-        
+    }
+
+    private func fetchUniqueUsers() {
+        FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
+            if case .success(let data) = result {
+                self.allUniqueUsersArray = data
+                self.storiesCollectionView.stopSkeletonAnimation()
+                self.view.stopSkeletonAnimation()
+                self.storiesCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+                self.storiesCollectionView.reloadData()
+            }
+        }
     }
 }
 
