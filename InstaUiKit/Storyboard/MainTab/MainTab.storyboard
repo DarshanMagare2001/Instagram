@@ -438,6 +438,39 @@
             </objects>
             <point key="canvasLocation" x="-2100" y="739.43661971830988"/>
         </scene>
+        <!--Add StoryVC-->
+        <scene sceneID="UoU-28-OJE">
+            <objects>
+                <viewController storyboardIdentifier="AddStoryVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9Xx-Jz-boL" customClass="AddStoryVC" customModule="InstaUiKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pS5-QG-497">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yb2-fH-Cjr">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="anY-sY-idS"/>
+                                    <constraint firstAttribute="height" constant="50" id="tI8-Tj-aBP"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="BackArrow" title=" "/>
+                                <connections>
+                                    <action selector="backBtnPressed:" destination="9Xx-Jz-boL" eventType="touchUpInside" id="EaR-a5-ZYE"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="pnF-hB-kAp"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Yb2-fH-Cjr" firstAttribute="leading" secondItem="pnF-hB-kAp" secondAttribute="leading" id="JAk-sO-8tw"/>
+                            <constraint firstItem="Yb2-fH-Cjr" firstAttribute="top" secondItem="pnF-hB-kAp" secondAttribute="top" id="XAH-Fb-rTS"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FTa-RU-tLs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2762" y="1403"/>
+        </scene>
         <!--ChatVC-->
         <scene sceneID="yL8-Od-JRv">
             <objects>

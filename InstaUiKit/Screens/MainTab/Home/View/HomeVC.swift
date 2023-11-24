@@ -61,7 +61,11 @@ class HomeVC: UIViewController {
     }
     
     @IBAction func addStoryBtnPressed(_ sender: UIButton) {
-        
+        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "AddStoryVC") { destinationVC in
+            if let destinationVC = destinationVC {
+                self.navigationController?.pushViewController(destinationVC, animated: true)
+            }
+        }
     }
     
     
