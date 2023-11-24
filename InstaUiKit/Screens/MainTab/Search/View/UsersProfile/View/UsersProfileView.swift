@@ -77,12 +77,20 @@ class UsersProfileView: UIViewController {
                                             PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Started following you.")
                                         }
                                     }
+                                    StoreUserInfo.shared.saveFollowingsToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
+                                        switch result {
+                                        case .success(let success):
+                                            print(success)
+                                        case .failure(let failure):
+                                            print(failure)
+                                        }
+                                    }
                                 case.failure(let error):
                                     print(error)
                                 }
                             }
                         case .failure(let failure):
-                          print(failure)
+                            print(failure)
                         }
                     }
                 }
