@@ -173,6 +173,19 @@ extension ProfileVC {
                             print("Error fetching images: \(error)")
                         }
                     }
+                    
+                    FetchUserInfo.shared.fetchCurrentUserFromFirebase { [self] result in
+                        switch result {
+                        case .success(let userData):
+                            if let userData = userData,let followers = userData.followers?.count,let followings = userData.followings?.count {
+                                followersCountLbl.text = "\(followers)"
+                                followingCountLbl.text = "\(followings)"
+                            }
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                    
                 }
             case .failure(let error):
                 print(error)
