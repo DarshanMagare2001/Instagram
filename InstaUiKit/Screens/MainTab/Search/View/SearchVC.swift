@@ -18,6 +18,7 @@ class SearchVC: UIViewController {
     var allUniqueUsersArray = [UserModel]()
     var allPost = [PostModel?]()
     let disposeBag = DisposeBag()
+    var currentUser : UserModel?
     var tableViewRefreshControl = UIRefreshControl()
     var collectionViewRefreshControl = UIRefreshControl()
     override func viewDidLoad() {
@@ -49,18 +50,30 @@ class SearchVC: UIViewController {
             }
         }
         
-        FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
+        
+        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
             switch result {
-            case .success(let data):
-                DispatchQueue.main.async {
-                    print(data)
-                    self.allUniqueUsersArray = data
-                    self.updateTableView()
+            case .success(let user):
+                if let user = user {
+                    self.currentUser = user
+                }
+                FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
+                    switch result {
+                    case .success(let data):
+                        DispatchQueue.main.async {
+                            print(data)
+                            self.allUniqueUsersArray = data
+                            self.updateTableView()
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
                 }
             case .failure(let error):
                 print(error)
             }
         }
+ 
     }
     
     func addDoneButtonToSearchBarKeyboard() {
@@ -91,11 +104,21 @@ extension SearchVC {
             .bind(to: tableViewOutlet
                     .rx
                     .items(cellIdentifier: "FollowingCell", cellType: FollowingCell.self)) { (row, element, cell) in
-                if let name = element.name , let userName = element.username , let imgUrl = element.imageUrl {
+                if let name = element.name , let userName = element.username , let imgUrl = element.imageUrl ,let uid = element.uid {
                     DispatchQueue.main.async {
                         ImageLoader.loadImage(for: URL(string: imgUrl), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
                         cell.nameLbl.text = name
                         cell.userNameLbl.text = userName
+                        
+                        if let user = self.currentUser, let followings = user.followings {
+                            if followings.contains(uid) {
+                                cell.followBtn.setTitle("Following", for: .normal)
+                            }else{
+                                cell.followBtn.setTitle("Follow", for: .normal)
+                            }
+                        }
+
+
                         cell.followBtnTapped = { [weak self] in
                             let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
                             let destinationVC = storyboard.instantiateViewController(withIdentifier: "UsersProfileView") as! UsersProfileView
