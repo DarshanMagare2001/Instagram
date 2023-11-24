@@ -17,8 +17,10 @@ struct UserModel {
     var imageUrl: String?
     var gender: String?
     var username: String?
-
-    init(uid: String, bio: String, fcmToken: String, phoneNumber: String, countryCode: String, name: String, imageUrl: String, gender: String, username: String) {
+    var followers: [String]?
+    var followings:[String]?
+    
+    init(uid: String, bio: String, fcmToken: String, phoneNumber: String, countryCode: String, name: String, imageUrl: String, gender: String, username: String,followers: [String],followings:[String]) {
         self.uid = uid
         self.bio = bio
         self.fcmToken = fcmToken
@@ -28,6 +30,8 @@ struct UserModel {
         self.imageUrl = imageUrl
         self.gender = gender
         self.username = username
+        self.followers = followers
+        self.followings = followings
     }
 }
 

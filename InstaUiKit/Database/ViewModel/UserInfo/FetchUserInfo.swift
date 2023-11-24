@@ -31,21 +31,23 @@ class FetchUserInfo {
                             var users: [UserModel] = []
                             for document in querySnapshot!.documents {
                                 print("Fetched user document: \(document.data())")
-                                if let imageURL = document["imageUrl"] as? String,
-                                   let bio = document["bio"] as? String,
-                                   let countryCode = document["countryCode"] as? String,
-                                   let fcmToken = document["fcmToken"] as? String,
-                                   let gender = document["gender"] as? String,
-                                   let name = document["name"] as? String,
-                                   let phoneNumber = document["phoneNumber"] as? String,
-                                   let uid = document["uid"] as? String,
-                                   let username = document["username"] as? String {
-                                    if uid != currentUid { // Check if the uid is not the current user's uid
-                                        let user = UserModel(uid: uid, bio: bio, fcmToken: fcmToken, phoneNumber: phoneNumber, countryCode: countryCode, name: name, imageUrl: imageURL, gender: gender, username: username)
-                                        users.append(user)
-                                        print(users)
-                                    }
+                                let imageURL = document["imageUrl"] as? String
+                                let bio = document["bio"] as? String
+                                let countryCode = document["countryCode"] as? String
+                                let fcmToken = document["fcmToken"] as? String
+                                let gender = document["gender"] as? String
+                                let name = document["name"] as? String
+                                let phoneNumber = document["phoneNumber"] as? String
+                                let uid = document["uid"] as? String
+                                let username = document["username"] as? String
+                                let followers = document["followers"] as? [String]
+                                let followings = document["followings"] as? [String]
+                                if uid != currentUid { // Check if the uid is not the current user's uid
+                                    let user = UserModel(uid: uid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers : followers ?? [] , followings: followings ?? [])
+                                    users.append(user)
+                                    print(users)
                                 }
+                                
                             }
                             DispatchQueue.main.async {
                                 completionHandler(.success(users))
@@ -73,19 +75,20 @@ class FetchUserInfo {
                             completionHandler(.failure(error))
                         } else if let document = document, document.exists {
                             print("Fetched current user document: \(document.data())")
-                            if let imageURL = document["imageUrl"] as? String,
-                               let bio = document["bio"] as? String,
-                               let countryCode = document["countryCode"] as? String,
-                               let fcmToken = document["fcmToken"] as? String,
-                               let gender = document["gender"] as? String,
-                               let name = document["name"] as? String,
-                               let phoneNumber = document["phoneNumber"] as? String,
-                               let uid = document["uid"] as? String,
-                               let username = document["username"] as? String {
-                                let user = UserModel(uid: uid, bio: bio, fcmToken: fcmToken, phoneNumber: phoneNumber, countryCode: countryCode, name: name, imageUrl: imageURL, gender: gender, username: username)
-                                DispatchQueue.main.async {
-                                    completionHandler(.success(user))
-                                }
+                            let imageURL = document["imageUrl"] as? String
+                            let bio = document["bio"] as? String
+                            let countryCode = document["countryCode"] as? String
+                            let fcmToken = document["fcmToken"] as? String
+                            let gender = document["gender"] as? String
+                            let name = document["name"] as? String
+                            let phoneNumber = document["phoneNumber"] as? String
+                            let uid = document["uid"] as? String
+                            let username = document["username"] as? String
+                            let followers = document["followers"] as? [String]
+                            let followings = document["followings"] as? [String]
+                            let user = UserModel(uid: uid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers : followers ?? [] , followings: followings ?? [])
+                            DispatchQueue.main.async {
+                                completionHandler(.success(user))
                             }
                         } else {
                             // User document not found
@@ -93,7 +96,7 @@ class FetchUserInfo {
                                 completionHandler(.success(nil))
                             }
                         }
-                }
+                    }
                 }
             case .failure(let failure):
                 print(failure)
@@ -102,30 +105,30 @@ class FetchUserInfo {
         }
     }
     
-
+    
     // MARK: - Fetch FMCToken
     
     func getFCMToken(completion: @escaping (String?) -> Void) {
-           // Check if Firebase is configured
-           guard let _ = FirebaseApp.app() else {
-               completion(nil)
-               return
-           }
-           // Get the FCM token
-           if let token = Messaging.messaging().fcmToken {
-               completion(token)
-           } else {
-               // FCM token not available, try to refresh it
-               Messaging.messaging().token { token, error in
-                   if let token = token {
-                       completion(token)
-                   } else {
-                       completion(nil)
-                       print("Error fetching FCM token: \(error?.localizedDescription ?? "Unknown error")")
-                   }
-               }
-           }
-       }
+        // Check if Firebase is configured
+        guard let _ = FirebaseApp.app() else {
+            completion(nil)
+            return
+        }
+        // Get the FCM token
+        if let token = Messaging.messaging().fcmToken {
+            completion(token)
+        } else {
+            // FCM token not available, try to refresh it
+            Messaging.messaging().token { token, error in
+                if let token = token {
+                    completion(token)
+                } else {
+                    completion(nil)
+                    print("Error fetching FCM token: \(error?.localizedDescription ?? "Unknown error")")
+                }
+            }
+        }
+    }
     
-
+    
 }
