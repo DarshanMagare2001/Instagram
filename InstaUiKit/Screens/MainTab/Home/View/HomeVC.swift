@@ -21,6 +21,7 @@ class HomeVC: UIViewController {
     var allUniqueUsersArray = [UserModel]()
     var uid: String?
     var refreshControl = UIRefreshControl()
+    var viewModel = HomeVCViewModel()
     let disPatchGroup = DispatchGroup()
     
     override func viewDidLoad() {
@@ -124,16 +125,19 @@ extension HomeVC {
         }
         
         disPatchGroup.enter()
-        PostViewModel.shared.fetchAllPosts { result in
+        viewModel.fetchAllPostsOfFollowings { result in
             self.disPatchGroup.leave()
-            if case .success(let images) = result {
-                self.allPost = images
+            if case .success(let posts) = result {
+                if let posts = posts {
+                    self.allPost = posts
+                }
                 self.feedTableView.stopSkeletonAnimation()
                 self.view.stopSkeletonAnimation()
                 self.feedTableView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
                 self.feedTableView.reloadData()
             }
         }
+        
         disPatchGroup.enter()
         DispatchQueue.main.async {
             self.loadProfileImage()
