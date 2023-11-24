@@ -113,11 +113,14 @@ extension SearchVC {
                         if let user = self.currentUser, let followings = user.followings {
                             if followings.contains(uid) {
                                 cell.followBtn.setTitle("Following", for: .normal)
-                            }else{
+                                cell.followBtn.setTitleColor(.black, for: .normal)
+                                cell.followBtn.backgroundColor = .white
+                            } else {
                                 cell.followBtn.setTitle("Follow", for: .normal)
+                                cell.followBtn.setTitleColor(.white, for: .normal)
+                                cell.followBtn.backgroundColor = UIColor(named:"GlobalBlue")
                             }
                         }
-
 
                         cell.followBtnTapped = { [weak self] in
                             let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
