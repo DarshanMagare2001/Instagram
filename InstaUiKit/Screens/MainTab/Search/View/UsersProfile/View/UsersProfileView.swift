@@ -62,15 +62,31 @@ class UsersProfileView: UIViewController {
     }
     
     @IBAction func folloBtnPressed(_ sender: UIButton) {
-        Data.shared.getData(key: "Name") {  (result: Result<String?, Error>) in
+        Data.shared.getData(key: "CurrentUserId") { (result:Result<String?,Error>) in
             switch result {
-            case .success(let name):
-                if let name = name {
-                    if let fmcToken = self.user?.fcmToken {
-                        PushNotification.shared.sendPushNotification(to: fmcToken, title: "Follow Request" , body: "\(name) Wants to Follow you.")
+            case .success(let whoFollowingsUid):
+                if let whoFollowingsUid = whoFollowingsUid ,let toFollowsUid = self.user?.uid {
+                    StoreUserInfo.shared.saveFollowersToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
+                        switch result {
+                        case .success(let success):
+                            Data.shared.getData(key: "Name") {  (result: Result<String?, Error>) in
+                                switch result {
+                                case .success(let name):
+                                    if let name = name {
+                                        if let fmcToken = self.user?.fcmToken {
+                                            PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Started following you.")
+                                        }
+                                    }
+                                case.failure(let error):
+                                    print(error)
+                                }
+                            }
+                        case .failure(let failure):
+                          print(failure)
+                        }
                     }
                 }
-            case.failure(let error):
+            case .failure(let error):
                 print(error)
             }
         }

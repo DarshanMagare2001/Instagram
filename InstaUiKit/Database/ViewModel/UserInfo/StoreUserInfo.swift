@@ -29,5 +29,21 @@ class StoreUserInfo {
         }
     }
     
+    // MARK: - Save User's Followers
     
+    
+    func saveFollowersToFirebaseOfUser(toFollowsUid: String, whoFollowingsUid: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(toFollowsUid)
+        // Update the document with the followings UID
+        userRef.setData(["followers": FieldValue.arrayUnion([whoFollowingsUid])], merge: true) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
+    }
+
+   
 }
