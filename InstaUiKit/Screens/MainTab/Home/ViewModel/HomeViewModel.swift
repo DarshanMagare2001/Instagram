@@ -35,6 +35,36 @@ class HomeVCViewModel {
             }
         }
     }
+    
+    func fetchFollowingUsers(completion:@escaping (Result<[UserModel]?,Error>) -> Void){
+        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+            switch result {
+            case.success(let user):
+                if let user = user, let followings = user.followings {
+                    var users = [UserModel]()
+                    FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
+                        switch result {
+                        case .success(let fetchedUsers):
+                            for user in fetchedUsers {
+                                if let uid = user.uid {
+                                    if followings.contains(uid){
+                                        users.append(user)
+                                    }
+                                }
+                            }
+                            completion(.success(users))
+                        case .failure(let error):
+                            print(error)
+                            completion(.failure(error))
+                        }
+                    }
+                }
+            case.failure(let error):
+                print(error)
+            }
+        }
+    }
+    
 }
 
 

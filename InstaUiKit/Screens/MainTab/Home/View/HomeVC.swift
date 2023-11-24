@@ -169,9 +169,11 @@ extension HomeVC {
     }
     
     private func fetchUniqueUsers() {
-        FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
+        viewModel.fetchFollowingUsers { result in
             if case .success(let data) = result {
-                self.allUniqueUsersArray = data
+                if let data = data {
+                    self.allUniqueUsersArray = data
+                }
                 self.storiesCollectionView.stopSkeletonAnimation()
                 self.view.stopSkeletonAnimation()
                 self.storiesCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
@@ -345,7 +347,7 @@ extension HomeVC: SkeletonCollectionViewDataSource  , SkeletonCollectionViewDele
         }
         return cell
     }
-   
+    
 }
 
 
