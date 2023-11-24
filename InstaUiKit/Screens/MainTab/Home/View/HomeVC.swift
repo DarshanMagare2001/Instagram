@@ -60,6 +60,11 @@ class HomeVC: UIViewController {
         }
     }
     
+    @IBAction func addStoryBtnPressed(_ sender: UIButton) {
+        
+    }
+    
+    
     private func configureUI() {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         uid = currentUid

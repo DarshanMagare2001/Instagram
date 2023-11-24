@@ -130,6 +130,9 @@
                                                                 <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system">
                                                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </buttonConfiguration>
+                                                                <connections>
+                                                                    <action selector="addStoryBtnPressed:" destination="cUk-uZ-knu" eventType="touchUpInside" id="Xf2-Z7-aef"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
