@@ -108,14 +108,40 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UUR-TG-CWN">
                                                 <rect key="frame" x="10" y="15" width="80" height="105"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Png-ox-dSp" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="1.5" width="80" height="77"/>
-                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gR2-TP-olN">
+                                                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Png-ox-dSp" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="1.5" width="80" height="77"/>
+                                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="80" id="NOX-hl-1So"/>
+                                                                    <constraint firstAttribute="height" constant="80" id="hm7-eW-I0t"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTF-U7-hug" customClass="CircularButtonWithBorder" customModule="InstaUiKit" customModuleProvider="target">
+                                                                <rect key="frame" x="58" y="58" width="25" height="25"/>
+                                                                <color key="backgroundColor" name="GlobalBlue"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="25" id="ZcW-BQ-DCg"/>
+                                                                    <constraint firstAttribute="height" constant="25" id="fY2-gW-NTs"/>
+                                                                </constraints>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system">
+                                                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </buttonConfiguration>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="80" id="NOX-hl-1So"/>
-                                                            <constraint firstAttribute="height" constant="80" id="hm7-eW-I0t"/>
+                                                            <constraint firstAttribute="bottom" secondItem="Png-ox-dSp" secondAttribute="bottom" id="1Va-JM-1MY"/>
+                                                            <constraint firstAttribute="bottom" secondItem="DTF-U7-hug" secondAttribute="bottom" constant="-3" id="6Fl-sw-g1C"/>
+                                                            <constraint firstAttribute="trailing" secondItem="DTF-U7-hug" secondAttribute="trailing" constant="-3" id="LSl-ST-b48"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Png-ox-dSp" secondAttribute="trailing" id="PYh-jF-nLp"/>
+                                                            <constraint firstItem="Png-ox-dSp" firstAttribute="leading" secondItem="gR2-TP-olN" secondAttribute="leading" id="g28-fb-eCf"/>
+                                                            <constraint firstItem="Png-ox-dSp" firstAttribute="top" secondItem="gR2-TP-olN" secondAttribute="top" id="rey-hH-fKp"/>
                                                         </constraints>
-                                                    </imageView>
+                                                    </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Story" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ag9-z9-i5Y">
                                                         <rect key="frame" x="6" y="90" width="68.5" height="15"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
@@ -2253,6 +2279,7 @@
         <image name="paperplane" catalog="system" width="128" height="118"/>
         <image name="paperplane.fill" catalog="system" width="128" height="118"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <image name="power.circle" catalog="system" width="128" height="121"/>
         <image name="xmark.app.fill" catalog="system" width="128" height="114"/>
         <namedColor name="GlobalBlue">

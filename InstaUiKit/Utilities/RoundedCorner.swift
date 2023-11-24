@@ -61,6 +61,29 @@ class RoundedButtonWithBorder: UIButton {
     }
 }
 
+class CircularButtonWithBorder: UIButton {
+    // Custom border color value
+    var borderColor: UIColor = .gray {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        // Set corner radius to make it circular
+        layer.cornerRadius = bounds.width / 2
+        layer.masksToBounds = true
+        
+        // Set border
+        layer.borderWidth = 1
+        layer.borderColor = borderColor.cgColor
+    }
+}
+
+
+
 class RoundedViewWithBorder: UIView {
     // Custom corner radius value
     var cornerRadius: CGFloat = 10 {
