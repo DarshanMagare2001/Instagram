@@ -26,7 +26,7 @@ class UsersProfileView: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if let user = user {
-            if let uid = user.uid {
+            if let uid = user.uid , let followers = user.followers?.count , let followings = user.followings?.count {
                 PostViewModel.shared.fetchPostDataOfPerticularUser(forUID: uid) { result in
                     switch result {
                     case.success(let data):
@@ -37,6 +37,8 @@ class UsersProfileView: UIViewController {
                         print(error)
                     }
                 }
+                totalFollowersCount.text = "\(followers)"
+                totalFollowingCount.text = "\(followings)"
             }
             if let imgUrl = user.imageUrl , let names = user.name , let bio = user.bio  , let username = user.username {
                 ImageLoader.loadImage(for: URL(string: imgUrl), into: self.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
