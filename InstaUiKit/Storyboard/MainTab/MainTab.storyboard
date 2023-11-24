@@ -44,24 +44,11 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E6M-dW-uI0">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2mA-bD-hVn">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="LMP-MY-SVb"/>
-                                            <constraint firstAttribute="height" constant="50" id="RML-u1-CUN"/>
-                                        </constraints>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="camera" catalog="system" title=" "/>
-                                        <connections>
-                                            <action selector="cameraBtnPressed:" destination="cUk-uZ-knu" eventType="touchUpInside" id="rwv-Ga-nDJ"/>
-                                        </connections>
-                                    </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InstaLogo" translatesAutoresizingMaskIntoConstraints="NO" id="uAK-kj-RTh">
-                                        <rect key="frame" x="110" y="0.0" width="100" height="50"/>
+                                        <rect key="frame" x="15" y="10" width="150" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="2Zs-gh-zUI"/>
-                                            <constraint firstAttribute="width" constant="100" id="oE4-1p-cQM"/>
+                                            <constraint firstAttribute="height" constant="40" id="2Zs-gh-zUI"/>
+                                            <constraint firstAttribute="width" constant="150" id="oE4-1p-cQM"/>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6uv-cv-S6P">
@@ -83,12 +70,8 @@
                                     <constraint firstAttribute="bottom" secondItem="6uv-cv-S6P" secondAttribute="bottom" id="6wk-rr-WFY"/>
                                     <constraint firstAttribute="trailing" secondItem="6uv-cv-S6P" secondAttribute="trailing" id="H8c-S2-o22"/>
                                     <constraint firstItem="6uv-cv-S6P" firstAttribute="top" secondItem="E6M-dW-uI0" secondAttribute="top" id="Psi-oa-oeh"/>
-                                    <constraint firstItem="uAK-kj-RTh" firstAttribute="centerX" secondItem="E6M-dW-uI0" secondAttribute="centerX" id="Wmy-7Y-SIw"/>
-                                    <constraint firstItem="uAK-kj-RTh" firstAttribute="centerX" secondItem="E6M-dW-uI0" secondAttribute="centerX" id="eAG-sg-vE5"/>
-                                    <constraint firstItem="2mA-bD-hVn" firstAttribute="leading" secondItem="E6M-dW-uI0" secondAttribute="leading" id="hCH-7I-9RZ"/>
-                                    <constraint firstItem="uAK-kj-RTh" firstAttribute="top" secondItem="E6M-dW-uI0" secondAttribute="top" id="i2x-hW-MIz"/>
-                                    <constraint firstItem="2mA-bD-hVn" firstAttribute="top" secondItem="E6M-dW-uI0" secondAttribute="top" id="mh1-VS-tNG"/>
-                                    <constraint firstAttribute="bottom" secondItem="2mA-bD-hVn" secondAttribute="bottom" id="uZi-3M-8oz"/>
+                                    <constraint firstItem="uAK-kj-RTh" firstAttribute="top" secondItem="E6M-dW-uI0" secondAttribute="top" constant="10" id="i2x-hW-MIz"/>
+                                    <constraint firstItem="uAK-kj-RTh" firstAttribute="leading" secondItem="E6M-dW-uI0" secondAttribute="leading" constant="15" id="ybe-Gc-HVb"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="wRA-dK-GUe">
@@ -2308,7 +2291,6 @@
         <image name="Saved" width="21" height="23.5"/>
         <image name="Settings" width="24.5" height="24"/>
         <image name="Your Activity" width="24.5" height="24.5"/>
-        <image name="camera" catalog="system" width="128" height="94"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="circle" catalog="system" width="128" height="121"/>
         <image name="line.3.horizontal" catalog="system" width="128" height="64"/>
