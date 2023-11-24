@@ -69,6 +69,14 @@ class HomeVC: UIViewController {
     }
     
     
+    @IBAction func directMsgBtnPressed(_ sender: UIButton) {
+        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "DirectMsgVC") { destinationVC in
+            if let destinationVC = destinationVC {
+                self.navigationController?.pushViewController(destinationVC, animated: true)
+            }
+        }
+    }
+    
     private func configureUI() {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         uid = currentUid

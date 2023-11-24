@@ -61,7 +61,7 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="paperplane" catalog="system" title=" "/>
                                         <connections>
-                                            <action selector="directMsgBtnPressed:" destination="cUk-uZ-knu" eventType="touchUpInside" id="6RV-pe-Hzb"/>
+                                            <action selector="directMsgBtnPressed:" destination="cUk-uZ-knu" eventType="touchUpInside" id="56B-0h-Zyr"/>
                                         </connections>
                                     </button>
                                 </subviews>
