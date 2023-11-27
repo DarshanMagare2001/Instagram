@@ -20,12 +20,21 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var postCountLbl: UILabel!
     @IBOutlet weak var sideMenueName: UILabel!
     @IBOutlet weak var headerName: UILabel!
+    @IBOutlet weak var followingsTxtLbl: UILabel!
+    @IBOutlet weak var followersTxtLbl: UILabel!
     var viewModel1 = AuthenticationViewModel()
     var viewModel2 = ProfileViewModel()
     var allPost = [PostModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.showAnimatedGradientSkeleton()
+        let followingTapGesture = UITapGestureRecognizer(target: self, action: #selector(followingCountLabelTapped))
+        followingsTxtLbl.isUserInteractionEnabled = true
+        followingsTxtLbl.addGestureRecognizer(followingTapGesture)
+        
+        let followersTapGesture = UITapGestureRecognizer(target: self, action: #selector(followersCountLabelTapped))
+        followersTxtLbl.isUserInteractionEnabled = true
+        followersTxtLbl.addGestureRecognizer(followersTapGesture)
         configuration()
         updateUI()
     }
@@ -38,6 +47,20 @@ class ProfileVC: UIViewController {
         }
         self.photosCollectionView.isSkeletonable = true
         self.photosCollectionView.showAnimatedGradientSkeleton()
+    }
+    
+    @objc func followingCountLabelTapped() {
+        goToFollowerAndFollowing()
+    }
+    
+    @objc func followersCountLabelTapped() {
+        goToFollowerAndFollowing()
+    }
+    
+    func goToFollowerAndFollowing(){
+        let storyboard = UIStoryboard.Common
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "FollowersAndFollowingVC") as! FollowersAndFollowingVC
+        navigationController?.pushViewController(destinationVC, animated: true)
     }
     
     @IBAction func sideMenuBtnPressed(_ sender: UIButton) {
