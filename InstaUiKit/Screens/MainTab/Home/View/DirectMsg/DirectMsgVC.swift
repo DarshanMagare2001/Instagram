@@ -14,14 +14,30 @@ class DirectMsgVC: UIViewController {
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     var allUniqueUsersArray = [UserModel]()
+    var refreshControl = UIRefreshControl()
     let disposeBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
         addDoneButtonToSearchBarKeyboard()
-        
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        tableViewOutlet.addSubview(refreshControl)
+        fetchUsers(){ _ in}
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    @objc private func refresh() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.fetchUsers(){ value in
+                self.refreshControl.endRefreshing()
+            }
+        }
+    }
+    
+    
+    @IBAction func backBtnPressed(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func fetchUsers(completion:@escaping (Bool) -> Void){
         FetchUserInfo.shared.fetchCurrentUserFromFirebase { [weak self] result in
             guard let self = self else { return }
 
@@ -39,22 +55,21 @@ class DirectMsgVC: UIViewController {
                         }
                         self.allUniqueUsersArray.append(contentsOf: newUsers)
                         self.updateTableView()
+                        completion(true)
 
                     case .failure(let error):
                         print(error)
+                        completion(false)
                     }
                 }
 
             case .failure(let error):
                 print(error)
+                completion(false)
             }
         }
     }
-
     
-    @IBAction func backBtnPressed(_ sender: UIButton) {
-        navigationController?.popViewController(animated: true)
-    }
     
     func addDoneButtonToSearchBarKeyboard() {
         let toolbar = UIToolbar()
