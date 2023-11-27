@@ -332,18 +332,60 @@
                                     <action selector="backBtnPressed:" destination="12o-nO-MSn" eventType="touchUpInside" id="3lm-qf-FrE"/>
                                 </connections>
                             </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3Hl-wo-o0C">
+                                <rect key="frame" x="10" y="60" width="300" height="508"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="n82-tN-qeg">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="51"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="Nh5-Bh-hqJ"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="Followers"/>
+                                            <segment title="Followings"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="segmentControlPressed:" destination="12o-nO-MSn" eventType="valueChanged" id="TTu-X6-9yI"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="qQS-0w-P2Y">
+                                        <rect key="frame" x="0.0" y="60" width="300" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="878-vc-kaa"/>
+                                        </constraints>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8aS-yt-MLJ">
+                                        <rect key="frame" x="0.0" y="120" width="300" height="388"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="12o-nO-MSn" id="vZu-Ab-ldb"/>
+                                            <outlet property="delegate" destination="12o-nO-MSn" id="TRs-Mb-0Nz"/>
+                                        </connections>
+                                    </tableView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="CIw-lY-ulg"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="CIw-lY-ulg" firstAttribute="trailing" secondItem="3Hl-wo-o0C" secondAttribute="trailing" constant="10" id="D3B-Kh-24J"/>
+                            <constraint firstItem="CIw-lY-ulg" firstAttribute="bottom" secondItem="3Hl-wo-o0C" secondAttribute="bottom" id="IMo-gQ-diy"/>
+                            <constraint firstItem="3Hl-wo-o0C" firstAttribute="top" secondItem="78x-73-cpf" secondAttribute="bottom" constant="10" id="dWY-2u-qSl"/>
                             <constraint firstItem="78x-73-cpf" firstAttribute="leading" secondItem="CIw-lY-ulg" secondAttribute="leading" id="f2h-l4-ed4"/>
+                            <constraint firstItem="3Hl-wo-o0C" firstAttribute="leading" secondItem="J2i-Dp-qRn" secondAttribute="leading" constant="10" id="gjb-ST-DiR"/>
                             <constraint firstItem="78x-73-cpf" firstAttribute="top" secondItem="CIw-lY-ulg" secondAttribute="top" id="wJd-Rb-Co9"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="searchBarOutlet" destination="qQS-0w-P2Y" id="jIs-2t-eh3"/>
+                        <outlet property="segmentControlOutlet" destination="n82-tN-qeg" id="s8w-V1-4lO"/>
+                        <outlet property="tableviewOutlet" destination="8aS-yt-MLJ" id="NvX-tp-NI6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2SL-nU-W92" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2173" y="63"/>
+            <point key="canvasLocation" x="2171.25" y="62.323943661971832"/>
         </scene>
     </scenes>
     <resources>

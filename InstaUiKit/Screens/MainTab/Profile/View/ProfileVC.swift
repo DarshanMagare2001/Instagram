@@ -58,9 +58,19 @@ class ProfileVC: UIViewController {
     }
     
     func goToFollowerAndFollowing(){
-        let storyboard = UIStoryboard.Common
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "FollowersAndFollowingVC") as! FollowersAndFollowingVC
-        navigationController?.pushViewController(destinationVC, animated: true)
+        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+            switch result {
+            case.success(let user):
+                if let user = user {
+                    let storyboard = UIStoryboard.Common
+                    let destinationVC = storyboard.instantiateViewController(withIdentifier: "FollowersAndFollowingVC") as! FollowersAndFollowingVC
+                    destinationVC.user = user
+                    self.navigationController?.pushViewController(destinationVC, animated: true)
+                }
+            case.failure(let error):
+                print(error)
+            }
+        }
     }
     
     @IBAction func sideMenuBtnPressed(_ sender: UIButton) {
