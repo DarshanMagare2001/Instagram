@@ -22,35 +22,35 @@ class DirectMsgVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+        FetchUserInfo.shared.fetchCurrentUserFromFirebase { [weak self] result in
+            guard let self = self else { return }
+
             switch result {
-            case.success(let user):
-                if let user = user {
-                    if let following = user.followings {
-                        FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
-                            switch result{
-                            case.success(let data):
-                                DispatchQueue.main.async {
-                                    for i in data {
-                                        if let userUid = i.uid {
-                                            if following.contains(userUid){
-                                                self.allUniqueUsersArray.append(i)
-                                            }
-                                        }
-                                    }
-                                    self.updateTableView()
-                                }
-                            case.failure(let error):
-                                print(error)
-                            }
+            case .success(let user):
+                guard let user = user, let following = user.followings else { return }
+
+                FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
+                    switch result {
+                    case .success(let data):
+                        let uniqueUserUids = Set(following)
+                        let newUsers = data.filter { user in
+                            guard let userUid = user.uid else { return false }
+                            return uniqueUserUids.contains(userUid) && !self.allUniqueUsersArray.contains(where: { $0.uid == user.uid })
                         }
+                        self.allUniqueUsersArray.append(contentsOf: newUsers)
+                        self.updateTableView()
+
+                    case .failure(let error):
+                        print(error)
                     }
                 }
-            case.failure(let error):
+
+            case .failure(let error):
                 print(error)
             }
         }
     }
+
     
     @IBAction func backBtnPressed(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
