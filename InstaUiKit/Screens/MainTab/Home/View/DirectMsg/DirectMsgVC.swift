@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+
 class DirectMsgVC: UIViewController {
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -21,12 +22,29 @@ class DirectMsgVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
-            switch result{
-            case.success(let data):
-                DispatchQueue.main.async {
-                    self.allUniqueUsersArray = data
-                    self.updateTableView()
+        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+            switch result {
+            case.success(let user):
+                if let user = user {
+                    if let following = user.followings {
+                        FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
+                            switch result{
+                            case.success(let data):
+                                DispatchQueue.main.async {
+                                    for i in data {
+                                        if let userUid = i.uid {
+                                            if following.contains(userUid){
+                                                self.allUniqueUsersArray.append(i)
+                                            }
+                                        }
+                                    }
+                                    self.updateTableView()
+                                }
+                            case.failure(let error):
+                                print(error)
+                            }
+                        }
+                    }
                 }
             case.failure(let error):
                 print(error)
