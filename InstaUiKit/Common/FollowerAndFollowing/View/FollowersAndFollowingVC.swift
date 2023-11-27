@@ -44,7 +44,7 @@ class FollowersAndFollowingVC: UIViewController {
     func fetchFollowerAndFollowings(completion: @escaping () -> Void) {
         if let user = user {
             let group = DispatchGroup()
-
+            
             group.enter()
             if let followersUids = user.followers {
                 for followersUid in followersUids {
@@ -63,7 +63,7 @@ class FollowersAndFollowingVC: UIViewController {
                 }
                 group.leave()
             }
-
+            
             group.enter()
             if let followingsUids = user.followings {
                 for followingsUid in followingsUids {
@@ -82,7 +82,7 @@ class FollowersAndFollowingVC: UIViewController {
                 }
                 group.leave()
             }
-
+            
             group.notify(queue: DispatchQueue.main) {
                 completion()  // Invoke the completion handler when all data is fetched
             }
@@ -107,20 +107,20 @@ extension FollowersAndFollowingVC : UITableViewDelegate , UITableViewDataSource 
         let cell = tableView.dequeueReusableCell(withIdentifier: "FollowingCell", for: indexPath) as! FollowingCell
         cell.followBtn.isHidden = true
         if segmentIndex == 0 {
-             let data = filterdFollowers[indexPath.row]
-                DispatchQueue.main.async {
-                    cell.nameLbl.text = data.name
-                    cell.userNameLbl.text = data.username
-                    ImageLoader.loadImage(for: URL(string: data.imageUrl ?? ""), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
-                }
+            let data = filterdFollowers[indexPath.row]
+            DispatchQueue.main.async {
+                cell.nameLbl.text = data.name
+                cell.userNameLbl.text = data.username
+                ImageLoader.loadImage(for: URL(string: data.imageUrl ?? ""), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+            }
             return cell
         }else{
             let data = filterdFollowings[indexPath.row]
-               DispatchQueue.main.async {
-                   cell.nameLbl.text = data.name
-                   cell.userNameLbl.text = data.username
-                   ImageLoader.loadImage(for: URL(string: data.imageUrl ?? ""), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
-               }
+            DispatchQueue.main.async {
+                cell.nameLbl.text = data.name
+                cell.userNameLbl.text = data.username
+                ImageLoader.loadImage(for: URL(string: data.imageUrl ?? ""), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+            }
             return cell
         }
         
@@ -131,31 +131,13 @@ extension FollowersAndFollowingVC : UITableViewDelegate , UITableViewDataSource 
         let storyboard = UIStoryboard.MainTab
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "UsersProfileView") as! UsersProfileView
         if segmentIndex == 0 {
-            if let user = user , let followersUid = user.followers?[indexPath.row] {
-                FetchUserInfo.shared.fetchUserDataByUid(uid: followersUid) { result in
-                    switch result {
-                    case.success(let userData):
-                        destinationVC.user = userData
-                        self.navigationController?.pushViewController(destinationVC, animated: true)
-                        print(userData)
-                    case.failure(let error):
-                        print(error)
-                    }
-                }
-            }
+            let data = filterdFollowers[indexPath.row]
+            destinationVC.user = data
+            self.navigationController?.pushViewController(destinationVC, animated: true)
         }else{
-            if let user = user , let followersUid = user.followings?[indexPath.row] {
-                FetchUserInfo.shared.fetchUserDataByUid(uid: followersUid) { result in
-                    switch result {
-                    case.success(let userData):
-                        destinationVC.user = userData
-                        self.navigationController?.pushViewController(destinationVC, animated: true)
-                        print(userData)
-                    case.failure(let error):
-                        print(error)
-                    }
-                }
-            }
+            let data = filterdFollowings[indexPath.row]
+            destinationVC.user = data
+            self.navigationController?.pushViewController(destinationVC, animated: true)
         }
     }
     
@@ -166,13 +148,13 @@ extension FollowersAndFollowingVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
-
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
         searchBar.resignFirstResponder()
         filterUsersByName()
     }
-
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if segmentIndex == 0 {
             filterdFollowers = searchText.isEmpty ? followers : followers.filter { user in
@@ -183,10 +165,10 @@ extension FollowersAndFollowingVC: UISearchBarDelegate {
                 return user.name?.range(of: searchText, options: .caseInsensitive) != nil
             }
         }
-
+        
         tableviewOutlet.reloadData()
     }
-
+    
     private func filterUsersByName() {
         searchBarOutlet.text = ""
         if segmentIndex == 0 {
@@ -194,7 +176,7 @@ extension FollowersAndFollowingVC: UISearchBarDelegate {
         } else {
             filterdFollowings = followings
         }
-
+        
         tableviewOutlet.reloadData()
     }
 }
