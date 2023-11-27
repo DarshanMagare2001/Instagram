@@ -1287,58 +1287,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kgT-2w-nmr">
-                                <rect key="frame" x="10" y="10" width="300" height="51"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="5Lt-hv-xy8"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="Following"/>
-                                    <segment title="You"/>
-                                </segments>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="sty-F4-tCr">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
-                                    <action selector="segmentControlDidChange:" destination="qUs-pG-hQe" eventType="valueChanged" id="468-Jm-wYl"/>
+                                    <outlet property="dataSource" destination="qUs-pG-hQe" id="F9C-4y-RyU"/>
+                                    <outlet property="delegate" destination="qUs-pG-hQe" id="XEv-Ig-azQ"/>
                                 </connections>
-                            </segmentedControl>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vtS-YD-vx4">
-                                <rect key="frame" x="0.0" y="70" width="320" height="449"/>
-                                <subviews>
-                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="JXs-X1-0da">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="SGh-zj-ZTx"/>
-                                        </constraints>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </searchBar>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="sty-F4-tCr">
-                                        <rect key="frame" x="0.0" y="60" width="320" height="389"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <connections>
-                                            <outlet property="dataSource" destination="qUs-pG-hQe" id="F9C-4y-RyU"/>
-                                            <outlet property="delegate" destination="qUs-pG-hQe" id="XEv-Ig-azQ"/>
-                                        </connections>
-                                    </tableView>
-                                </subviews>
-                            </stackView>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="v3z-MB-YkM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="vtS-YD-vx4" secondAttribute="trailing" id="Bqy-lL-baz"/>
-                            <constraint firstItem="vtS-YD-vx4" firstAttribute="leading" secondItem="v3z-MB-YkM" secondAttribute="leading" id="LUX-Is-dKL"/>
-                            <constraint firstItem="v3z-MB-YkM" firstAttribute="bottom" secondItem="vtS-YD-vx4" secondAttribute="bottom" id="PBu-Ck-SVO"/>
-                            <constraint firstItem="kgT-2w-nmr" firstAttribute="top" secondItem="v3z-MB-YkM" secondAttribute="top" constant="10" id="Uer-3t-wQC"/>
-                            <constraint firstItem="v3z-MB-YkM" firstAttribute="trailing" secondItem="kgT-2w-nmr" secondAttribute="trailing" constant="10" id="ZaM-Js-kJn"/>
-                            <constraint firstItem="vtS-YD-vx4" firstAttribute="top" secondItem="kgT-2w-nmr" secondAttribute="bottom" constant="10" id="hZv-Pg-6hj"/>
-                            <constraint firstItem="kgT-2w-nmr" firstAttribute="leading" secondItem="v3z-MB-YkM" secondAttribute="leading" constant="10" id="zjM-i9-O0J"/>
+                            <constraint firstItem="sty-F4-tCr" firstAttribute="trailing" secondItem="v3z-MB-YkM" secondAttribute="trailing" id="3SY-Fj-6Tz"/>
+                            <constraint firstItem="sty-F4-tCr" firstAttribute="leading" secondItem="v3z-MB-YkM" secondAttribute="leading" id="9ai-Cr-j85"/>
+                            <constraint firstItem="sty-F4-tCr" firstAttribute="top" secondItem="v3z-MB-YkM" secondAttribute="top" id="Bv2-Jz-5Gm"/>
+                            <constraint firstItem="v3z-MB-YkM" firstAttribute="bottom" secondItem="sty-F4-tCr" secondAttribute="bottom" id="ghR-q4-Z8q"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Instaheart" id="F1W-cV-ghm">
                         <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
                     <connections>
-                        <outlet property="searchBar" destination="JXs-X1-0da" id="aFt-Se-RMG"/>
-                        <outlet property="segmentControllOutlet" destination="kgT-2w-nmr" id="wYD-in-OHR"/>
                         <outlet property="tableViewOutlet" destination="sty-F4-tCr" id="5iv-Rp-EhR"/>
                     </connections>
                 </viewController>

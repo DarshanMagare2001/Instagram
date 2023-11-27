@@ -9,15 +9,11 @@ import UIKit
 import SkeletonView
 
 class LikesVC: UIViewController {
-    
-    @IBOutlet weak var segmentControllOutlet: UISegmentedControl!
     @IBOutlet weak var tableViewOutlet: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
     var allPost = [PostModel]()
     var currentUserUid: String?
     var currentUser: UserModel?
     var refreshControll = UIRefreshControl()
-    var selectedSegmentIndex: Int = 0 // Define selectedSegmentIndex at the class level
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,39 +67,13 @@ class LikesVC: UIViewController {
                 print(error)
             }
         }
-        
-        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
-            switch result {
-            case .success(let user):
-                if let user = user {
-                    self.currentUser = user
-                    self.tableViewOutlet.reloadData()
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    
-    @IBAction func segmentControlDidChange(_ sender: UISegmentedControl) {
-        selectedSegmentIndex = segmentControllOutlet.selectedSegmentIndex // Update selectedSegmentIndex here
-        if selectedSegmentIndex == 0 {
-            searchBar.isHidden = false
-        } else {
-            searchBar.isHidden = true
-        }
-        tableViewOutlet.reloadData()
     }
 }
 
 extension LikesVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if selectedSegmentIndex == 0 {
-            return 1
-        } else {
-            return allPost.count
-        }
+        return allPost.count
     }
     
     func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -115,47 +85,41 @@ extension LikesVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if selectedSegmentIndex == 0 {
-            return currentUser?.followings?.count ?? 0
-        } else {
-            if section < allPost.count {
-                let filteredLikes = allPost[section].likedBy.filter { $0 != currentUserUid }
-                return filteredLikes.count
-            }
+        if section < allPost.count {
+            let filteredLikes = allPost[section].likedBy.filter { $0 != currentUserUid }
+            return filteredLikes.count
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if selectedSegmentIndex == 0 {
-            let followingCell = tableView.dequeueReusableCell(withIdentifier: "FollowingCell", for: indexPath) as! FollowingCell
-            // Configure the FollowingCell with data based on indexPath or any other logic
-            return followingCell
-        } else {
-            let likesCell = tableView.dequeueReusableCell(withIdentifier: "LikesCell", for: indexPath) as! LikesCell
-            let section = indexPath.section
-            let row = indexPath.row
-            if section < allPost.count && row < allPost[section].likedBy.count {
-                let uid = allPost[section].likedBy.filter { $0 != currentUserUid }
-                DispatchQueue.main.async {
-                    ProfileViewModel.shared.fetchUserData(uid: uid[indexPath.row]) { result in
-                        switch result {
-                        case .success(let data):
-                            if let imgUrl = data.imageUrl, let name = data.name {
+        let likesCell = tableView.dequeueReusableCell(withIdentifier: "LikesCell", for: indexPath) as! LikesCell
+        let section = indexPath.section
+        let row = indexPath.row
+        if section < allPost.count && row < allPost[section].likedBy.count {
+            let uid = allPost[section].likedBy.filter { $0 != currentUserUid }
+            DispatchQueue.main.async {
+                
+                FetchUserInfo.shared.fetchUserDataByUid(uid: uid[indexPath.row]) { result in
+                    switch result {
+                    case.success(let user):
+                        if let user = user {
+                            if let imgUrl = user.imageUrl, let name = user.name {
                                 ImageLoader.loadImage(for: URL(string: imgUrl), into: likesCell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
                                 likesCell.likeByLbl.text = "\(name) liked your post"
                             }
-                        case .failure(let error):
-                            print(error)
                         }
-                    }
-                    if let imageURL = URL(string: self.allPost[section].postImageURL) {
-                        ImageLoader.loadImage(for: imageURL, into: likesCell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                    case.failure(let error):
+                        print(error)
                     }
                 }
+                
+                if let imageURL = URL(string: self.allPost[section].postImageURL) {
+                    ImageLoader.loadImage(for: imageURL, into: likesCell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                }
             }
-            return likesCell
         }
+        return likesCell
     }
 }
 

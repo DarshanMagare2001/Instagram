@@ -105,6 +105,39 @@ class FetchUserInfo {
         }
     }
     
+    // MARK: - Fetch User From Firebase By Uid
+    
+    func fetchUserDataByUid(uid: String, completionHandler: @escaping (Result<UserModel?, Error>) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("users").document(uid).getDocument { (document, error) in
+            if let error = error {
+                print("Error fetching user with uid \(uid): \(error.localizedDescription)")
+                completionHandler(.failure(error))
+            } else if let document = document, document.exists {
+                print("Fetched user document with uid \(uid): \(document.data())")
+                let imageURL = document["imageUrl"] as? String
+                let bio = document["bio"] as? String
+                let countryCode = document["countryCode"] as? String
+                let fcmToken = document["fcmToken"] as? String
+                let gender = document["gender"] as? String
+                let name = document["name"] as? String
+                let phoneNumber = document["phoneNumber"] as? String
+                let userUid = document["uid"] as? String
+                let username = document["username"] as? String
+                let followers = document["followers"] as? [String]
+                let followings = document["followings"] as? [String]
+                let user = UserModel(uid: userUid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers: followers ?? [], followings: followings ?? [])
+                DispatchQueue.main.async {
+                    completionHandler(.success(user))
+                }
+            } else {
+                // User document not found
+                DispatchQueue.main.async {
+                    completionHandler(.success(nil))
+                }
+            }
+        }
+    }
     
     // MARK: - Fetch FMCToken
     
