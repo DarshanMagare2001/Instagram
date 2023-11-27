@@ -59,5 +59,36 @@ class StoreUserInfo {
             }
         }
     }
+    
+    // MARK: - Remove User from Followers
+
+    func removeFollowerFromFirebaseOfUser(fromFollowsUid: String, whoFollowingsUid: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(fromFollowsUid)
+        // Update the document by removing the follower's UID
+        userRef.setData(["followers": FieldValue.arrayRemove([whoFollowingsUid])], merge: true) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
+    }
+
+    // MARK: - Remove User from Followings
+
+    func removeFollowingFromFirebaseOfUser(fromFollowsUid: String, whoFollowingsUid: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(whoFollowingsUid)
+        // Update the document by removing the following's UID
+        userRef.setData(["followings": FieldValue.arrayRemove([fromFollowsUid])], merge: true) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
+    }
+    
    
 }

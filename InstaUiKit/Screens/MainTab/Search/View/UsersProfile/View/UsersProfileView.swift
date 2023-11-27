@@ -19,6 +19,7 @@ class UsersProfileView: UIViewController {
     @IBOutlet weak var headLine: UILabel!
     var allPost = [PostModel]()
     var user : UserModel?
+    var viewModel = UsersProfileViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         updateCell()
@@ -27,6 +28,24 @@ class UsersProfileView: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if let user = user {
             if let uid = user.uid , let followers = user.followers?.count , let followings = user.followings?.count {
+                
+                FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+                    switch result {
+                    case.success(let userData):
+                        if let userData = userData {
+                            if let followings = userData.followings{
+                                if (followings.contains(uid)){
+                                    self.folloBtn.setTitle("UnFollow", for: .normal)
+                                }else{
+                                    self.folloBtn.setTitle("Follow", for: .normal)
+                                }
+                            }
+                        }
+                    case.failure(let error):
+                        print(error)
+                    }
+                }
+                
                 PostViewModel.shared.fetchPostDataOfPerticularUser(forUID: uid) { result in
                     switch result {
                     case.success(let data):
@@ -39,6 +58,7 @@ class UsersProfileView: UIViewController {
                 }
                 totalFollowersCount.text = "\(followers)"
                 totalFollowingCount.text = "\(followings)"
+                
             }
             if let imgUrl = user.imageUrl , let names = user.name , let bio = user.bio  , let username = user.username {
                 ImageLoader.loadImage(for: URL(string: imgUrl), into: self.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
@@ -64,39 +84,22 @@ class UsersProfileView: UIViewController {
     }
     
     @IBAction func folloBtnPressed(_ sender: UIButton) {
-        Data.shared.getData(key: "CurrentUserId") { (result:Result<String?,Error>) in
+        viewModel.saveFollower(uid: user?.uid) { result  in
             switch result {
-            case .success(let whoFollowingsUid):
-                if let whoFollowingsUid = whoFollowingsUid ,let toFollowsUid = self.user?.uid {
-                    StoreUserInfo.shared.saveFollowersToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
-                        switch result {
-                        case .success(let success):
-                            Data.shared.getData(key: "Name") {  (result: Result<String?, Error>) in
-                                switch result {
-                                case .success(let name):
-                                    if let name = name {
-                                        if let fmcToken = self.user?.fcmToken {
-                                            PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Started following you.")
-                                        }
-                                    }
-                                    StoreUserInfo.shared.saveFollowingsToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
-                                        switch result {
-                                        case .success(let success):
-                                            print(success)
-                                        case .failure(let failure):
-                                            print(failure)
-                                        }
-                                    }
-                                case.failure(let error):
-                                    print(error)
-                                }
+            case.success(let value):
+                Data.shared.getData(key: "Name") {  (result: Result<String?, Error>) in
+                    switch result {
+                    case .success(let name):
+                        if let name = name {
+                            if let fmcToken = self.user?.fcmToken {
+                                PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Started following you.")
                             }
-                        case .failure(let failure):
-                            print(failure)
                         }
+                    case.failure(let error):
+                        print(error)
                     }
                 }
-            case .failure(let error):
+            case.failure(let error):
                 print(error)
             }
         }
