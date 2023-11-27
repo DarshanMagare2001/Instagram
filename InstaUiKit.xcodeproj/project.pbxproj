@@ -34,6 +34,8 @@
 		1361C9672AFDEA9D00C00A71 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 1361C9662AFDEA9D00C00A71 /* SkeletonView */; };
 		136B84A22A83B8E700C102F1 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136B84A12A83B8E700C102F1 /* ProfileViewModel.swift */; };
 		136B84A42A83B8FC00C102F1 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136B84A32A83B8FC00C102F1 /* EditProfileViewModel.swift */; };
+		137E549C2B14768800186558 /* FollowersAndFollowingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137E549B2B14768800186558 /* FollowersAndFollowingVC.swift */; };
+		137E54A02B1476BD00186558 /* FollowersAndFollowingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137E549F2B1476BD00186558 /* FollowersAndFollowingViewModel.swift */; };
 		1385F38F2AF5205F006C8363 /* UsersProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1385F38E2AF5205F006C8363 /* UsersProfileView.swift */; };
 		138BC5D42A73806E00020297 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BC5D32A73806E00020297 /* EditProfileVC.swift */; };
 		138BC5D92A73922100020297 /* DirectMsgVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BC5D82A73922100020297 /* DirectMsgVC.swift */; };
@@ -113,6 +115,8 @@
 		1355B8D12B0CCB840027A2AF /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		136B84A12A83B8E700C102F1 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		136B84A32A83B8FC00C102F1 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
+		137E549B2B14768800186558 /* FollowersAndFollowingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersAndFollowingVC.swift; sourceTree = "<group>"; };
+		137E549F2B1476BD00186558 /* FollowersAndFollowingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersAndFollowingViewModel.swift; sourceTree = "<group>"; };
 		1385F38E2AF5205F006C8363 /* UsersProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersProfileView.swift; sourceTree = "<group>"; };
 		138BC5D32A73806E00020297 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		138BC5D82A73922100020297 /* DirectMsgVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectMsgVC.swift; sourceTree = "<group>"; };
@@ -432,6 +436,31 @@
 				1355B8D12B0CCB840027A2AF /* Notification.swift */,
 			);
 			path = SendNotification;
+			sourceTree = "<group>";
+		};
+		137E549A2B14766400186558 /* FollowerAndFollowing */ = {
+			isa = PBXGroup;
+			children = (
+				137E549D2B14769600186558 /* View */,
+				137E549E2B1476A000186558 /* ViewModel */,
+			);
+			path = FollowerAndFollowing;
+			sourceTree = "<group>";
+		};
+		137E549D2B14769600186558 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				137E549B2B14768800186558 /* FollowersAndFollowingVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		137E549E2B1476A000186558 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				137E549F2B1476BD00186558 /* FollowersAndFollowingViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		1385F38A2AF5200D006C8363 /* UsersProfile */ = {
@@ -800,6 +829,7 @@
 		13DBE77B2AEB986A0006F3B9 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				137E549A2B14766400186558 /* FollowerAndFollowing */,
 				1355B8D02B0CCB630027A2AF /* SendNotification */,
 				138BC5D52A7391DB00020297 /* Feed */,
 				13127A822AF367DC008C7927 /* FollowingCell */,
@@ -1069,6 +1099,7 @@
 				13C508CC2B109F650013C52D /* UsersProfileViewModel.swift in Sources */,
 				13DBE7952AEBD0CA0006F3B9 /* SaveData.swift in Sources */,
 				1392D02C2A80B54A004B6654 /* ProfileVC.swift in Sources */,
+				137E54A02B1476BD00186558 /* FollowersAndFollowingViewModel.swift in Sources */,
 				13DBE7852AEBB85C0006F3B9 /* LoaderVCViewModel.swift in Sources */,
 				13127A8A2AF3702F008C7927 /* UserModel.swift in Sources */,
 				13127A922AF3B412008C7927 /* MsgCell.swift in Sources */,
@@ -1077,6 +1108,7 @@
 				1392D0202A80B4F6004B6654 /* SignUpVC.swift in Sources */,
 				139110162A8650FF00CABCD5 /* SearchViewModel.swift in Sources */,
 				139110062A86502400CABCD5 /* PostModel.swift in Sources */,
+				137E549C2B14768800186558 /* FollowersAndFollowingVC.swift in Sources */,
 				1392D0262A80B52E004B6654 /* SearchVC.swift in Sources */,
 				131166382A70FB9900CD0373 /* AppDelegate.swift in Sources */,
 				1391101D2A86519B00CABCD5 /* HomeViewModel.swift in Sources */,

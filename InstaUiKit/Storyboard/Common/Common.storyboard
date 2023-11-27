@@ -312,6 +312,39 @@
             </objects>
             <point key="canvasLocation" x="1500" y="64.436619718309856"/>
         </scene>
+        <!--Followers And FollowingVC-->
+        <scene sceneID="WQz-18-u5Y">
+            <objects>
+                <viewController storyboardIdentifier="FollowersAndFollowingVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="12o-nO-MSn" customClass="FollowersAndFollowingVC" customModule="InstaUiKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="J2i-Dp-qRn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="78x-73-cpf">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="P1n-wz-WRf"/>
+                                    <constraint firstAttribute="height" constant="50" id="way-AV-oSh"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="BackArrow" title=" "/>
+                                <connections>
+                                    <action selector="backBtnPressed:" destination="12o-nO-MSn" eventType="touchUpInside" id="3lm-qf-FrE"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="CIw-lY-ulg"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="78x-73-cpf" firstAttribute="leading" secondItem="CIw-lY-ulg" secondAttribute="leading" id="f2h-l4-ed4"/>
+                            <constraint firstItem="78x-73-cpf" firstAttribute="top" secondItem="CIw-lY-ulg" secondAttribute="top" id="wJd-Rb-Co9"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2SL-nU-W92" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2173" y="63"/>
+        </scene>
     </scenes>
     <resources>
         <image name="BackArrow" width="10" height="18"/>
