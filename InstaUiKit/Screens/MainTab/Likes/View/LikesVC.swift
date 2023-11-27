@@ -9,16 +9,20 @@ import UIKit
 import SkeletonView
 
 class LikesVC: UIViewController {
+    
     @IBOutlet weak var segmentControllOutlet: UISegmentedControl!
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     var allPost = [PostModel]()
-    var currentUserUid : String?
+    var currentUserUid: String?
+    var currentUser: UserModel?
     var refreshControll = UIRefreshControl()
+    var selectedSegmentIndex: Int = 0 // Define selectedSegmentIndex at the class level
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let nibLikes = UINib (nibName: "LikesCell", bundle: nil)
-        let nibFollowing = UINib (nibName: "FollowingCell", bundle: nil)
+        let nibLikes = UINib(nibName: "LikesCell", bundle: nil)
+        let nibFollowing = UINib(nibName: "FollowingCell", bundle: nil)
         tableViewOutlet.register(nibLikes, forCellReuseIdentifier: "LikesCell")
         tableViewOutlet.register(nibFollowing, forCellReuseIdentifier: "FollowingCell")
         refreshControll.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
@@ -29,7 +33,7 @@ class LikesVC: UIViewController {
         self.tableViewOutlet.showAnimatedGradientSkeleton()
     }
     
-    @objc func refresh(send:UIRefreshControl){
+    @objc func refresh(send: UIRefreshControl) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.fetchData()
             self.view.showAnimatedGradientSkeleton()
@@ -39,8 +43,8 @@ class LikesVC: UIViewController {
         }
     }
     
-    func fetchData(){
-        Data.shared.getData(key: "CurrentUserId") { (result:Result<String? , Error>) in
+    func fetchData() {
+        Data.shared.getData(key: "CurrentUserId") { (result: Result<String?, Error>) in
             switch result {
             case .success(let uid):
                 if let uid = uid {
@@ -67,29 +71,42 @@ class LikesVC: UIViewController {
                 print(error)
             }
         }
+        
+        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+            switch result {
+            case .success(let user):
+                if let user = user {
+                    self.currentUser = user
+                    self.tableViewOutlet.reloadData()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
-    
     @IBAction func segmentControlDidChange(_ sender: UISegmentedControl) {
-        let selectedSegmentIndex = segmentControllOutlet.selectedSegmentIndex
+        selectedSegmentIndex = segmentControllOutlet.selectedSegmentIndex // Update selectedSegmentIndex here
         if selectedSegmentIndex == 0 {
             searchBar.isHidden = false
-        }else{
+        } else {
             searchBar.isHidden = true
         }
         tableViewOutlet.reloadData()
     }
-    
-    
 }
 
-extension LikesVC : SkeletonTableViewDataSource, SkeletonTableViewDelegate {
+extension LikesVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return allPost.count
+        if selectedSegmentIndex == 0 {
+            return 1
+        } else {
+            return allPost.count
+        }
     }
     
-    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
         10
     }
     
@@ -97,17 +114,19 @@ extension LikesVC : SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         return "LikesCell"
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section < allPost.count {
-            let filteredLikes = allPost[section].likedBy.filter { $0 != currentUserUid }
-            return filteredLikes.count
+        if selectedSegmentIndex == 0 {
+            return currentUser?.followings?.count ?? 0
+        } else {
+            if section < allPost.count {
+                let filteredLikes = allPost[section].likedBy.filter { $0 != currentUserUid }
+                return filteredLikes.count
+            }
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let selectedSegmentIndex = segmentControllOutlet.selectedSegmentIndex
         if selectedSegmentIndex == 0 {
             let followingCell = tableView.dequeueReusableCell(withIdentifier: "FollowingCell", for: indexPath) as! FollowingCell
             // Configure the FollowingCell with data based on indexPath or any other logic
@@ -139,3 +158,4 @@ extension LikesVC : SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         }
     }
 }
+
