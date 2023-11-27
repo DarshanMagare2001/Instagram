@@ -20,6 +20,7 @@ class UsersProfileView: UIViewController {
     var allPost = [PostModel]()
     var user : UserModel?
     var viewModel = UsersProfileViewModel()
+    var isFollow = false
     override func viewDidLoad() {
         super.viewDidLoad()
         updateCell()
@@ -36,8 +37,10 @@ class UsersProfileView: UIViewController {
                             if let followings = userData.followings{
                                 if (followings.contains(uid)){
                                     self.folloBtn.setTitle("UnFollow", for: .normal)
+                                    self.isFollow = false
                                 }else{
                                     self.folloBtn.setTitle("Follow", for: .normal)
+                                    self.isFollow = true
                                 }
                             }
                         }
@@ -84,6 +87,40 @@ class UsersProfileView: UIViewController {
     }
     
     @IBAction func folloBtnPressed(_ sender: UIButton) {
+        if let user = user {
+            if let uid = user.uid {
+                FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+                    switch result {
+                    case.success(let userData):
+                        if let userData = userData {
+                            if let followings = userData.followings{
+                                if (followings.contains(uid)){
+                                    self.unFollow()
+                                    self.folloBtn.setTitle("Follow", for: .normal)
+                                }else{
+                                    self.follow()
+                                    self.folloBtn.setTitle("UnFollow", for: .normal)
+                                }
+                            }
+                        }
+                    case.failure(let error):
+                        print(error)
+                    }
+                }
+            }
+        }
+    }
+    
+    @IBAction func messageBtnPressed(_ sender: UIButton) {
+        if let user = user {
+            let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChatVC") as! ChatVC
+            destinationVC.receiverUser = user
+            self.navigationController?.pushViewController(destinationVC, animated: true)
+        }
+    }
+    
+    func follow(){
         viewModel.saveFollower(uid: user?.uid) { result  in
             switch result {
             case.success(let value):
@@ -105,14 +142,28 @@ class UsersProfileView: UIViewController {
         }
     }
     
-    @IBAction func messageBtnPressed(_ sender: UIButton) {
-        if let user = user {
-            let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChatVC") as! ChatVC
-            destinationVC.receiverUser = user
-            self.navigationController?.pushViewController(destinationVC, animated: true)
+    func unFollow(){
+        viewModel.removeFollower(uid: user?.uid) { result in
+            switch result {
+            case.success(let value):
+                Data.shared.getData(key: "Name") {  (result: Result<String?, Error>) in
+                    switch result {
+                    case .success(let name):
+                        if let name = name {
+                            if let fmcToken = self.user?.fcmToken {
+                                PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Started Un following you.")
+                            }
+                        }
+                    case.failure(let error):
+                        print(error)
+                    }
+                }
+            case.failure(let error):
+                print(error)
+            }
         }
     }
+    
 }
 
 extension UsersProfileView: UICollectionViewDelegate, UICollectionViewDataSource , UIGestureRecognizerDelegate {
