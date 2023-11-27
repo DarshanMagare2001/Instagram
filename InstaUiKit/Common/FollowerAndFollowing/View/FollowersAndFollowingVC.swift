@@ -28,7 +28,7 @@ class FollowersAndFollowingVC: UIViewController {
         segmentIndex = sender.selectedSegmentIndex
         tableviewOutlet.reloadData()
     }
-
+    
 }
 
 extension FollowersAndFollowingVC : UITableViewDelegate , UITableViewDataSource {
@@ -92,4 +92,38 @@ extension FollowersAndFollowingVC : UITableViewDelegate , UITableViewDataSource 
         }
         return UITableViewCell()
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard.MainTab
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "UsersProfileView") as! UsersProfileView
+        if segmentIndex == 0 {
+            if let user = user , let followersUid = user.followers?[indexPath.row] {
+                FetchUserInfo.shared.fetchUserDataByUid(uid: followersUid) { result in
+                    switch result {
+                    case.success(let userData):
+                        destinationVC.user = userData
+                        self.navigationController?.pushViewController(destinationVC, animated: true)
+                        print(userData)
+                    case.failure(let error):
+                        print(error)
+                    }
+                }
+            }
+        }else{
+            if let user = user , let followersUid = user.followings?[indexPath.row] {
+                FetchUserInfo.shared.fetchUserDataByUid(uid: followersUid) { result in
+                    switch result {
+                    case.success(let userData):
+                        destinationVC.user = userData
+                        self.navigationController?.pushViewController(destinationVC, animated: true)
+                        print(userData)
+                    case.failure(let error):
+                        print(error)
+                    }
+                }
+            }
+        }
+        
+    }
+    
 }
