@@ -164,25 +164,38 @@ extension FollowersAndFollowingVC : UITableViewDelegate , UITableViewDataSource 
 
 extension FollowersAndFollowingVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        tableviewOutlet.reloadData()
         searchBar.resignFirstResponder()
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
         searchBar.resignFirstResponder()
-        tableviewOutlet.reloadData()
+        filterUsersByName()
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if let user = user {
-            if segmentIndex == 0 {
-            
-            } else {
-               
+        if segmentIndex == 0 {
+            filterdFollowers = searchText.isEmpty ? followers : followers.filter { user in
+                return user.name?.range(of: searchText, options: .caseInsensitive) != nil
             }
-
-            tableviewOutlet.reloadData()
+        } else {
+            filterdFollowings = searchText.isEmpty ? followings : followings.filter { user in
+                return user.name?.range(of: searchText, options: .caseInsensitive) != nil
+            }
         }
+
+        tableviewOutlet.reloadData()
+    }
+
+    private func filterUsersByName() {
+        searchBarOutlet.text = ""
+        if segmentIndex == 0 {
+            filterdFollowers = followers
+        } else {
+            filterdFollowings = followings
+        }
+
+        tableviewOutlet.reloadData()
     }
 }
+
