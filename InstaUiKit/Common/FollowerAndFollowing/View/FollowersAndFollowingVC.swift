@@ -13,8 +13,10 @@ class FollowersAndFollowingVC: UIViewController {
     @IBOutlet weak var tableviewOutlet: UITableView!
     var user: UserModel?
     var segmentIndex: Int = 0
-    var followers: [UserModel] = []  // Change to non-optional array
-    var followings: [UserModel] = []  // Change to non-optional array
+    var followers: [UserModel] = []
+    var followings: [UserModel] = []
+    var filterdFollowers: [UserModel] = []
+    var filterdFollowings: [UserModel] = []
     let dispatchGroup = DispatchGroup()
     
     override func viewDidLoad() {
@@ -23,7 +25,9 @@ class FollowersAndFollowingVC: UIViewController {
         tableviewOutlet.register(nib, forCellReuseIdentifier: "FollowingCell")
         searchBarOutlet.delegate = self
         searchBarOutlet.showsCancelButton = true
-        fetchFollowerAndFollowings(){
+        fetchFollowerAndFollowings(){ [self] in
+            filterdFollowers = followers
+            filterdFollowings = followings
             self.tableviewOutlet.reloadData()
         }
     }
@@ -92,9 +96,9 @@ class FollowersAndFollowingVC: UIViewController {
 extension FollowersAndFollowingVC : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if segmentIndex == 0 {
-            return followers.count ?? 0
+            return filterdFollowers.count
         }else{
-            return followings.count ?? 0
+            return filterdFollowings.count
         }
         return 0
     }
@@ -103,7 +107,7 @@ extension FollowersAndFollowingVC : UITableViewDelegate , UITableViewDataSource 
         let cell = tableView.dequeueReusableCell(withIdentifier: "FollowingCell", for: indexPath) as! FollowingCell
         cell.followBtn.isHidden = true
         if segmentIndex == 0 {
-             let data = followers[indexPath.row]
+             let data = filterdFollowers[indexPath.row]
                 DispatchQueue.main.async {
                     cell.nameLbl.text = data.name
                     cell.userNameLbl.text = data.username
@@ -111,7 +115,7 @@ extension FollowersAndFollowingVC : UITableViewDelegate , UITableViewDataSource 
                 }
             return cell
         }else{
-            let data = followings[indexPath.row]
+            let data = filterdFollowings[indexPath.row]
                DispatchQueue.main.async {
                    cell.nameLbl.text = data.name
                    cell.userNameLbl.text = data.username
@@ -163,15 +167,22 @@ extension FollowersAndFollowingVC: UISearchBarDelegate {
         tableviewOutlet.reloadData()
         searchBar.resignFirstResponder()
     }
+
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
         searchBar.resignFirstResponder()
         tableviewOutlet.reloadData()
     }
-    
-    
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+        if let user = user {
+            if segmentIndex == 0 {
+            
+            } else {
+               
+            }
+
+            tableviewOutlet.reloadData()
+        }
     }
-    
 }
