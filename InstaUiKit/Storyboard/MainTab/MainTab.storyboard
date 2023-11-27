@@ -166,17 +166,32 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dE4-I3-Da1">
                                                             <rect key="frame" x="10" y="10" width="193" height="69"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6Pk-J3-PiK" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
-                                                                    <rect key="frame" x="56.5" y="1.5" width="80" height="56"/>
-                                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JJF-be-Ckm" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
+                                                                    <rect key="frame" x="56.5" y="0.0" width="80" height="59"/>
+                                                                    <subviews>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6Pk-J3-PiK" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
+                                                                            <rect key="frame" x="5" y="6.5" width="70" height="46"/>
+                                                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="70" id="Kca-7e-bOb"/>
+                                                                                <constraint firstAttribute="width" constant="70" id="XGa-xo-kcL"/>
+                                                                            </constraints>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                                            </userDefinedRuntimeAttributes>
+                                                                        </imageView>
+                                                                    </subviews>
+                                                                    <color key="backgroundColor" red="0.89000000000000001" green="0.38473341688220297" blue="0.59616045621320324" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="80" id="JOE-OI-deI"/>
-                                                                        <constraint firstAttribute="height" constant="80" id="Ywx-ZO-bDe"/>
+                                                                        <constraint firstItem="6Pk-J3-PiK" firstAttribute="top" secondItem="JJF-be-Ckm" secondAttribute="top" constant="5" id="LxE-AO-686"/>
+                                                                        <constraint firstItem="6Pk-J3-PiK" firstAttribute="leading" secondItem="JJF-be-Ckm" secondAttribute="leading" constant="5" id="P7K-Zy-hao"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="6Pk-J3-PiK" secondAttribute="bottom" constant="5" id="kWm-Wt-caO"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="6Pk-J3-PiK" secondAttribute="trailing" constant="5" id="lw9-lG-Rd1"/>
                                                                     </constraints>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                                                     </userDefinedRuntimeAttributes>
-                                                                </imageView>
+                                                                </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Darshan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v4i-IM-kDk">
                                                                     <rect key="frame" x="69.5" y="69" width="54" height="0.0"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
