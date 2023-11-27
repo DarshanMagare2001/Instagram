@@ -11,34 +11,90 @@ class FollowersAndFollowingVC: UIViewController {
     @IBOutlet weak var segmentControlOutlet: UISegmentedControl!
     @IBOutlet weak var searchBarOutlet: UISearchBar!
     @IBOutlet weak var tableviewOutlet: UITableView!
-    var user : UserModel?
-    var segmentIndex : Int = 0
+    var user: UserModel?
+    var segmentIndex: Int = 0
+    var followers: [UserModel] = []  // Change to non-optional array
+    var followings: [UserModel] = []  // Change to non-optional array
+    let dispatchGroup = DispatchGroup()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let nib = UINib(nibName: "FollowingCell", bundle: nil)
         tableviewOutlet.register(nib, forCellReuseIdentifier: "FollowingCell")
+        searchBarOutlet.delegate = self
+        searchBarOutlet.showsCancelButton = true
+        fetchFollowerAndFollowings(){
+            self.tableviewOutlet.reloadData()
+        }
     }
     
     @IBAction func backBtnPressed(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }
     
-    
     @IBAction func segmentControlPressed(_ sender: UISegmentedControl) {
         segmentIndex = sender.selectedSegmentIndex
         tableviewOutlet.reloadData()
     }
     
+    func fetchFollowerAndFollowings(completion: @escaping () -> Void) {
+        if let user = user {
+            let group = DispatchGroup()
+
+            group.enter()
+            if let followersUids = user.followers {
+                for followersUid in followersUids {
+                    group.enter()
+                    FetchUserInfo.shared.fetchUserDataByUid(uid: followersUid) { result in
+                        defer { group.leave() }
+                        switch result {
+                        case .success(let userData):
+                            if let userData = userData {
+                                self.followers.append(userData)
+                            }
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                }
+                group.leave()
+            }
+
+            group.enter()
+            if let followingsUids = user.followings {
+                for followingsUid in followingsUids {
+                    group.enter()
+                    FetchUserInfo.shared.fetchUserDataByUid(uid: followingsUid) { result in
+                        defer { group.leave() }
+                        switch result {
+                        case .success(let userData):
+                            if let userData = userData {
+                                self.followings.append(userData)
+                            }
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                }
+                group.leave()
+            }
+
+            group.notify(queue: DispatchQueue.main) {
+                completion()  // Invoke the completion handler when all data is fetched
+            }
+        }
+    }
+    
 }
+
+
 
 extension FollowersAndFollowingVC : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let user = user {
-            if segmentIndex == 0 {
-                return user.followers?.count ?? 0
-            }else{
-                return user.followings?.count ?? 0
-            }
+        if segmentIndex == 0 {
+            return followers.count ?? 0
+        }else{
+            return followings.count ?? 0
         }
         return 0
     }
@@ -46,50 +102,24 @@ extension FollowersAndFollowingVC : UITableViewDelegate , UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FollowingCell", for: indexPath) as! FollowingCell
         cell.followBtn.isHidden = true
-        if let user = user {
-            
-            if segmentIndex == 0 {
-                if let followersUid = user.followers?[indexPath.row] {
-                    FetchUserInfo.shared.fetchUserDataByUid(uid: followersUid) { result in
-                        switch result {
-                        case.success(let userData):
-                            if let name = userData?.name , let userName = userData?.username , let imgUrl = userData?.imageUrl{
-                                DispatchQueue.main.async {
-                                    cell.nameLbl.text = name
-                                    cell.userNameLbl.text = userName
-                                    ImageLoader.loadImage(for: URL(string: imgUrl), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
-                                }
-                            }
-                        case.failure(let error):
-                            print(error)
-                        }
-                    }
+        if segmentIndex == 0 {
+             let data = followers[indexPath.row]
+                DispatchQueue.main.async {
+                    cell.nameLbl.text = data.name
+                    cell.userNameLbl.text = data.username
+                    ImageLoader.loadImage(for: URL(string: data.imageUrl ?? ""), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
                 }
-                
-                return cell
-                
-            }else{
-                
-                if let followersUid = user.followings?[indexPath.row] {
-                    FetchUserInfo.shared.fetchUserDataByUid(uid: followersUid) { result in
-                        switch result {
-                        case.success(let userData):
-                            if let name = userData?.name , let userName = userData?.username , let imgUrl = userData?.imageUrl{
-                                DispatchQueue.main.async {
-                                    cell.nameLbl.text = name
-                                    cell.userNameLbl.text = userName
-                                    ImageLoader.loadImage(for: URL(string: imgUrl), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
-                                }
-                            }
-                        case.failure(let error):
-                            print(error)
-                        }
-                    }
-                }
-                
-                return cell
-            }
+            return cell
+        }else{
+            let data = followings[indexPath.row]
+               DispatchQueue.main.async {
+                   cell.nameLbl.text = data.name
+                   cell.userNameLbl.text = data.username
+                   ImageLoader.loadImage(for: URL(string: data.imageUrl ?? ""), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+               }
+            return cell
         }
+        
         return UITableViewCell()
     }
     
@@ -123,6 +153,24 @@ extension FollowersAndFollowingVC : UITableViewDelegate , UITableViewDataSource 
                 }
             }
         }
+    }
+    
+}
+
+
+extension FollowersAndFollowingVC: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        tableviewOutlet.reloadData()
+        searchBar.resignFirstResponder()
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        tableviewOutlet.reloadData()
+    }
+    
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
     }
     
