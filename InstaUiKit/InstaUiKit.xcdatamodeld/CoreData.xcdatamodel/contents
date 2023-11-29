@@ -13,6 +13,6 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="CDUsers" positionX="-54" positionY="-9" width="128" height="104"/>
+        <element name="CDUsers" positionX="-45" positionY="0" width="128" height="104"/>
     </elements>
 </model>

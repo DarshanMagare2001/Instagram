@@ -23,3 +23,7 @@ extension CDUsers {
     @NSManaged public var password: String?
 
 }
+
+extension CDUsers : Identifiable {
+    
+}

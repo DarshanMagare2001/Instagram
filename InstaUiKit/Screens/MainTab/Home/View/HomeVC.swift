@@ -30,20 +30,20 @@ class HomeVC: UIViewController {
         setupRefreshControl()
         configureUI()
         
-//        CDUsersManager.shared.createUser(user: CDUsersModel(id: UUID(), name: "Darshan", userName: "_darsh_242_", email: "darshan@gmail.com", password: "123456")) { bool in
+//        CDUserManager.shared.createUser(user: CDUsersModel(id: UUID(), name: "Darshan", userName: "_darsh_242_", email: "darshan@gmail.com", password: "123456")) { bool in
 //            print(bool)
 //        }
-//        
-//        CDUsersManager.shared.readUser { result in
-//            switch result {
-//            case.success(let data):
-//                if let data = data {
-//                  print(data)
-//                }
-//            case.failure(let error):
-//                print(error.localizedDescription)
-//            }
-//        }
+        
+        CDUserManager.shared.readUser { result in
+            switch result {
+            case.success(let data):
+                if let data = data {
+                  print(data)
+                }
+            case.failure(let error):
+                print(error.localizedDescription)
+            }
+        }
         
     }
     
