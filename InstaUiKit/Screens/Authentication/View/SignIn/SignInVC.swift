@@ -33,10 +33,10 @@ class SignInVC: UIViewController {
                                         switch result {
                                         case .success(let success):
                                             print(success)
-                                            self.gotoMainTab()
+                                            self.saveUserToCoreData()
                                         case .failure(let failure):
                                             print(failure)
-                                            self.gotoMainTab()
+                                            self.saveUserToCoreData()
                                         }
                                     }
                                 }
@@ -89,15 +89,26 @@ class SignInVC: UIViewController {
         passwordTxtFld.placeholder = "Enter password"
     }
     
-    func gotoMainTab(){
+    func saveUserToCoreData(){
         DispatchQueue.main.async {
             LoaderVCViewModel.shared.hideLoader()
-            Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
-                if let destinationVC = destinationVC {
-                    self.navigationController?.pushViewController(destinationVC, animated: true)
-                }
+            Alert.shared.alertYesNo(title: "Save User!", message: "Do you want to save user?.", presentingViewController: self) { _ in
+                print("Yes")
+                self.gotoMainTab()
+            } noHandler: { _ in
+                print("No")
+                self.gotoMainTab()
             }
         }
     }
+    
+    func gotoMainTab(){
+        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
+            if let destinationVC = destinationVC {
+                self.navigationController?.pushViewController(destinationVC, animated: true)
+            }
+        }
+    }
+    
     
 }
