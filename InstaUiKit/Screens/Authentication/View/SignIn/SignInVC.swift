@@ -33,24 +33,10 @@ class SignInVC: UIViewController {
                                         switch result {
                                         case .success(let success):
                                             print(success)
-                                            DispatchQueue.main.async {
-                                                LoaderVCViewModel.shared.hideLoader()
-                                                Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
-                                                    if let destinationVC = destinationVC {
-                                                        self.navigationController?.pushViewController(destinationVC, animated: true)
-                                                    }
-                                                }
-                                            }
+                                            self.gotoMainTab()
                                         case .failure(let failure):
                                             print(failure)
-                                            DispatchQueue.main.async {
-                                                LoaderVCViewModel.shared.hideLoader()
-                                                Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
-                                                    if let destinationVC = destinationVC {
-                                                        self.navigationController?.pushViewController(destinationVC, animated: true)
-                                                    }
-                                                }
-                                            }
+                                            self.gotoMainTab()
                                         }
                                     }
                                 }
@@ -101,6 +87,17 @@ class SignInVC: UIViewController {
     func updateTxtFlds(){
         emailTxtFld.placeholder = "Enter email"
         passwordTxtFld.placeholder = "Enter password"
+    }
+    
+    func gotoMainTab(){
+        DispatchQueue.main.async {
+            LoaderVCViewModel.shared.hideLoader()
+            Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
+                if let destinationVC = destinationVC {
+                    self.navigationController?.pushViewController(destinationVC, animated: true)
+                }
+            }
+        }
     }
     
 }
