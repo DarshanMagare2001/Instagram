@@ -39,10 +39,20 @@ class SignInVC: UIViewController {
                                         switch result {
                                         case .success(let success):
                                             print(success)
-                                            self.saveUserToCoreData(uid: uid)
+                                            if self.coreDataUsers.contains(where: { $0.uid == uid }) {
+                                                LoaderVCViewModel.shared.hideLoader()
+                                                self.gotoMainTab()
+                                            } else {
+                                                self.saveUserToCoreData(uid: uid)
+                                            }
                                         case .failure(let failure):
                                             print(failure)
-                                            self.saveUserToCoreData(uid: uid)
+                                            if self.coreDataUsers.contains(where: { $0.uid == uid }) {
+                                                LoaderVCViewModel.shared.hideLoader()
+                                                self.gotoMainTab()
+                                            } else {
+                                                self.saveUserToCoreData(uid: uid)
+                                            }
                                         }
                                     }
                                 }
