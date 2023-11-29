@@ -39,6 +39,7 @@
 		1368D18A2B174F1E00B42AC4 /* CDUsers+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1368D1882B174F1D00B42AC4 /* CDUsers+CoreDataProperties.swift */; };
 		1368D18B2B174F1E00B42AC4 /* CDUsers+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1368D1892B174F1D00B42AC4 /* CDUsers+CoreDataClass.swift */; };
 		1368D18E2B17525E00B42AC4 /* SwitchAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1368D18D2B17525E00B42AC4 /* SwitchAccountVC.swift */; };
+		1368D1902B175A5700B42AC4 /* SwitchAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1368D18F2B175A5700B42AC4 /* SwitchAccountCell.swift */; };
 		136B84A22A83B8E700C102F1 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136B84A12A83B8E700C102F1 /* ProfileViewModel.swift */; };
 		136B84A42A83B8FC00C102F1 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136B84A32A83B8FC00C102F1 /* EditProfileViewModel.swift */; };
 		137E549C2B14768800186558 /* FollowersAndFollowingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137E549B2B14768800186558 /* FollowersAndFollowingVC.swift */; };
@@ -127,6 +128,7 @@
 		1368D1882B174F1D00B42AC4 /* CDUsers+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CDUsers+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1368D1892B174F1D00B42AC4 /* CDUsers+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CDUsers+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1368D18D2B17525E00B42AC4 /* SwitchAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchAccountVC.swift; sourceTree = "<group>"; };
+		1368D18F2B175A5700B42AC4 /* SwitchAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchAccountCell.swift; sourceTree = "<group>"; };
 		136B84A12A83B8E700C102F1 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		136B84A32A83B8FC00C102F1 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		137E549B2B14768800186558 /* FollowersAndFollowingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersAndFollowingVC.swift; sourceTree = "<group>"; };
@@ -510,6 +512,7 @@
 			isa = PBXGroup;
 			children = (
 				1368D18D2B17525E00B42AC4 /* SwitchAccountVC.swift */,
+				1368D18F2B175A5700B42AC4 /* SwitchAccountCell.swift */,
 			);
 			path = SwitchAccount;
 			sourceTree = "<group>";
@@ -1164,6 +1167,7 @@
 				13FB7D5F2A722DE000D8FC5C /* FeedCell.swift in Sources */,
 				13FC207F2AF2687D00D7EEFD /* StoreUserInfo.swift in Sources */,
 				136B84A42A83B8FC00C102F1 /* EditProfileViewModel.swift in Sources */,
+				1368D1902B175A5700B42AC4 /* SwitchAccountCell.swift in Sources */,
 				13DBE7902AEBC20C0006F3B9 /* SignInVCViewModel.swift in Sources */,
 				139627602AFBA57D0034F139 /* CommentsViewModel.swift in Sources */,
 				132847232AFCEB4600A2397F /* UsersProfileViewCell.swift in Sources */,
