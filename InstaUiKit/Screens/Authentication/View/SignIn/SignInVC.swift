@@ -13,11 +13,17 @@ class SignInVC: UIViewController {
     @IBOutlet weak var passwordHideShowBtn: UIButton!
     var isPasswordShow = false
     var viewModel: SignInVCViewModel!
+    var coreDataUsers = [CDUsersModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: true)
         viewModel = SignInVCViewModel(presentingViewController: self)
         updateTxtFlds()
+      
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        fetchCoreDataUsers()
     }
     
     @IBAction func logInBtnPressed(_ sender: UIButton) {
@@ -55,6 +61,7 @@ class SignInVC: UIViewController {
     @IBAction func switchAccountsBtnPressed(_ sender: UIButton) {
         let storyboard = UIStoryboard.Main
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "SwitchAccountVC") as! SwitchAccountVC
+        destinationVC.user = coreDataUsers
         self.present(destinationVC, animated: true, completion: nil)
     }
     
@@ -110,5 +117,17 @@ class SignInVC: UIViewController {
         }
     }
     
-    
+    func fetchCoreDataUsers(){
+        CDUserManager.shared.readUser { result in
+            switch result {
+            case.success(let users):
+                if let users = users {
+                    self.coreDataUsers = users
+                }
+            case.failure(let error):
+                print(error)
+            }
+        }
+    }
+   
 }
