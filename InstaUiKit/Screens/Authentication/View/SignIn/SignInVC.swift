@@ -53,13 +53,9 @@ class SignInVC: UIViewController {
     }
     
     @IBAction func switchAccountsBtnPressed(_ sender: UIButton) {
-        
-        Navigator.shared.navigate(storyboard: UIStoryboard.Main, destinationVCIdentifier: "SwitchAccountVC") { destinationVC in
-            if let destinationVC = destinationVC {
-                self.present(destinationVC, animated: true, completion: nil)
-            }
-        }
-        
+        let storyboard = UIStoryboard.Main
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "SwitchAccountVC") as! SwitchAccountVC
+        self.present(destinationVC, animated: true, completion: nil)
     }
     
     
