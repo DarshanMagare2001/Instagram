@@ -9,8 +9,7 @@ import Foundation
 
 struct CDUsersModel : Decodable {
     var id: UUID
-    var name: String
-    var userName: String
     var email: String
     var password: String
+    var uid: String
 }

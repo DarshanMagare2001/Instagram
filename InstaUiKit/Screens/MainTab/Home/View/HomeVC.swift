@@ -30,7 +30,7 @@ class HomeVC: UIViewController {
         setupRefreshControl()
         configureUI()
         
-//        CDUserManager.shared.createUser(user: CDUsersModel(id: UUID(), name: "Darshan", userName: "_darsh_242_", email: "darshan@gmail.com", password: "123456")) { bool in
+//        CDUserManager.shared.createUser(user: CDUsersModel(id: UUID(), email: "darshan@gmail.com", password: "123456", uid: "uid")) { bool in
 //            print(bool)
 //        }
         

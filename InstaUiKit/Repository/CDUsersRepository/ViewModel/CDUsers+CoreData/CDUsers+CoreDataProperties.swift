@@ -17,13 +17,8 @@ extension CDUsers {
     }
 
     @NSManaged public var id: UUID?
-    @NSManaged public var name: String?
-    @NSManaged public var userName: String?
     @NSManaged public var email: String?
     @NSManaged public var password: String?
+    @NSManaged public var uid: String?
 
-}
-
-extension CDUsers : Identifiable {
-    
 }

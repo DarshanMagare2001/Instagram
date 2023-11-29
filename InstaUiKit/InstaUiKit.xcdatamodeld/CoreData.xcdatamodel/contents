@@ -3,9 +3,8 @@
     <entity name="CDUsers" representedClassName="CDUsers" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="password" optional="YES" attributeType="String"/>
-        <attribute name="userName" optional="YES" attributeType="String"/>
+        <attribute name="uid" optional="YES" attributeType="String"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="id"/>
@@ -13,6 +12,6 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="CDUsers" positionX="-45" positionY="0" width="128" height="104"/>
+        <element name="CDUsers" positionX="-45" positionY="0" width="128" height="89"/>
     </elements>
 </model>

@@ -15,10 +15,9 @@ class CDUserManager {
     func createUser(user : CDUsersModel , completion : @escaping (Bool) -> Void){
         let userContext = CDUsers(context: PersistantStorage.shared.persistentContainer.viewContext)
         userContext.id = user.id
-        userContext.name = user.name
-        userContext.userName = user.userName
-        userContext.email = user.email
+          userContext.email = user.email
         userContext.password = user.password
+        userContext.uid = user.uid
         PersistantStorage.shared.saveContext()
         completion(true)
     }
@@ -28,8 +27,8 @@ class CDUserManager {
         do {
             let data = try PersistantStorage.shared.persistentContainer.viewContext.fetch(CDUsers.fetchRequest())
             for i in data {
-                if let id = i.id, let name = i.name, let userName = i.userName, let email = i.email, let password = i.password {
-                    let user = CDUsersModel(id: id, name: name, userName: userName, email: email, password: password)
+                if let id = i.id, let email = i.email, let password = i.password , let uid = i.uid {
+                    let user = CDUsersModel(id: id, email: email, password: password, uid: uid)
                     users.append(user)
                 }
             }
