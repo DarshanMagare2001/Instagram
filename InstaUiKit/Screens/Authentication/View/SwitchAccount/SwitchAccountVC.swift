@@ -25,8 +25,20 @@ extension SwitchAccountVC : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchAccountCell", for: indexPath) as! SwitchAccountCell
         if let data = user?[indexPath.row]{
-            cell.name.text = data.email
-            cell.userName.text = data.password
+            FetchUserInfo.shared.fetchUserDataByUid(uid: data.uid) { result in
+                switch result {
+                case.success(let user):
+                    if let user = user , let imgUrl = user.imageUrl , let name = user.name , let userName = user.username {
+                        DispatchQueue.main.async {
+                            ImageLoader.loadImage(for: URL(string:imgUrl), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                            cell.name.text = name
+                            cell.userName.text = userName
+                        }
+                    }
+                case.failure(let error):
+                    print(error)
+                }
+            }
         }
         return cell
     }
