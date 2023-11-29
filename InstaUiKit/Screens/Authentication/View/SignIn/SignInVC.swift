@@ -33,10 +33,10 @@ class SignInVC: UIViewController {
                                         switch result {
                                         case .success(let success):
                                             print(success)
-                                            self.saveUserToCoreData()
+                                            self.saveUserToCoreData(uid: uid)
                                         case .failure(let failure):
                                             print(failure)
-                                            self.saveUserToCoreData()
+                                            self.saveUserToCoreData(uid: uid)
                                         }
                                     }
                                 }
@@ -89,12 +89,16 @@ class SignInVC: UIViewController {
         passwordTxtFld.placeholder = "Enter password"
     }
     
-    func saveUserToCoreData(){
+    func saveUserToCoreData(uid:String){
         DispatchQueue.main.async {
             LoaderVCViewModel.shared.hideLoader()
             Alert.shared.alertYesNo(title: "Save User!", message: "Do you want to save user?.", presentingViewController: self) { _ in
                 print("Yes")
-                self.gotoMainTab()
+                if let email = self.emailTxtFld.text , let password = self.passwordTxtFld.text {
+                    CDUserManager.shared.createUser(user: CDUsersModel(id: UUID(), email: email, password: password, uid: uid)) { _ in
+                        self.gotoMainTab()
+                    }
+                }
             } noHandler: { _ in
                 print("No")
                 self.gotoMainTab()
