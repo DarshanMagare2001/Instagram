@@ -459,6 +459,33 @@
             </objects>
             <point key="canvasLocation" x="1584.375" y="60.2112676056338"/>
         </scene>
+        <!--Switch AccountVC-->
+        <scene sceneID="cac-TK-PzN">
+            <objects>
+                <viewController storyboardIdentifier="SwitchAccountVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PMO-Fu-yKr" customClass="SwitchAccountVC" customModule="InstaUiKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jut-6U-31s">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1SF-Iw-SxK">
+                                <rect key="frame" x="0.0" y="227" width="320" height="341"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="OjC-c7-9qQ"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="OjC-c7-9qQ" firstAttribute="trailing" secondItem="1SF-Iw-SxK" secondAttribute="trailing" id="9dN-zf-eu1"/>
+                            <constraint firstItem="1SF-Iw-SxK" firstAttribute="height" secondItem="jut-6U-31s" secondAttribute="height" multiplier="0.6" id="RnK-Uw-Nwh"/>
+                            <constraint firstItem="1SF-Iw-SxK" firstAttribute="leading" secondItem="OjC-c7-9qQ" secondAttribute="leading" id="hcs-Iw-zwZ"/>
+                            <constraint firstAttribute="bottom" secondItem="1SF-Iw-SxK" secondAttribute="bottom" id="trm-hD-TIH"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="my5-oZ-EpY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2250" y="58"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="c55-gk-T2g">
             <objects>
