@@ -188,3 +188,21 @@ class ViewWithBorder: UIView {
         layer.borderColor = borderColor.cgColor
     }
 }
+
+@IBDesignable
+class RoundedCornerView: UIView {
+    // Custom corner radius value
+    @IBInspectable var cornerRadius: CGFloat = 20 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        // Set corner radius for rounded corners
+        layer.cornerRadius = cornerRadius
+        layer.masksToBounds = cornerRadius > 0
+    }
+}
