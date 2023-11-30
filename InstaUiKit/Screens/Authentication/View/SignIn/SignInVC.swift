@@ -7,7 +7,8 @@
 
 import UIKit
 
-class SignInVC: UIViewController {
+class SignInVC: UIViewController, passUserBack {
+    
     @IBOutlet weak var emailTxtFld: UITextField!
     @IBOutlet weak var passwordTxtFld: UITextField!
     @IBOutlet weak var passwordHideShowBtn: UIButton!
@@ -74,6 +75,7 @@ class SignInVC: UIViewController {
         let storyboard = UIStoryboard.Main
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "SwitchAccountVC") as! SwitchAccountVC
         destinationVC.cdUser = coreDataUsers
+        destinationVC.delegate = self
         self.present(destinationVC, animated: true, completion: nil)
     }
     
@@ -138,6 +140,10 @@ class SignInVC: UIViewController {
         }catch let error {
             print(error)
         }
+    }
+    
+    func passUserBack(user: UserModel) {
+        print(user)
     }
     
 }

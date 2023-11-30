@@ -8,19 +8,24 @@
 import UIKit
 import SkeletonView
 
+protocol passUserBack {
+    func passUserBack(user:UserModel)
+}
+
 class SwitchAccountVC: UIViewController {
     
     var viewModel = SwitchAccountViewModel()
     var cdUser : [CDUsersModel]?
     var user = [UserModel]()
+    var delegate : passUserBack?
     @IBOutlet weak var tableViewOutlet: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableViewOutlet.isSkeletonable = true
-        tableViewOutlet.showAnimatedGradientSkeleton()
+        configureTableView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    func configureTableView(){
         tableViewOutlet.isSkeletonable = true
         tableViewOutlet.showAnimatedGradientSkeleton()
         if let cdUser = cdUser {
@@ -36,7 +41,6 @@ class SwitchAccountVC: UIViewController {
             }
         }
     }
-    
 }
 
 extension SwitchAccountVC : SkeletonTableViewDataSource, SkeletonTableViewDelegate {
@@ -65,6 +69,11 @@ extension SwitchAccountVC : SkeletonTableViewDataSource, SkeletonTableViewDelega
             cell.userName.text = userName
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        delegate?.passUserBack(user: user[indexPath.row])
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

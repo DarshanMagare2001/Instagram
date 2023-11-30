@@ -504,10 +504,10 @@
                                                                     </userDefinedRuntimeAttributes>
                                                                 </imageView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gV4-VN-OMx">
-                                                                    <rect key="frame" x="70" y="8" width="198" height="53"/>
+                                                                    <rect key="frame" x="70" y="8" width="158" height="53"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="3kG-gg-hVy">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="198" height="21.5"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="158" height="21.5"/>
                                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -516,7 +516,7 @@
                                                                             </userDefinedRuntimeAttributes>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Pd0-fs-5Ri">
-                                                                            <rect key="frame" x="0.0" y="31.5" width="198" height="21.5"/>
+                                                                            <rect key="frame" x="0.0" y="31.5" width="158" height="21.5"/>
                                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -529,6 +529,18 @@
                                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </stackView>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zGY-Pn-LQt">
+                                                                    <rect key="frame" x="238" y="19" width="30" height="31"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="30" id="XkI-sj-Wa7"/>
+                                                                    </constraints>
+                                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <state key="normal" title="Button"/>
+                                                                    <buttonConfiguration key="configuration" style="plain" image="smallcircle.circle" catalog="system"/>
+                                                                    <connections>
+                                                                        <action selector="selectBtnPressed:" destination="l5s-Eg-Wc6" eventType="touchUpInside" id="ewy-ba-AYD"/>
+                                                                    </connections>
+                                                                </button>
                                                             </subviews>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
@@ -550,6 +562,7 @@
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <outlet property="name" destination="3kG-gg-hVy" id="nj1-pT-0j4"/>
+                                                    <outlet property="selectBtn" destination="zGY-Pn-LQt" id="uhE-xW-bg4"/>
                                                     <outlet property="userImg" destination="3pm-f3-6OP" id="Gjh-Ql-TsI"/>
                                                     <outlet property="userName" destination="Pd0-fs-5Ri" id="nHj-Q7-Rzh"/>
                                                 </connections>
@@ -623,6 +636,7 @@
         <image name="InstaLogo" width="182" height="49"/>
         <image name="eye.slash" catalog="system" width="128" height="86"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="smallcircle.circle" catalog="system" width="128" height="121"/>
         <namedColor name="GlobalBlue">
             <color red="0.21568627450980393" green="0.59215686274509804" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
