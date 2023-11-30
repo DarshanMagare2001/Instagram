@@ -19,6 +19,9 @@ class EditProfileVC: UIViewController {
     @IBOutlet weak var btn1: UIButton!
     @IBOutlet weak var btn2: UIButton!
     @IBOutlet weak var countryPickerBtn: UIButton!
+    @IBOutlet weak var privateBtn: UIButton!
+    @IBOutlet weak var publicBtn: UIButton!
+    
     private lazy var imagePicker: ImagePicker = {
         let imagePicker = ImagePicker()
         imagePicker.delegate = self
@@ -27,6 +30,7 @@ class EditProfileVC: UIViewController {
     var gender : String = ""
     var countryCode: String = "+91"
     var selectedImg : UIImage?
+    var isPrivate : Bool = false
     var viewModel = EditProfileViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,6 +75,26 @@ class EditProfileVC: UIViewController {
         
         print(gender)
     }
+    
+    
+    @IBAction func isAccountPublicOrPrivateBtnPressed(_ sender: UIButton) {
+        
+        if sender.tag == 1 {
+            isPrivate = false
+            publicBtn.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+            privateBtn.setImage(UIImage(systemName: "circle"), for: .normal)
+        }
+        
+        if sender.tag == 2 {
+            isPrivate = true
+            publicBtn.setImage(UIImage(systemName: "circle"), for: .normal)
+            privateBtn.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+        }
+        
+        print(isPrivate)
+        
+    }
+    
     
     @IBAction func cancelBtnPressed(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
