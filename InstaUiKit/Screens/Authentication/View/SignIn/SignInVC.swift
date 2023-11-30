@@ -73,7 +73,7 @@ class SignInVC: UIViewController {
     @IBAction func switchAccountsBtnPressed(_ sender: UIButton) {
         let storyboard = UIStoryboard.Main
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "SwitchAccountVC") as! SwitchAccountVC
-        destinationVC.user = coreDataUsers
+        destinationVC.cdUser = coreDataUsers
         self.present(destinationVC, animated: true, completion: nil)
     }
     

@@ -8,10 +8,25 @@
 import UIKit
 
 class SwitchAccountVC: UIViewController {
-    var user : [CDUsersModel]?
+    var viewModel = SwitchAccountViewModel()
+    var cdUser : [CDUsersModel]?
+    var user = [UserModel]()
+    @IBOutlet weak var tableViewOutlet: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let cdUser = cdUser {
+            viewModel.getUsers(cdUsers: cdUser) { data in
+                DispatchQueue.main.async {
+                    self.user = data
+                    print(data)
+                    self.tableViewOutlet.reloadData()
+                }
+            }
+        }
     }
     
 }
@@ -19,26 +34,19 @@ class SwitchAccountVC: UIViewController {
 extension SwitchAccountVC : UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return user?.count ?? 0
+        return user.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchAccountCell", for: indexPath) as! SwitchAccountCell
-        if let data = user?[indexPath.row]{
-            FetchUserInfo.shared.fetchUserDataByUid(uid: data.uid) { result in
-                switch result {
-                case.success(let user):
-                    if let user = user , let imgUrl = user.imageUrl , let name = user.name , let userName = user.username {
-                        DispatchQueue.main.async {
-                            ImageLoader.loadImage(for: URL(string:imgUrl), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
-                            cell.name.text = name
-                            cell.userName.text = userName
-                        }
-                    }
-                case.failure(let error):
-                    print(error)
-                }
-            }
+        let data = user[indexPath.row]
+        let imgUrl = data.imageUrl
+        let name = data.name
+        let userName = data.username
+        DispatchQueue.main.async {
+            ImageLoader.loadImage(for: URL(string:imgUrl ?? ""), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+            cell.name.text = name
+            cell.userName.text = userName
         }
         return cell
     }
