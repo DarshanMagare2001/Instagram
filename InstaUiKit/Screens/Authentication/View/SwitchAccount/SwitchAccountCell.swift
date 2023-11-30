@@ -11,7 +11,6 @@ class SwitchAccountCell: UITableViewCell {
     @IBOutlet weak var userImg: CircleImageView!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var selectBtn: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -20,10 +19,5 @@ class SwitchAccountCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
     }
-    
-    
-    @IBAction func selectBtnPressed(_ sender: UIButton) {
-        
-    }
-    
+
 }
