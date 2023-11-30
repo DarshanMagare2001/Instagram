@@ -42,10 +42,10 @@ extension FeedViewVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
         if let post = allPost?[indexPath.row] {
             DispatchQueue.main.async {
-                ProfileViewModel.shared.fetchUserData(uid: post.uid) { result in
+                FetchUserInfo.shared.fetchUserDataByUid(uid: post.uid) { result in
                     switch result {
                     case.success(let data):
-                        if let imgUrl = data.imageUrl , let name = data.name {
+                        if let data = data , let imgUrl = data.imageUrl , let name = data.name {
                             ImageLoader.loadImage(for: URL(string:imgUrl), into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
                             ImageLoader.loadImage(for: URL(string:imgUrl), into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
                             cell.userName.text = name
@@ -61,10 +61,10 @@ extension FeedViewVC: UITableViewDelegate, UITableViewDataSource {
             cell.totalLikesCount.text = "\(post.likesCount) Likes"
             
             if let randomLikedByUID = post.likedBy.randomElement() {
-                ProfileViewModel.shared.fetchUserData(uid: randomLikedByUID) { result in
+                FetchUserInfo.shared.fetchUserDataByUid(uid: randomLikedByUID) { result in
                     switch result {
                     case .success(let data):
-                        if let name = data.name {
+                        if let data = data , let name = data.name {
                             cell.likedByLbl.text = "Liked by \(name) and \(Int(post.likedBy.count - 1)) others."
                         }
                     case .failure(let error):

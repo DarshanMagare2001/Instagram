@@ -28,13 +28,15 @@ class EditProfileViewModel {
                     switch result {
                     case .success():
                         print("User data saved successfully in database.")
-                        ProfileViewModel.shared.fetchUserData(uid: uid) { result in
+                        
+                        FetchUserInfo.shared.fetchUserDataByUid(uid: uid) { result in
                             switch result {
                             case .success(let data):
-                                print(data)
-                                self.saveUserInfo(data: data){ value in
-                                    print(value)
-                                    completionHandler(true)
+                                if let data = data {
+                                    self.saveUserInfo(data: data){ value in
+                                        print(value)
+                                        completionHandler(true)
+                                    }
                                 }
                             case .failure(let failure):
                                 print(failure)
@@ -94,7 +96,7 @@ class EditProfileViewModel {
     
     // Function which save Userinfo locally in userdefault
     
-    func saveUserInfo(data:ProfileModel? ,completionHandler:@escaping(Bool) -> Void){
+    func saveUserInfo(data:UserModel? ,completionHandler:@escaping(Bool) -> Void){
         if let data = data {
             Data.shared.saveData(data.name, key: "Name"){ _ in}
             Data.shared.saveData(data.username, key: "UserName") { _ in}

@@ -123,32 +123,5 @@ class ProfileViewModel {
         }
         
     }
-    
-    
-    func fetchUserData(uid: String, completion: @escaping (Result<ProfileModel, Error>) -> Void) {
-        // Create a reference to the Firestore database
-        let db = Firestore.firestore()
-        
-        // Get the user document with the provided UID
-        let userRef = db.collection("users").document(uid)
-        
-        // Fetch the document data
-        userRef.getDocument { (document, error) in
-            if let error = error {
-                print("Error fetching user data: \(error)")
-                completion(.failure(error))
-            } else {
-                // Check if the document exists and contains data
-                if let documentData = document?.data(),
-                   let profileModel = ProfileModel(dictionary: documentData) {
-                    completion(.success(profileModel))
-                } else {
-                    // Document does not exist or does not contain valid data
-                    print("User document does not exist or contains invalid data.")
-                    completion(.failure(NSError(domain: "UserDataFetchError", code: -1, userInfo: nil)))
-                }
-            }
-        }
-    }
-    
+     
 }

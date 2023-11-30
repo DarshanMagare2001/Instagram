@@ -202,11 +202,11 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         let post = allPost[indexPath.row]
         
         disPatchGroup.enter()
-        ProfileViewModel.shared.fetchUserData(uid: post.uid) { result in
+        FetchUserInfo.shared.fetchUserDataByUid(uid: post.uid) { result in
             self.disPatchGroup.leave()
             switch result {
             case.success(let data):
-                if let imgUrl = data.imageUrl , let name = data.name {
+                if let data = data , let imgUrl = data.imageUrl , let name = data.name {
                     ImageLoader.loadImage(for: URL(string:imgUrl), into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
                     ImageLoader.loadImage(for: URL(string:imgUrl), into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
                     cell.userName.text = name
@@ -227,11 +227,11 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         
         disPatchGroup.enter()
         if let randomLikedByUID = post.likedBy.randomElement() {
-            ProfileViewModel.shared.fetchUserData(uid: randomLikedByUID) { result in
+            FetchUserInfo.shared.fetchUserDataByUid(uid: randomLikedByUID) { result in
                 self.disPatchGroup.leave()
                 switch result {
                 case .success(let data):
-                    if let name = data.name {
+                    if let data = data , let name = data.name {
                         cell.likedByLbl.text = "Liked by \(name) and \(Int(post.likedBy.count - 1)) others."
                     }
                 case .failure(let error):
@@ -241,7 +241,6 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         }
         
         disPatchGroup.enter()
-        
         DispatchQueue.main.async {
             if let uid = self.uid {
                 if (post.likedBy.contains(uid)){
@@ -276,10 +275,10 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                                 cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
                                 cell.likeBtn.tintColor = cell.isLiked ? .red : .black
                                 
-                                ProfileViewModel.shared.fetchUserData(uid: post.uid) { result in
+                                FetchUserInfo.shared.fetchUserDataByUid(uid: post.uid) { result in
                                     switch result {
                                     case.success(let data):
-                                        if let fmcToken = data.fcmToken {
+                                        if let data = data , let fmcToken = data.fcmToken {
                                             Data.shared.getData(key: "Name") {  (result: Result<String?, Error>) in
                                                 switch result {
                                                 case .success(let name):

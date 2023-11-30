@@ -77,10 +77,10 @@ extension CommentsVC : UITableViewDelegate , UITableViewDataSource {
            let uid = postData["uid"] as? String,
            let comment = postData["comment"] as? String {
             DispatchQueue.main.async {
-                ProfileViewModel.shared.fetchUserData(uid: uid) { result in
+                FetchUserInfo.shared.fetchUserDataByUid(uid: uid) { result in
                     switch result {
                     case .success(let data):
-                        if let url = data.imageUrl {
+                        if let data = data , let url = data.imageUrl {
                             ImageLoader.loadImage(for: URL(string: url), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
                         }
                     case .failure(let error):
@@ -90,7 +90,6 @@ extension CommentsVC : UITableViewDelegate , UITableViewDataSource {
                 cell.commentLbl.text = comment
             }
         }
-        
         return cell
     }
 }
