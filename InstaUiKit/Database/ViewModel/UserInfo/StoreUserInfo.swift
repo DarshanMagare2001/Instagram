@@ -90,5 +90,37 @@ class StoreUserInfo {
         }
     }
     
-   
+    
+    // MARK: - Save User's FollowersRequest
+    
+    
+    func saveFollowersRequestToFirebaseOfUser(toFollowsUid: String, whoFollowingsUid: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(toFollowsUid)
+        // Update the document with the followings UID
+        userRef.setData(["followersRequest": FieldValue.arrayUnion([whoFollowingsUid])], merge: true) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
+    }
+    
+    // MARK: - Save User's FollowingsRequest
+    
+    func saveFollowingsRequestToFirebaseOfUser(toFollowsUid: String, whoFollowingsUid: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(whoFollowingsUid)
+        // Update the document with the followings UID
+        userRef.setData(["followingsRequest": FieldValue.arrayUnion([toFollowsUid])], merge: true) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
+    }
+    
+    
 }
