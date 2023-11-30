@@ -59,6 +59,9 @@
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" image="bell" catalog="system"/>
+                                                <connections>
+                                                    <action selector="notificationBtnPressed:" destination="cUk-uZ-knu" eventType="touchUpInside" id="7h9-3l-rzK"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6uv-cv-S6P">
                                                 <rect key="frame" x="55" y="0.0" width="50" height="50"/>
@@ -438,6 +441,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FTa-RU-tLs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2760" y="738"/>
+        </scene>
+        <!--NotificationVC-->
+        <scene sceneID="qY9-gO-aKv">
+            <objects>
+                <viewController storyboardIdentifier="NotificationVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KmQ-k7-TR7" customClass="NotificationVC" customModule="InstaUiKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="v1Z-ri-cPT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRy-2i-82S">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="6V6-Ff-Fv9"/>
+                                    <constraint firstAttribute="width" constant="50" id="U3v-bz-Y5l"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="BackArrow" title=" "/>
+                                <connections>
+                                    <action selector="backBtnPressed:" destination="KmQ-k7-TR7" eventType="touchUpInside" id="2tJ-W6-OfB"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="7qs-pk-PJw"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="bRy-2i-82S" firstAttribute="top" secondItem="7qs-pk-PJw" secondAttribute="top" id="QxO-Kf-yxn"/>
+                            <constraint firstItem="bRy-2i-82S" firstAttribute="leading" secondItem="7qs-pk-PJw" secondAttribute="leading" id="rNB-pY-paR"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iTT-bb-dvd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2754" y="1404"/>
         </scene>
         <!--ChatVC-->
         <scene sceneID="yL8-Od-JRv">
