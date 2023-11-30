@@ -1223,6 +1223,7 @@
                         <outlet property="collectionViewOutlet" destination="sAw-W7-k0a" id="0Z7-uG-2GD"/>
                         <outlet property="folloBtn" destination="A7a-OE-5zp" id="qDD-8e-h1m"/>
                         <outlet property="headLine" destination="n4f-bd-geU" id="PsW-wp-TRr"/>
+                        <outlet property="msgBtn" destination="9V7-Pr-9pb" id="0nJ-F2-ofm"/>
                         <outlet property="name" destination="Ovh-5v-qTN" id="NRN-1R-Yrc"/>
                         <outlet property="totalFollowersCount" destination="kR5-2T-U5f" id="ZS1-kc-q1h"/>
                         <outlet property="totalFollowingCount" destination="yoC-HC-JIY" id="D9g-pV-sIf"/>

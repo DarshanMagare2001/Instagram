@@ -17,12 +17,15 @@ class UsersProfileView: UIViewController {
     @IBOutlet weak var totalFollowingCount: UILabel!
     @IBOutlet weak var folloBtn: UIButton!
     @IBOutlet weak var headLine: UILabel!
+    @IBOutlet weak var msgBtn: UIButton!
+    
     var allPost = [PostModel]()
     var user : UserModel?
     var viewModel = UsersProfileViewModel()
     var isFollow = false
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.msgBtn.isHidden = true
         updateCell()
     }
     
@@ -37,9 +40,11 @@ class UsersProfileView: UIViewController {
                             if let followings = userData.followings{
                                 if (followings.contains(uid)){
                                     self.folloBtn.setTitle("UnFollow", for: .normal)
+                                    self.msgBtn.isHidden = false
                                     self.isFollow = false
                                 }else{
                                     self.folloBtn.setTitle("Follow", for: .normal)
+                                    self.msgBtn.isHidden = true
                                     self.isFollow = true
                                 }
                             }
@@ -97,9 +102,11 @@ class UsersProfileView: UIViewController {
                                 if (followings.contains(uid)){
                                     self.unFollow()
                                     self.folloBtn.setTitle("Follow", for: .normal)
+                                    self.msgBtn.isHidden = true
                                 }else{
                                     self.follow()
                                     self.folloBtn.setTitle("UnFollow", for: .normal)
+                                    self.msgBtn.isHidden = false
                                 }
                             }
                         }
