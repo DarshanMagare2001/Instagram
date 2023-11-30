@@ -15,14 +15,14 @@ class CDUserManager {
     func createUser(user : CDUsersModel , completion : @escaping (Bool) -> Void){
         let userContext = CDUsers(context: PersistantStorage.shared.persistentContainer.viewContext)
         userContext.id = user.id
-          userContext.email = user.email
+        userContext.email = user.email
         userContext.password = user.password
         userContext.uid = user.uid
         PersistantStorage.shared.saveContext()
         completion(true)
     }
-    
-    func readUser(completion : @escaping (Result<[CDUsersModel]?,Error>) -> Void) {
+  
+    func readUser() async throws -> [CDUsersModel]? {
         var users = [CDUsersModel]()
         do {
             let data = try PersistantStorage.shared.persistentContainer.viewContext.fetch(CDUsers.fetchRequest())
@@ -33,10 +33,10 @@ class CDUserManager {
                 }
             }
             print(users)
-            completion(.success(users))
+            return users
         } catch let error {
             print(error)
-            completion(.failure(error))
+            throw error
         }
     }
     

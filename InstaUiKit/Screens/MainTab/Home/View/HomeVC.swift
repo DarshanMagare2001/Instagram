@@ -29,22 +29,6 @@ class HomeVC: UIViewController {
         configureTableView()
         setupRefreshControl()
         configureUI()
-        
-//        CDUserManager.shared.createUser(user: CDUsersModel(id: UUID(), email: "darshan@gmail.com", password: "123456", uid: "uid")) { bool in
-//            print(bool)
-//        }
-        
-        CDUserManager.shared.readUser { result in
-            switch result {
-            case.success(let data):
-                if let data = data {
-                  print(data)
-                }
-            case.failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-        
     }
     
     private func configureTableView() {

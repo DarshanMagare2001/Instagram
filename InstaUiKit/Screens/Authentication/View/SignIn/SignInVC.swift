@@ -19,11 +19,13 @@ class SignInVC: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
         viewModel = SignInVCViewModel(presentingViewController: self)
         updateTxtFlds()
-      
+        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        fetchCoreDataUsers()
+    override func viewWillAppear(_ animated: Bool)  {
+        Task{
+            await fetchCoreDataUsers()
+        }
     }
     
     @IBAction func logInBtnPressed(_ sender: UIButton) {
@@ -127,17 +129,15 @@ class SignInVC: UIViewController {
         }
     }
     
-    func fetchCoreDataUsers(){
-        CDUserManager.shared.readUser { result in
-            switch result {
-            case.success(let users):
-                if let users = users {
-                    self.coreDataUsers = users
-                }
-            case.failure(let error):
-                print(error)
+    func fetchCoreDataUsers() async{
+        do{
+            let users = try await CDUserManager.shared.readUser()
+            if let users = users {
+                self.coreDataUsers = users
             }
+        }catch let error {
+            print(error)
         }
     }
-   
+    
 }
