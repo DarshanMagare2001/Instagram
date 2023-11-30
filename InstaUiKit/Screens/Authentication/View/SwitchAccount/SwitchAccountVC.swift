@@ -6,23 +6,31 @@
 //
 
 import UIKit
+import SkeletonView
 
 class SwitchAccountVC: UIViewController {
+    
     var viewModel = SwitchAccountViewModel()
     var cdUser : [CDUsersModel]?
     var user = [UserModel]()
     @IBOutlet weak var tableViewOutlet: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableViewOutlet.isSkeletonable = true
+        tableViewOutlet.showAnimatedGradientSkeleton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        tableViewOutlet.isSkeletonable = true
+        tableViewOutlet.showAnimatedGradientSkeleton()
         if let cdUser = cdUser {
             viewModel.getUsers(cdUsers: cdUser) { data in
                 DispatchQueue.main.async {
                     self.user = data
                     print(data)
+                    self.tableViewOutlet.stopSkeletonAnimation()
+                    self.view.stopSkeletonAnimation()
+                    self.tableViewOutlet.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
                     self.tableViewOutlet.reloadData()
                 }
             }
@@ -31,10 +39,18 @@ class SwitchAccountVC: UIViewController {
     
 }
 
-extension SwitchAccountVC : UITableViewDelegate , UITableViewDataSource {
+extension SwitchAccountVC : SkeletonTableViewDataSource, SkeletonTableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return user.count
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        10
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return "SwitchAccountCell"
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
