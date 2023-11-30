@@ -142,7 +142,7 @@ class SignInVC: UIViewController, passUserBack {
         }
     }
     
-    func passUserBack(user: UserModel) {
+    func passUserBack(user: CDUsersModel) {
         print(user)
     }
     
