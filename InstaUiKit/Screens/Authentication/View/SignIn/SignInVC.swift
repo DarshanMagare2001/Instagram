@@ -143,7 +143,39 @@ class SignInVC: UIViewController, passUserBack {
     }
     
     func passUserBack(user: CDUsersModel) {
-        print(user)
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+            self.viewModel.login(emailTxtFld: user.email, passwordTxtFld: user.password) { value in
+                if value {
+                    Data.shared.getData(key: "CurrentUserId") { (result:Result<String?,Error>) in
+                        switch result {
+                        case .success(let uid):
+                            if let uid = uid {
+                                FetchUserInfo.shared.getFCMToken { fcmToken in
+                                    if let fcmToken = fcmToken {
+                                        StoreUserInfo.shared.saveUsersFMCTokenAndUidToFirebase(uid: uid, fcmToken: fcmToken) { result in
+                                            switch result {
+                                            case .success(let success):
+                                                print(success)
+                                                LoaderVCViewModel.shared.hideLoader()
+                                                self.gotoMainTab()
+                                            case .failure(let failure):
+                                                print(failure)
+                                                LoaderVCViewModel.shared.hideLoader()
+                                                self.gotoMainTab()
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        case .failure(let failure):
+                            print(failure)
+                        }
+                    }
+                }else{
+                    LoaderVCViewModel.shared.hideLoader()
+                }
+            }
+        }
     }
     
 }
