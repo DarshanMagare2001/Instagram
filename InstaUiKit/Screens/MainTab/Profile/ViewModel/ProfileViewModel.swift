@@ -19,7 +19,7 @@ class ProfileViewModel {
         
     }
     
-    func saveUserToFirebase(uid: String, name: String?, username: String?, bio: String?, phoneNumber: String?, gender: String?,countryCode : String?,completion: @escaping (Result<Void, Error>) -> Void) {
+    func saveUserToFirebase(uid: String, name: String?, username: String?, bio: String?, phoneNumber: String?, gender: String?,countryCode : String?,isPrivate:Bool?,completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()
         let userRef = db.collection("users").document(uid)
         let dispatchGroup = DispatchGroup()
@@ -103,6 +103,17 @@ class ProfileViewModel {
                         dispatchGroup.leave()
                     }
                 }
+                
+                if let isPrivate = isPrivate {
+                    dispatchGroup.enter()
+                    userRef.updateData(["isPrivate": isPrivate]) { error in
+                        if let error = error {
+                            completion(.failure(error))
+                        }
+                        dispatchGroup.leave()
+                    }
+                }
+                
                 
                 dispatchGroup.notify(queue: .main) {
                     completion(.success(()))

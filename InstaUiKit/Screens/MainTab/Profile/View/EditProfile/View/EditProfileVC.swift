@@ -41,7 +41,7 @@ class EditProfileVC: UIViewController {
     
     @IBAction func doneBtnPressed(_ sender: UIButton) {
         LoaderVCViewModel.shared.showLoader()
-        viewModel.saveDataToFirebase(name: nameTxtFld.text, username: userNameTxtFld.text, bio: bioTxtFld.text, countryCode: countryCode, phoneNumber: phoneNumberTxtFld.text, gender: gender){ value in
+        viewModel.saveDataToFirebase(name: nameTxtFld.text, username: userNameTxtFld.text, bio: bioTxtFld.text, countryCode: countryCode, phoneNumber: phoneNumberTxtFld.text, gender: gender, isPrivate: isPrivate){ value in
             if value{
                 LoaderVCViewModel.shared.hideLoader()
                 if let navigationController = self.navigationController {
@@ -110,18 +110,7 @@ class EditProfileVC: UIViewController {
 extension EditProfileVC {
     
     func configuration(){
-        //        activityStop()
         updateUI()
-        initViewModel()
-        observeEvent()
-        
-    }
-    
-    func initViewModel(){
-    }
-    
-    
-    func observeEvent() {
     }
     
     
@@ -173,6 +162,19 @@ extension EditProfileVC {
                 print(error)
             }
         }
+        
+        
+        let data =  UserDefaults.standard.bool(forKey: "IsPrivate")
+        self.isPrivate = data
+        if self.isPrivate == false {
+            self.publicBtn.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+            self.privateBtn.setImage(UIImage(systemName: "circle"), for: .normal)
+        }
+        if self.isPrivate == true {
+            self.publicBtn.setImage(UIImage(systemName: "circle"), for: .normal)
+            self.privateBtn.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+        }
+        
         
         Data.shared.getData(key: "CountryCode") { (result: Result<String, Error>) in
             switch result{

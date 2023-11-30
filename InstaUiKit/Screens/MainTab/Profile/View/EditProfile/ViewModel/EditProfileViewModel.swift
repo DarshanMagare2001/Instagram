@@ -18,13 +18,13 @@ class EditProfileViewModel {
     
     // Function which save Userinfo to firebase
     
-    func saveDataToFirebase(name:String?,username:String?,bio:String?,countryCode:String?,phoneNumber:String?,gender:String? , completionHandler:@escaping(Bool) -> Void){
+    func saveDataToFirebase(name:String?,username:String?,bio:String?,countryCode:String?,phoneNumber:String?,gender:String? , isPrivate : Bool?, completionHandler:@escaping(Bool) -> Void){
         Data.shared.getData(key: "CurrentUserId") { (result: Result<String, Error>) in
             switch result {
             case .success(let uid):
                 print(uid)
-                guard let name = name , let username = username , let bio = bio, let countryCode = countryCode , let phoneNumber = phoneNumber , let gender = gender else { return }
-                ProfileViewModel.shared.saveUserToFirebase(uid: uid, name: name, username: username, bio: bio, phoneNumber: phoneNumber, gender: gender, countryCode: countryCode){ result in
+                guard let name = name , let username = username , let bio = bio, let countryCode = countryCode , let phoneNumber = phoneNumber , let gender = gender , let isPrivate = isPrivate else { return }
+                ProfileViewModel.shared.saveUserToFirebase(uid: uid, name: name, username: username, bio: bio, phoneNumber: phoneNumber, gender: gender, countryCode: countryCode, isPrivate: isPrivate){ result in
                     switch result {
                     case .success():
                         print("User data saved successfully in database.")
@@ -102,6 +102,7 @@ class EditProfileViewModel {
             Data.shared.saveData(data.gender, key: "Gender") { _ in}
             Data.shared.saveData(data.countryCode, key: "CountryCode") { _ in}
             Data.shared.saveData(data.phoneNumber, key: "PhoneNumber") { _ in}
+            Data.shared.saveData(data.isPrivate, key: "IsPrivate") { _ in}
             completionHandler(true)
         }else{
             completionHandler(false)
