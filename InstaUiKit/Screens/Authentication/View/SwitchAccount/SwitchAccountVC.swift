@@ -68,12 +68,15 @@ extension SwitchAccountVC : SkeletonTableViewDataSource, SkeletonTableViewDelega
             cell.name.text = name
             cell.userName.text = userName
         }
+        cell.selectButtonAction = { [weak self] in
+            guard let self = self else { return }
+            cell.selectBtn.setImage(UIImage(systemName: "smallcircle.circle.fill"), for: .normal)
+            let user = data
+            self.delegate?.passUserBack(user: user)
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.5){
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        delegate?.passUserBack(user: user[indexPath.row])
-        self.dismiss(animated: true, completion: nil)
-    }
-    
 }

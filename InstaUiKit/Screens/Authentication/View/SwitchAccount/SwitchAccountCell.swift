@@ -12,6 +12,7 @@ class SwitchAccountCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var selectBtn: UIButton!
+    var selectButtonAction: (() -> Void)?
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -22,6 +23,6 @@ class SwitchAccountCell: UITableViewCell {
     }
 
     @IBAction func selectBtnPressed(_ sender: UIButton) {
-        
+        selectButtonAction?()
     }
 }
