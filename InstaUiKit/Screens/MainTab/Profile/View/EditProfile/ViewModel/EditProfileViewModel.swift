@@ -149,36 +149,6 @@ class EditProfileViewModel {
     
     // Function which fetch Userinfo from firebase
     
-    
-    
-    func fetchUserData(completion: @escaping (Result<UserData, Error>) -> Void) {
-        Data.shared.getData(key: "CurrentUserId") { (result: Result<String, Error>) in
-            switch result {
-            case .success(let uid):
-                ProfileViewModel.shared.fetchUserData(uid: uid) { userDataResult in
-                    switch userDataResult {
-                    case .success(let data):
-                        // Create a UserData instance with the retrieved data
-                        let userData = UserData(
-                            name: data.name ?? "Default Name",
-                            username: data.username ?? "Default UserName",
-                            bio: data.bio ?? "Default Bio",
-                            countryCode: data.countryCode ?? "Default Country Code",
-                            phoneNumber: data.phoneNumber ?? "Default Phone Number",
-                            gender: data.gender ?? "Default Gender"
-                            // Initialize other properties here
-                        )
-                        completion(.success(userData))
-                    case .failure(let error):
-                        completion(.failure(error))
-                    }
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
     func fetchUserProfileImageURLWithUid( uid :String?,completion: @escaping (Result<URL?, Error>) -> Void) {
         let storage = Storage.storage()
         let storageRef = storage.reference()
@@ -239,9 +209,6 @@ class EditProfileViewModel {
             }
         }
     }
-
-    
-    
     
 }
 
