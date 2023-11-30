@@ -19,8 +19,9 @@ struct UserModel {
     var username: String?
     var followers: [String]?
     var followings:[String]?
+    var isPrivate : String?
     
-    init(uid: String, bio: String, fcmToken: String, phoneNumber: String, countryCode: String, name: String, imageUrl: String, gender: String, username: String,followers: [String],followings:[String]) {
+    init(uid: String, bio: String, fcmToken: String, phoneNumber: String, countryCode: String, name: String, imageUrl: String, gender: String, username: String,followers: [String],followings:[String] ,isPrivate : String ) {
         self.uid = uid
         self.bio = bio
         self.fcmToken = fcmToken
@@ -32,6 +33,7 @@ struct UserModel {
         self.username = username
         self.followers = followers
         self.followings = followings
+        self.isPrivate = isPrivate
     }
 }
 

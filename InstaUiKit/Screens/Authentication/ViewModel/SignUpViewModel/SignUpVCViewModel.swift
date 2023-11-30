@@ -48,6 +48,7 @@ class SignUpVCViewModel {
                         userDefaults.removeObject(forKey: "CountryCode")
                         userDefaults.removeObject(forKey: "PhoneNumber")
                         userDefaults.removeObject(forKey: "ProfileUrl")
+                        userDefaults.removeObject(forKey: "IsPrivate")
                         userDefaults.synchronize()
                         completionHandler(true)
                     }

@@ -42,8 +42,9 @@ class FetchUserInfo {
                                 let username = document["username"] as? String
                                 let followers = document["followers"] as? [String]
                                 let followings = document["followings"] as? [String]
+                                let isPrivate = document["isPrivate"] as? String
                                 if uid != currentUid { // Check if the uid is not the current user's uid
-                                    let user = UserModel(uid: uid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers : followers ?? [] , followings: followings ?? [])
+                                    let user = UserModel(uid: uid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers : followers ?? [] , followings: followings ?? [] , isPrivate:isPrivate ?? "")
                                     users.append(user)
                                     print(users)
                                 }
@@ -86,7 +87,8 @@ class FetchUserInfo {
                             let username = document["username"] as? String
                             let followers = document["followers"] as? [String]
                             let followings = document["followings"] as? [String]
-                            let user = UserModel(uid: uid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers : followers ?? [] , followings: followings ?? [])
+                            let isPrivate = document["isPrivate"] as? String
+                            let user = UserModel(uid: uid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers : followers ?? [] , followings: followings ?? [] , isPrivate : isPrivate ?? "")
                             DispatchQueue.main.async {
                                 completionHandler(.success(user))
                             }
@@ -126,7 +128,8 @@ class FetchUserInfo {
                 let username = document["username"] as? String
                 let followers = document["followers"] as? [String]
                 let followings = document["followings"] as? [String]
-                let user = UserModel(uid: userUid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers: followers ?? [], followings: followings ?? [])
+                let isPrivate = document["isPrivate"] as? String
+                let user = UserModel(uid: userUid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers: followers ?? [], followings: followings ?? [] , isPrivate : isPrivate ?? "")
                 DispatchQueue.main.async {
                     completionHandler(.success(user))
                 }
