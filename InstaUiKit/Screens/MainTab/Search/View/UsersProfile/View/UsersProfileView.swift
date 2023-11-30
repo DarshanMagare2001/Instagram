@@ -93,20 +93,26 @@ class UsersProfileView: UIViewController {
     
     @IBAction func folloBtnPressed(_ sender: UIButton) {
         if let user = user {
-            if let uid = user.uid {
+            if let uid = user.uid , let isPrivate = user.isPrivate  {
                 FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
                     switch result {
                     case.success(let userData):
                         if let userData = userData {
-                            if let followings = userData.followings{
-                                if (followings.contains(uid)){
+                            if let followings = userData.followings , let followingRequest = userData.followingsRequest {
+                                if (followings.contains(uid)) || (followingRequest.contains(uid)) {
                                     self.unFollow()
+                                    self.removeFollowRequest()
                                     self.folloBtn.setTitle("Follow", for: .normal)
                                     self.msgBtn.isHidden = true
                                 }else{
-                                    self.follow()
-                                    self.folloBtn.setTitle("UnFollow", for: .normal)
-                                    self.msgBtn.isHidden = false
+                                    if isPrivate == "false" {
+                                        self.follow()
+                                        self.folloBtn.setTitle("UnFollow", for: .normal)
+                                        self.msgBtn.isHidden = false
+                                    }else{
+                                        self.followRequest()
+                                        self.folloBtn.setTitle("Requested", for: .normal)
+                                    }
                                 }
                             }
                         }
@@ -153,18 +159,40 @@ class UsersProfileView: UIViewController {
         viewModel.removeFollower(uid: user?.uid) { result in
             switch result {
             case.success(let value):
+                print(value)
+            case.failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func followRequest(){
+        viewModel.requestFollower(uid: user?.uid) { result  in
+            switch result {
+            case.success(let value):
                 Data.shared.getData(key: "Name") {  (result: Result<String?, Error>) in
                     switch result {
                     case .success(let name):
                         if let name = name {
                             if let fmcToken = self.user?.fcmToken {
-                                PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Started Un following you.")
+                                PushNotification.shared.sendPushNotification(to: fmcToken, title: "Follow Request" , body: "\(name) requested to follow you.")
                             }
                         }
                     case.failure(let error):
                         print(error)
                     }
                 }
+            case.failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func removeFollowRequest(){
+        viewModel.removeFollowRequest(uid: user?.uid) { result  in
+            switch result {
+            case.success(let value):
+                print(value)
             case.failure(let error):
                 print(error)
             }
