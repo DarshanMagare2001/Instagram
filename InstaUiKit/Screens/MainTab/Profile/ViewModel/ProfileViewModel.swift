@@ -19,7 +19,7 @@ class ProfileViewModel {
         
     }
     
-    func saveUserToFirebase(uid: String, name: String?, username: String?, bio: String?, phoneNumber: String?, gender: String?,countryCode : String?,isPrivate:Bool?,completion: @escaping (Result<Void, Error>) -> Void) {
+    func saveUserToFirebase(uid: String, name: String?, username: String?, bio: String?, phoneNumber: String?, gender: String?,countryCode : String?,isPrivate:String?,completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()
         let userRef = db.collection("users").document(uid)
         let dispatchGroup = DispatchGroup()

@@ -30,7 +30,7 @@ class EditProfileVC: UIViewController {
     var gender : String = ""
     var countryCode: String = "+91"
     var selectedImg : UIImage?
-    var isPrivate : Bool = false
+    var isPrivate : String = ""
     var viewModel = EditProfileViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,13 +80,13 @@ class EditProfileVC: UIViewController {
     @IBAction func isAccountPublicOrPrivateBtnPressed(_ sender: UIButton) {
         
         if sender.tag == 1 {
-            isPrivate = false
+            isPrivate = "false"
             publicBtn.setImage(UIImage(systemName: "circle.fill"), for: .normal)
             privateBtn.setImage(UIImage(systemName: "circle"), for: .normal)
         }
         
         if sender.tag == 2 {
-            isPrivate = true
+            isPrivate = "true"
             publicBtn.setImage(UIImage(systemName: "circle"), for: .normal)
             privateBtn.setImage(UIImage(systemName: "circle.fill"), for: .normal)
         }
@@ -162,17 +162,24 @@ extension EditProfileVC {
                 print(error)
             }
         }
+       
         
-        
-        let data =  UserDefaults.standard.bool(forKey: "IsPrivate")
-        self.isPrivate = data
-        if self.isPrivate == false {
-            self.publicBtn.setImage(UIImage(systemName: "circle.fill"), for: .normal)
-            self.privateBtn.setImage(UIImage(systemName: "circle"), for: .normal)
-        }
-        if self.isPrivate == true {
-            self.publicBtn.setImage(UIImage(systemName: "circle"), for: .normal)
-            self.privateBtn.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+        Data.shared.getData(key: "IsPrivate") { (result: Result<String, Error>) in
+            switch result{
+            case .success(let data):
+                print(data)
+                self.isPrivate = data
+                if self.isPrivate == "false" {
+                    self.publicBtn.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+                    self.privateBtn.setImage(UIImage(systemName: "circle"), for: .normal)
+                }
+                if self.isPrivate == "true"{
+                    self.publicBtn.setImage(UIImage(systemName: "circle"), for: .normal)
+                    self.privateBtn.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+                }
+            case .failure(let error):
+                print(error)
+            }
         }
         
         

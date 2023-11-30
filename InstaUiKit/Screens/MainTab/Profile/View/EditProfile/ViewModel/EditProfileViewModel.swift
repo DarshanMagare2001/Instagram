@@ -18,7 +18,7 @@ class EditProfileViewModel {
     
     // Function which save Userinfo to firebase
     
-    func saveDataToFirebase(name:String?,username:String?,bio:String?,countryCode:String?,phoneNumber:String?,gender:String? , isPrivate : Bool?, completionHandler:@escaping(Bool) -> Void){
+    func saveDataToFirebase(name:String?,username:String?,bio:String?,countryCode:String?,phoneNumber:String?,gender:String? , isPrivate : String?, completionHandler:@escaping(Bool) -> Void){
         Data.shared.getData(key: "CurrentUserId") { (result: Result<String, Error>) in
             switch result {
             case .success(let uid):
