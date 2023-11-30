@@ -51,26 +51,37 @@
                                             <constraint firstAttribute="width" constant="150" id="oE4-1p-cQM"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6uv-cv-S6P">
-                                        <rect key="frame" x="270" y="0.0" width="50" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="S4m-eu-ga2"/>
-                                            <constraint firstAttribute="height" constant="50" id="pHg-EJ-Wve"/>
-                                        </constraints>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="paperplane" catalog="system" title=" "/>
-                                        <connections>
-                                            <action selector="directMsgBtnPressed:" destination="cUk-uZ-knu" eventType="touchUpInside" id="56B-0h-Zyr"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="K7x-DP-CbF">
+                                        <rect key="frame" x="215" y="0.0" width="105" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2gU-Ex-EuG">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="bell" catalog="system"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6uv-cv-S6P">
+                                                <rect key="frame" x="55" y="0.0" width="50" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="S4m-eu-ga2"/>
+                                                    <constraint firstAttribute="height" constant="50" id="pHg-EJ-Wve"/>
+                                                </constraints>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="paperplane" catalog="system" title=" "/>
+                                                <connections>
+                                                    <action selector="directMsgBtnPressed:" destination="cUk-uZ-knu" eventType="touchUpInside" id="56B-0h-Zyr"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="6uv-cv-S6P" secondAttribute="bottom" id="6wk-rr-WFY"/>
-                                    <constraint firstAttribute="trailing" secondItem="6uv-cv-S6P" secondAttribute="trailing" id="H8c-S2-o22"/>
-                                    <constraint firstItem="6uv-cv-S6P" firstAttribute="top" secondItem="E6M-dW-uI0" secondAttribute="top" id="Psi-oa-oeh"/>
+                                    <constraint firstItem="K7x-DP-CbF" firstAttribute="top" secondItem="E6M-dW-uI0" secondAttribute="top" id="G2p-ln-X91"/>
+                                    <constraint firstAttribute="trailing" secondItem="K7x-DP-CbF" secondAttribute="trailing" id="GpL-C5-87F"/>
                                     <constraint firstItem="uAK-kj-RTh" firstAttribute="top" secondItem="E6M-dW-uI0" secondAttribute="top" constant="10" id="i2x-hW-MIz"/>
+                                    <constraint firstAttribute="bottom" secondItem="K7x-DP-CbF" secondAttribute="bottom" id="jnD-FT-160"/>
                                     <constraint firstItem="uAK-kj-RTh" firstAttribute="leading" secondItem="E6M-dW-uI0" secondAttribute="leading" constant="15" id="ybe-Gc-HVb"/>
                                 </constraints>
                             </view>
@@ -272,7 +283,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="moa-i2-ojo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2092.5" y="69.718309859154928"/>
+            <point key="canvasLocation" x="-2106" y="68"/>
         </scene>
         <!--Direct MsgVC-->
         <scene sceneID="77z-u7-XjP">
@@ -2388,6 +2399,7 @@
         <image name="Settings" width="24.5" height="24"/>
         <image name="Tags" width="24" height="24.5"/>
         <image name="Your Activity" width="24.5" height="24.5"/>
+        <image name="bell" catalog="system" width="128" height="124"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="circle" catalog="system" width="128" height="121"/>
         <image name="line.3.horizontal" catalog="system" width="128" height="64"/>
