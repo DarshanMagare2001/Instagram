@@ -32,12 +32,6 @@ class UsersProfileViewModel {
                             completion(.failure(error))
                         }
                     }
-                    
-                    StoreUserInfo.shared.saveFollowersRequestToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { _ in
-                        StoreUserInfo.shared.saveFollowingsRequestToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { _ in}
-                    }
-                    
-                    
                 }
             case .failure(let error):
                 print(error)
