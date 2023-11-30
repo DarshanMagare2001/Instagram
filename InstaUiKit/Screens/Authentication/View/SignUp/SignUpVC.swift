@@ -39,24 +39,10 @@ class SignUpVC: UIViewController {
                                         switch result {
                                         case .success(let success):
                                             print(success)
-                                            DispatchQueue.main.async {
-                                                LoaderVCViewModel.shared.hideLoader()
-                                                Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
-                                                    if let destinationVC = destinationVC {
-                                                        self.navigationController?.pushViewController(destinationVC, animated: true)
-                                                    }
-                                                }
-                                            }
+                                            self.saveUserToCoreData(uid:uid)
                                         case .failure(let failure):
                                             print(failure)
-                                            DispatchQueue.main.async {
-                                                LoaderVCViewModel.shared.hideLoader()
-                                                Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
-                                                    if let destinationVC = destinationVC {
-                                                        self.navigationController?.pushViewController(destinationVC, animated: true)
-                                                    }
-                                                }
-                                            }
+                                            self.saveUserToCoreData(uid:uid)
                                         }
                                     }
                                 }
@@ -103,6 +89,31 @@ class SignUpVC: UIViewController {
     func updateTxtFlds(){
         emailTxtFld.placeholder = "Enter email"
         passwordTxtFld.placeholder = "Enter password"
+    }
+    
+    func saveUserToCoreData(uid:String){
+        DispatchQueue.main.async {
+            LoaderVCViewModel.shared.hideLoader()
+            Alert.shared.alertYesNo(title: "Save User!", message: "Do you want to save user?.", presentingViewController: self) { _ in
+                print("Yes")
+                if let email = self.emailTxtFld.text , let password = self.passwordTxtFld.text {
+                    CDUserManager.shared.createUser(user: CDUsersModel(id: UUID(), email: email, password: password, uid: uid)) { _ in
+                        self.gotoMainTab()
+                    }
+                }
+            } noHandler: { _ in
+                print("No")
+                self.gotoMainTab()
+            }
+        }
+    }
+    
+    func gotoMainTab(){
+        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
+            if let destinationVC = destinationVC {
+                self.navigationController?.pushViewController(destinationVC, animated: true)
+            }
+        }
     }
     
 }
