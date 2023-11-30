@@ -31,14 +31,17 @@ class UsersProfileView: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if let user = user {
-            if let uid = user.uid , let followers = user.followers?.count , let followings = user.followings?.count {
+            if let uid = user.uid , let followers = user.followers?.count , let followings = user.followings?.count , let followersRequest = user.followersRequest {
                 
                 FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
                     switch result {
                     case.success(let userData):
-                        if let userData = userData {
-                            if let followings = userData.followings{
-                                if (followings.contains(uid)){
+                        if let userData = userData , let currentUid = userData.uid {
+                            if followersRequest.contains(currentUid){
+                                self.folloBtn.setTitle("Requested", for: .normal)
+                                self.msgBtn.isHidden = true
+                            }else if let userFollowings = user.followings{
+                                if (userFollowings.contains(currentUid)){
                                     self.folloBtn.setTitle("UnFollow", for: .normal)
                                     self.msgBtn.isHidden = false
                                     self.isFollow = false
