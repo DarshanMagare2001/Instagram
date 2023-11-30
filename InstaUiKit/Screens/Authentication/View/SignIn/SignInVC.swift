@@ -129,7 +129,7 @@ class SignInVC: UIViewController {
         }
     }
     
-    func fetchCoreDataUsers() async{
+    func fetchCoreDataUsers() async {
         do{
             let users = try await CDUserManager.shared.readUser()
             if let users = users {
