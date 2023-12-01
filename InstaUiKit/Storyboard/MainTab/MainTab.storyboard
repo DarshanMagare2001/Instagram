@@ -364,13 +364,31 @@
                                     <action selector="backBtnPressed:" destination="cma-5Y-hQI" eventType="touchUpInside" id="DiB-d8-rov"/>
                                 </connections>
                             </button>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="PpO-Yg-Mu1">
-                                <rect key="frame" x="20" y="70" width="280" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chats" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brs-rO-fEP">
+                                <rect key="frame" x="136" y="15" width="48" height="20.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J2r-tB-Eet">
+                                <rect key="frame" x="0.0" y="50" width="320" height="90"/>
+                                <subviews>
+                                    <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="PpO-Yg-Mu1">
+                                        <rect key="frame" x="20" y="20" width="280" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="uaP-c6-49Q"/>
+                                        </constraints>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="BJO-yp-aec"/>
+                                    <constraint firstAttribute="trailing" secondItem="PpO-Yg-Mu1" secondAttribute="trailing" constant="20" id="63N-Zv-oFi"/>
+                                    <constraint firstItem="PpO-Yg-Mu1" firstAttribute="top" secondItem="J2r-tB-Eet" secondAttribute="top" constant="20" id="K3e-EY-sRT"/>
+                                    <constraint firstItem="PpO-Yg-Mu1" firstAttribute="leading" secondItem="J2r-tB-Eet" secondAttribute="leading" constant="20" id="X5o-pO-KjR"/>
+                                    <constraint firstAttribute="bottom" secondItem="PpO-Yg-Mu1" secondAttribute="bottom" constant="20" id="iVE-og-k6n"/>
                                 </constraints>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8ut-ot-BsM">
                                 <rect key="frame" x="0.0" y="140" width="320" height="428"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -441,26 +459,28 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chats" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brs-rO-fEP">
-                                <rect key="frame" x="136" y="15" width="48" height="20.5"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fGL-re-bjb">
+                                <rect key="frame" x="0.0" y="568" width="320" height="0.0"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ebz-02-VRj"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
-                            <constraint firstItem="8ut-ot-BsM" firstAttribute="top" secondItem="PpO-Yg-Mu1" secondAttribute="bottom" constant="20" id="3IK-7r-jgs"/>
+                            <constraint firstItem="J2r-tB-Eet" firstAttribute="top" secondItem="VNr-bX-gHD" secondAttribute="bottom" id="2Mu-rf-bgD"/>
+                            <constraint firstItem="J2r-tB-Eet" firstAttribute="leading" secondItem="ebz-02-VRj" secondAttribute="leading" id="DRd-dw-Y6t"/>
+                            <constraint firstItem="8ut-ot-BsM" firstAttribute="top" secondItem="J2r-tB-Eet" secondAttribute="bottom" id="DSt-N1-x1I"/>
+                            <constraint firstAttribute="bottom" secondItem="fGL-re-bjb" secondAttribute="bottom" id="F8r-Ou-khZ"/>
                             <constraint firstItem="brs-rO-fEP" firstAttribute="centerX" secondItem="pLs-LB-hTG" secondAttribute="centerX" id="J1w-w4-q0n"/>
                             <constraint firstItem="brs-rO-fEP" firstAttribute="top" secondItem="ebz-02-VRj" secondAttribute="top" constant="15" id="LbM-oa-Phn"/>
                             <constraint firstItem="VNr-bX-gHD" firstAttribute="top" secondItem="ebz-02-VRj" secondAttribute="top" id="PYl-Dk-otR"/>
-                            <constraint firstItem="PpO-Yg-Mu1" firstAttribute="leading" secondItem="ebz-02-VRj" secondAttribute="leading" constant="20" id="UH5-ht-iAW"/>
-                            <constraint firstItem="ebz-02-VRj" firstAttribute="bottom" secondItem="8ut-ot-BsM" secondAttribute="bottom" id="WAG-5I-mph"/>
+                            <constraint firstItem="ebz-02-VRj" firstAttribute="trailing" secondItem="fGL-re-bjb" secondAttribute="trailing" id="UGd-As-r51"/>
                             <constraint firstItem="VNr-bX-gHD" firstAttribute="leading" secondItem="ebz-02-VRj" secondAttribute="leading" id="iNX-pR-xrF"/>
+                            <constraint firstItem="fGL-re-bjb" firstAttribute="top" secondItem="8ut-ot-BsM" secondAttribute="bottom" id="juM-Bg-g9h"/>
+                            <constraint firstItem="ebz-02-VRj" firstAttribute="trailing" secondItem="J2r-tB-Eet" secondAttribute="trailing" id="kK2-qx-buN"/>
                             <constraint firstItem="ebz-02-VRj" firstAttribute="trailing" secondItem="8ut-ot-BsM" secondAttribute="trailing" id="lbQ-WG-Hva"/>
-                            <constraint firstAttribute="trailing" secondItem="PpO-Yg-Mu1" secondAttribute="trailing" constant="20" id="nbd-rF-7oe"/>
-                            <constraint firstItem="PpO-Yg-Mu1" firstAttribute="top" secondItem="VNr-bX-gHD" secondAttribute="bottom" constant="20" id="oLY-rG-ib6"/>
+                            <constraint firstItem="fGL-re-bjb" firstAttribute="leading" secondItem="ebz-02-VRj" secondAttribute="leading" id="wEk-E8-6KW"/>
+                            <constraint firstItem="ebz-02-VRj" firstAttribute="bottom" secondItem="8ut-ot-BsM" secondAttribute="bottom" id="wJ0-JL-lNt"/>
                             <constraint firstItem="8ut-ot-BsM" firstAttribute="leading" secondItem="ebz-02-VRj" secondAttribute="leading" id="yPY-1H-w3l"/>
                         </constraints>
                     </view>
