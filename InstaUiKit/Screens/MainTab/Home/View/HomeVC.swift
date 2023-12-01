@@ -41,6 +41,8 @@ class HomeVC: UIViewController {
                 if notificationCount != 0 {
                     self.notificationLbl.isHidden = false
                     self.notificationLbl.text = "\(notificationCount)"
+                }else{
+                    self.notificationLbl.isHidden = true
                 }
             case.failure(let error):
                 print(error)
