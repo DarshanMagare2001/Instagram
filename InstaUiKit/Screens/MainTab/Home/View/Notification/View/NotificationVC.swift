@@ -40,6 +40,14 @@ class NotificationVC: UIViewController {
 }
 
 extension NotificationVC : UITableViewDelegate , UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1  // Assuming you only have one section for follow requests
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Follow Requests"
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currentUser?.followersRequest?.count ?? 0
     }
