@@ -441,11 +441,19 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chats" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brs-rO-fEP">
+                                <rect key="frame" x="136" y="15" width="48" height="20.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ebz-02-VRj"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="8ut-ot-BsM" firstAttribute="top" secondItem="PpO-Yg-Mu1" secondAttribute="bottom" constant="20" id="3IK-7r-jgs"/>
+                            <constraint firstItem="brs-rO-fEP" firstAttribute="centerX" secondItem="pLs-LB-hTG" secondAttribute="centerX" id="J1w-w4-q0n"/>
+                            <constraint firstItem="brs-rO-fEP" firstAttribute="top" secondItem="ebz-02-VRj" secondAttribute="top" constant="15" id="LbM-oa-Phn"/>
                             <constraint firstItem="VNr-bX-gHD" firstAttribute="top" secondItem="ebz-02-VRj" secondAttribute="top" id="PYl-Dk-otR"/>
                             <constraint firstItem="PpO-Yg-Mu1" firstAttribute="leading" secondItem="ebz-02-VRj" secondAttribute="leading" constant="20" id="UH5-ht-iAW"/>
                             <constraint firstItem="ebz-02-VRj" firstAttribute="bottom" secondItem="8ut-ot-BsM" secondAttribute="bottom" id="WAG-5I-mph"/>
