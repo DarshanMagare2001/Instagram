@@ -56,15 +56,23 @@ extension NotificationVC : UITableViewDelegate , UITableViewDataSource {
                         cell.acceptBtnBtnTapped = { [weak self] in
                             self?.viewModel.acceptFollowRequest(toFollowsUid: cellData.uid, whoFollowingsUid: uid){ bool in
                                 if let toFollowsUid = cellData.uid {
-                                    StoreUserInfo.shared.saveFollowingsToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: uid) { _ in}
+                                    StoreUserInfo.shared.saveFollowingsToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: uid) { _ in
+                                        self?.removeFollowRequest(toFollowsUid: toFollowsUid, whoFollowingsUid: uid) { bool in
+                                            self?.tableViewOutlet.reloadData()
+                                        }
+                                    }
                                 }
                             }
                         }
                         
                         cell.rejectBtnBtnBtnTapped = { [weak self] in
-                            
-                            
+                            if let toFollowsUid = cellData.uid {
+                                self?.removeFollowRequest(toFollowsUid: toFollowsUid, whoFollowingsUid: uid) { bool in
+                                    self?.tableViewOutlet.reloadData()
+                                }
+                            }
                         }
+                        
                     }
                 case.failure(let error):
                     print(error)
@@ -87,6 +95,22 @@ extension NotificationVC : UITableViewDelegate , UITableViewDataSource {
                     }
                 case.failure(let error):
                     print(error)
+                }
+            }
+        }
+    }
+    
+    func removeFollowRequest(toFollowsUid:String?,whoFollowingsUid:String?,completion:@escaping (Bool) -> Void){
+        if let toFollowsUid = toFollowsUid , let whoFollowingsUid = whoFollowingsUid {
+            StoreUserInfo.shared.removeFollowerRequestFromFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
+                switch result {
+                case.success(let success):
+                    StoreUserInfo.shared.removeFollowingRequestFromFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { _ in
+                        completion(true)
+                    }
+                case.failure(let error):
+                    print(error)
+                    completion(false)
                 }
             }
         }
