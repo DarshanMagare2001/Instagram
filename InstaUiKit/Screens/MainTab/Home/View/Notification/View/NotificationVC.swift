@@ -61,4 +61,23 @@ extension NotificationVC : UITableViewDelegate , UITableViewDataSource {
         }
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard.MainTab
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "UsersProfileView") as! UsersProfileView
+        if let cellData = currentUser , let uid = cellData.followersRequest?[indexPath.row] {
+            FetchUserInfo.shared.fetchUserDataByUid(uid:uid) { result in
+                switch result {
+                case.success(let user):
+                    if let user = user {
+                        destinationVC.user = user
+                        self.navigationController?.pushViewController(destinationVC, animated: true)
+                    }
+                case.failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
 }
