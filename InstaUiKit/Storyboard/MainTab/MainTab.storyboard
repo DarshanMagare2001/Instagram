@@ -70,14 +70,17 @@
                                                             <action selector="notificationBtnPressed:" destination="cUk-uZ-knu" eventType="touchUpInside" id="7h9-3l-rzK"/>
                                                         </connections>
                                                     </button>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RZb-BH-rZw" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OrU-0s-3dD" customClass="CircularLabel" customModule="InstaUiKit" customModuleProvider="target">
                                                         <rect key="frame" x="25" y="5" width="20" height="20"/>
                                                         <color key="backgroundColor" red="0.96222625120000005" green="0.126841227" blue="0.00032375610800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="20" id="B2T-bA-yP3"/>
-                                                            <constraint firstAttribute="width" constant="20" id="hvp-21-zEZ"/>
+                                                            <constraint firstAttribute="width" constant="20" id="AGx-Sy-nhE"/>
+                                                            <constraint firstAttribute="height" constant="20" id="eQ3-ZZ-wqO"/>
                                                         </constraints>
-                                                    </view>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                 <constraints>
@@ -85,8 +88,8 @@
                                                     <constraint firstAttribute="bottom" secondItem="2gU-Ex-EuG" secondAttribute="bottom" id="4le-vx-AAu"/>
                                                     <constraint firstItem="2gU-Ex-EuG" firstAttribute="top" secondItem="Jz1-xW-vmm" secondAttribute="top" id="QiP-7j-TnE"/>
                                                     <constraint firstAttribute="trailing" secondItem="2gU-Ex-EuG" secondAttribute="trailing" id="Wwz-oM-joE"/>
-                                                    <constraint firstAttribute="trailing" secondItem="RZb-BH-rZw" secondAttribute="trailing" constant="5" id="jBd-To-DeR"/>
-                                                    <constraint firstItem="RZb-BH-rZw" firstAttribute="top" secondItem="Jz1-xW-vmm" secondAttribute="top" constant="5" id="soK-O0-r7J"/>
+                                                    <constraint firstItem="OrU-0s-3dD" firstAttribute="top" secondItem="Jz1-xW-vmm" secondAttribute="top" constant="5" id="b1p-Zn-gQv"/>
+                                                    <constraint firstAttribute="trailing" secondItem="OrU-0s-3dD" secondAttribute="trailing" constant="5" id="wZU-qd-eud"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="euo-zO-rwy">
@@ -105,23 +108,26 @@
                                                             <action selector="directMsgBtnPressed:" destination="cUk-uZ-knu" eventType="touchUpInside" id="56B-0h-Zyr"/>
                                                         </connections>
                                                     </button>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jA9-5n-FEw" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sFj-L9-gdB" customClass="CircularLabel" customModule="InstaUiKit" customModuleProvider="target">
                                                         <rect key="frame" x="25" y="5" width="20" height="20"/>
                                                         <color key="backgroundColor" red="0.96222625120000005" green="0.126841227" blue="0.00032375610800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="20" id="6sn-sO-mhC"/>
-                                                            <constraint firstAttribute="height" constant="20" id="bL9-gY-GjU"/>
+                                                            <constraint firstAttribute="width" constant="20" id="87Q-Bk-a0S"/>
+                                                            <constraint firstAttribute="height" constant="20" id="IfH-6K-Vj0"/>
                                                         </constraints>
-                                                    </view>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="jA9-5n-FEw" secondAttribute="trailing" constant="5" id="4W1-t5-qu0"/>
                                                     <constraint firstItem="6uv-cv-S6P" firstAttribute="leading" secondItem="euo-zO-rwy" secondAttribute="leading" id="Sx3-kw-y0c"/>
                                                     <constraint firstAttribute="bottom" secondItem="6uv-cv-S6P" secondAttribute="bottom" id="giC-kX-uhk"/>
                                                     <constraint firstAttribute="trailing" secondItem="6uv-cv-S6P" secondAttribute="trailing" id="hCY-fj-ebC"/>
+                                                    <constraint firstAttribute="trailing" secondItem="sFj-L9-gdB" secondAttribute="trailing" constant="5" id="j3s-9N-vVl"/>
                                                     <constraint firstItem="6uv-cv-S6P" firstAttribute="top" secondItem="euo-zO-rwy" secondAttribute="top" id="lBh-P8-ifL"/>
-                                                    <constraint firstItem="jA9-5n-FEw" firstAttribute="top" secondItem="euo-zO-rwy" secondAttribute="top" constant="5" id="piU-zr-fPN"/>
+                                                    <constraint firstItem="sFj-L9-gdB" firstAttribute="top" secondItem="euo-zO-rwy" secondAttribute="top" constant="5" id="yMb-BY-EGu"/>
                                                 </constraints>
                                             </view>
                                         </subviews>

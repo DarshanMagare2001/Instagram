@@ -189,6 +189,16 @@ class ViewWithBorder: UIView {
     }
 }
 
+class CircularLabel: UILabel {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        // Set the corner radius to half of the view's width to make it a circle
+        layer.cornerRadius = bounds.width / 2
+        layer.masksToBounds = true
+    }
+}
+
 @IBDesignable
 class RoundedCornerView: UIView {
     // Custom corner radius value
@@ -206,3 +216,4 @@ class RoundedCornerView: UIView {
         layer.masksToBounds = cornerRadius > 0
     }
 }
+
