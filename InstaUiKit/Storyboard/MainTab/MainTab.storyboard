@@ -333,7 +333,9 @@
                         <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
                     <connections>
+                        <outlet property="directMsgNotificationLbl" destination="sFj-L9-gdB" id="97H-Kg-nRh"/>
                         <outlet property="feedTableView" destination="wRA-dK-GUe" id="AIy-JC-yre"/>
+                        <outlet property="notificationLbl" destination="OrU-0s-3dD" id="YBy-xa-nxj"/>
                         <outlet property="storiesCollectionView" destination="vJS-b4-9bH" id="Q80-Hm-TYJ"/>
                         <outlet property="userImg" destination="Png-ox-dSp" id="6uD-5D-o6e"/>
                     </connections>

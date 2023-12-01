@@ -14,6 +14,8 @@ class HomeVC: UIViewController {
     @IBOutlet weak var feedTableView: UITableView!
     @IBOutlet weak var storiesCollectionView: UICollectionView!
     @IBOutlet weak var userImg: CircleImageView!
+    @IBOutlet weak var notificationLbl: CircularLabel!
+    @IBOutlet weak var directMsgNotificationLbl: CircularLabel!
     
     var imgURL: URL?
     var userName: String?
@@ -36,6 +38,10 @@ class HomeVC: UIViewController {
             switch result {
             case.success(let notificationCount):
                 print(notificationCount)
+                if notificationCount != 0 {
+                    self.notificationLbl.isHidden = false
+                    self.notificationLbl.text = "\(notificationCount)"
+                }
             case.failure(let error):
                 print(error)
             }
@@ -109,6 +115,10 @@ class HomeVC: UIViewController {
 
 extension HomeVC {
     func updateUI() {
+        
+        notificationLbl.isHidden = true
+        directMsgNotificationLbl.isHidden = true
+        
         disPatchGroup.enter()
         DispatchQueue.main.async {
             self.fetchData()
