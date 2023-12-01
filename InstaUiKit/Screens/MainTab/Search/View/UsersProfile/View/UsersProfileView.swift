@@ -22,7 +22,7 @@ class UsersProfileView: UIViewController {
     var allPost = [PostModel]()
     var user : UserModel?
     var viewModel = UsersProfileViewModel()
-    var isFollow = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.msgBtn.isHidden = true
@@ -40,15 +40,13 @@ class UsersProfileView: UIViewController {
                             if followersRequest.contains(currentUid){
                                 self.folloBtn.setTitle("Requested", for: .normal)
                                 self.msgBtn.isHidden = true
-                            }else if let userFollowings = user.followings{
+                            }else if let userFollowings = user.followers{
                                 if (userFollowings.contains(currentUid)){
                                     self.folloBtn.setTitle("UnFollow", for: .normal)
                                     self.msgBtn.isHidden = false
-                                    self.isFollow = false
                                 }else{
                                     self.folloBtn.setTitle("Follow", for: .normal)
                                     self.msgBtn.isHidden = true
-                                    self.isFollow = true
                                 }
                             }
                         }
