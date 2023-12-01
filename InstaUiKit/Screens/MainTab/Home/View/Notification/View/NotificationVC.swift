@@ -12,7 +12,7 @@ class NotificationVC: UIViewController {
     @IBOutlet weak var tableViewOutlet: UITableView!
     
     var currentUser : UserModel?
-    
+    var viewModel = NotificationViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchCurrentUser()
@@ -53,6 +53,18 @@ extension NotificationVC : UITableViewDelegate , UITableViewDataSource {
                     if let user = user , let imgUrl = user.imageUrl , let name = user.name {
                         cell.name.text = name
                         ImageLoader.loadImage(for: URL(string:imgUrl), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                        cell.acceptBtnBtnTapped = { [weak self] in
+                            self?.viewModel.acceptFollowRequest(toFollowsUid: cellData.uid, whoFollowingsUid: uid){ bool in
+                                if let toFollowsUid = cellData.uid {
+                                    StoreUserInfo.shared.saveFollowingsToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: uid) { _ in}
+                                }
+                            }
+                        }
+                        
+                        cell.rejectBtnBtnBtnTapped = { [weak self] in
+                            
+                            
+                        }
                     }
                 case.failure(let error):
                     print(error)
