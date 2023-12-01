@@ -31,6 +31,17 @@ class HomeVC: UIViewController {
         configureUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.fetchAllNotifications { result in
+            switch result {
+            case.success(let notificationCount):
+                print(notificationCount)
+            case.failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     private func configureTableView() {
         let nib = UINib(nibName: "FeedCell", bundle: nil)
         feedTableView.register(nib, forCellReuseIdentifier: "FeedCell")

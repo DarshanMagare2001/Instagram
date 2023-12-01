@@ -8,6 +8,7 @@
 import Foundation
 
 class HomeVCViewModel {
+    
     func fetchAllPostsOfFollowings(completion: @escaping (Result<[PostModel]?, Error>) -> Void) {
         FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
             switch result {
@@ -61,6 +62,20 @@ class HomeVCViewModel {
                 }
             case.failure(let error):
                 print(error)
+            }
+        }
+    }
+    
+    func fetchAllNotifications(completion:@escaping (Result<Int , Error>) -> Void){
+        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+            switch result {
+            case.success(let user):
+                if let user = user {
+                    completion(.success(user.followersRequest?.count ?? 0))
+                }
+            case.failure(let error):
+                print(error)
+                completion(.failure(error))
             }
         }
     }
