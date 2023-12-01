@@ -59,6 +59,7 @@ class ChatVC: UIViewController {
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "UsersProfileView") as! UsersProfileView
         guard let receiverUser = receiverUser else { return }
         destinationVC.user = receiverUser
+        destinationVC.isFollowAndBtnShow = false
         navigationController?.pushViewController(destinationVC, animated: true)
     }
     
