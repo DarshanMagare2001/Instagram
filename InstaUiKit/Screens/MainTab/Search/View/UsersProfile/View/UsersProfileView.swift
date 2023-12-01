@@ -22,7 +22,7 @@ class UsersProfileView: UIViewController {
     var allPost = [PostModel]()
     var user : UserModel?
     var viewModel = UsersProfileViewModel()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.msgBtn.isHidden = true

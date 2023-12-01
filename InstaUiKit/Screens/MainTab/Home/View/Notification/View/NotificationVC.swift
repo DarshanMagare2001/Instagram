@@ -58,7 +58,10 @@ extension NotificationVC : UITableViewDelegate , UITableViewDataSource {
                                 if let toFollowsUid = cellData.uid {
                                     StoreUserInfo.shared.saveFollowingsToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: uid) { _ in
                                         self?.removeFollowRequest(toFollowsUid: toFollowsUid, whoFollowingsUid: uid) { bool in
-                                            self?.tableViewOutlet.reloadData()
+                                            if let fmcToken = user.fcmToken , let name = cellData.name {
+                                                PushNotification.shared.sendPushNotification(to: fmcToken, title: "Request Accepted" , body: "\(name) Accepted your follow request.")
+                                            }
+                                            self?.fetchCurrentUser()
                                         }
                                     }
                                 }
@@ -68,7 +71,7 @@ extension NotificationVC : UITableViewDelegate , UITableViewDataSource {
                         cell.rejectBtnBtnBtnTapped = { [weak self] in
                             if let toFollowsUid = cellData.uid {
                                 self?.removeFollowRequest(toFollowsUid: toFollowsUid, whoFollowingsUid: uid) { bool in
-                                    self?.tableViewOutlet.reloadData()
+                                    self?.fetchCurrentUser()
                                 }
                             }
                         }
