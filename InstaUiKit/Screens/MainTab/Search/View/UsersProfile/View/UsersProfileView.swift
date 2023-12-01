@@ -21,13 +21,13 @@ class UsersProfileView: UIViewController {
     
     var allPost = [PostModel]()
     var user : UserModel?
-    var isFollowAndBtnShow : Bool?
+    var isFollowAndMsgBtnShow : Bool?
     var viewModel = UsersProfileViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.msgBtn.isHidden = true
-        if !isFollowAndBtnShow!{
+        if !isFollowAndMsgBtnShow!{
             folloBtn.isHidden = true
             msgBtn.isHidden = true
         }
@@ -39,7 +39,7 @@ class UsersProfileView: UIViewController {
         if let user = user {
             if let uid = user.uid , let followers = user.followers?.count , let followings = user.followings?.count , let followersRequest = user.followersRequest {
                 
-                if isFollowAndBtnShow!{
+                if isFollowAndMsgBtnShow!{
                     FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
                         switch result {
                         case.success(let userData):

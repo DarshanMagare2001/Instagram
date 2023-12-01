@@ -133,12 +133,12 @@ extension FollowersAndFollowingVC : UITableViewDelegate , UITableViewDataSource 
         if segmentIndex == 0 {
             let data = filterdFollowers[indexPath.row]
             destinationVC.user = data
-            destinationVC.isFollowAndBtnShow = true
+            destinationVC.isFollowAndMsgBtnShow = true
             self.navigationController?.pushViewController(destinationVC, animated: true)
         }else{
             let data = filterdFollowings[indexPath.row]
             destinationVC.user = data
-            destinationVC.isFollowAndBtnShow = true
+            destinationVC.isFollowAndMsgBtnShow = true
             self.navigationController?.pushViewController(destinationVC, animated: true)
         }
     }
