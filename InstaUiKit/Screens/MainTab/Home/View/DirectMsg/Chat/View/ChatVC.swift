@@ -47,7 +47,21 @@ class ChatVC: UIViewController {
                 }
             }
         }
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(userImageTapped))
+        userImg.addGestureRecognizer(tapGesture)
+        userImg.isUserInteractionEnabled = true
+        
     }
+    
+    @objc func userImageTapped() {
+        let storyboard = UIStoryboard.MainTab
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "UsersProfileView") as! UsersProfileView
+        guard let receiverUser = receiverUser else { return }
+        destinationVC.user = receiverUser
+        navigationController?.pushViewController(destinationVC, animated: true)
+    }
+    
     
     @IBAction func backBtnPressed(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
