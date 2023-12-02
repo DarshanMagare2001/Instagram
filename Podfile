@@ -11,4 +11,7 @@ target 'InstaUiKit' do
 use_frameworks!
 pod 'ADCountryPicker', '~> 2.1.0'
 pod 'IQKeyboardManagerSwift'
+pod 'MessageKit'
+pod 'JGProgressHUD'
+pod 'RealmSwift'
 end

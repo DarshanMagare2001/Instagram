@@ -1,20 +1,44 @@
 PODS:
   - ADCountryPicker (2.1.0)
+  - InputBarAccessoryView (5.5.0):
+    - InputBarAccessoryView/Core (= 5.5.0)
+  - InputBarAccessoryView/Core (5.5.0)
   - IQKeyboardManagerSwift (6.5.16)
+  - JGProgressHUD (2.2)
+  - MessageKit (3.8.0):
+    - InputBarAccessoryView (~> 5.5.0)
+  - Realm (10.43.1):
+    - Realm/Headers (= 10.43.1)
+  - Realm/Headers (10.43.1)
+  - RealmSwift (10.43.1):
+    - Realm (= 10.43.1)
 
 DEPENDENCIES:
   - ADCountryPicker (~> 2.1.0)
   - IQKeyboardManagerSwift
+  - JGProgressHUD
+  - MessageKit
+  - RealmSwift
 
 SPEC REPOS:
   trunk:
     - ADCountryPicker
+    - InputBarAccessoryView
     - IQKeyboardManagerSwift
+    - JGProgressHUD
+    - MessageKit
+    - Realm
+    - RealmSwift
 
 SPEC CHECKSUMS:
   ADCountryPicker: 502cee76a30ea1c3834eb0df170ce635691655c9
+  InputBarAccessoryView: 1d7b0a672b36e370f01f264b3907ef39d03328e3
   IQKeyboardManagerSwift: 12d89768845bb77b55cc092ecc2b1f9370f06b76
+  JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
+  MessageKit: a1ba0c69ebead94029867853eb44dd05b9b3f453
+  Realm: d97b438de77459e443bd2c8ad5ca0f95107aee4b
+  RealmSwift: 6be3f27a7fd3f5cc8f99f4b187cc4e7150299e32
 
-PODFILE CHECKSUM: 16650bbab769a4262ca60dc8e7b3381a46e3b5e9
+PODFILE CHECKSUM: cca5a3c93f8db6b9d17047639ba1029e3bfc87fe
 
 COCOAPODS: 1.11.2
