@@ -18,7 +18,7 @@ class ChatVC: MessagesViewController {
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         messageInputBar.delegate = self
-        
+        let tapHideKeyboardGes = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         
         FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
             switch result {
@@ -39,6 +39,10 @@ class ChatVC: MessagesViewController {
             }
         }
         
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
     }
     
     func sendMessage(text: String) {
