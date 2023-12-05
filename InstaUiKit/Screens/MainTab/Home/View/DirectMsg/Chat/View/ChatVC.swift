@@ -30,7 +30,12 @@ class ChatVC: MessagesViewController {
         sendButton.tintColor = .black
         sendButton.onTouchUpInside { [weak self] _ in
             // Handle the send button tap
-            self?.sendMessage(text: self?.messageInputBar.inputTextView.text ?? "")
+            self?.sendMessage(text: self?.messageInputBar.inputTextView.text ?? ""){ msg in
+                if let fmcToken = self?.receiverUser?.fcmToken , let name = self?.currentUserModel?.name , let msg = msg {
+                    print(fmcToken)
+                    PushNotification.shared.sendPushNotification(to: fmcToken, title: name, body: msg)
+                }
+            }
             self?.messageInputBar.inputTextView.text = ""
         }
         
@@ -124,11 +129,10 @@ class ChatVC: MessagesViewController {
     }
     
     
-    func sendMessage(text: String) {
+    func sendMessage(text: String,completion:@escaping (String?) -> Void) {
         guard let currentUser = currentUser, let receiverUserId = receiverUser?.uid else {
             return
         }
-        
         let messageRef = viewModel.messagesRef.childByAutoId()
         let message = [
             "senderId": currentUser.senderId,
@@ -138,8 +142,8 @@ class ChatVC: MessagesViewController {
             "kind": "text",
             "text": text
         ]
-        
         messageRef.setValue(message)
+        completion(text)
     }
 }
 
@@ -188,7 +192,11 @@ extension ChatVC: MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDel
 
 extension ChatVC: InputBarAccessoryViewDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
-        sendMessage(text: text)
+        sendMessage(text: text){ msg in
+            if let fmcToken = self.receiverUser?.fcmToken , let name = self.currentUserModel?.name , let msg = msg {
+                PushNotification.shared.sendPushNotification(to: fmcToken, title: name, body: msg)
+            }
+        }
         inputBar.inputTextView.text = ""
     }
 }

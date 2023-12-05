@@ -17,7 +17,7 @@ class PushNotification {
             return
         }
 
-        let serverKey = "AAAAVisTDNY:APA91bHsr0doWbLx0HC9K1Wr54BEWtDdD8unOhppRrg8IONF3kl0OMr3zUjbv7MooIvkF630yP1A95QvEIXDhGF-5P3kb0Koh_FzjmVSKk7hok8yvHLUKwfbZpN1XxiFbRQnvpBgvKU1"
+        let serverKey = "AAAAVisTDNY:APA91bGvVePvhZ7F5RzIHElsmPdCPpguA5onuTT5Lpn6tFgzW_8KL0-_S9fyzOtt9_i_pGLuSf0OZUqeHut5bfuITtSDqAKAAOMIWcnW3IjLJxPQ254GfnztD7uY8stv7BRkMECDLJ-1"
         let headers: [String: String] = [
             "Content-Type": "application/json",
             "Authorization": "key=\(serverKey)"
