@@ -24,6 +24,12 @@ class DirectMsgVC: UIViewController {
         fetchUsers(){ _ in}
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+  
     @objc private func refresh() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.fetchUsers(){ value in

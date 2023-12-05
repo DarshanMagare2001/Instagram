@@ -59,6 +59,11 @@ class ChatVC: MessagesViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     @objc func hideKeyboard() {
         view.endEditing(true)
     }
