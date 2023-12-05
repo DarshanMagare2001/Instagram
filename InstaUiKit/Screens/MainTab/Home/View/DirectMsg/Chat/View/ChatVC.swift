@@ -62,6 +62,14 @@ class ChatVC: MessagesViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationItem.hidesBackButton = true
+        let backButton = UIBarButtonItem(image: UIImage(named: "BackArrow"), style: .plain, target: self, action: #selector(backButtonPressed))
+        backButton.tintColor = .black
+        navigationItem.leftBarButtonItem = backButton
+    }
+    
+    @objc func backButtonPressed() {
+        navigationController?.popViewController(animated: true)
     }
     
     @objc func hideKeyboard() {
