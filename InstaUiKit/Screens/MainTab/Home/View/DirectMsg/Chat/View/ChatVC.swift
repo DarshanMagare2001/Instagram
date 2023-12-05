@@ -63,10 +63,39 @@ class ChatVC: MessagesViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
         navigationItem.hidesBackButton = true
+
+        // Back button
         let backButton = UIBarButtonItem(image: UIImage(named: "BackArrow"), style: .plain, target: self, action: #selector(backButtonPressed))
         backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
+
+        // User profile view
+        let userProfileView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40)) // Reduced width to 120
+
+        // Add user profile image view
+        let userProfileImageView = UIImageView(frame: CGRect(x: -120, y: 0, width: 40, height: 40))
+        userProfileImageView.contentMode = .scaleAspectFill
+        userProfileImageView.layer.cornerRadius = 20
+        userProfileImageView.clipsToBounds = true
+        if let imgUrl = receiverUser?.imageUrl {
+            userProfileImageView.sd_setImage(with: URL(string: imgUrl))
+        }
+
+        // Add user name label
+        let userNameLabel = UILabel(frame: CGRect(x: -75, y: 0, width: 200, height: 44)) // Reduced width to 75
+        userNameLabel.text = receiverUser?.name
+        userNameLabel.textColor = .black
+        userNameLabel.font = UIFont.systemFont(ofSize: 16)
+
+        // Add subviews to the custom view
+        userProfileView.addSubview(userProfileImageView)
+        userProfileView.addSubview(userNameLabel)
+
+        // Set the custom view as the titleView of the navigation item
+        navigationItem.titleView = userProfileView
     }
+
+    
     
     @objc func backButtonPressed() {
         navigationController?.popViewController(animated: true)
