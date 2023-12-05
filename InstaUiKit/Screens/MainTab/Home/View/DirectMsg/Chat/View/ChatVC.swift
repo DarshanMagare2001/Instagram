@@ -14,10 +14,28 @@ class ChatVC: MessagesViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
+        messageInputBar.isUserInteractionEnabled = true
+        messageInputBar.inputTextView.isUserInteractionEnabled = true
         messageInputBar.delegate = self
+        let sendButton = InputBarButtonItem()
+        sendButton.setSize(CGSize(width: 50, height: 50), animated: false)
+        let paperPlaneImage = UIImage(systemName: "paperplane")?.withRenderingMode(.alwaysTemplate)
+        sendButton.setImage(paperPlaneImage, for: .normal)
+        sendButton.tintColor = .black
+        sendButton.onTouchUpInside { [weak self] _ in
+            // Handle the send button tap
+            self?.sendMessage(text: self?.messageInputBar.inputTextView.text ?? "")
+            self?.messageInputBar.inputTextView.text = ""
+        }
+        
+        // Set the custom button as the sendButton
+        messageInputBar.setRightStackViewWidthConstant(to: 50, animated: false)
+        messageInputBar.setStackViewItems([sendButton], forStack: .right, animated: false)
+        
         let tapHideKeyboardGes = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         
         FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
@@ -44,6 +62,7 @@ class ChatVC: MessagesViewController {
     @objc func hideKeyboard() {
         view.endEditing(true)
     }
+    
     
     func sendMessage(text: String) {
         guard let currentUser = currentUser, let receiverUserId = receiverUser?.uid else {
