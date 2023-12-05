@@ -17,7 +17,7 @@ class ChatVC: MessagesViewController {
         messagesCollectionView.messagesDisplayDelegate = self
         messageInputBar.delegate = self
         
-    
+        
         FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case .success(let data):
@@ -35,7 +35,7 @@ class ChatVC: MessagesViewController {
                 print(error)
             }
         }
-       
+        
     }
     
     func sendMessage(text: String) {
@@ -75,6 +75,77 @@ extension ChatVC: MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDel
         isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
         return .bubbleTail(corner, .curved)
     }
+    
+    func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        if message.sender.senderId == currentUser?.senderId {
+            return #colorLiteral(red: 0.09133880585, green: 0.7034819722, blue: 0.9843640924, alpha: 1)
+        }
+        return .lightGray.withAlphaComponent(0.4)
+    }
+    
+    func footerViewSize(for section: Int, in messagesCollectionView: MessagesCollectionView) -> CGSize {
+        return CGSize(width: 0, height: 8) // -> Them khoang trong giua cac tin nhan
+    }
+    
+    //    func messageBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+    //        let currMsg = arrMessage[indexPath.section]
+    //        let arrDate = currMsg.strSentDate.split(separator: ",")
+    //        let strHour = arrDate[2]
+    //
+    //        if currMsg.isSeen == true && currUser?.senderId == currMsg.senderId && indexPath.section == numberOfMsg - 1 {
+    //            return 20
+    //        }
+    //        return 10
+    //    }
+    //
+    //    func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+    //
+    //        let currMsg = arrMessage[indexPath.section]
+    //        let arrDate = currMsg.strSentDate.split(separator: ",")
+    //        let strHour = arrDate[2]
+    //
+    //        if currMsg.isSeen == true && currUser?.senderId == currMsg.senderId && indexPath.section == numberOfMsg - 1 {
+    //            return NSAttributedString(
+    //                string: "√Seen",
+    //                attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
+    //        }
+    //        return nil
+    //    }
+    //
+    //
+    //
+    //    func cellTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+    //        if arrMessage.count > 1 && indexPath.section > 0 {
+    //
+    //            let prevMsg = arrMessage[indexPath.section - 1]
+    //            let currMsg = arrMessage[indexPath.section]
+    //
+    //            if currMsg.msgTimeStamp - prevMsg.msgTimeStamp > 60000 {
+    //                return 40
+    //            }
+    //
+    //        }
+    //        return 0
+    //    }
+    //
+    //    func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+    //
+    //        if arrMessage.count > 1 && indexPath.section > 0 {
+    //
+    //            let prevMsg = arrMessage[indexPath.section - 1]
+    //            let currMsg = arrMessage[indexPath.section]
+    //
+    //            if currMsg.msgTimeStamp - prevMsg.msgTimeStamp > 60000 {
+    //                return NSAttributedString(
+    //                    string: Util.getStringFromDate(format: " dd/MM/YYYY HH:mm", date: Date(timeIntervalSince1970: currMsg.msgTimeStamp / 1000)),
+    //                    attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
+    //            }
+    //
+    //        }
+    //        return nil
+    //
+    //    }
+    
 }
 
 extension ChatVC: InputBarAccessoryViewDelegate {
