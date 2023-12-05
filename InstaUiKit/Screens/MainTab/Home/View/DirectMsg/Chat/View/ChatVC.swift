@@ -2,6 +2,7 @@ import UIKit
 import MessageKit
 import InputBarAccessoryView
 import SDWebImage
+import JGProgressHUD
 
 
 class ChatVC: MessagesViewController {
@@ -10,11 +11,12 @@ class ChatVC: MessagesViewController {
     var receiverUser: UserModel?
     var messages: [Message] = []
     var viewModel = ChatVCModel()
+    var hud: JGProgressHUD?
     let dispatchGroup = DispatchGroup()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        hud = JGProgressHUD(style: .dark)
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
@@ -38,6 +40,12 @@ class ChatVC: MessagesViewController {
         
         let tapHideKeyboardGes = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         
+        fetchData()
+        
+    }
+    
+    func fetchData(){
+        showLoader()
         FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case .success(let data):
@@ -46,6 +54,7 @@ class ChatVC: MessagesViewController {
                     self.currentUser = Sender(senderId: currentUserId, displayName: displayName)
                     self.viewModel.observeMessages(currentUserId: currentUserId, receiverUserId: receiverId){ data in
                         if let data = data {
+                            self.hideLoader()
                             self.messages.append(data)
                             self.messagesCollectionView.reloadData()
                             self.messagesCollectionView.scrollToLastItem(animated: true)
@@ -54,24 +63,33 @@ class ChatVC: MessagesViewController {
                 }
             case .failure(let error):
                 print(error)
+                self.hideLoader()
             }
         }
-        
+    }
+    
+    func showLoader() {
+        hud?.textLabel.text = "Messages Fetching"
+        hud?.show(in: self.view)
+    }
+    
+    func hideLoader() {
+        hud?.dismiss()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
         navigationItem.hidesBackButton = true
-
+        
         // Back button
         let backButton = UIBarButtonItem(image: UIImage(named: "BackArrow"), style: .plain, target: self, action: #selector(backButtonPressed))
         backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
-
+        
         // User profile view
         let userProfileView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40)) // Reduced width to 120
-
+        
         // Add user profile image view
         let userProfileImageView = UIImageView(frame: CGRect(x: -120, y: 0, width: 40, height: 40))
         userProfileImageView.contentMode = .scaleAspectFill
@@ -80,21 +98,21 @@ class ChatVC: MessagesViewController {
         if let imgUrl = receiverUser?.imageUrl {
             userProfileImageView.sd_setImage(with: URL(string: imgUrl))
         }
-
+        
         // Add user name label
         let userNameLabel = UILabel(frame: CGRect(x: -75, y: 0, width: 200, height: 44)) // Reduced width to 75
         userNameLabel.text = receiverUser?.name
         userNameLabel.textColor = .black
         userNameLabel.font = UIFont.systemFont(ofSize: 16)
-
+        
         // Add subviews to the custom view
         userProfileView.addSubview(userProfileImageView)
         userProfileView.addSubview(userNameLabel)
-
+        
         // Set the custom view as the titleView of the navigation item
         navigationItem.titleView = userProfileView
     }
-
+    
     
     
     @objc func backButtonPressed() {
