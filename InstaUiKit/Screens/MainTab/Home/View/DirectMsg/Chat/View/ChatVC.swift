@@ -1,10 +1,12 @@
 import UIKit
-import Firebase
 import MessageKit
 import InputBarAccessoryView
+import SDWebImage
+
 
 class ChatVC: MessagesViewController {
     var currentUser: SenderType?
+    var currentUserModel: UserModel?
     var receiverUser: UserModel?
     var messages: [Message] = []
     var viewModel = ChatVCModel()
@@ -22,6 +24,7 @@ class ChatVC: MessagesViewController {
             switch result {
             case .success(let data):
                 if let data = data, let currentUserId = data.uid, let displayName = data.name, let receiverId = self.receiverUser?.uid {
+                    self.currentUserModel = data
                     self.currentUser = Sender(senderId: currentUserId, displayName: displayName)
                     self.viewModel.observeMessages(currentUserId: currentUserId, receiverUserId: receiverId){ data in
                         if let data = data {
@@ -87,65 +90,17 @@ extension ChatVC: MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDel
         return CGSize(width: 0, height: 8) // -> Them khoang trong giua cac tin nhan
     }
     
-    //    func messageBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-    //        let currMsg = arrMessage[indexPath.section]
-    //        let arrDate = currMsg.strSentDate.split(separator: ",")
-    //        let strHour = arrDate[2]
-    //
-    //        if currMsg.isSeen == true && currUser?.senderId == currMsg.senderId && indexPath.section == numberOfMsg - 1 {
-    //            return 20
-    //        }
-    //        return 10
-    //    }
-    //
-    //    func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-    //
-    //        let currMsg = arrMessage[indexPath.section]
-    //        let arrDate = currMsg.strSentDate.split(separator: ",")
-    //        let strHour = arrDate[2]
-    //
-    //        if currMsg.isSeen == true && currUser?.senderId == currMsg.senderId && indexPath.section == numberOfMsg - 1 {
-    //            return NSAttributedString(
-    //                string: "√Seen",
-    //                attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
-    //        }
-    //        return nil
-    //    }
-    //
-    //
-    //
-    //    func cellTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-    //        if arrMessage.count > 1 && indexPath.section > 0 {
-    //
-    //            let prevMsg = arrMessage[indexPath.section - 1]
-    //            let currMsg = arrMessage[indexPath.section]
-    //
-    //            if currMsg.msgTimeStamp - prevMsg.msgTimeStamp > 60000 {
-    //                return 40
-    //            }
-    //
-    //        }
-    //        return 0
-    //    }
-    //
-    //    func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-    //
-    //        if arrMessage.count > 1 && indexPath.section > 0 {
-    //
-    //            let prevMsg = arrMessage[indexPath.section - 1]
-    //            let currMsg = arrMessage[indexPath.section]
-    //
-    //            if currMsg.msgTimeStamp - prevMsg.msgTimeStamp > 60000 {
-    //                return NSAttributedString(
-    //                    string: Util.getStringFromDate(format: " dd/MM/YYYY HH:mm", date: Date(timeIntervalSince1970: currMsg.msgTimeStamp / 1000)),
-    //                    attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
-    //            }
-    //
-    //        }
-    //        return nil
-    //
-    //    }
-    
+    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        if message.sender.senderId == currentUser?.senderId {
+            if let imgUrl = currentUserModel?.imageUrl{
+                avatarView.sd_setImage(with: URL(string: imgUrl))
+            }
+        } else {
+            if let imgUrl = receiverUser?.imageUrl{
+                avatarView.sd_setImage(with: URL(string: imgUrl))
+            }
+        }
+    }
 }
 
 extension ChatVC: InputBarAccessoryViewDelegate {

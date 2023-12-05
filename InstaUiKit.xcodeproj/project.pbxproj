@@ -28,6 +28,8 @@
 		13127A942AF3BED1008C7927 /* ChatVCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13127A932AF3BED1008C7927 /* ChatVCViewModel.swift */; };
 		13127A962AF3CC67008C7927 /* ChatVCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13127A952AF3CC67008C7927 /* ChatVCModel.swift */; };
 		132847232AFCEB4600A2397F /* UsersProfileViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132847222AFCEB4600A2397F /* UsersProfileViewCell.swift */; };
+		1329391C2B1F2D0F003E9B92 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 1329391B2B1F2D0F003E9B92 /* SDWebImage */; };
+		1329391E2B1F2D0F003E9B92 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1329391D2B1F2D0F003E9B92 /* SDWebImageMapKit */; };
 		134F7F422AEF7C6800B6C31E /* UploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134F7F412AEF7C6800B6C31E /* UploadVC.swift */; };
 		1355B8D22B0CCB840027A2AF /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1355B8D12B0CCB840027A2AF /* Notification.swift */; };
 		1361C9672AFDEA9D00C00A71 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 1361C9662AFDEA9D00C00A71 /* SkeletonView */; };
@@ -212,10 +214,12 @@
 				138BC6022A73D8CB00020297 /* Kingfisher in Frameworks */,
 				13127A772AF36017008C7927 /* FirebaseFirestore in Frameworks */,
 				1361C9672AFDEA9D00C00A71 /* SkeletonView in Frameworks */,
+				1329391C2B1F2D0F003E9B92 /* SDWebImage in Frameworks */,
 				13127A812AF36017008C7927 /* FirebaseStorage in Frameworks */,
 				5FC7C3CDA91FEFEC6E4E489F /* Pods_InstaUiKit.framework in Frameworks */,
 				13DBE7692AEB76F90006F3B9 /* RxSwift in Frameworks */,
 				13127A792AF36017008C7927 /* FirebaseFirestoreSwift in Frameworks */,
+				1329391E2B1F2D0F003E9B92 /* SDWebImageMapKit in Frameworks */,
 				13127A7B2AF36017008C7927 /* FirebaseInAppMessaging-Beta in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1086,6 +1090,8 @@
 				13127A7E2AF36017008C7927 /* FirebaseMessaging */,
 				13127A802AF36017008C7927 /* FirebaseStorage */,
 				1361C9662AFDEA9D00C00A71 /* SkeletonView */,
+				1329391B2B1F2D0F003E9B92 /* SDWebImage */,
+				1329391D2B1F2D0F003E9B92 /* SDWebImageMapKit */,
 			);
 			productName = InstaUiKit;
 			productReference = 131166342A70FB9900CD0373 /* InstaUiKit.app */;
@@ -1120,6 +1126,7 @@
 				13DBE7652AEB76F90006F3B9 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				13127A6F2AF36017008C7927 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				1361C9652AFDEA9D00C00A71 /* XCRemoteSwiftPackageReference "SkeletonView" */,
+				1329391A2B1F2D0F003E9B92 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 131166352A70FB9900CD0373 /* Products */;
 			projectDirPath = "";
@@ -1507,6 +1514,14 @@
 				version = 9.6.0;
 			};
 		};
+		1329391A2B1F2D0F003E9B92 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.9.5;
+			};
+		};
 		1361C9652AFDEA9D00C00A71 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
@@ -1578,6 +1593,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 13127A6F2AF36017008C7927 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		1329391B2B1F2D0F003E9B92 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1329391A2B1F2D0F003E9B92 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		1329391D2B1F2D0F003E9B92 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1329391A2B1F2D0F003E9B92 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
 		};
 		1361C9662AFDEA9D00C00A71 /* SkeletonView */ = {
 			isa = XCSwiftPackageProductDependency;
