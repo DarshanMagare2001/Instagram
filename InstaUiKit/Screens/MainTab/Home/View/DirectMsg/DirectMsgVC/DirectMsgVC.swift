@@ -43,6 +43,14 @@ class DirectMsgVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    
+    @IBAction func addChatBtnPressed(_ sender: UIButton) {
+        let storyboard = UIStoryboard.MainTab
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "AddChatVC") as! AddChatVC
+        navigationController?.present(destinationVC, animated: true, completion: nil)
+    }
+
+    
     func fetchUsers(completion:@escaping (Bool) -> Void){
         FetchUserInfo.shared.fetchCurrentUserFromFirebase { [weak self] result in
             guard let self = self else { return }

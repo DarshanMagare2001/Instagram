@@ -462,6 +462,19 @@
                                 <rect key="frame" x="0.0" y="568" width="320" height="0.0"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k1U-uF-cfQ">
+                                <rect key="frame" x="270" y="0.0" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="bvp-YP-KeY"/>
+                                    <constraint firstAttribute="height" constant="50" id="op4-xd-gjf"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
+                                <connections>
+                                    <action selector="addChatBtnPressed:" destination="cma-5Y-hQI" eventType="touchUpInside" id="Z8i-Bi-Pdu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ebz-02-VRj"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
@@ -471,9 +484,11 @@
                             <constraint firstItem="8ut-ot-BsM" firstAttribute="top" secondItem="J2r-tB-Eet" secondAttribute="bottom" id="DSt-N1-x1I"/>
                             <constraint firstAttribute="bottom" secondItem="fGL-re-bjb" secondAttribute="bottom" id="F8r-Ou-khZ"/>
                             <constraint firstItem="brs-rO-fEP" firstAttribute="centerX" secondItem="pLs-LB-hTG" secondAttribute="centerX" id="J1w-w4-q0n"/>
+                            <constraint firstItem="ebz-02-VRj" firstAttribute="trailing" secondItem="k1U-uF-cfQ" secondAttribute="trailing" id="JE1-xo-9b2"/>
                             <constraint firstItem="brs-rO-fEP" firstAttribute="top" secondItem="ebz-02-VRj" secondAttribute="top" constant="15" id="LbM-oa-Phn"/>
                             <constraint firstItem="VNr-bX-gHD" firstAttribute="top" secondItem="ebz-02-VRj" secondAttribute="top" id="PYl-Dk-otR"/>
                             <constraint firstItem="ebz-02-VRj" firstAttribute="trailing" secondItem="fGL-re-bjb" secondAttribute="trailing" id="UGd-As-r51"/>
+                            <constraint firstItem="k1U-uF-cfQ" firstAttribute="top" secondItem="ebz-02-VRj" secondAttribute="top" id="eH9-g5-7ny"/>
                             <constraint firstItem="VNr-bX-gHD" firstAttribute="leading" secondItem="ebz-02-VRj" secondAttribute="leading" id="iNX-pR-xrF"/>
                             <constraint firstItem="fGL-re-bjb" firstAttribute="top" secondItem="8ut-ot-BsM" secondAttribute="bottom" id="juM-Bg-g9h"/>
                             <constraint firstItem="ebz-02-VRj" firstAttribute="trailing" secondItem="J2r-tB-Eet" secondAttribute="trailing" id="kK2-qx-buN"/>
@@ -673,6 +688,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Vt-hw-sch" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2107.5" y="1402.8169014084508"/>
+        </scene>
+        <!--Add ChatVC-->
+        <scene sceneID="3yC-Br-SHI">
+            <objects>
+                <viewController storyboardIdentifier="AddChatVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LCY-Uo-fW4" customClass="AddChatVC" customModule="InstaUiKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="n0x-1h-7tY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="h1w-Jn-xpP"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jH0-bf-2jf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1431" y="1401"/>
         </scene>
         <!--SearchVC-->
         <scene sceneID="GrE-8Q-M1k">
