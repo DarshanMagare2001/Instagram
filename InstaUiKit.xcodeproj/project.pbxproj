@@ -13,6 +13,7 @@
 		130C234E2B203CF80033B763 /* CDChatUsers+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C234C2B203CF80033B763 /* CDChatUsers+CoreDataClass.swift */; };
 		130C234F2B203CF80033B763 /* CDChatUsers+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C234D2B203CF80033B763 /* CDChatUsers+CoreDataProperties.swift */; };
 		130C23542B203D620033B763 /* CDChatUsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C23532B203D620033B763 /* CDChatUsersManager.swift */; };
+		130C23582B20469F0033B763 /* MessageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C23572B20469F0033B763 /* MessageLoader.swift */; };
 		131166382A70FB9900CD0373 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131166372A70FB9900CD0373 /* AppDelegate.swift */; };
 		1311663A2A70FB9900CD0373 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131166392A70FB9900CD0373 /* SceneDelegate.swift */; };
 		1311663F2A70FB9900CD0373 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1311663D2A70FB9900CD0373 /* Main.storyboard */; };
@@ -121,6 +122,7 @@
 		130C234C2B203CF80033B763 /* CDChatUsers+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CDChatUsers+CoreDataClass.swift"; sourceTree = "<group>"; };
 		130C234D2B203CF80033B763 /* CDChatUsers+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CDChatUsers+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		130C23532B203D620033B763 /* CDChatUsersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDChatUsersManager.swift; sourceTree = "<group>"; };
+		130C23572B20469F0033B763 /* MessageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageLoader.swift; sourceTree = "<group>"; };
 		131166342A70FB9900CD0373 /* InstaUiKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstaUiKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		131166372A70FB9900CD0373 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		131166392A70FB9900CD0373 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -298,6 +300,23 @@
 				130C23532B203D620033B763 /* CDChatUsersManager.swift */,
 			);
 			path = CDChatUsersManager;
+			sourceTree = "<group>";
+		};
+		130C23552B2046600033B763 /* SimpleLoader */ = {
+			isa = PBXGroup;
+			children = (
+				13DBE7822AEBB8360006F3B9 /* View */,
+				13DBE7832AEBB83D0006F3B9 /* ViewModel */,
+			);
+			path = SimpleLoader;
+			sourceTree = "<group>";
+		};
+		130C23562B2046860033B763 /* MessageLoader */ = {
+			isa = PBXGroup;
+			children = (
+				130C23572B20469F0033B763 /* MessageLoader.swift */,
+			);
+			path = MessageLoader;
 			sourceTree = "<group>";
 		};
 		1311662B2A70FB9900CD0373 = {
@@ -1032,8 +1051,8 @@
 		13DBE7812AEBB82B0006F3B9 /* Loader */ = {
 			isa = PBXGroup;
 			children = (
-				13DBE7822AEBB8360006F3B9 /* View */,
-				13DBE7832AEBB83D0006F3B9 /* ViewModel */,
+				130C23562B2046860033B763 /* MessageLoader */,
+				130C23552B2046600033B763 /* SimpleLoader */,
 			);
 			path = Loader;
 			sourceTree = "<group>";
@@ -1338,6 +1357,7 @@
 				1392D0242A80B522004B6654 /* HomeVC.swift in Sources */,
 				138BC5D92A73922100020297 /* DirectMsgVC.swift in Sources */,
 				1385F38F2AF5205F006C8363 /* UsersProfileView.swift in Sources */,
+				130C23582B20469F0033B763 /* MessageLoader.swift in Sources */,
 				13C508C82B108B3B0013C52D /* AddStoryVC.swift in Sources */,
 				130C234B2B203CA20033B763 /* CDChatUserModel.swift in Sources */,
 				1392D01E2A80B4ED004B6654 /* SignInVC.swift in Sources */,

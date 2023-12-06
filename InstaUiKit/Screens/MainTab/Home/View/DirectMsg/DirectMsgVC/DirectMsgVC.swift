@@ -15,6 +15,7 @@ class DirectMsgVC: UIViewController {
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     var chatUsers = [UserModel]()
+    var allUniqueUsersArray = [UserModel]()
     var refreshControl = UIRefreshControl()
     let disposeBag = DisposeBag()
     let dispatchGroup = DispatchGroup()
@@ -25,6 +26,7 @@ class DirectMsgVC: UIViewController {
         tableViewOutlet.addSubview(refreshControl)
         Task {
             await fetchUsers(){ _ in
+                MessageLoader.shared.hideLoader()
                 self.updateTableView()
             }
         }
@@ -47,7 +49,7 @@ class DirectMsgVC: UIViewController {
             }
         }
     }
-
+    
     
     
     @IBAction func backBtnPressed(_ sender: UIButton) {
@@ -59,11 +61,60 @@ class DirectMsgVC: UIViewController {
         let storyboard = UIStoryboard.MainTab
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "AddChatVC") as! AddChatVC
         destinationVC.delegate = self
+        destinationVC.allUniqueUsersArray = allUniqueUsersArray
         navigationController?.present(destinationVC, animated: true, completion: nil)
     }
     
     
+    
     func fetchUsers(completion: @escaping (Bool) -> Void) async {
+        MessageLoader.shared.showLoader(withText: "Fetching Users")
+        do {
+            await fetchChatUsers { _ in }
+            await fetchUniqueUsers { success in
+                MessageLoader.shared.hideLoader()
+                completion(success)
+            }
+        } catch {
+            MessageLoader.shared.hideLoader()
+            completion(false)
+        }
+    }
+    
+    func fetchUniqueUsers(completion:@escaping (Bool) -> Void){
+        FetchUserInfo.shared.fetchCurrentUserFromFirebase { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let user):
+                guard let user = user, let following = user.followings else {
+                    completion(false)
+                    return
+                }
+                FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
+                    switch result {
+                    case .success(let data):
+                        let uniqueUserUids = Set(following)
+                        let newUsers = data.filter { user in
+                            guard let userUid = user.uid else { return false }
+                            return uniqueUserUids.contains(userUid) && !self.allUniqueUsersArray.contains(where: { $0.uid == user.uid })
+                        }
+                        self.allUniqueUsersArray.append(contentsOf: newUsers)
+                        completion(true)
+                    case .failure(let error):
+                        print(error)
+                        completion(false)
+                    }
+                }
+                
+            case .failure(let error):
+                print(error)
+                completion(false)
+            }
+        }
+    }
+    
+    
+    func fetchChatUsers(completion:@escaping (Bool) -> Void) async {
         do {
             let cdChatusers = try await CDChatUsersManager.shared.readUser()
             if let cdChatusers = cdChatusers {
@@ -84,7 +135,6 @@ class DirectMsgVC: UIViewController {
                     }
                 }
                 dispatchGroup.notify(queue: DispatchQueue.main) {
-                    // Notify completion when all asynchronous calls are finished
                     completion(true)
                 }
             } else {
@@ -95,7 +145,7 @@ class DirectMsgVC: UIViewController {
             completion(false)
         }
     }
-
+    
     
     func addDoneButtonToSearchBarKeyboard() {
         let toolbar = UIToolbar()
@@ -113,14 +163,14 @@ class DirectMsgVC: UIViewController {
 }
 
 extension DirectMsgVC : passChatUserBack {
-    
     func passChatUserBack(user: UserModel?) {
         if let user = user {
-            print(user)
             if let userUid = user.uid {
+                MessageLoader.shared.showLoader(withText: "Adding Users")
                 CDChatUsersManager.shared.createUser(user: CDChatUserModel(id: UUID(), uid: userUid)) { _ in
                     Task {
-                        await self.fetchUsers(){ _ in
+                        await self.fetchChatUsers{ success in
+                            MessageLoader.shared.hideLoader()
                             self.updateTableView()
                         }
                     }
@@ -128,7 +178,6 @@ extension DirectMsgVC : passChatUserBack {
             }
         }
     }
-    
 }
 
 
@@ -136,9 +185,7 @@ extension DirectMsgVC {
     func updateTableView() {
         tableViewOutlet.dataSource = nil
         tableViewOutlet.delegate = nil
-        // Create a BehaviorRelay to hold the filtered user data
         let filteredUsers = BehaviorRelay<[UserModel]>(value: chatUsers)
-        // Bind the filtered user data to the table view
         filteredUsers
             .bind(to: tableViewOutlet
                     .rx
@@ -158,7 +205,6 @@ extension DirectMsgVC {
                 }
             }
                     .disposed(by: disposeBag)
-        // Observe changes in the search bar text
         searchBar.rx.text
             .orEmpty
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
@@ -172,7 +218,6 @@ extension DirectMsgVC {
                         return (user.name?.lowercased().contains(query.lowercased()) == true)
                     }
                 }
-                // Update the filteredUsers BehaviorRelay with the filtered data
                 filteredUsers.accept(filteredData ?? [])
             })
             .disposed(by: disposeBag)
