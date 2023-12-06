@@ -40,4 +40,24 @@ class CDUserManager {
         }
     }
     
+    func deleteUser(withId id: UUID, completion: @escaping (Bool) -> Void) {
+           do {
+               let fetchRequest: NSFetchRequest<CDUsers> = CDUsers.fetchRequest()
+               fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+
+               let context = PersistantStorage.shared.persistentContainer.viewContext
+               if let userToDelete = try context.fetch(fetchRequest).first {
+                   context.delete(userToDelete)
+                   PersistantStorage.shared.saveContext()
+                   completion(true)
+               } else {
+                   completion(false)
+               }
+           } catch {
+               print(error)
+               completion(false)
+           }
+       }
+    
+    
 }
