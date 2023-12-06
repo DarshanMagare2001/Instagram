@@ -11,22 +11,22 @@ import RxCocoa
 
 
 class DirectMsgVC: UIViewController {
-    
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     var chatUsers = [UserModel]()
     var allUniqueUsersArray = [UserModel]()
-    var cdChatUsers = [CDChatUserModel]()
+    var viewModel = DirectMsgViewModel()
     let disposeBag = DisposeBag()
     let dispatchGroup = DispatchGroup()
     override func viewDidLoad() {
         super.viewDidLoad()
         addDoneButtonToSearchBarKeyboard()
-        Task {
-            await fetchUsers(){ _ in
-                MessageLoader.shared.hideLoader()
-                self.updateTableView()
+        fetchUsers(){ _ in
+            MessageLoader.shared.hideLoader()
+            if self.chatUsers.isEmpty {
+                self.goToAddChatVC()
             }
+            self.updateTableView()
         }
     }
     
@@ -52,89 +52,37 @@ class DirectMsgVC: UIViewController {
         navigationController?.present(destinationVC, animated: true, completion: nil)
     }
     
-    func fetchUsers(completion: @escaping (Bool) -> Void) async {
+    func fetchUsers(completion: @escaping (Bool) -> Void){
         MessageLoader.shared.showLoader(withText: "Fetching Users")
-        do {
-            await fetchChatUsers { _ in }
-            await fetchUniqueUsers { success in
-                MessageLoader.shared.hideLoader()
-                if self.cdChatUsers.isEmpty {
-                    self.goToAddChatVC()
-                }
-                completion(success)
-            }
-        } catch {
-            MessageLoader.shared.hideLoader()
-            completion(false)
-        }
-    }
-    
-    func fetchUniqueUsers(completion:@escaping (Bool) -> Void){
-        FetchUserInfo.shared.fetchCurrentUserFromFirebase { [weak self] result in
-            guard let self = self else { return }
+        dispatchGroup.enter()
+        viewModel.fetchUniqueUsers { result in
+            self.dispatchGroup.leave()
             switch result {
-            case .success(let user):
-                guard let user = user, let following = user.followings else {
-                    completion(false)
-                    return
+            case.success(let data):
+                if let data = data {
+                    self.allUniqueUsersArray = data
                 }
-                FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
-                    switch result {
-                    case .success(let data):
-                        let uniqueUserUids = Set(following)
-                        let newUsers = data.filter { user in
-                            guard let userUid = user.uid else { return false }
-                            return uniqueUserUids.contains(userUid) && !self.allUniqueUsersArray.contains(where: { $0.uid == user.uid })
-                        }
-                        self.allUniqueUsersArray.append(contentsOf: newUsers)
-                        completion(true)
-                    case .failure(let error):
-                        print(error)
-                        completion(false)
-                    }
-                }
-                
-            case .failure(let error):
+            case.failure(let error):
                 print(error)
-                completion(false)
             }
         }
-    }
-    
-    
-    func fetchChatUsers(completion:@escaping (Bool) -> Void) async {
-        do {
-            let cdChatusers = try await CDChatUsersManager.shared.readUser()
-            if let cdChatusers = cdChatusers {
-                cdChatUsers = cdChatusers
-                chatUsers.removeAll()
-                for user in cdChatusers {
-                    dispatchGroup.enter()
-                    await FetchUserInfo.shared.fetchUserDataByUid(uid: user.uid) { result in
-                        self.dispatchGroup.leave()
-                        switch result {
-                        case .success(let userData):
-                            print(userData)
-                            if let userData = userData {
-                                self.chatUsers.append(userData)
-                            }
-                        case .failure(let error):
-                            print(error)
-                        }
-                    }
+        dispatchGroup.enter()
+        viewModel.fetchChatUsers { result in
+            self.dispatchGroup.leave()
+            switch result {
+            case.success(let data):
+                if let data = data {
+                    self.chatUsers = data
                 }
-                dispatchGroup.notify(queue: DispatchQueue.main) {
-                    completion(true)
-                }
-            } else {
-                completion(false)
+            case.failure(let error):
+                print(error)
             }
-        } catch {
-            print(error)
-            completion(false)
+        }
+        
+        dispatchGroup.notify(queue: .main){
+            completion(true)
         }
     }
-    
     
     func addDoneButtonToSearchBarKeyboard() {
         let toolbar = UIToolbar()
@@ -156,7 +104,6 @@ extension DirectMsgVC : passChatUserBack {
         if let user = user {
             if let userUid = user.uid {
                 MessageLoader.shared.showLoader(withText: "Adding Users")
-                
                 FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
                     switch result {
                     case.success(let currentUser):
@@ -164,27 +111,30 @@ extension DirectMsgVC : passChatUserBack {
                             StoreUserInfo.shared.saveUsersChatList(senderId: senderId, receiverId: receiverId) { result in
                                 switch result {
                                 case.success():
-                                    print("")
+                                    self.viewModel.fetchChatUsers { result in
+                                        switch result {
+                                        case.success(let data):
+                                            if let data = data {
+                                                self.chatUsers = data
+                                                MessageLoader.shared.hideLoader()
+                                                self.updateTableView()
+                                            }
+                                        case.failure(let error):
+                                            print(error)
+                                            MessageLoader.shared.hideLoader()
+                                        }
+                                    }
                                 case.failure(let error):
                                     print(error)
+                                    MessageLoader.shared.hideLoader()
                                 }
                             }
                         }
                     case.failure(let error):
                         print(error)
+                        MessageLoader.shared.hideLoader()
                     }
                 }
-               
-                CDChatUsersManager.shared.createUser(user: CDChatUserModel(id: UUID(), uid: userUid)) { _ in
-                    Task {
-                        await self.fetchChatUsers{ success in
-                            MessageLoader.shared.hideLoader()
-                            self.updateTableView()
-                        }
-                    }
-                }
-                
-                
             }
         }
     }
@@ -262,19 +212,6 @@ extension DirectMsgVC {
             return
         }
         let userToDelete = chatUsers[index]
-        Task {
-            do {
-                if let cdUserToDelete = cdChatUsers.first(where: { $0.uid == userToDelete.uid }) {
-                    let success = try await CDChatUsersManager.shared.deleteUser(withId: cdUserToDelete.id){ _ in}
-                    await self.fetchChatUsers { success in
-                        self.updateTableView()
-                    }
-                } else {
-                    print("Corresponding CDChatUserModel not found for UID: \(userToDelete.uid)")
-                }
-            } catch {
-                print("Error deleting user: \(error)")
-            }
-        }
+        
     }
 }

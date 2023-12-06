@@ -14,6 +14,7 @@
 		130C234F2B203CF80033B763 /* CDChatUsers+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C234D2B203CF80033B763 /* CDChatUsers+CoreDataProperties.swift */; };
 		130C23542B203D620033B763 /* CDChatUsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C23532B203D620033B763 /* CDChatUsersManager.swift */; };
 		130C23582B20469F0033B763 /* MessageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C23572B20469F0033B763 /* MessageLoader.swift */; };
+		130C235C2B20928A0033B763 /* DirectMsgViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C235B2B20928A0033B763 /* DirectMsgViewModel.swift */; };
 		131166382A70FB9900CD0373 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131166372A70FB9900CD0373 /* AppDelegate.swift */; };
 		1311663A2A70FB9900CD0373 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131166392A70FB9900CD0373 /* SceneDelegate.swift */; };
 		1311663F2A70FB9900CD0373 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1311663D2A70FB9900CD0373 /* Main.storyboard */; };
@@ -123,6 +124,7 @@
 		130C234D2B203CF80033B763 /* CDChatUsers+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CDChatUsers+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		130C23532B203D620033B763 /* CDChatUsersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDChatUsersManager.swift; sourceTree = "<group>"; };
 		130C23572B20469F0033B763 /* MessageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageLoader.swift; sourceTree = "<group>"; };
+		130C235B2B20928A0033B763 /* DirectMsgViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectMsgViewModel.swift; sourceTree = "<group>"; };
 		131166342A70FB9900CD0373 /* InstaUiKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstaUiKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		131166372A70FB9900CD0373 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		131166392A70FB9900CD0373 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -244,8 +246,8 @@
 		130C23432B2032330033B763 /* DirectMsgVC */ = {
 			isa = PBXGroup;
 			children = (
-				138BC5D82A73922100020297 /* DirectMsgVC.swift */,
-				138BC5DA2A7395C800020297 /* DirectMsgCell.swift */,
+				130C235A2B2092700033B763 /* View */,
+				130C23592B2092690033B763 /* ViewModel */,
 			);
 			path = DirectMsgVC;
 			sourceTree = "<group>";
@@ -317,6 +319,23 @@
 				130C23572B20469F0033B763 /* MessageLoader.swift */,
 			);
 			path = MessageLoader;
+			sourceTree = "<group>";
+		};
+		130C23592B2092690033B763 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				130C235B2B20928A0033B763 /* DirectMsgViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		130C235A2B2092700033B763 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				138BC5D82A73922100020297 /* DirectMsgVC.swift */,
+				138BC5DA2A7395C800020297 /* DirectMsgCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		1311662B2A70FB9900CD0373 = {
@@ -1375,6 +1394,7 @@
 				1368D1602B1719C800B42AC4 /* CDUsersModel.swift in Sources */,
 				138BC5D42A73806E00020297 /* EditProfileVC.swift in Sources */,
 				134F7F422AEF7C6800B6C31E /* UploadVC.swift in Sources */,
+				130C235C2B20928A0033B763 /* DirectMsgViewModel.swift in Sources */,
 				13A21CE12B199D46000ED554 /* NotificationCell.swift in Sources */,
 				1311663A2A70FB9900CD0373 /* SceneDelegate.swift in Sources */,
 			);
