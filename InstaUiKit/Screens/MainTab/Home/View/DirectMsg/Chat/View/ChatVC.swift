@@ -54,12 +54,12 @@ class ChatVC: MessagesViewController {
         FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case .success(let data):
+                self.hideLoader()
                 if let data = data, let currentUserId = data.uid, let displayName = data.name, let receiverId = self.receiverUser?.uid {
                     self.currentUserModel = data
                     self.currentUser = Sender(senderId: currentUserId, displayName: displayName)
                     self.viewModel.observeMessages(currentUserId: currentUserId, receiverUserId: receiverId){ data in
                         if let data = data {
-                            self.hideLoader()
                             self.messages.append(data)
                             self.messagesCollectionView.reloadData()
                             self.messagesCollectionView.scrollToLastItem(animated: true)
