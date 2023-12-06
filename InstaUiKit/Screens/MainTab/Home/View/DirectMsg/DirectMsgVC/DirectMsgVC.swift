@@ -187,6 +187,14 @@ extension DirectMsgVC {
                 }
             }
                     .disposed(by: disposeBag)
+        
+        tableViewOutlet.rx.itemDeleted
+            .subscribe(onNext: { [weak self] indexPath in
+                self?.removeItem(at: indexPath.row)
+            })
+            .disposed(by: disposeBag)
+        
+        
         searchBar.rx.text
             .orEmpty
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
@@ -204,4 +212,26 @@ extension DirectMsgVC {
             })
             .disposed(by: disposeBag)
     }
+    
+    func removeItem(at index: Int) {
+        let alertController = UIAlertController(
+            title: "Delete User",
+            message: "Are you sure you want to delete this user?",
+            preferredStyle: .alert
+        )
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        alertController.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+            self?.deleteUser(at: index)
+        })
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    private func deleteUser(at index: Int) {
+        chatUsers.remove(at: index)
+        tableViewOutlet.reloadData()
+    }
+    
 }
