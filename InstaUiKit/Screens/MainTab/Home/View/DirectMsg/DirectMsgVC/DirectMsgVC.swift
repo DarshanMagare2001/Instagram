@@ -238,7 +238,6 @@ extension DirectMsgVC {
         let userToDelete = chatUsers[index]
         Task {
             do {
-                // Find the corresponding CDChatUserModel based on UID
                 if let cdUserToDelete = cdChatUsers.first(where: { $0.uid == userToDelete.uid }) {
                     let success = try await CDChatUsersManager.shared.deleteUser(withId: cdUserToDelete.id){ _ in}
                     await self.fetchChatUsers { success in

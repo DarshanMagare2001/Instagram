@@ -2,8 +2,6 @@ import UIKit
 import MessageKit
 import InputBarAccessoryView
 import SDWebImage
-import JGProgressHUD
-
 
 class ChatVC: MessagesViewController {
     var currentUser: SenderType?
@@ -11,12 +9,10 @@ class ChatVC: MessagesViewController {
     var receiverUser: UserModel?
     var messages: [Message] = []
     var viewModel = ChatVCModel()
-    var hud: JGProgressHUD?
     let dispatchGroup = DispatchGroup()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        hud = JGProgressHUD(style: .dark)
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
@@ -50,11 +46,11 @@ class ChatVC: MessagesViewController {
     }
     
     func fetchData(){
-        showLoader()
+        MessageLoader.shared.showLoader(withText: "Messages Fetching")
         FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case .success(let data):
-                self.hideLoader()
+                MessageLoader.shared.hideLoader()
                 if let data = data, let currentUserId = data.uid, let displayName = data.name, let receiverId = self.receiverUser?.uid {
                     self.currentUserModel = data
                     self.currentUser = Sender(senderId: currentUserId, displayName: displayName)
@@ -68,18 +64,9 @@ class ChatVC: MessagesViewController {
                 }
             case .failure(let error):
                 print(error)
-                self.hideLoader()
+                MessageLoader.shared.hideLoader()
             }
         }
-    }
-    
-    func showLoader() {
-        hud?.textLabel.text = "Messages Fetching"
-        hud?.show(in: self.view)
-    }
-    
-    func hideLoader() {
-        hud?.dismiss()
     }
     
     override func viewWillAppear(_ animated: Bool) {
