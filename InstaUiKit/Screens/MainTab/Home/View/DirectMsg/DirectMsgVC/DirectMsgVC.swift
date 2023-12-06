@@ -16,6 +16,7 @@ class DirectMsgVC: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     var chatUsers = [UserModel]()
     var allUniqueUsersArray = [UserModel]()
+    var cdChatUsers = [CDChatUserModel]()
     let disposeBag = DisposeBag()
     let dispatchGroup = DispatchGroup()
     override func viewDidLoad() {
@@ -100,7 +101,8 @@ class DirectMsgVC: UIViewController {
         do {
             let cdChatusers = try await CDChatUsersManager.shared.readUser()
             if let cdChatusers = cdChatusers {
-                chatUsers.removeAll() // Clear the array before appending new users
+                cdChatUsers = cdChatusers
+                chatUsers.removeAll()
                 for user in cdChatusers {
                     dispatchGroup.enter()
                     await FetchUserInfo.shared.fetchUserDataByUid(uid: user.uid) { result in
@@ -230,8 +232,24 @@ extension DirectMsgVC {
     }
     
     private func deleteUser(at index: Int) {
-        chatUsers.remove(at: index)
-        tableViewOutlet.reloadData()
+        guard index < chatUsers.count else {
+            return
+        }
+        let userToDelete = chatUsers[index]
+        Task {
+            do {
+                // Find the corresponding CDChatUserModel based on UID
+                if let cdUserToDelete = cdChatUsers.first(where: { $0.uid == userToDelete.uid }) {
+                    let success = try await CDChatUsersManager.shared.deleteUser(withId: cdUserToDelete.id){ _ in}
+                    await self.fetchChatUsers { success in
+                        self.updateTableView()
+                    }
+                } else {
+                    print("Corresponding CDChatUserModel not found for UID: \(userToDelete.uid)")
+                }
+            } catch {
+                print("Error deleting user: \(error)")
+            }
+        }
     }
-    
 }
