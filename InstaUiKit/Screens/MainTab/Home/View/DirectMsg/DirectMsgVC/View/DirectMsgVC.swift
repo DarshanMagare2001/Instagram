@@ -150,11 +150,26 @@ extension DirectMsgVC {
             .bind(to: tableViewOutlet
                     .rx
                     .items(cellIdentifier: "DirectMsgCell", cellType: DirectMsgCell.self)) { (row, element, cell) in
-                if let name = element.name , let userName = element.username , let imgUrl = element.imageUrl {
+                if let name = element.name , let userName = element.username , let imgUrl = element.imageUrl , let receiverUserId = element.uid{
                     DispatchQueue.main.async {
                         ImageLoader.loadImage(for: URL(string: imgUrl), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
                         cell.nameLbl.text = name
-                        cell.userNameLbl.text = userName
+                        
+                        Data.shared.getData(key: "CurrentUserId") { (result:Result<String?,Error>) in
+                            switch result {
+                            case .success(let currentUserId):
+                                if let currentUserId = currentUserId {
+                                    self.viewModel.observeLastTextMessage(currentUserId: currentUserId, receiverUserId: receiverUserId) { textMsg, senderUid in
+                                        if let textMsg = textMsg , let  senderUid = senderUid  {
+                                            cell.userNameLbl.text = "\(senderUid == currentUserId ? "You :":"") \(textMsg)"
+                                        }
+                                    }
+                                }
+                            case .failure(let failure):
+                                print(failure)
+                            }
+                        }
+                        
                         cell.directMsgButtonTapped = { [weak self] in
                             let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
                             let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChatVC") as! ChatVC
@@ -213,7 +228,7 @@ extension DirectMsgVC {
         }
         let userToDelete = chatUsers[index].uid
         MessageLoader.shared.showLoader(withText: "Removing User")
-        viewModel.removeUserFromChatlistOdSender(receiverId: userToDelete) { _ in
+        viewModel.removeUserFromChatlistOfSender(receiverId: userToDelete) { _ in
             self.viewModel.fetchChatUsers { result in
                 switch result {
                 case.success(let data):

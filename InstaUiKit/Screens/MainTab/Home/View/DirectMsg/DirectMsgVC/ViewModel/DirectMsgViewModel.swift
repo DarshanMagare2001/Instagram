@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 class DirectMsgViewModel {
     let dispatchGroup = DispatchGroup()
@@ -71,7 +72,7 @@ class DirectMsgViewModel {
         }
     }
     
-    func removeUserFromChatlistOdSender(receiverId : String? , completion : @escaping (Bool) -> Void ){
+    func removeUserFromChatlistOfSender(receiverId : String? , completion : @escaping (Bool) -> Void ){
         FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case.success(let data):
@@ -90,6 +91,37 @@ class DirectMsgViewModel {
                 completion(false)
             }
         }
+    }
+    
+    func observeLastTextMessage(currentUserId: String?, receiverUserId: String?, completion: @escaping (String?, String?) -> Void) {
+        guard let currentUserId = currentUserId, let receiverUserId = receiverUserId else {
+            print("Error: currentUserId or receiverUserId is nil")
+            return
+        }
+        
+        let chatPath = currentUserId < receiverUserId ? "\(currentUserId)_\(receiverUserId)" : "\(receiverUserId)_\(currentUserId)"
+        
+        let textMessagesRef = Database.database().reference().child("messages").child(chatPath)
+
+        textMessagesRef.queryLimited(toLast: 1).observe(.childAdded) { snapshot in
+            guard let messageData = snapshot.value as? [String: Any],
+                  let senderId = messageData["senderId"] as? String,
+                  let kindString = messageData["kind"] as? String,
+                  kindString == "text",
+                  let text = messageData["text"] as? String else {
+                // Skip if not a valid text message
+                return
+            }
+
+            DispatchQueue.main.async {
+                completion(text, senderId)
+            }
+        }
+    }
+
+    
+    func chatPath(senderId: String, receiverId: String) -> String {
+        return senderId < receiverId ? "\(senderId)_\(receiverId)" : "\(receiverId)_\(senderId)"
     }
     
 }
