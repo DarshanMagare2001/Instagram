@@ -11,6 +11,7 @@ import RxCocoa
 
 
 class DirectMsgVC: UIViewController {
+    
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     var allUniqueUsersArray = [UserModel]()
@@ -48,6 +49,7 @@ class DirectMsgVC: UIViewController {
         let storyboard = UIStoryboard.MainTab
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "AddChatVC") as! AddChatVC
         destinationVC.allUniqueUsersArray = allUniqueUsersArray
+        destinationVC.delegate = self
         navigationController?.present(destinationVC, animated: true, completion: nil)
     }
 
@@ -97,6 +99,17 @@ class DirectMsgVC: UIViewController {
     }
     
 }
+
+extension DirectMsgVC : passChatUserBack {
+    
+    func passChatUserBack(user: UserModel?) {
+        if let user = user {
+            print(user)
+        }
+    }
+    
+}
+
 
 extension DirectMsgVC {
     func updateTableView() {

@@ -7,16 +7,19 @@
 
 import UIKit
 
+protocol passChatUserBack {
+    func passChatUserBack(user:UserModel?)
+}
+
 class AddChatVC: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableViewOutlet: UITableView!
     var allUniqueUsersArray : [UserModel]?
+    var delegate : passChatUserBack?
     override func viewDidLoad() {
         super.viewDidLoad()
         
     }
-    
-    
 }
 
 extension AddChatVC : UITableViewDelegate , UITableViewDataSource {
@@ -32,6 +35,18 @@ extension AddChatVC : UITableViewDelegate , UITableViewDataSource {
         cell.nameLbl.text = name
         cell.userNameLbl.text = userName
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let allUniqueUsersArray = allUniqueUsersArray {
+            Alert.shared.alertYesNo(title: "Add Chat User", message: "Do you want to add user to chat section?.", presentingViewController: self) { _ in
+                print("Yes")
+                self.delegate?.passChatUserBack(user: allUniqueUsersArray[indexPath.row])
+                self.dismiss(animated: true)
+            } noHandler: { _ in
+                print("No")
+            }
+        }
     }
     
 }
