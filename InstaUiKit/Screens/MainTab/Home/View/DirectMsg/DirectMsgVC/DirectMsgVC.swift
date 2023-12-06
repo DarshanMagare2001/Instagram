@@ -14,15 +14,20 @@ class DirectMsgVC: UIViewController {
     
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
-    var allUniqueUsersArray = [UserModel]()
+    var chatUsers = [UserModel]()
     var refreshControl = UIRefreshControl()
     let disposeBag = DisposeBag()
+    let dispatchGroup = DispatchGroup()
     override func viewDidLoad() {
         super.viewDidLoad()
         addDoneButtonToSearchBarKeyboard()
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableViewOutlet.addSubview(refreshControl)
-        fetchUsers(){ _ in}
+        Task {
+            await fetchUsers(){ _ in
+                self.updateTableView()
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,14 +35,19 @@ class DirectMsgVC: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
-  
+    
     @objc private func refresh() {
+        self.refreshControl.beginRefreshing()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.fetchUsers(){ value in
-                self.refreshControl.endRefreshing()
+            Task {
+                await self.fetchUsers() { _ in
+                    self.updateTableView()
+                    self.refreshControl.endRefreshing()
+                }
             }
         }
     }
+
     
     
     @IBAction func backBtnPressed(_ sender: UIButton) {
@@ -48,42 +58,44 @@ class DirectMsgVC: UIViewController {
     @IBAction func addChatBtnPressed(_ sender: UIButton) {
         let storyboard = UIStoryboard.MainTab
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "AddChatVC") as! AddChatVC
-        destinationVC.allUniqueUsersArray = allUniqueUsersArray
         destinationVC.delegate = self
         navigationController?.present(destinationVC, animated: true, completion: nil)
     }
-
     
-    func fetchUsers(completion:@escaping (Bool) -> Void){
-        FetchUserInfo.shared.fetchCurrentUserFromFirebase { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let user):
-                guard let user = user, let following = user.followings else { return }
-                FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
-                    switch result {
-                    case .success(let data):
-                        let uniqueUserUids = Set(following)
-                        let newUsers = data.filter { user in
-                            guard let userUid = user.uid else { return false }
-                            return uniqueUserUids.contains(userUid) && !self.allUniqueUsersArray.contains(where: { $0.uid == user.uid })
+    
+    func fetchUsers(completion: @escaping (Bool) -> Void) async {
+        do {
+            let cdChatusers = try await CDChatUsersManager.shared.readUser()
+            if let cdChatusers = cdChatusers {
+                chatUsers.removeAll() // Clear the array before appending new users
+                for user in cdChatusers {
+                    dispatchGroup.enter()
+                    await FetchUserInfo.shared.fetchUserDataByUid(uid: user.uid) { result in
+                        self.dispatchGroup.leave()
+                        switch result {
+                        case .success(let userData):
+                            print(userData)
+                            if let userData = userData {
+                                self.chatUsers.append(userData)
+                            }
+                        case .failure(let error):
+                            print(error)
                         }
-                        self.allUniqueUsersArray.append(contentsOf: newUsers)
-                        self.updateTableView()
-                        completion(true)
-
-                    case .failure(let error):
-                        print(error)
-                        completion(false)
                     }
                 }
-            case .failure(let error):
-                print(error)
+                dispatchGroup.notify(queue: DispatchQueue.main) {
+                    // Notify completion when all asynchronous calls are finished
+                    completion(true)
+                }
+            } else {
                 completion(false)
             }
+        } catch {
+            print(error)
+            completion(false)
         }
     }
-    
+
     
     func addDoneButtonToSearchBarKeyboard() {
         let toolbar = UIToolbar()
@@ -95,7 +107,7 @@ class DirectMsgVC: UIViewController {
     }
     
     @objc func doneButtonTapped() {
-        searchBar.resignFirstResponder() // Dismiss the keyboard
+        searchBar.resignFirstResponder()
     }
     
 }
@@ -105,6 +117,15 @@ extension DirectMsgVC : passChatUserBack {
     func passChatUserBack(user: UserModel?) {
         if let user = user {
             print(user)
+            if let userUid = user.uid {
+                CDChatUsersManager.shared.createUser(user: CDChatUserModel(id: UUID(), uid: userUid)) { _ in
+                    Task {
+                        await self.fetchUsers(){ _ in
+                            self.updateTableView()
+                        }
+                    }
+                }
+            }
         }
     }
     
@@ -116,7 +137,7 @@ extension DirectMsgVC {
         tableViewOutlet.dataSource = nil
         tableViewOutlet.delegate = nil
         // Create a BehaviorRelay to hold the filtered user data
-        let filteredUsers = BehaviorRelay<[UserModel]>(value: allUniqueUsersArray)
+        let filteredUsers = BehaviorRelay<[UserModel]>(value: chatUsers)
         // Bind the filtered user data to the table view
         filteredUsers
             .bind(to: tableViewOutlet
@@ -144,7 +165,7 @@ extension DirectMsgVC {
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] query in
                 // Filter the user data based on the search query
-                let filteredData = self?.allUniqueUsersArray.filter { user in
+                let filteredData = self?.chatUsers.filter { user in
                     if query.isEmpty {
                         return true
                     } else {
