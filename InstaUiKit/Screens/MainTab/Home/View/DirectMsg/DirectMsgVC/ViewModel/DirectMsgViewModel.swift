@@ -9,7 +9,7 @@ import Foundation
 
 class DirectMsgViewModel {
     let dispatchGroup = DispatchGroup()
-   
+    
     func fetchUniqueUsers(completion:@escaping (Result<[UserModel]?,Error>) -> Void){
         var allUniqueUsersArray = [UserModel]()
         FetchUserInfo.shared.fetchCurrentUserFromFirebase { [weak self] result in
@@ -53,7 +53,7 @@ class DirectMsgViewModel {
                             switch result {
                             case.success(let userData):
                                 if let userData = userData {
-                                   chatUsers.append(userData)
+                                    chatUsers.append(userData)
                                 }
                             case.failure(let error):
                                 print(error)
@@ -67,6 +67,27 @@ class DirectMsgViewModel {
             case.failure(let error):
                 print(error)
                 completion(.failure(error))
+            }
+        }
+    }
+    
+    func removeUserFromChatlistOdSender(receiverId : String? , completion : @escaping (Bool) -> Void ){
+        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+            switch result {
+            case.success(let data):
+                if let data = data , let senderId = data.uid , let receiverId = receiverId {
+                    StoreUserInfo.shared.removeUserFromChatUserListOfSender(senderId: senderId, receiverId: receiverId) { result in
+                        switch result {
+                        case.success():
+                            completion(true)
+                        case.failure(let error):
+                            completion(false)
+                        }
+                    }
+                }
+            case.failure(let error):
+                print(error)
+                completion(false)
             }
         }
     }

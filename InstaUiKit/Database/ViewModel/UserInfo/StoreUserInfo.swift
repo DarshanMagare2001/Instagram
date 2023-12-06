@@ -173,5 +173,20 @@ class StoreUserInfo {
         updateUsersChatList(userRefReceiverId, senderId)
     }
 
+    // MARK: - Remove User from chatUserListOfSender
+
+    func removeUserFromChatUserListOfSender(senderId: String, receiverId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(senderId)
+        // Update the document by removing the follower's UID
+        userRef.setData(["usersChatList": FieldValue.arrayRemove([receiverId])], merge: true) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
+    }
+    
     
 }

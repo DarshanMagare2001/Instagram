@@ -211,7 +211,22 @@ extension DirectMsgVC {
         guard index < chatUsers.count else {
             return
         }
-        let userToDelete = chatUsers[index]
-        
+        let userToDelete = chatUsers[index].uid
+        MessageLoader.shared.showLoader(withText: "Removing User")
+        viewModel.removeUserFromChatlistOdSender(receiverId: userToDelete) { _ in
+            self.viewModel.fetchChatUsers { result in
+                switch result {
+                case.success(let data):
+                    if let data = data {
+                        self.chatUsers = data
+                        MessageLoader.shared.hideLoader()
+                        self.updateTableView()
+                    }
+                case.failure(let error):
+                    print(error)
+                    MessageLoader.shared.hideLoader()
+                }
+            }
+        }
     }
 }
