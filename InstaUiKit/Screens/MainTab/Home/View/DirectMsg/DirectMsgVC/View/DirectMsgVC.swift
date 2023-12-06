@@ -22,11 +22,12 @@ class DirectMsgVC: UIViewController {
         super.viewDidLoad()
         addDoneButtonToSearchBarKeyboard()
         fetchUsers(){ _ in
-            MessageLoader.shared.hideLoader()
+            self.updateTableView(){ _ in
+                MessageLoader.shared.hideLoader()
+            }
             if self.chatUsers.isEmpty {
                 self.goToAddChatVC()
             }
-            self.updateTableView()
         }
     }
     
@@ -116,8 +117,9 @@ extension DirectMsgVC : passChatUserBack {
                                         case.success(let data):
                                             if let data = data {
                                                 self.chatUsers = data
-                                                MessageLoader.shared.hideLoader()
-                                                self.updateTableView()
+                                                self.updateTableView(){ _ in
+                                                    MessageLoader.shared.hideLoader()
+                                                }
                                             }
                                         case.failure(let error):
                                             print(error)
@@ -140,108 +142,118 @@ extension DirectMsgVC : passChatUserBack {
     }
 }
 
-
 extension DirectMsgVC {
-    func updateTableView() {
+    func updateTableView(completion: @escaping (Bool) -> Void) {
         tableViewOutlet.dataSource = nil
         tableViewOutlet.delegate = nil
+
         let filteredUsers = BehaviorRelay<[UserModel]>(value: chatUsers)
         filteredUsers
             .bind(to: tableViewOutlet
                     .rx
-                    .items(cellIdentifier: "DirectMsgCell", cellType: DirectMsgCell.self)) { (row, element, cell) in
-                if let name = element.name , let userName = element.username , let imgUrl = element.imageUrl , let receiverUserId = element.uid{
-                    DispatchQueue.main.async {
-                        ImageLoader.loadImage(for: URL(string: imgUrl), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
-                        cell.nameLbl.text = name
-                        
-                        Data.shared.getData(key: "CurrentUserId") { (result:Result<String?,Error>) in
-                            switch result {
-                            case .success(let currentUserId):
-                                if let currentUserId = currentUserId {
-                                    self.viewModel.observeLastTextMessage(currentUserId: currentUserId, receiverUserId: receiverUserId) { textMsg, senderUid in
-                                        if let textMsg = textMsg , let  senderUid = senderUid  {
-                                            cell.userNameLbl.text = "\(senderUid == currentUserId ? "You :":"") \(textMsg)"
-                                        }
-                                    }
+                    .items(cellIdentifier: "DirectMsgCell", cellType: DirectMsgCell.self)) { [weak self] (row, element, cell) in
+                guard let self = self else { return }
+
+                if let name = element.name,
+                   let userName = element.username,
+                   let imgUrl = element.imageUrl,
+                   let receiverUserId = element.uid {
+                    ImageLoader.loadImage(for: URL(string: imgUrl), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                    cell.nameLbl.text = name
+
+                    cell.directMsgButtonTapped = { [weak self] in
+                        self?.navigateToChatVC(with: element)
+                    }
+
+                    Data.shared.getData(key: "CurrentUserId") { [weak self] (result:Result<String?,Error>) in
+                        guard let self = self else { return }
+
+                        switch result {
+                        case .success(let currentUserId):
+                            guard let currentUserId = currentUserId else { return }
+
+                            self.viewModel.observeLastTextMessage(currentUserId: currentUserId, receiverUserId: receiverUserId) { textMsg, senderUid in
+                                if let textMsg = textMsg, let senderUid = senderUid {
+                                    cell.userNameLbl.text = "\(senderUid == currentUserId ? "You: " : "")\(textMsg)"
                                 }
-                            case .failure(let failure):
-                                print(failure)
                             }
-                        }
-                        
-                        cell.directMsgButtonTapped = { [weak self] in
-                            let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
-                            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChatVC") as! ChatVC
-                            destinationVC.receiverUser = element
-                            self?.navigationController?.pushViewController(destinationVC, animated: true)
+                        case .failure(let failure):
+                            print(failure)
                         }
                     }
                 }
             }
-                    .disposed(by: disposeBag)
-        
+            .disposed(by: disposeBag)
+
         tableViewOutlet.rx.itemDeleted
             .subscribe(onNext: { [weak self] indexPath in
                 self?.removeItem(at: indexPath.row)
             })
             .disposed(by: disposeBag)
-        
-        
+
         searchBar.rx.text
             .orEmpty
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] query in
-                // Filter the user data based on the search query
                 let filteredData = self?.chatUsers.filter { user in
-                    if query.isEmpty {
-                        return true
-                    } else {
-                        return (user.name?.lowercased().contains(query.lowercased()) == true)
-                    }
+                    return query.isEmpty || (user.name?.lowercased().contains(query.lowercased()) == true)
                 }
                 filteredUsers.accept(filteredData ?? [])
             })
             .disposed(by: disposeBag)
+
+        // Notify completion after configuring the table view
+        completion(true)
     }
-    
+
     func removeItem(at index: Int) {
         let alertController = UIAlertController(
             title: "Delete User",
             message: "Are you sure you want to delete this user?",
             preferredStyle: .alert
         )
-        
+
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
+
         alertController.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
             self?.deleteUser(at: index)
         })
-        
+
         present(alertController, animated: true, completion: nil)
     }
-    
+
     private func deleteUser(at index: Int) {
         guard index < chatUsers.count else {
             return
         }
+
         let userToDelete = chatUsers[index].uid
         MessageLoader.shared.showLoader(withText: "Removing User")
-        viewModel.removeUserFromChatlistOfSender(receiverId: userToDelete) { _ in
-            self.viewModel.fetchChatUsers { result in
+
+        viewModel.removeUserFromChatlistOfSender(receiverId: userToDelete) { [weak self] _ in
+            self?.viewModel.fetchChatUsers { result in
                 switch result {
-                case.success(let data):
+                case .success(let data):
                     if let data = data {
-                        self.chatUsers = data
-                        MessageLoader.shared.hideLoader()
-                        self.updateTableView()
+                        self?.chatUsers = data
+                        self?.updateTableView { _ in
+                            MessageLoader.shared.hideLoader()
+                        }
                     }
-                case.failure(let error):
+                case .failure(let error):
                     print(error)
                     MessageLoader.shared.hideLoader()
                 }
             }
+        }
+    }
+
+    private func navigateToChatVC(with user: UserModel) {
+        let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
+        if let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChatVC") as? ChatVC {
+            destinationVC.receiverUser = user
+            navigationController?.pushViewController(destinationVC, animated: true)
         }
     }
 }
