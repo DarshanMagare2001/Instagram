@@ -698,17 +698,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="bja-EK-t7c">
-                                <rect key="frame" x="0.0" y="5" width="320" height="563"/>
+                                <rect key="frame" x="0.0" y="10" width="320" height="558"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Chat User" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pG-RC-rYX">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="20.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="wH3-Q4-6WS"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="KJN-qO-RI1">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="41" width="320" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="OWX-In-IAB"/>
                                         </constraints>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Nom-Po-8b8">
-                                        <rect key="frame" x="0.0" y="70" width="320" height="493"/>
+                                        <rect key="frame" x="0.0" y="110.5" width="320" height="447.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AddChatVCCell" rowHeight="121" id="7VN-Yx-2QV" customClass="AddChatVCCell" customModule="InstaUiKit" customModuleProvider="target">
@@ -777,7 +786,7 @@
                             <constraint firstItem="h1w-Jn-xpP" firstAttribute="bottom" secondItem="bja-EK-t7c" secondAttribute="bottom" id="6Cp-7U-yVI"/>
                             <constraint firstItem="bja-EK-t7c" firstAttribute="leading" secondItem="n0x-1h-7tY" secondAttribute="leading" id="gJc-qx-SAz"/>
                             <constraint firstItem="h1w-Jn-xpP" firstAttribute="trailing" secondItem="bja-EK-t7c" secondAttribute="trailing" id="hDo-I5-6Wa"/>
-                            <constraint firstItem="bja-EK-t7c" firstAttribute="top" secondItem="h1w-Jn-xpP" secondAttribute="top" constant="5" id="ohP-kq-LaZ"/>
+                            <constraint firstItem="bja-EK-t7c" firstAttribute="top" secondItem="h1w-Jn-xpP" secondAttribute="top" constant="10" id="ohP-kq-LaZ"/>
                         </constraints>
                     </view>
                     <connections>
