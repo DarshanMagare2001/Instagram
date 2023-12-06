@@ -16,14 +16,11 @@ class DirectMsgVC: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     var chatUsers = [UserModel]()
     var allUniqueUsersArray = [UserModel]()
-    var refreshControl = UIRefreshControl()
     let disposeBag = DisposeBag()
     let dispatchGroup = DispatchGroup()
     override func viewDidLoad() {
         super.viewDidLoad()
         addDoneButtonToSearchBarKeyboard()
-        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        tableViewOutlet.addSubview(refreshControl)
         Task {
             await fetchUsers(){ _ in
                 MessageLoader.shared.hideLoader()
@@ -36,21 +33,6 @@ class DirectMsgVC: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
-    
-    
-    @objc private func refresh() {
-        self.refreshControl.beginRefreshing()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            Task {
-                await self.fetchUsers() { _ in
-                    self.updateTableView()
-                    self.refreshControl.endRefreshing()
-                }
-            }
-        }
-    }
-    
-    
     
     @IBAction func backBtnPressed(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
