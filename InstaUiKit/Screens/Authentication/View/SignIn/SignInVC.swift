@@ -20,14 +20,11 @@ class SignInVC: UIViewController, passUserBack {
         navigationController?.setNavigationBarHidden(true, animated: true)
         viewModel = SignInVCViewModel(presentingViewController: self)
         updateTxtFlds()
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool)  {
         Task{
             await fetchCoreDataUsers()
         }
     }
+    
     
     @IBAction func logInBtnPressed(_ sender: UIButton) {
         viewModel.login(emailTxtFld: emailTxtFld.text, passwordTxtFld: passwordTxtFld.text) { value in
@@ -175,6 +172,12 @@ class SignInVC: UIViewController, passUserBack {
                     LoaderVCViewModel.shared.hideLoader()
                 }
             }
+        }
+    }
+    
+    func isUserDelete(delete: Bool) {
+        Task{
+            await fetchCoreDataUsers()
         }
     }
     
