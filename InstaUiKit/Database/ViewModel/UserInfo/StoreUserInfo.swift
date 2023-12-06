@@ -152,5 +152,26 @@ class StoreUserInfo {
         }
     }
     
+    // MARK: - Save UsersChatList
+    
+    func saveUsersChatList(senderId: String, receiverId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let db = Firestore.firestore()
+        let userRefSenderId = db.collection("users").document(senderId)
+        let userRefReceiverId = db.collection("users").document(receiverId)
+
+        let updateUsersChatList: (DocumentReference, String) -> Void = { userRef, uid in
+            userRef.setData(["usersChatList": FieldValue.arrayUnion([uid])], merge: true) { error in
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    completion(.success(()))
+                }
+            }
+        }
+
+        updateUsersChatList(userRefSenderId, receiverId)
+        updateUsersChatList(userRefReceiverId, senderId)
+    }
+
     
 }

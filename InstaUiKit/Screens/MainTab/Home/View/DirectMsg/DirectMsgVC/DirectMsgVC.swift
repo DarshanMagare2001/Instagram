@@ -156,6 +156,25 @@ extension DirectMsgVC : passChatUserBack {
         if let user = user {
             if let userUid = user.uid {
                 MessageLoader.shared.showLoader(withText: "Adding Users")
+                
+                FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+                    switch result {
+                    case.success(let currentUser):
+                        if let currentUser = currentUser , let  senderId = currentUser.uid , let receiverId = user.uid {
+                            StoreUserInfo.shared.saveUsersChatList(senderId: senderId, receiverId: receiverId) { result in
+                                switch result {
+                                case.success():
+                                    print("")
+                                case.failure(let error):
+                                    print(error)
+                                }
+                            }
+                        }
+                    case.failure(let error):
+                        print(error)
+                    }
+                }
+               
                 CDChatUsersManager.shared.createUser(user: CDChatUserModel(id: UUID(), uid: userUid)) { _ in
                     Task {
                         await self.fetchChatUsers{ success in
@@ -164,6 +183,8 @@ extension DirectMsgVC : passChatUserBack {
                         }
                     }
                 }
+                
+                
             }
         }
     }
