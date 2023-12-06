@@ -22,8 +22,9 @@ struct UserModel {
     var isPrivate : String?
     var followingsRequest : [String]?
     var followersRequest : [String]?
+    var usersChatList : [String]?
     
-    init(uid: String, bio: String, fcmToken: String, phoneNumber: String, countryCode: String, name: String, imageUrl: String, gender: String, username: String,followers: [String],followings:[String] ,isPrivate : String , followingsRequest : [String]? , followersRequest : [String]? ) {
+    init(uid: String, bio: String, fcmToken: String, phoneNumber: String, countryCode: String, name: String, imageUrl: String, gender: String, username: String,followers: [String],followings:[String] ,isPrivate : String , followingsRequest : [String]? , followersRequest : [String]? , usersChatList : [String]? ) {
         self.uid = uid
         self.bio = bio
         self.fcmToken = fcmToken
@@ -38,6 +39,7 @@ struct UserModel {
         self.isPrivate = isPrivate
         self.followingsRequest = followingsRequest
         self.followersRequest = followersRequest
+        self.usersChatList = usersChatList
     }
 }
 

@@ -45,8 +45,9 @@ class FetchUserInfo {
                                 let isPrivate = document["isPrivate"] as? String
                                 let followingsRequest = document["followingsRequest"] as? [String]
                                 let followersRequest = document["followersRequest"] as? [String]
+                                let usersChatList = document["usersChatList"] as? [String]
                                 if uid != currentUid { // Check if the uid is not the current user's uid
-                                    let user = UserModel(uid: uid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers : followers ?? [] , followings: followings ?? [] , isPrivate:isPrivate ?? "" , followingsRequest : followingsRequest ?? [] , followersRequest : followersRequest ?? [])
+                                    let user = UserModel(uid: uid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers : followers ?? [] , followings: followings ?? [] , isPrivate:isPrivate ?? "" , followingsRequest : followingsRequest ?? [] , followersRequest : followersRequest ?? [] , usersChatList : usersChatList ?? [])
                                     users.append(user)
                                     print(users)
                                 }
@@ -92,7 +93,8 @@ class FetchUserInfo {
                             let isPrivate = document["isPrivate"] as? String
                             let followingsRequest = document["followingsRequest"] as? [String]
                             let followersRequest = document["followersRequest"] as? [String]
-                            let user = UserModel(uid: uid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers : followers ?? [] , followings: followings ?? [] , isPrivate : isPrivate ?? "" ,followingsRequest : followingsRequest ?? [] , followersRequest : followersRequest ?? [] )
+                            let usersChatList = document["usersChatList"] as? [String]
+                            let user = UserModel(uid: uid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers : followers ?? [] , followings: followings ?? [] , isPrivate : isPrivate ?? "" ,followingsRequest : followingsRequest ?? [] , followersRequest : followersRequest ?? [] , usersChatList : usersChatList ?? [] )
                             DispatchQueue.main.async {
                                 completionHandler(.success(user))
                             }
@@ -135,7 +137,8 @@ class FetchUserInfo {
                 let isPrivate = document["isPrivate"] as? String
                 let followingsRequest = document["followingsRequest"] as? [String]
                 let followersRequest = document["followersRequest"] as? [String]
-                let user = UserModel(uid: userUid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers: followers ?? [], followings: followings ?? [] , isPrivate : isPrivate ?? "" ,followingsRequest : followingsRequest ?? [] , followersRequest : followersRequest ?? [] )
+                let usersChatList = document["usersChatList"] as? [String]
+                let user = UserModel(uid: userUid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers: followers ?? [], followings: followings ?? [] , isPrivate : isPrivate ?? "" ,followingsRequest : followingsRequest ?? [] , followersRequest : followersRequest ?? [] , usersChatList : usersChatList ?? [] )
                 DispatchQueue.main.async {
                     completionHandler(.success(user))
                 }
