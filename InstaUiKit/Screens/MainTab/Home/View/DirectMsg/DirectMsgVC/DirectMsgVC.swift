@@ -41,6 +41,10 @@ class DirectMsgVC: UIViewController {
     
     
     @IBAction func addChatBtnPressed(_ sender: UIButton) {
+        goToAddChatVC()
+    }
+    
+    func goToAddChatVC(){
         let storyboard = UIStoryboard.MainTab
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "AddChatVC") as! AddChatVC
         destinationVC.delegate = self
@@ -48,14 +52,15 @@ class DirectMsgVC: UIViewController {
         navigationController?.present(destinationVC, animated: true, completion: nil)
     }
     
-    
-    
     func fetchUsers(completion: @escaping (Bool) -> Void) async {
         MessageLoader.shared.showLoader(withText: "Fetching Users")
         do {
             await fetchChatUsers { _ in }
             await fetchUniqueUsers { success in
                 MessageLoader.shared.hideLoader()
+                if self.cdChatUsers.isEmpty {
+                    self.goToAddChatVC()
+                }
                 completion(success)
             }
         } catch {
