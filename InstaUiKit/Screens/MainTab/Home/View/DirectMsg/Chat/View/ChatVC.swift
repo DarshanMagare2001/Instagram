@@ -31,6 +31,13 @@ class ChatVC: MessagesViewController {
                     print(fmcToken)
                     PushNotification.shared.sendPushNotification(to: fmcToken, title: name, body: msg)
                 }
+                
+                if let userChatList = self?.receiverUser?.usersChatList , let senderId = self?.currentUserModel?.uid  , let receiverId = self?.receiverUser?.uid {
+                    if !userChatList.contains(senderId){
+                        StoreUserInfo.shared.saveUsersChatList(senderId: senderId, receiverId: receiverId) { _ in}
+                    }
+                }
+                
             }
             self?.messageInputBar.inputTextView.text = ""
         }

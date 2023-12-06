@@ -9,10 +9,6 @@
 /* Begin PBXBuildFile section */
 		130C23422B2031EA0033B763 /* AddChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C23412B2031EA0033B763 /* AddChatVC.swift */; };
 		130C23462B20363E0033B763 /* AddChatVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C23452B20363E0033B763 /* AddChatVCCell.swift */; };
-		130C234B2B203CA20033B763 /* CDChatUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C234A2B203CA20033B763 /* CDChatUserModel.swift */; };
-		130C234E2B203CF80033B763 /* CDChatUsers+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C234C2B203CF80033B763 /* CDChatUsers+CoreDataClass.swift */; };
-		130C234F2B203CF80033B763 /* CDChatUsers+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C234D2B203CF80033B763 /* CDChatUsers+CoreDataProperties.swift */; };
-		130C23542B203D620033B763 /* CDChatUsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C23532B203D620033B763 /* CDChatUsersManager.swift */; };
 		130C23582B20469F0033B763 /* MessageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C23572B20469F0033B763 /* MessageLoader.swift */; };
 		130C235C2B20928A0033B763 /* DirectMsgViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C235B2B20928A0033B763 /* DirectMsgViewModel.swift */; };
 		131166382A70FB9900CD0373 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131166372A70FB9900CD0373 /* AppDelegate.swift */; };
@@ -119,10 +115,6 @@
 /* Begin PBXFileReference section */
 		130C23412B2031EA0033B763 /* AddChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChatVC.swift; sourceTree = "<group>"; };
 		130C23452B20363E0033B763 /* AddChatVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChatVCCell.swift; sourceTree = "<group>"; };
-		130C234A2B203CA20033B763 /* CDChatUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDChatUserModel.swift; sourceTree = "<group>"; };
-		130C234C2B203CF80033B763 /* CDChatUsers+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CDChatUsers+CoreDataClass.swift"; sourceTree = "<group>"; };
-		130C234D2B203CF80033B763 /* CDChatUsers+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CDChatUsers+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		130C23532B203D620033B763 /* CDChatUsersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDChatUsersManager.swift; sourceTree = "<group>"; };
 		130C23572B20469F0033B763 /* MessageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageLoader.swift; sourceTree = "<group>"; };
 		130C235B2B20928A0033B763 /* DirectMsgViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectMsgViewModel.swift; sourceTree = "<group>"; };
 		131166342A70FB9900CD0373 /* InstaUiKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstaUiKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -259,49 +251,6 @@
 				130C23452B20363E0033B763 /* AddChatVCCell.swift */,
 			);
 			path = AddChat;
-			sourceTree = "<group>";
-		};
-		130C23472B203C460033B763 /* CDChatUsersRepository */ = {
-			isa = PBXGroup;
-			children = (
-				130C23482B203C690033B763 /* Model */,
-				130C23492B203C730033B763 /* ViewModel */,
-			);
-			path = CDChatUsersRepository;
-			sourceTree = "<group>";
-		};
-		130C23482B203C690033B763 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				130C234A2B203CA20033B763 /* CDChatUserModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		130C23492B203C730033B763 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				130C23502B203D110033B763 /* CDChatUsers+CoreData */,
-				130C23522B203D430033B763 /* CDChatUsersManager */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		130C23502B203D110033B763 /* CDChatUsers+CoreData */ = {
-			isa = PBXGroup;
-			children = (
-				130C234C2B203CF80033B763 /* CDChatUsers+CoreDataClass.swift */,
-				130C234D2B203CF80033B763 /* CDChatUsers+CoreDataProperties.swift */,
-			);
-			path = "CDChatUsers+CoreData";
-			sourceTree = "<group>";
-		};
-		130C23522B203D430033B763 /* CDChatUsersManager */ = {
-			isa = PBXGroup;
-			children = (
-				130C23532B203D620033B763 /* CDChatUsersManager.swift */,
-			);
-			path = CDChatUsersManager;
 			sourceTree = "<group>";
 		};
 		130C23552B2046600033B763 /* SimpleLoader */ = {
@@ -581,7 +530,6 @@
 			children = (
 				1368D1552B17141900B42AC4 /* PersistantStorage.swift */,
 				1368D1572B17190800B42AC4 /* CDUsersRepository */,
-				130C23472B203C460033B763 /* CDChatUsersRepository */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1318,7 +1266,6 @@
 				13B4B3F02AFA3FB200EB13EE /* FeedViewVC.swift in Sources */,
 				13127A902AF3AA35008C7927 /* ChatVC.swift in Sources */,
 				139110082A86503700CABCD5 /* PostViewModel.swift in Sources */,
-				130C234E2B203CF80033B763 /* CDChatUsers+CoreDataClass.swift in Sources */,
 				13127A852AF36CA0008C7927 /* FetchUserInfo.swift in Sources */,
 				1392D0282A80B538004B6654 /* PostVC.swift in Sources */,
 				1391101B2A86518A00CABCD5 /* HomeModel.swift in Sources */,
@@ -1354,7 +1301,6 @@
 				13127A962AF3CC67008C7927 /* ChatVCModel.swift in Sources */,
 				1368D1562B17141900B42AC4 /* PersistantStorage.swift in Sources */,
 				1368D1842B1740DF00B42AC4 /* CDUserManager.swift in Sources */,
-				130C23542B203D620033B763 /* CDChatUsersManager.swift in Sources */,
 				138BC5FF2A73CABE00020297 /* ProfileModel.swift in Sources */,
 				1392D0202A80B4F6004B6654 /* SignUpVC.swift in Sources */,
 				139110162A8650FF00CABCD5 /* SearchViewModel.swift in Sources */,
@@ -1378,11 +1324,9 @@
 				1385F38F2AF5205F006C8363 /* UsersProfileView.swift in Sources */,
 				130C23582B20469F0033B763 /* MessageLoader.swift in Sources */,
 				13C508C82B108B3B0013C52D /* AddStoryVC.swift in Sources */,
-				130C234B2B203CA20033B763 /* CDChatUserModel.swift in Sources */,
 				1392D01E2A80B4ED004B6654 /* SignInVC.swift in Sources */,
 				1392D02A2A80B541004B6654 /* LikesVC.swift in Sources */,
 				138BC5E52A73A4B300020297 /* LikesCell.swift in Sources */,
-				130C234F2B203CF80033B763 /* CDChatUsers+CoreDataProperties.swift in Sources */,
 				13B4B3F22AFA48CA00EB13EE /* FeedViewModel.swift in Sources */,
 				13FB7D622A723F0900D8FC5C /* StoriesCell.swift in Sources */,
 				1391100D2A86509F00CABCD5 /* LikesModel.swift in Sources */,
