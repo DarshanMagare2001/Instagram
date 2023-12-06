@@ -47,6 +47,7 @@ class DirectMsgVC: UIViewController {
     @IBAction func addChatBtnPressed(_ sender: UIButton) {
         let storyboard = UIStoryboard.MainTab
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "AddChatVC") as! AddChatVC
+        destinationVC.allUniqueUsersArray = allUniqueUsersArray
         navigationController?.present(destinationVC, animated: true, completion: nil)
     }
 
@@ -54,11 +55,9 @@ class DirectMsgVC: UIViewController {
     func fetchUsers(completion:@escaping (Bool) -> Void){
         FetchUserInfo.shared.fetchCurrentUserFromFirebase { [weak self] result in
             guard let self = self else { return }
-
             switch result {
             case .success(let user):
                 guard let user = user, let following = user.followings else { return }
-
                 FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
                     switch result {
                     case .success(let data):
@@ -76,7 +75,6 @@ class DirectMsgVC: UIViewController {
                         completion(false)
                     }
                 }
-
             case .failure(let error):
                 print(error)
                 completion(false)

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		130C23422B2031EA0033B763 /* AddChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C23412B2031EA0033B763 /* AddChatVC.swift */; };
+		130C23462B20363E0033B763 /* AddChatVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C23452B20363E0033B763 /* AddChatVCCell.swift */; };
 		131166382A70FB9900CD0373 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131166372A70FB9900CD0373 /* AppDelegate.swift */; };
 		1311663A2A70FB9900CD0373 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131166392A70FB9900CD0373 /* SceneDelegate.swift */; };
 		1311663F2A70FB9900CD0373 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1311663D2A70FB9900CD0373 /* Main.storyboard */; };
@@ -111,6 +112,7 @@
 
 /* Begin PBXFileReference section */
 		130C23412B2031EA0033B763 /* AddChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChatVC.swift; sourceTree = "<group>"; };
+		130C23452B20363E0033B763 /* AddChatVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChatVCCell.swift; sourceTree = "<group>"; };
 		131166342A70FB9900CD0373 /* InstaUiKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstaUiKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		131166372A70FB9900CD0373 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		131166392A70FB9900CD0373 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -233,10 +235,18 @@
 			isa = PBXGroup;
 			children = (
 				138BC5D82A73922100020297 /* DirectMsgVC.swift */,
-				130C23412B2031EA0033B763 /* AddChatVC.swift */,
 				138BC5DA2A7395C800020297 /* DirectMsgCell.swift */,
 			);
 			path = DirectMsgVC;
+			sourceTree = "<group>";
+		};
+		130C23442B2036170033B763 /* AddChat */ = {
+			isa = PBXGroup;
+			children = (
+				130C23412B2031EA0033B763 /* AddChatVC.swift */,
+				130C23452B20363E0033B763 /* AddChatVCCell.swift */,
+			);
+			path = AddChat;
 			sourceTree = "<group>";
 		};
 		1311662B2A70FB9900CD0373 = {
@@ -630,6 +640,7 @@
 			isa = PBXGroup;
 			children = (
 				130C23432B2032330033B763 /* DirectMsgVC */,
+				130C23442B2036170033B763 /* AddChat */,
 				13127A8B2AF3AA01008C7927 /* Chat */,
 			);
 			path = DirectMsg;
@@ -1246,6 +1257,7 @@
 				1392D02C2A80B54A004B6654 /* ProfileVC.swift in Sources */,
 				130C23422B2031EA0033B763 /* AddChatVC.swift in Sources */,
 				137E54A02B1476BD00186558 /* FollowersAndFollowingViewModel.swift in Sources */,
+				130C23462B20363E0033B763 /* AddChatVCCell.swift in Sources */,
 				13DBE7852AEBB85C0006F3B9 /* LoaderVCViewModel.swift in Sources */,
 				13127A8A2AF3702F008C7927 /* UserModel.swift in Sources */,
 				13127A962AF3CC67008C7927 /* ChatVCModel.swift in Sources */,
