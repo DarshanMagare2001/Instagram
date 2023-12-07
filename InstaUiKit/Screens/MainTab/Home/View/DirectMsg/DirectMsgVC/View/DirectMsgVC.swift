@@ -143,54 +143,62 @@ extension DirectMsgVC : passChatUserBack {
 }
 
 extension DirectMsgVC {
-    func updateTableView(){
+    func updateTableView() {
         tableViewOutlet.dataSource = nil
         tableViewOutlet.delegate = nil
-
+        
         let filteredUsers = BehaviorRelay<[UserModel]>(value: chatUsers)
         filteredUsers
             .bind(to: tableViewOutlet
                     .rx
                     .items(cellIdentifier: "DirectMsgCell", cellType: DirectMsgCell.self)) { [weak self] (row, element, cell) in
                 guard let self = self else { return }
-
+                
+                // Reset cell content to avoid reuse issues
+                cell.userImg.image = nil
+                cell.nameLbl.text = nil
+                cell.userNameLbl.text = nil
+                
                 if let name = element.name,
                    let userName = element.username,
                    let imgUrl = element.imageUrl,
                    let receiverUserId = element.uid {
+                    
                     ImageLoader.loadImage(for: URL(string: imgUrl), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
                     cell.nameLbl.text = name
-
+                    
                     cell.directMsgButtonTapped = { [weak self] in
                         self?.navigateToChatVC(with: element)
                     }
-
-                    Data.shared.getData(key: "CurrentUserId") { [weak self] (result:Result<String?,Error>) in
-                        guard let self = self else { return }
-
-                        switch result {
-                        case .success(let currentUserId):
-                            guard let currentUserId = currentUserId else { return }
-
-                            self.viewModel.observeLastTextMessage(currentUserId: currentUserId, receiverUserId: receiverUserId) { textMsg, senderUid in
-                                if let textMsg = textMsg, let senderUid = senderUid {
-                                    cell.userNameLbl.text = "\(senderUid == currentUserId ? "You: " : "")\(textMsg)"
+                    
+                    DispatchQueue.main.async {
+                        Data.shared.getData(key: "CurrentUserId") { (result:Result<String?,Error>) in
+                            switch result {
+                            case .success(let currentUid):
+                                if let currentUid = currentUid {
+                                    self.viewModel.observeLastTextMessage(currentUserId: currentUid, receiverUserId: receiverUserId) { textMsg, senderUid in
+                                        print(textMsg)
+                                        if let textMsg = textMsg, let senderUid = senderUid {
+                                            cell.userNameLbl.text = "\(senderUid == "currentUserId" ? "You: " : "")\(textMsg)"
+                                        }
+                                    }
                                 }
+                            case .failure(let error):
+                                print(error)
                             }
-                        case .failure(let failure):
-                            print(failure)
                         }
                     }
+                    
                 }
             }
-            .disposed(by: disposeBag)
-
+                    .disposed(by: disposeBag)
+        
         tableViewOutlet.rx.itemDeleted
             .subscribe(onNext: { [weak self] indexPath in
                 self?.removeItem(at: indexPath.row)
             })
             .disposed(by: disposeBag)
-
+        
         searchBar.rx.text
             .orEmpty
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
@@ -202,33 +210,32 @@ extension DirectMsgVC {
                 filteredUsers.accept(filteredData ?? [])
             })
             .disposed(by: disposeBag)
-
     }
-
+    
     func removeItem(at index: Int) {
         let alertController = UIAlertController(
             title: "Delete User",
             message: "Are you sure you want to delete this user?",
             preferredStyle: .alert
         )
-
+        
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-
+        
         alertController.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
             self?.deleteUser(at: index)
         })
-
+        
         present(alertController, animated: true, completion: nil)
     }
-
+    
     private func deleteUser(at index: Int) {
         guard index < chatUsers.count else {
             return
         }
-
+        
         let userToDelete = chatUsers[index].uid
         MessageLoader.shared.showLoader(withText: "Removing User")
-
+        
         viewModel.removeUserFromChatlistOfSender(receiverId: userToDelete) { [weak self] _ in
             self?.viewModel.fetchChatUsers { result in
                 switch result {
@@ -245,7 +252,7 @@ extension DirectMsgVC {
             }
         }
     }
-
+    
     private func navigateToChatVC(with user: UserModel) {
         let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
         if let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChatVC") as? ChatVC {
