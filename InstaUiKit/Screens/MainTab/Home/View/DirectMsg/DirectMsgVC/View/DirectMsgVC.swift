@@ -41,6 +41,7 @@ class DirectMsgVC: UIViewController {
             case.success(let user):
                 if let user = user {
                     self.currentUser = user
+                    self.updateTableView()
                 }
             case.failure(let error):
                 print(error)
