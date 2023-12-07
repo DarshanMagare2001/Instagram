@@ -40,31 +40,31 @@ class HomeVC: UIViewController {
     }
     
     private func fetchAllKindNotifications(){
-        viewModel.fetchAllNotifications { result in
+        viewModel.fetchAllNotifications { [weak self] result in
             switch result {
             case.success(let notificationCount):
                 print(notificationCount)
                 if notificationCount != 0 {
-                    self.notificationLbl.isHidden = false
-                    self.notificationLbl.text = "\(notificationCount)"
+                    self?.notificationLbl.isHidden = false
+                    self?.notificationLbl.text = "\(notificationCount)"
                 }else{
-                    self.notificationLbl.isHidden = true
+                    self?.notificationLbl.isHidden = true
                 }
             case.failure(let error):
                 print(error)
             }
         }
         
-        viewModel.fetchUserChatNotificationCount { result in
+        viewModel.fetchUserChatNotificationCount { [weak self] result in
             switch result {
             case.success(let notificationCount):
                 print(notificationCount)
                 if let notificationCount = notificationCount {
                     if notificationCount != 0 {
-                        self.directMsgNotificationLbl.isHidden = false
-                        self.directMsgNotificationLbl.text = "\(notificationCount)"
+                        self?.directMsgNotificationLbl.isHidden = false
+                        self?.directMsgNotificationLbl.text = "\(notificationCount)"
                     }else{
-                        self.directMsgNotificationLbl.isHidden = true
+                        self?.directMsgNotificationLbl.isHidden = true
                     }
                 }
             case.failure(let error):
@@ -95,37 +95,37 @@ class HomeVC: UIViewController {
     @objc private func refresh() {
         self.makeSkeletonable()
         disPatchGroup.enter()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.updateUI()
-            self.disPatchGroup.leave()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            self?.updateUI()
+            self?.disPatchGroup.leave()
         }
-        disPatchGroup.notify(queue: .main) {
-            self.refreshControl.endRefreshing()
+        disPatchGroup.notify(queue: .main) { [weak self] in
+            self?.refreshControl.endRefreshing()
         }
     }
     
     @IBAction func addStoryBtnPressed(_ sender: UIButton) {
-        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "AddStoryVC") { destinationVC in
+        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "AddStoryVC") { [weak self] destinationVC in
             if let destinationVC = destinationVC {
-                self.navigationController?.pushViewController(destinationVC, animated: true)
+                self?.navigationController?.pushViewController(destinationVC, animated: true)
             }
         }
     }
     
     
     @IBAction func directMsgBtnPressed(_ sender: UIButton) {
-        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "DirectMsgVC") { destinationVC in
+        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "DirectMsgVC") { [weak self] destinationVC in
             if let destinationVC = destinationVC {
-                self.navigationController?.pushViewController(destinationVC, animated: true)
+                self?.navigationController?.pushViewController(destinationVC, animated: true)
             }
         }
     }
     
     
     @IBAction func notificationBtnPressed(_ sender: UIButton) {
-        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "NotificationVC") { destinationVC in
+        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "NotificationVC") { [weak self] destinationVC in
             if let destinationVC = destinationVC {
-                self.navigationController?.pushViewController(destinationVC, animated: true)
+                self?.navigationController?.pushViewController(destinationVC, animated: true)
             }
         }
     }
@@ -143,37 +143,37 @@ extension HomeVC {
     func updateUI() {
         fetchAllKindNotifications()
         disPatchGroup.enter()
-        DispatchQueue.main.async {
-            self.fetchData()
-            self.disPatchGroup.leave()
+        DispatchQueue.main.async { [weak self] in
+            self?.fetchData()
+            self?.disPatchGroup.leave()
         }
         disPatchGroup.enter()
-        DispatchQueue.main.async {
-            self.loadProfileImage()
-            self.disPatchGroup.leave()
+        DispatchQueue.main.async { [weak self] in
+            self?.loadProfileImage()
+            self?.disPatchGroup.leave()
         }
         disPatchGroup.enter()
-        DispatchQueue.main.async {
-            self.loadUserName()
-            self.disPatchGroup.leave()
+        DispatchQueue.main.async { [weak self] in
+            self?.loadUserName()
+            self?.disPatchGroup.leave()
         }
         disPatchGroup.notify(queue: .main){}
     }
     
     private func fetchData() {
         disPatchGroup.enter()
-        Data.shared.getData(key: "ProfileUrl") { (result:Result< String? , Error >) in
-            self.disPatchGroup.leave()
+        Data.shared.getData(key: "ProfileUrl") { [weak self] (result:Result< String? , Error >) in
+            self?.disPatchGroup.leave()
             if case .success(let urlString) = result, let url = URL(string: urlString ?? "") {
-                self.imgURL = url
+                self?.imgURL = url
             }
         }
         
         disPatchGroup.enter()
-        Data.shared.getData(key: "Name") { (result:Result< String? , Error >) in
-            self.disPatchGroup.leave()
+        Data.shared.getData(key: "Name") { [weak self] (result:Result< String? , Error >) in
+            self?.disPatchGroup.leave()
             if case .success(let data) = result {
-                self.userName = data
+                self?.userName = data
             }
         }
         
@@ -192,15 +192,15 @@ extension HomeVC {
         }
         
         disPatchGroup.enter()
-        DispatchQueue.main.async {
-            self.loadProfileImage()
-            self.disPatchGroup.leave()
+        DispatchQueue.main.async { [weak self] in
+            self?.loadProfileImage()
+            self?.disPatchGroup.leave()
         }
         
         disPatchGroup.enter()
-        DispatchQueue.main.async {
-            self.fetchUniqueUsers()
-            self.disPatchGroup.leave()
+        DispatchQueue.main.async { [weak self] in
+            self?.fetchUniqueUsers()
+            self?.disPatchGroup.leave()
         }
         
         disPatchGroup.notify(queue: .main){}
@@ -214,9 +214,9 @@ extension HomeVC {
     }
     
     private func loadUserName() {
-        Data.shared.getData(key: "Name") { (result:Result< String? , Error >) in
+        Data.shared.getData(key: "Name") { [weak self] (result:Result< String? , Error >) in
             if case .success(let data) = result {
-                self.userName = data
+                self?.userName = data
             }
         }
     }
@@ -255,8 +255,8 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         let post = allPost[indexPath.row]
         
         disPatchGroup.enter()
-        FetchUserInfo.shared.fetchUserDataByUid(uid: post.uid) { result in
-            self.disPatchGroup.leave()
+        FetchUserInfo.shared.fetchUserDataByUid(uid: post.uid) { [weak self] result in
+            self?.disPatchGroup.leave()
             switch result {
             case.success(let data):
                 if let data = data , let imgUrl = data.imageUrl , let name = data.name {
@@ -270,18 +270,18 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         }
         
         disPatchGroup.enter()
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
             ImageLoader.loadImage(for: URL(string: post.postImageURL), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
             cell.postLocationLbl.text = post.location
             cell.postCaption.text = post.caption
             cell.totalLikesCount.text = "\(post.likesCount) Likes"
-            self.disPatchGroup.leave()
+            self?.disPatchGroup.leave()
         }
         
         disPatchGroup.enter()
         if let randomLikedByUID = post.likedBy.randomElement() {
-            FetchUserInfo.shared.fetchUserDataByUid(uid: randomLikedByUID) { result in
-                self.disPatchGroup.leave()
+            FetchUserInfo.shared.fetchUserDataByUid(uid: randomLikedByUID) { [weak self] result in
+                self?.disPatchGroup.leave()
                 switch result {
                 case .success(let data):
                     if let data = data , let name = data.name {
@@ -294,8 +294,8 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         }
         
         disPatchGroup.enter()
-        DispatchQueue.main.async {
-            if let uid = self.uid {
+        DispatchQueue.main.async { [weak self] in
+            if let uid = self?.uid {
                 if (post.likedBy.contains(uid)){
                     cell.isLiked = true
                     let imageName = cell.isLiked ? "heart.fill" : "heart"
@@ -320,7 +320,7 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                             }
                         }
                     } else {
-                        PostViewModel.shared.likePost(postDocumentID: post.postDocumentID, userUID: uid) { success in
+                        PostViewModel.shared.likePost(postDocumentID: post.postDocumentID, userUID: uid) { [weak self] success in
                             if success {
                                 // Update the UI: Set the correct image for the like button
                                 cell.isLiked = true
@@ -328,11 +328,11 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                                 cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
                                 cell.likeBtn.tintColor = cell.isLiked ? .red : .black
                                 
-                                FetchUserInfo.shared.fetchUserDataByUid(uid: post.uid) { result in
+                                FetchUserInfo.shared.fetchUserDataByUid(uid: post.uid) { [weak self] result in
                                     switch result {
                                     case.success(let data):
                                         if let data = data , let fmcToken = data.fcmToken {
-                                            Data.shared.getData(key: "Name") {  (result: Result<String?, Error>) in
+                                            Data.shared.getData(key: "Name") { [weak self]  (result: Result<String?, Error>) in
                                                 switch result {
                                                 case .success(let name):
                                                     if let name = name {
@@ -353,18 +353,18 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                     }
                 }
             }
-            self.disPatchGroup.leave()
+            self?.disPatchGroup.leave()
         }
         
         disPatchGroup.enter()
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
             cell.commentsBtnTapped = { [weak self] in
                 let storyboard = UIStoryboard.Common
                 let destinationVC = storyboard.instantiateViewController(withIdentifier: "CommentsVC") as! CommentsVC
                 destinationVC.allPost = post
                 self?.navigationController?.pushViewController(destinationVC, animated: true)
             }
-            self.disPatchGroup.leave()
+            self?.disPatchGroup.leave()
         }
         disPatchGroup.notify(queue: .main){}
         
@@ -392,7 +392,7 @@ extension HomeVC: SkeletonCollectionViewDataSource  , SkeletonCollectionViewDele
         if let uid = allUniqueUsersArray[indexPath.row].uid,
            let name = allUniqueUsersArray[indexPath.row].name,
            let imgUrl = allUniqueUsersArray[indexPath.row].imageUrl{
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
                 ImageLoader.loadImage(for: URL(string: imgUrl), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
                 cell.userName.text = name
             }
