@@ -28,13 +28,18 @@ class HomeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        notificationLbl.isHidden = true
+        directMsgNotificationLbl.isHidden = true
         configureTableView()
         setupRefreshControl()
         configureUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        fetchAllKindNotifications()
+    }
+    
+    private func fetchAllKindNotifications(){
         viewModel.fetchAllNotifications { result in
             switch result {
             case.success(let notificationCount):
@@ -66,8 +71,8 @@ class HomeVC: UIViewController {
                 print(error)
             }
         }
-        
     }
+    
     
     private func configureTableView() {
         let nib = UINib(nibName: "FeedCell", bundle: nil)
@@ -136,10 +141,7 @@ class HomeVC: UIViewController {
 
 extension HomeVC {
     func updateUI() {
-        
-        notificationLbl.isHidden = true
-        directMsgNotificationLbl.isHidden = true
-        
+        fetchAllKindNotifications()
         disPatchGroup.enter()
         DispatchQueue.main.async {
             self.fetchData()
