@@ -179,7 +179,7 @@ extension DirectMsgVC {
                                     self.viewModel.observeLastTextMessage(currentUserId: currentUid, receiverUserId: receiverUserId) { textMsg, senderUid in
                                         print(textMsg)
                                         if let textMsg = textMsg, let senderUid = senderUid {
-                                            cell.userNameLbl.text = "\(senderUid == "currentUserId" ? "You: " : "")\(textMsg)"
+                                            cell.userNameLbl.text = "\(senderUid == currentUid ? "You: " : "")\(textMsg)"
                                         }
                                     }
                                 }
