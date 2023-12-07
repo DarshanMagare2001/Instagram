@@ -265,6 +265,11 @@ extension DirectMsgVC {
                 }
             }
         }
+        
+        if let currentUser = currentUser , let  senderId = currentUser.uid , let receiverId = userToDelete {
+            StoreUserInfo.shared.removeUsersChatNotifications(senderId: senderId, receiverId: receiverId) { _ in}
+        }
+        
     }
     
     private func navigateToChatVC(with user: UserModel) {
