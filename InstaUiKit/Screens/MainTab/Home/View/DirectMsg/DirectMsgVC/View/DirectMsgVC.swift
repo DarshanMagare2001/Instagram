@@ -15,6 +15,7 @@ class DirectMsgVC: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     var chatUsers = [UserModel]()
     var allUniqueUsersArray = [UserModel]()
+    var currentUser : UserModel?
     var viewModel = DirectMsgViewModel()
     let disposeBag = DisposeBag()
     let dispatchGroup = DispatchGroup()
@@ -35,6 +36,16 @@ class DirectMsgVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+            switch result {
+            case.success(let user):
+                if let user = user {
+                    self.currentUser = user
+                }
+            case.failure(let error):
+                print(error)
+            }
+        }
     }
     
     @IBAction func backBtnPressed(_ sender: UIButton) {
@@ -181,19 +192,12 @@ extension DirectMsgVC {
                     }
                     
                     DispatchQueue.main.async {
-                        Data.shared.getData(key: "CurrentUserId") { (result:Result<String?,Error>) in
-                            switch result {
-                            case .success(let currentUid):
-                                if let currentUid = currentUid {
-                                    self.viewModel.observeLastTextMessage(currentUserId: currentUid, receiverUserId: receiverUserId) { textMsg, senderUid in
-                                        print(textMsg)
-                                        if let textMsg = textMsg, let senderUid = senderUid {
-                                            cell.userNameLbl.text = "\(senderUid == currentUid ? "You: " : "🔵 ")\(textMsg)"
-                                        }
-                                    }
+                        if let currentUser = self.currentUser , let currentUid = currentUser.uid , let notification = currentUser.usersChatNotification {
+                            self.viewModel.observeLastTextMessage(currentUserId: currentUid, receiverUserId: receiverUserId) { textMsg, senderUid in
+                                print(textMsg)
+                                if let textMsg = textMsg, let senderUid = senderUid {
+                                    cell.userNameLbl.text = "\(senderUid == currentUid ? "You: " : "\(notification.contains(receiverUserId) ? "🔵":"") ")\(textMsg)"
                                 }
-                            case .failure(let error):
-                                print(error)
                             }
                         }
                     }
