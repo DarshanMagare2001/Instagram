@@ -22,7 +22,8 @@ class DirectMsgVC: UIViewController {
         super.viewDidLoad()
         addDoneButtonToSearchBarKeyboard()
         fetchUsers(){ _ in
-            self.updateTableView(){ _ in
+            self.updateTableView()
+            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
                 MessageLoader.shared.hideLoader()
             }
             if self.chatUsers.isEmpty {
@@ -117,9 +118,8 @@ extension DirectMsgVC : passChatUserBack {
                                         case.success(let data):
                                             if let data = data {
                                                 self.chatUsers = data
-                                                self.updateTableView(){ _ in
-                                                    MessageLoader.shared.hideLoader()
-                                                }
+                                                self.updateTableView()
+                                                MessageLoader.shared.hideLoader()
                                             }
                                         case.failure(let error):
                                             print(error)
@@ -143,7 +143,7 @@ extension DirectMsgVC : passChatUserBack {
 }
 
 extension DirectMsgVC {
-    func updateTableView(completion: @escaping (Bool) -> Void) {
+    func updateTableView(){
         tableViewOutlet.dataSource = nil
         tableViewOutlet.delegate = nil
 
@@ -203,8 +203,6 @@ extension DirectMsgVC {
             })
             .disposed(by: disposeBag)
 
-        // Notify completion after configuring the table view
-        completion(true)
     }
 
     func removeItem(at index: Int) {
@@ -237,9 +235,8 @@ extension DirectMsgVC {
                 case .success(let data):
                     if let data = data {
                         self?.chatUsers = data
-                        self?.updateTableView { _ in
-                            MessageLoader.shared.hideLoader()
-                        }
+                        self?.updateTableView()
+                        MessageLoader.shared.hideLoader()
                     }
                 case .failure(let error):
                     print(error)
