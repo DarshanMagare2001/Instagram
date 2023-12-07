@@ -188,5 +188,34 @@ class StoreUserInfo {
         }
     }
     
+    // MARK: - Save User's chatNotifications
+    
+    func saveUsersChatNotifications(senderId: String, receiverId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(receiverId)
+        // Update the document with the followings UID
+        userRef.setData(["usersChatNotification": FieldValue.arrayUnion([senderId])], merge: true) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
+    }
+    
+    // MARK: - Remove User's chatNotifications
+
+    func removeUsersChatNotifications(senderId: String, receiverId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(senderId)
+        // Update the document by removing the follower's UID
+        userRef.setData(["usersChatNotification": FieldValue.arrayRemove([receiverId])], merge: true) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
+    }
     
 }
