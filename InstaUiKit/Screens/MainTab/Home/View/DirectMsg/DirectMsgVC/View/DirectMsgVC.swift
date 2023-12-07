@@ -56,18 +56,7 @@ class DirectMsgVC: UIViewController {
     
     func fetchUsers(completion: @escaping (Bool) -> Void){
         MessageLoader.shared.showLoader(withText: "Fetching Users")
-        dispatchGroup.enter()
-        viewModel.fetchUniqueUsers { result in
-            self.dispatchGroup.leave()
-            switch result {
-            case.success(let data):
-                if let data = data {
-                    self.allUniqueUsersArray = data
-                }
-            case.failure(let error):
-                print(error)
-            }
-        }
+        
         dispatchGroup.enter()
         viewModel.fetchChatUsers { result in
             self.dispatchGroup.leave()
@@ -81,6 +70,19 @@ class DirectMsgVC: UIViewController {
             }
         }
         
+        dispatchGroup.enter()
+        viewModel.fetchUniqueUsers { result in
+            self.dispatchGroup.leave()
+            switch result {
+            case.success(let data):
+                if let data = data {
+                    self.allUniqueUsersArray = data
+                }
+            case.failure(let error):
+                print(error)
+            }
+        }
+       
         dispatchGroup.notify(queue: .main){
             completion(true)
         }
