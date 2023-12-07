@@ -80,6 +80,20 @@ class HomeVCViewModel {
         }
     }
     
+    func fetchUserChatNotificationCount(completion:@escaping (Result<Int?,Error>) -> Void){
+        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+            switch result {
+            case.success(let user):
+                if let user = user , let notification = user.usersChatNotification {
+                    completion(.success(notification.count))
+                }
+            case.failure(let error):
+                print(error)
+                completion(.failure(error))
+            }
+        }
+    }
+    
 }
 
 

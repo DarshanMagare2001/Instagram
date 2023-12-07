@@ -34,6 +34,7 @@ class HomeVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         viewModel.fetchAllNotifications { result in
             switch result {
             case.success(let notificationCount):
@@ -48,6 +49,24 @@ class HomeVC: UIViewController {
                 print(error)
             }
         }
+        
+        viewModel.fetchUserChatNotificationCount { result in
+            switch result {
+            case.success(let notificationCount):
+                print(notificationCount)
+                if let notificationCount = notificationCount {
+                    if notificationCount != 0 {
+                        self.directMsgNotificationLbl.isHidden = false
+                        self.directMsgNotificationLbl.text = "\(notificationCount)"
+                    }else{
+                        self.directMsgNotificationLbl.isHidden = true
+                    }
+                }
+            case.failure(let error):
+                print(error)
+            }
+        }
+        
     }
     
     private func configureTableView() {
