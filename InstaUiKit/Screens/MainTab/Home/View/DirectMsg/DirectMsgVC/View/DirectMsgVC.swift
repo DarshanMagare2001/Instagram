@@ -71,7 +71,7 @@ class DirectMsgVC: UIViewController {
         destinationVC.allUniqueUsersArray = filteredUsers
         navigationController?.present(destinationVC, animated: true, completion: nil)
     }
-
+    
     
     func fetchUsers(completion: @escaping (Bool) -> Void){
         MessageLoader.shared.showLoader(withText: "Fetching Users")
@@ -101,7 +101,7 @@ class DirectMsgVC: UIViewController {
                 print(error)
             }
         }
-       
+        
         dispatchGroup.notify(queue: .main){
             completion(true)
         }
@@ -127,35 +127,27 @@ extension DirectMsgVC : passChatUserBack {
         if let user = user {
             if let userUid = user.uid {
                 MessageLoader.shared.showLoader(withText: "Adding Users")
-                FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
-                    switch result {
-                    case.success(let currentUser):
-                        if let currentUser = currentUser , let  senderId = currentUser.uid , let receiverId = user.uid {
-                            StoreUserInfo.shared.saveUsersChatList(senderId: senderId, receiverId: receiverId) { result in
+                if let currentUser = currentUser , let  senderId = currentUser.uid , let receiverId = user.uid {
+                    StoreUserInfo.shared.saveUsersChatList(senderId: senderId, receiverId: receiverId) { result in
+                        switch result {
+                        case.success():
+                            self.viewModel.fetchChatUsers { result in
                                 switch result {
-                                case.success():
-                                    self.viewModel.fetchChatUsers { result in
-                                        switch result {
-                                        case.success(let data):
-                                            if let data = data {
-                                                self.chatUsers = data
-                                                self.updateTableView()
-                                                MessageLoader.shared.hideLoader()
-                                            }
-                                        case.failure(let error):
-                                            print(error)
-                                            MessageLoader.shared.hideLoader()
-                                        }
+                                case.success(let data):
+                                    if let data = data {
+                                        self.chatUsers = data
+                                        self.updateTableView()
+                                        MessageLoader.shared.hideLoader()
                                     }
                                 case.failure(let error):
                                     print(error)
                                     MessageLoader.shared.hideLoader()
                                 }
                             }
+                        case.failure(let error):
+                            print(error)
+                            MessageLoader.shared.hideLoader()
                         }
-                    case.failure(let error):
-                        print(error)
-                        MessageLoader.shared.hideLoader()
                     }
                 }
             }
