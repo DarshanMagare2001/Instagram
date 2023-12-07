@@ -21,6 +21,7 @@ class UsersProfileView: UIViewController {
     
     var allPost = [PostModel]()
     var user : UserModel?
+    var currentUser : UserModel?
     var isFollowAndMsgBtnShow : Bool?
     var viewModel = UsersProfileViewModel()
     
@@ -38,6 +39,18 @@ class UsersProfileView: UIViewController {
         super.viewWillAppear(animated)
         
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        
+        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+            switch result {
+            case.success(let user):
+                if let user = user {
+                    self.currentUser = user
+                }
+            case.failure(let error):
+            print(error)
+            }
+        }
+        
         
         if let user = user {
             if let uid = user.uid , let followers = user.followers?.count , let followings = user.followings?.count , let followersRequest = user.followersRequest {
@@ -60,8 +73,8 @@ class UsersProfileView: UIViewController {
                                     }
                                 }
                             }
-                        case.failure(let error):
-                            print(error)
+                        case .failure(let error):
+                           print(error)
                         }
                     }
                 }
@@ -137,6 +150,9 @@ class UsersProfileView: UIViewController {
     }
     
     @IBAction func messageBtnPressed(_ sender: UIButton) {
+        if let currentUser = currentUser , let  senderId = currentUser.uid , let receiverId = user?.uid {
+            StoreUserInfo.shared.saveUsersChatList(senderId: senderId, receiverId: receiverId) { _ in}
+        }
         if let user = user {
             let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
             let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChatVC") as! ChatVC
