@@ -23,8 +23,9 @@ struct UserModel {
     var followingsRequest : [String]?
     var followersRequest : [String]?
     var usersChatList : [String]?
+    var usersChatNotification : [String]?
     
-    init(uid: String, bio: String, fcmToken: String, phoneNumber: String, countryCode: String, name: String, imageUrl: String, gender: String, username: String,followers: [String],followings:[String] ,isPrivate : String , followingsRequest : [String]? , followersRequest : [String]? , usersChatList : [String]? ) {
+    init(uid: String, bio: String, fcmToken: String, phoneNumber: String, countryCode: String, name: String, imageUrl: String, gender: String, username: String,followers: [String],followings:[String] ,isPrivate : String , followingsRequest : [String]? , followersRequest : [String]? , usersChatList : [String]? , usersChatNotification : [String]? ) {
         self.uid = uid
         self.bio = bio
         self.fcmToken = fcmToken
@@ -40,6 +41,8 @@ struct UserModel {
         self.followingsRequest = followingsRequest
         self.followersRequest = followersRequest
         self.usersChatList = usersChatList
+        self.usersChatNotification = usersChatNotification
     }
+    
 }
 
