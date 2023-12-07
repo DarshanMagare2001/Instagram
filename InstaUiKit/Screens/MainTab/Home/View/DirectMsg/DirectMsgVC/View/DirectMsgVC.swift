@@ -46,13 +46,20 @@ class DirectMsgVC: UIViewController {
         goToAddChatVC()
     }
     
-    func goToAddChatVC(){
+    func goToAddChatVC() {
         let storyboard = UIStoryboard.MainTab
+        // Filter users whose uid is not in chatUsers
+        let filteredUsers = allUniqueUsersArray.filter { newUser in
+            return !chatUsers.contains { existingUser in
+                return existingUser.uid == newUser.uid
+            }
+        }
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "AddChatVC") as! AddChatVC
         destinationVC.delegate = self
-        destinationVC.allUniqueUsersArray = allUniqueUsersArray
+        destinationVC.allUniqueUsersArray = filteredUsers
         navigationController?.present(destinationVC, animated: true, completion: nil)
     }
+
     
     func fetchUsers(completion: @escaping (Bool) -> Void){
         MessageLoader.shared.showLoader(withText: "Fetching Users")
