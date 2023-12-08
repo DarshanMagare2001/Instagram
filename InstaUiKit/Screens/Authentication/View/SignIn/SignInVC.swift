@@ -29,41 +29,34 @@ class SignInVC: UIViewController, passUserBack {
     @IBAction func logInBtnPressed(_ sender: UIButton) {
         viewModel.login(emailTxtFld: emailTxtFld.text, passwordTxtFld: passwordTxtFld.text) { value in
             if value {
-                Data.shared.getData(key: "CurrentUserId") { (result:Result<String?,Error>) in
-                    switch result {
-                    case .success(let uid):
-                        if let uid = uid {
-                            FetchUserInfo.shared.getFCMToken { fcmToken in
-                                if let fcmToken = fcmToken {
-                                    StoreUserInfo.shared.saveUsersFMCTokenAndUidToFirebase(uid: uid, fcmToken: fcmToken) { result in
-                                        switch result {
-                                        case .success(let success):
-                                            print(success)
-                                            if self.coreDataUsers.contains(where: { $0.uid == uid }) {
-                                                LoaderVCViewModel.shared.hideLoader()
-                                                self.gotoMainTab()
-                                            } else {
-                                                self.viewModel.saveUserToCoreData(uid: uid, email: self.emailTxtFld.text, password: self.passwordTxtFld.text) { 
-                                                    self.gotoMainTab()
-                                                }
-                                            }
-                                        case .failure(let failure):
-                                            print(failure)
-                                            if self.coreDataUsers.contains(where: { $0.uid == uid }) {
-                                                LoaderVCViewModel.shared.hideLoader()
-                                                self.gotoMainTab()
-                                            } else {
-                                                self.viewModel.saveUserToCoreData(uid: uid, email: self.emailTxtFld.text, password: self.passwordTxtFld.text) { 
-                                                    self.gotoMainTab()
-                                                }
-                                            }
+                if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
+                    FetchUserInfo.shared.getFCMToken { fcmToken in
+                        if let fcmToken = fcmToken {
+                            StoreUserInfo.shared.saveUsersFMCTokenAndUidToFirebase(uid: uid, fcmToken: fcmToken) { result in
+                                switch result {
+                                case .success(let success):
+                                    print(success)
+                                    if self.coreDataUsers.contains(where: { $0.uid == uid }) {
+                                        LoaderVCViewModel.shared.hideLoader()
+                                        self.gotoMainTab()
+                                    } else {
+                                        self.viewModel.saveUserToCoreData(uid: uid, email: self.emailTxtFld.text, password: self.passwordTxtFld.text) {
+                                            self.gotoMainTab()
+                                        }
+                                    }
+                                case .failure(let failure):
+                                    print(failure)
+                                    if self.coreDataUsers.contains(where: { $0.uid == uid }) {
+                                        LoaderVCViewModel.shared.hideLoader()
+                                        self.gotoMainTab()
+                                    } else {
+                                        self.viewModel.saveUserToCoreData(uid: uid, email: self.emailTxtFld.text, password: self.passwordTxtFld.text) {
+                                            self.gotoMainTab()
                                         }
                                     }
                                 }
                             }
                         }
-                    case .failure(let failure):
-                        print(failure)
                     }
                 }
             }else{
@@ -132,29 +125,22 @@ class SignInVC: UIViewController, passUserBack {
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
             self.viewModel.login(emailTxtFld: user.email, passwordTxtFld: user.password) { value in
                 if value {
-                    Data.shared.getData(key: "CurrentUserId") { (result:Result<String?,Error>) in
-                        switch result {
-                        case .success(let uid):
-                            if let uid = uid {
-                                FetchUserInfo.shared.getFCMToken { fcmToken in
-                                    if let fcmToken = fcmToken {
-                                        StoreUserInfo.shared.saveUsersFMCTokenAndUidToFirebase(uid: uid, fcmToken: fcmToken) { result in
-                                            switch result {
-                                            case .success(let success):
-                                                print(success)
-                                                LoaderVCViewModel.shared.hideLoader()
-                                                self.gotoMainTab()
-                                            case .failure(let failure):
-                                                print(failure)
-                                                LoaderVCViewModel.shared.hideLoader()
-                                                self.gotoMainTab()
-                                            }
-                                        }
+                    if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
+                        FetchUserInfo.shared.getFCMToken { fcmToken in
+                            if let fcmToken = fcmToken {
+                                StoreUserInfo.shared.saveUsersFMCTokenAndUidToFirebase(uid: uid, fcmToken: fcmToken) { result in
+                                    switch result {
+                                    case .success(let success):
+                                        print(success)
+                                        LoaderVCViewModel.shared.hideLoader()
+                                        self.gotoMainTab()
+                                    case .failure(let failure):
+                                        print(failure)
+                                        LoaderVCViewModel.shared.hideLoader()
+                                        self.gotoMainTab()
                                     }
                                 }
                             }
-                        case .failure(let failure):
-                            print(failure)
                         }
                     }
                 }else{
