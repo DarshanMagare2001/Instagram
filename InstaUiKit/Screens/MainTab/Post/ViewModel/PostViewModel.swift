@@ -20,20 +20,14 @@ class PostViewModel {
     
     func fetchAllPhotos(completion: @escaping ([UIImage]) -> Void) {
         var images: [UIImage] = []
-        
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        
         let fetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
-        
         let imageManager = PHImageManager.default()
-        
         fetchResult.enumerateObjects { asset, _, _ in
             let targetSize = CGSize(width: 700, height: 700) // Adjust the target size as needed
-            
             let requestOptions = PHImageRequestOptions()
             requestOptions.isSynchronous = true
-            
             imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: requestOptions) { image, _ in
                 if let image = image {
                     images.append(image)
@@ -45,67 +39,45 @@ class PostViewModel {
     
     
     func uploadImageToFirebaseStorage(image: UIImage, caption: String, location: String, completionHandler: @escaping (Bool) -> Void) {
-        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
-            switch result {
-            case .success(let data):
-                if let data = data {
-                    let imageName = "\(Int(Date().timeIntervalSince1970)).jpg"
-                    let storageRef = Storage.storage().reference().child("images/\(imageName)")
-                    if let imageData = image.jpegData(compressionQuality: 0.5) {
-                        storageRef.putData(imageData, metadata: nil) { (metadata, error) in
-                            if let error = error {
-                                print("Error uploading image: \(error.localizedDescription)")
+        let imageName = "\(Int(Date().timeIntervalSince1970)).jpg"
+        let storageRef = Storage.storage().reference().child("images/\(imageName)")
+        if let imageData = image.jpegData(compressionQuality: 0.5) {
+            storageRef.putData(imageData, metadata: nil) { (metadata, error) in
+                if let error = error {
+                    print("Error uploading image: \(error.localizedDescription)")
+                    completionHandler(false)
+                } else {
+                    storageRef.downloadURL { (url, error) in
+                        if let downloadURL = url {
+                            print("Image uploaded to: \(downloadURL)")
+                            guard let uid = Auth.auth().currentUser?.uid else {
+                                print("User is not authenticated.")
                                 completionHandler(false)
-                            } else {
-                                // Image uploaded successfully, now you can get the download URL
-                                storageRef.downloadURL { (url, error) in
-                                    if let downloadURL = url {
-                                        // The downloadURL contains the URL to the uploaded image
-                                        print("Image uploaded to: \(downloadURL)")
-                                        
-                                        // Get the UID of the currently authenticated user
-                                        guard let uid = Auth.auth().currentUser?.uid else {
-                                            print("User is not authenticated.")
-                                            completionHandler(false)
-                                            return
-                                        }
-                                        
-                                        let db = Firestore.firestore()
-                                        if let name = data.name, let profileImageUrl = data.imageUrl {
-                                            // Include UID in the document data
-                                            var imageDocData: [String: Any] = [
-                                                "postImageURL": downloadURL.absoluteString,
-                                                "caption": caption,
-                                                "location": location,
-                                                "name": name,
-                                                "profileImageUrl": profileImageUrl,
-                                                "uid": uid,
-                                                "timestamp": FieldValue.serverTimestamp() // Add timestamp as FieldValue
-                                            ]
-                                            
-                                            // Add the document to Firestore and get the generated document ID
-                                            db.collection("post").addDocument(data: imageDocData) { (error) in
-                                                if let error = error {
-                                                    print("Error adding document: \(error)")
-                                                    completionHandler(false)
-                                                } else {
-                                                    print("Document added successfully")
-                                                    completionHandler(true)
-                                                }
-                                            }
-                                        }
-                                    } else {
-                                        print("Error getting image download URL: \(error?.localizedDescription ?? "")")
+                                return
+                            }
+                            let db = Firestore.firestore()
+                                var imageDocData: [String: Any] = [
+                                    "postImageURL": downloadURL.absoluteString,
+                                    "caption": caption,
+                                    "location": location,
+                                    "uid": uid,
+                                    "timestamp": FieldValue.serverTimestamp() // Add timestamp as FieldValue
+                                ]
+                                db.collection("post").addDocument(data: imageDocData) { (error) in
+                                    if let error = error {
+                                        print("Error adding document: \(error)")
                                         completionHandler(false)
+                                    } else {
+                                        print("Document added successfully")
+                                        completionHandler(true)
                                     }
                                 }
-                            }
+                        } else {
+                            print("Error getting image download URL: \(error?.localizedDescription ?? "")")
+                            completionHandler(false)
                         }
                     }
                 }
-            case .failure(let error):
-                print(error)
-                completionHandler(false)
             }
         }
     }
@@ -128,8 +100,6 @@ class PostViewModel {
                         let postImageURL = data["postImageURL"] as? String ?? ""
                         let caption = data["caption"] as? String ?? ""
                         let location = data["location"] as? String ?? ""
-                        let name = data["name"] as? String ?? ""
-                        let profileImageUrl = data["profileImageUrl"] as? String ?? ""
                         let postDocumentID = document.documentID
                         let likedBy = data["likedBy"] as? [String] ?? []
                         let likesCount = data["likesCount"] as? Int ?? 0
@@ -139,9 +109,7 @@ class PostViewModel {
                                 postImageURL: postImageURL,
                                 caption: caption,
                                 location: location,
-                                name: name,
                                 uid: uid,
-                                profileImageUrl: profileImageUrl,
                                 postDocumentID: postDocumentID,
                                 likedBy: likedBy,
                                 likesCount: likesCount,
@@ -177,9 +145,7 @@ class PostViewModel {
                         let postImageURL = data["postImageURL"] as? String ?? ""
                         let caption = data["caption"] as? String ?? ""
                         let location = data["location"] as? String ?? ""
-                        let name = data["name"] as? String ?? ""
                         let uid = data["uid"] as? String ?? ""
-                        let profileImageUrl = data["profileImageUrl"] as? String ?? ""
                         let postDocumentID = document.documentID // Get document ID
                         let likedBy = data["likedBy"] as? [String] ?? []
                         let likesCount = data["likesCount"] as? Int ?? 0
@@ -189,9 +155,7 @@ class PostViewModel {
                                 postImageURL: postImageURL,
                                 caption: caption,
                                 location: location,
-                                name: name,
                                 uid: uid,
-                                profileImageUrl: profileImageUrl,
                                 postDocumentID: postDocumentID,
                                 likedBy: likedBy,
                                 likesCount: likesCount,
@@ -318,9 +282,7 @@ class PostViewModel {
                     let postImageURL = data["postImageURL"] as? String ?? ""
                     let caption = data["caption"] as? String ?? ""
                     let location = data["location"] as? String ?? ""
-                    let name = data["name"] as? String ?? ""
                     let uid = data["uid"] as? String ?? ""
-                    let profileImageUrl = data["profileImageUrl"] as? String ?? ""
                     let likedBy = data["likedBy"] as? [String] ?? []
                     let likesCount = data["likesCount"] as? Int ?? 0
                     let comments = data["comments"] as? [[String: Any]] ?? []
@@ -329,9 +291,7 @@ class PostViewModel {
                             postImageURL: postImageURL,
                             caption: caption,
                             location: location,
-                            name: name,
                             uid: uid,
-                            profileImageUrl: profileImageUrl,
                             postDocumentID: postDocumentID,
                             likedBy: likedBy,
                             likesCount: likesCount,
