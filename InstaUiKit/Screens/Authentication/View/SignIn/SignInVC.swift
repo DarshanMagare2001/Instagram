@@ -43,7 +43,9 @@ class SignInVC: UIViewController, passUserBack {
                                                 LoaderVCViewModel.shared.hideLoader()
                                                 self.gotoMainTab()
                                             } else {
-                                                self.saveUserToCoreData(uid: uid)
+                                                self.viewModel.saveUserToCoreData(uid: uid, email: self.emailTxtFld.text, password: self.passwordTxtFld.text) { 
+                                                    self.gotoMainTab()
+                                                }
                                             }
                                         case .failure(let failure):
                                             print(failure)
@@ -51,7 +53,9 @@ class SignInVC: UIViewController, passUserBack {
                                                 LoaderVCViewModel.shared.hideLoader()
                                                 self.gotoMainTab()
                                             } else {
-                                                self.saveUserToCoreData(uid: uid)
+                                                self.viewModel.saveUserToCoreData(uid: uid, email: self.emailTxtFld.text, password: self.passwordTxtFld.text) { 
+                                                    self.gotoMainTab()
+                                                }
                                             }
                                         }
                                     }
@@ -103,22 +107,7 @@ class SignInVC: UIViewController, passUserBack {
         passwordTxtFld.placeholder = "Enter password"
     }
     
-    func saveUserToCoreData(uid:String){
-        DispatchQueue.main.async {
-            LoaderVCViewModel.shared.hideLoader()
-            Alert.shared.alertYesNo(title: "Save User!", message: "Do you want to save user?.", presentingViewController: self) { _ in
-                print("Yes")
-                if let email = self.emailTxtFld.text , let password = self.passwordTxtFld.text {
-                    CDUserManager.shared.createUser(user: CDUsersModel(id: UUID(), email: email, password: password, uid: uid)) { _ in
-                        self.gotoMainTab()
-                    }
-                }
-            } noHandler: { _ in
-                print("No")
-                self.gotoMainTab()
-            }
-        }
-    }
+    
     
     func gotoMainTab(){
         Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in

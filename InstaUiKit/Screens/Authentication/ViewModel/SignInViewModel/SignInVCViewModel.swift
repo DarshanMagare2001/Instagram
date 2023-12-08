@@ -77,5 +77,23 @@ class SignInVCViewModel {
             }
         }
     }
+    
+    func saveUserToCoreData(uid:String , email:String? , password : String? , completion : @escaping ()->Void){
+        DispatchQueue.main.async {
+            LoaderVCViewModel.shared.hideLoader()
+            Alert.shared.alertYesNo(title: "Save User!", message: "Do you want to save user?.", presentingViewController: self.presentingViewController!) { _ in
+                print("Yes")
+                if let email = email, let password = password {
+                    CDUserManager.shared.createUser(user: CDUsersModel(id: UUID(), email: email, password: password, uid: uid)) { _ in
+                        completion()
+                    }
+                }
+            } noHandler: { _ in
+                print("No")
+                completion()
+            }
+        }
+    }
+    
 }
 
