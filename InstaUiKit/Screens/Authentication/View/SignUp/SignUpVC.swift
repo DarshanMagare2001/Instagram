@@ -28,28 +28,21 @@ class SignUpVC: UIViewController {
     @IBAction func signUpBtnPressed(_ sender: UIButton) {
         viewModel.signUp(emailTxtFld: emailTxtFld.text, passwordTxtFld: passwordTxtFld.text) { value in
             if value {
-                Data.shared.getData(key: "CurrentUserId") { (result:Result<String?,Error>) in
-                    switch result {
-                    case .success(let uid):
-                        if let uid = uid {
-                            FetchUserInfo.shared.getFCMToken { fcmToken in
-                                print(fcmToken)
-                                if let fcmToken = fcmToken {
-                                    StoreUserInfo.shared.saveUsersFMCTokenAndUidToFirebase(uid: uid, fcmToken: fcmToken) { result in
-                                        switch result {
-                                        case .success(let success):
-                                            print(success)
-                                            self.saveUserToCoreData(uid:uid)
-                                        case .failure(let failure):
-                                            print(failure)
-                                            self.saveUserToCoreData(uid:uid)
-                                        }
-                                    }
+                if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
+                    FetchUserInfo.shared.getFCMToken { fcmToken in
+                        print(fcmToken)
+                        if let fcmToken = fcmToken {
+                            StoreUserInfo.shared.saveUsersFMCTokenAndUidToFirebase(uid: uid, fcmToken: fcmToken) { result in
+                                switch result {
+                                case .success(let success):
+                                    print(success)
+                                    self.saveUserToCoreData(uid:uid)
+                                case .failure(let failure):
+                                    print(failure)
+                                    self.saveUserToCoreData(uid:uid)
                                 }
                             }
                         }
-                    case .failure(let failure):
-                        print(failure)
                     }
                 }
             }else{

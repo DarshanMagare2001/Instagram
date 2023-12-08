@@ -17,7 +17,6 @@ class HomeVC: UIViewController {
     @IBOutlet weak var notificationLbl: CircularLabel!
     @IBOutlet weak var directMsgNotificationLbl: CircularLabel!
     
-    var imgURL: URL?
     var userName: String?
     var allPost = [PostModel]()
     var allUniqueUsersArray = [UserModel]()
@@ -147,34 +146,17 @@ extension HomeVC {
             self?.fetchData()
             self?.disPatchGroup.leave()
         }
-        disPatchGroup.enter()
-        DispatchQueue.main.async { [weak self] in
-            self?.loadProfileImage()
-            self?.disPatchGroup.leave()
-        }
-        disPatchGroup.enter()
-        DispatchQueue.main.async { [weak self] in
-            self?.loadUserName()
-            self?.disPatchGroup.leave()
-        }
         disPatchGroup.notify(queue: .main){}
     }
     
     private func fetchData() {
-        disPatchGroup.enter()
-        Data.shared.getData(key: "ProfileUrl") { [weak self] (result:Result< String? , Error >) in
-            self?.disPatchGroup.leave()
-            if case .success(let urlString) = result, let url = URL(string: urlString ?? "") {
-                self?.imgURL = url
-            }
+        
+        if let url = FetchUserInfo.fetchUserInfoFromUserdefault(type: .profileUrl){
+            ImageLoader.loadImage(for: URL(string:url), into: userImg, withPlaceholder: UIImage(systemName: "person.fill"))
         }
         
-        disPatchGroup.enter()
-        Data.shared.getData(key: "Name") { [weak self] (result:Result< String? , Error >) in
-            self?.disPatchGroup.leave()
-            if case .success(let data) = result {
-                self?.userName = data
-            }
+        if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name){
+            userName = name
         }
         
         disPatchGroup.enter()
@@ -193,7 +175,6 @@ extension HomeVC {
         
         disPatchGroup.enter()
         DispatchQueue.main.async { [weak self] in
-            self?.loadProfileImage()
             self?.disPatchGroup.leave()
         }
         
@@ -207,19 +188,6 @@ extension HomeVC {
         
     }
     
-    private func loadProfileImage() {
-        if let url = imgURL {
-            ImageLoader.loadImage(for: url, into: userImg, withPlaceholder: UIImage(systemName: "person.fill"))
-        }
-    }
-    
-    private func loadUserName() {
-        Data.shared.getData(key: "Name") { [weak self] (result:Result< String? , Error >) in
-            if case .success(let data) = result {
-                self?.userName = data
-            }
-        }
-    }
     
     private func fetchUniqueUsers() {
         viewModel.fetchFollowingUsers { result in
