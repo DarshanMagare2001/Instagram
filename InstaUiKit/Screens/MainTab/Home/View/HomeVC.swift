@@ -208,6 +208,15 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
         let post = allPost[indexPath.row]
         
+        cell.userImg1.image = nil
+        cell.userImg2.image = nil
+        cell.userName.text = nil
+        cell.postImg.image = nil
+        cell.postLocationLbl.text = nil
+        cell.postCaption.text = nil
+        cell.totalLikesCount.text = nil
+        cell.likedByLbl.text = nil
+        
         disPatchGroup.enter()
         FetchUserInfo.shared.fetchUserDataByUid(uid: post.uid) { [weak self] result in
             self?.disPatchGroup.leave()
