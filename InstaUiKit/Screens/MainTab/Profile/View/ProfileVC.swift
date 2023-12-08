@@ -143,87 +143,62 @@ extension ProfileVC {
     }
     
     func updateUI(){
-        Data.shared.getData(key: "ProfileUrl") { (result: Result<String?, Error>) in
-            switch result {
-            case .success(let urlString):
-                if let url = urlString {
-                    if let imageURL = URL(string: url) {
-                        ImageLoader.loadImage(for: imageURL, into: self.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
-                    } else {
-                        print("Invalid URL: \(url)")
-                    }
-                } else {
-                    print("URL is nil or empty")
-                }
-            case .failure(let error):
-                print("Error loading image: \(error)")
+        if let url = FetchUserInfo.fetchUserInfoFromUserdefault(type: .profileUrl) {
+            if let imageURL = URL(string: url) {
+                ImageLoader.loadImage(for: imageURL, into: self.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+            } else {
+                print("Invalid URL: \(url)")
             }
+        } else {
+            print("URL is nil or empty")
         }
         
-        Data.shared.getData(key: "Name") { (result: Result<String, Error>) in
-            switch result {
-            case .success(let data):
-                print(data)
-                self.userName.text = data
-                self.sideMenueName.text = data
-                self.headerName.text = data
-            case .failure(let error):
-                print(error)
-            }
+        if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name){
+            self.userName.text = name
+            self.sideMenueName.text = name
+            self.headerName.text = name
         }
         
-        Data.shared.getData(key: "Bio") { (result: Result<String, Error>) in
-            switch result {
-            case .success(let data):
-                print(data)
-                self.userBio.text = data
-            case .failure(let error):
-                print(error)
-            }
+        if let bio = FetchUserInfo.fetchUserInfoFromUserdefault(type: .bio){
+            self.userBio.text = bio
         }
         
-        Data.shared.getData(key: "CurrentUserId") { (result:Result<String? , Error>) in
-            switch result {
-            case .success(let uid):
-                if let uid = uid {
-                    PostViewModel.shared.fetchPostDataOfPerticularUser(forUID: uid) { result in
-                        switch result {
-                        case .success(let images):
-                            // Handle the images
-                            print("Fetched images: \(images)")
-                            
-                            DispatchQueue.main.async{
-                                self.allPost = images
-                                self.postCountLbl.text = "\(self.allPost.count)"
-                                self.photosCollectionView.stopSkeletonAnimation()
-                                self.view.stopSkeletonAnimation()
-                                self.photosCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
-                                self.photosCollectionView.reloadData()
-                            }
-                            
-                        case .failure(let error):
-                            // Handle the error
-                            print("Error fetching images: \(error)")
-                        }
+        if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
+            PostViewModel.shared.fetchPostDataOfPerticularUser(forUID: uid) { result in
+                switch result {
+                case .success(let images):
+                    // Handle the images
+                    print("Fetched images: \(images)")
+                    
+                    DispatchQueue.main.async{
+                        self.allPost = images
+                        self.postCountLbl.text = "\(self.allPost.count)"
+                        self.photosCollectionView.stopSkeletonAnimation()
+                        self.view.stopSkeletonAnimation()
+                        self.photosCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+                        self.photosCollectionView.reloadData()
                     }
                     
-                    FetchUserInfo.shared.fetchCurrentUserFromFirebase { [self] result in
-                        switch result {
-                        case .success(let userData):
-                            if let userData = userData,let followers = userData.followers?.count,let followings = userData.followings?.count {
-                                followersCountLbl.text = "\(followers)"
-                                followingCountLbl.text = "\(followings)"
-                            }
-                        case .failure(let error):
-                            print(error)
-                        }
-                    }
-                    
+                case .failure(let error):
+                    // Handle the error
+                    print("Error fetching images: \(error)")
                 }
-            case .failure(let error):
-                print(error)
             }
+            
+            FetchUserInfo.shared.fetchCurrentUserFromFirebase { [self] result in
+                switch result {
+                case .success(let userData):
+                    if let userData = userData,let followers = userData.followers?.count,let followings = userData.followings?.count {
+                        followersCountLbl.text = "\(followers)"
+                        followingCountLbl.text = "\(followings)"
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            
         }
+        
     }
     
     

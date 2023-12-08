@@ -19,40 +19,32 @@ class EditProfileViewModel {
     // Function which save Userinfo to firebase
     
     func saveDataToFirebase(name:String?,username:String?,bio:String?,countryCode:String?,phoneNumber:String?,gender:String? , isPrivate : String?, completionHandler:@escaping(Bool) -> Void){
-        Data.shared.getData(key: "CurrentUserId") { (result: Result<String, Error>) in
-            switch result {
-            case .success(let uid):
-                print(uid)
-                guard let name = name , let username = username , let bio = bio, let countryCode = countryCode , let phoneNumber = phoneNumber , let gender = gender , let isPrivate = isPrivate else { return }
-                ProfileViewModel.shared.saveUserToFirebase(uid: uid, name: name, username: username, bio: bio, phoneNumber: phoneNumber, gender: gender, countryCode: countryCode, isPrivate: isPrivate){ result in
-                    switch result {
-                    case .success():
-                        print("User data saved successfully in database.")
-                        
-                        FetchUserInfo.shared.fetchUserDataByUid(uid: uid) { result in
-                            switch result {
-                            case .success(let data):
-                                if let data = data {
-                                    self.saveUserInfo(data: data){ value in
-                                        print(value)
-                                        completionHandler(true)
-                                    }
+        guard let name = name , let username = username , let bio = bio, let countryCode = countryCode , let phoneNumber = phoneNumber , let gender = gender , let isPrivate = isPrivate else { return }
+        if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid){
+            ProfileViewModel.shared.saveUserToFirebase(uid: uid, name: name, username: username, bio: bio, phoneNumber: phoneNumber, gender: gender, countryCode: countryCode, isPrivate: isPrivate){ result in
+                switch result {
+                case .success():
+                    print("User data saved successfully in database.")
+                    
+                    FetchUserInfo.shared.fetchUserDataByUid(uid: uid) { result in
+                        switch result {
+                        case .success(let data):
+                            if let data = data {
+                                self.saveUserInfo(data: data){ value in
+                                    print(value)
+                                    completionHandler(true)
                                 }
-                            case .failure(let failure):
-                                print(failure)
-                                completionHandler(false)
                             }
+                        case .failure(let failure):
+                            print(failure)
+                            completionHandler(false)
                         }
-                        
-                    case .failure(let error):
-                        print("Error saving user data: \(error)")
-                        completionHandler(false)
                     }
+                    
+                case .failure(let error):
+                    print("Error saving user data: \(error)")
+                    completionHandler(false)
                 }
-                
-            case .failure(let error):
-                print(error)
-                completionHandler(false)
             }
         }
     }
@@ -62,34 +54,29 @@ class EditProfileViewModel {
     func saveUserImageToFirebase(image: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {
         let storage = Storage.storage()
         let storageRef = storage.reference()
-        Data.shared.getData(key: "CurrentUserId") { (result: Result<String, Error>) in
-            switch result {
-            case .success(let uid):
-                let profileImagesRef = storageRef.child("profile_images/\(uid)")
-                let imageFileName = "\(UUID().uuidString).jpg"
-                if let imageData = image.jpegData(compressionQuality: 0.8) {
-                    let imageRef = profileImagesRef.child(imageFileName)
-                    let uploadTask = imageRef.putData(imageData, metadata: nil) { metadata, error in
-                        if let error = error {
-                            completion(.failure(error))
-                        } else {
-                            imageRef.downloadURL { url, error in
-                                if let downloadURL = url {
-                                    completion(.success(downloadURL))
-                                    print(url)
-                                } else {
-                                    if let error = error {
-                                        completion(.failure(error))
-                                    }
+        if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid){
+            let profileImagesRef = storageRef.child("profile_images/\(uid)")
+            let imageFileName = "\(UUID().uuidString).jpg"
+            if let imageData = image.jpegData(compressionQuality: 0.8) {
+                let imageRef = profileImagesRef.child(imageFileName)
+                let uploadTask = imageRef.putData(imageData, metadata: nil) { metadata, error in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else {
+                        imageRef.downloadURL { url, error in
+                            if let downloadURL = url {
+                                completion(.success(downloadURL))
+                                print(url)
+                            } else {
+                                if let error = error {
+                                    completion(.failure(error))
                                 }
                             }
                         }
                     }
-                    uploadTask.observe(.progress) { snapshot in
-                    }
                 }
-            case .failure(let error):
-                completion(.failure(error))
+                uploadTask.observe(.progress) { snapshot in
+                }
             }
         }
     }
@@ -116,35 +103,26 @@ class EditProfileViewModel {
     func fetchUserProfileImageURL(completion: @escaping (Result<URL?, Error>) -> Void) {
         let storage = Storage.storage()
         let storageRef = storage.reference()
-        Data.shared.getData(key: "CurrentUserId") { (result: Result<String, Error>) in
-            switch result {
-            case .success(let uid):
-                let profileImagesRef = storageRef.child("profile_images/\(uid)")
-                // List all items in the profile images folder
-                profileImagesRef.listAll { (result, error) in
-                    if let error = error {
-                        completion(.failure(error))
-                    } else {
-                        // Find the first item (profile image)
-                        if let firstItem = result?.items.first {
-                            // Get the download URL for the profile image
-                            firstItem.downloadURL { (url, error) in
-                                if let downloadURL = url {
-                                    completion(.success(downloadURL))
-                                } else {
-                                    if let error = error {
-                                        completion(.failure(error))
-                                    }
+        if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid){
+            let profileImagesRef = storageRef.child("profile_images/\(uid)")
+            profileImagesRef.listAll { (result, error) in
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    if let firstItem = result?.items.first {
+                        firstItem.downloadURL { (url, error) in
+                            if let downloadURL = url {
+                                completion(.success(downloadURL))
+                            } else {
+                                if let error = error {
+                                    completion(.failure(error))
                                 }
                             }
-                        } else {
-                            // No profile image found
-                            completion(.success(nil))
                         }
+                    } else {
+                        completion(.success(nil))
                     }
                 }
-            case .failure(let error):
-                completion(.failure(error))
             }
         }
     }
@@ -156,15 +134,11 @@ class EditProfileViewModel {
         let storageRef = storage.reference()
         if let uid = uid {
             let profileImagesRef = storageRef.child("profile_images/\(uid)")
-            
-            // List all items in the profile images folder
             profileImagesRef.listAll { (result, error) in
                 if let error = error {
                     completion(.failure(error))
                 } else {
-                    // Find the first item (profile image)
                     if let firstItem = result?.items.first {
-                        // Get the download URL for the profile image
                         firstItem.downloadURL { (url, error) in
                             if let downloadURL = url {
                                 completion(.success(downloadURL))
@@ -175,7 +149,6 @@ class EditProfileViewModel {
                             }
                         }
                     } else {
-                        // No profile image found
                         completion(.success(nil))
                     }
                 }

@@ -114,7 +114,6 @@ class ProfileViewModel {
                     }
                 }
                 
-                
                 dispatchGroup.notify(queue: .main) {
                     completion(.success(()))
                 }

@@ -115,110 +115,59 @@ extension EditProfileVC {
     
     
     func updateUI() {
-        Data.shared.getData(key: "Name") { (result: Result<String, Error>) in
-            switch result{
-            case .success(let data):
-                print(data)
-                self.nameTxtFld.text = data
-            case .failure(let error):
-                print(error)
+        if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name){
+            self.nameTxtFld.text = name
+        }
+        
+        if let userName = FetchUserInfo.fetchUserInfoFromUserdefault(type: .userName){
+            self.userNameTxtFld.text = userName
+        }
+        
+        if let bio = FetchUserInfo.fetchUserInfoFromUserdefault(type: .bio){
+            self.bioTxtFld.text = bio
+        }
+        
+        if let gender = FetchUserInfo.fetchUserInfoFromUserdefault(type: .gender){
+            self.gender  = gender
+            if self.gender == "Male"{
+                self.btn1.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+                self.btn2.setImage(UIImage(systemName: "circle"), for: .normal)
+            }
+            if self.gender == "Female"{
+                self.btn1.setImage(UIImage(systemName: "circle"), for: .normal)
+                self.btn2.setImage(UIImage(systemName: "circle.fill"), for: .normal)
             }
         }
         
-        Data.shared.getData(key: "UserName") { (result: Result<String, Error>) in
-            switch result{
-            case .success(let data):
-                print(data)
-                self.userNameTxtFld.text = data
-            case .failure(let error):
-                print(error)
+        if let isPrivate = FetchUserInfo.fetchUserInfoFromUserdefault(type: .isPrivate){
+            self.isPrivate = isPrivate
+            if self.isPrivate == "false" {
+                self.publicBtn.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+                self.privateBtn.setImage(UIImage(systemName: "circle"), for: .normal)
+            }
+            if self.isPrivate == "true"{
+                self.publicBtn.setImage(UIImage(systemName: "circle"), for: .normal)
+                self.privateBtn.setImage(UIImage(systemName: "circle.fill"), for: .normal)
             }
         }
         
-        Data.shared.getData(key: "Bio") { (result: Result<String, Error>) in
-            switch result{
-            case .success(let data):
-                print(data)
-                self.bioTxtFld.text = data
-            case .failure(let error):
-                print(error)
-            }
+        if let countryCode = FetchUserInfo.fetchUserInfoFromUserdefault(type: .countryCode){
+            self.countryCode = "\(countryCode)"
+            self.countryPickerBtn.setTitle(countryCode, for: .normal)
         }
         
-        Data.shared.getData(key: "Gender") { (result: Result<String, Error>) in
-            switch result{
-            case .success(let data):
-                print(data)
-                self.gender  = data
-                if self.gender == "Male"{
-                    self.btn1.setImage(UIImage(systemName: "circle.fill"), for: .normal)
-                    self.btn2.setImage(UIImage(systemName: "circle"), for: .normal)
-                }
-                if self.gender == "Female"{
-                    self.btn1.setImage(UIImage(systemName: "circle"), for: .normal)
-                    self.btn2.setImage(UIImage(systemName: "circle.fill"), for: .normal)
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
-       
-        
-        Data.shared.getData(key: "IsPrivate") { (result: Result<String, Error>) in
-            switch result{
-            case .success(let data):
-                print(data)
-                self.isPrivate = data
-                if self.isPrivate == "false" {
-                    self.publicBtn.setImage(UIImage(systemName: "circle.fill"), for: .normal)
-                    self.privateBtn.setImage(UIImage(systemName: "circle"), for: .normal)
-                }
-                if self.isPrivate == "true"{
-                    self.publicBtn.setImage(UIImage(systemName: "circle"), for: .normal)
-                    self.privateBtn.setImage(UIImage(systemName: "circle.fill"), for: .normal)
-                }
-            case .failure(let error):
-                print(error)
-            }
+        if let phoneNumber = FetchUserInfo.fetchUserInfoFromUserdefault(type: .phoneNumber){
+            self.phoneNumberTxtFld.text  = phoneNumber
         }
         
-        
-        Data.shared.getData(key: "CountryCode") { (result: Result<String, Error>) in
-            switch result{
-            case .success(let data):
-                print(data)
-                self.countryCode = "\(data)"
-                self.countryPickerBtn.setTitle(data, for: .normal)
-            case .failure(let error):
-                print(error)
+        if let url = FetchUserInfo.fetchUserInfoFromUserdefault(type: .profileUrl) {
+            if let imageURL = URL(string: url) {
+                ImageLoader.loadImage(for: imageURL, into: self.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+            } else {
+                print("Invalid URL: \(url)")
             }
-        }
-        
-        Data.shared.getData(key: "PhoneNumber") { (result: Result<String, Error>) in
-            switch result{
-            case .success(let data):
-                print(data)
-                self.phoneNumberTxtFld.text  = data
-            case .failure(let error):
-                print(error)
-            }
-        }
-        
-        Data.shared.getData(key: "ProfileUrl") { (result: Result<String?, Error>) in
-            switch result {
-            case .success(let urlString):
-                if let url = urlString {
-                    if let imageURL = URL(string: url) {
-                        ImageLoader.loadImage(for: imageURL, into: self.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
-                    } else {
-                        print("Invalid URL: \(url)")
-                    }
-                } else {
-                    print("URL is nil or empty")
-                }
-            case .failure(let error):
-                print("Error loading image: \(error)")
-            }
+        } else {
+            print("URL is nil or empty")
         }
         
     }
@@ -238,23 +187,16 @@ extension EditProfileVC: ImagePickerDelegate , UIViewControllerTransitioningDele
                 // Convert the URL to a string before saving
                 let urlString = url.absoluteString
                 Data.shared.saveData(urlString, key: "ProfileUrl") { _ in
-                    Data.shared.getData(key: "CurrentUserId") { (result:Result<String?,Error>) in
-                        switch result {
-                        case .success(let uid):
-                            if let uid = uid {
-                                self.viewModel.saveUserProfileImageToFirebaseDatabase(uid: uid, imageUrl: urlString) { result in
-                                    switch result {
-                                    case .success(let data):
-                                        print(data)
-                                        LoaderVCViewModel.shared.hideLoader()
-                                    case .failure(let error):
-                                        print(error)
-                                        LoaderVCViewModel.shared.hideLoader()
-                                    }
-                                }
+                    if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
+                        self.viewModel.saveUserProfileImageToFirebaseDatabase(uid: uid, imageUrl: urlString) { result in
+                            switch result {
+                            case .success(let data):
+                                print(data)
+                                LoaderVCViewModel.shared.hideLoader()
+                            case .failure(let error):
+                                print(error)
+                                LoaderVCViewModel.shared.hideLoader()
                             }
-                        case .failure(let error):
-                            print(error)
                         }
                     }
                 }

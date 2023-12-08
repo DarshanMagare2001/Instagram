@@ -165,16 +165,9 @@ class UsersProfileView: UIViewController {
         viewModel.saveFollower(uid: user?.uid) { result  in
             switch result {
             case.success(let value):
-                Data.shared.getData(key: "Name") {  (result: Result<String?, Error>) in
-                    switch result {
-                    case .success(let name):
-                        if let name = name {
-                            if let fmcToken = self.user?.fcmToken {
-                                PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Started following you.")
-                            }
-                        }
-                    case.failure(let error):
-                        print(error)
+                if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name) {
+                    if let fmcToken = self.user?.fcmToken {
+                        PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Started following you.")
                     }
                 }
             case.failure(let error):
@@ -198,16 +191,9 @@ class UsersProfileView: UIViewController {
         viewModel.requestFollower(uid: user?.uid) { result  in
             switch result {
             case.success(let value):
-                Data.shared.getData(key: "Name") {  (result: Result<String?, Error>) in
-                    switch result {
-                    case .success(let name):
-                        if let name = name {
-                            if let fmcToken = self.user?.fcmToken {
-                                PushNotification.shared.sendPushNotification(to: fmcToken, title: "Follow Request" , body: "\(name) requested to follow you.")
-                            }
-                        }
-                    case.failure(let error):
-                        print(error)
+                if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name) {
+                    if let fmcToken = self.user?.fcmToken {
+                        PushNotification.shared.sendPushNotification(to: fmcToken, title: "Follow Request" , body: "\(name) requested to follow you.")
                     }
                 }
             case.failure(let error):

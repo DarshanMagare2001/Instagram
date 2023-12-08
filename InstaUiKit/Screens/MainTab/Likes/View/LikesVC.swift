@@ -40,31 +40,24 @@ class LikesVC: UIViewController {
     }
     
     func fetchData() {
-        Data.shared.getData(key: "CurrentUserId") { (result: Result<String?, Error>) in
-            switch result {
-            case .success(let uid):
-                if let uid = uid {
-                    self.currentUserUid = uid
-                    PostViewModel.shared.fetchPostDataOfPerticularUser(forUID: uid) { result in
-                        switch result {
-                        case .success(let images):
-                            // Handle the images
-                            print("Fetched images: \(images)")
-                            DispatchQueue.main.async {
-                                self.allPost = images
-                                self.tableViewOutlet.stopSkeletonAnimation()
-                                self.view.stopSkeletonAnimation()
-                                self.tableViewOutlet.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
-                                self.tableViewOutlet.reloadData()
-                            }
-                        case .failure(let error):
-                            // Handle the error
-                            print("Error fetching images: \(error)")
-                        }
+        if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
+            self.currentUserUid = uid
+            PostViewModel.shared.fetchPostDataOfPerticularUser(forUID: uid) { result in
+                switch result {
+                case .success(let images):
+                    // Handle the images
+                    print("Fetched images: \(images)")
+                    DispatchQueue.main.async {
+                        self.allPost = images
+                        self.tableViewOutlet.stopSkeletonAnimation()
+                        self.view.stopSkeletonAnimation()
+                        self.tableViewOutlet.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+                        self.tableViewOutlet.reloadData()
                     }
+                case .failure(let error):
+                    // Handle the error
+                    print("Error fetching images: \(error)")
                 }
-            case .failure(let error):
-                print(error)
             }
         }
     }
