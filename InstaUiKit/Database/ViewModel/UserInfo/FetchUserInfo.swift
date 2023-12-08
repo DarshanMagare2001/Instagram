@@ -48,68 +48,17 @@ class FetchUserInfo {
     // MARK: - Fetch Unique Users From Firebase
     
     func fetchUniqueUsersFromFirebase(completionHandler: @escaping (Result<[UserModel], Error>) -> Void) {
-        Data.shared.getData(key: "CurrentUserId") { (result: Result<String?, Error>) in
-            switch result {
-            case .success(let currentUid):
-                let db = Firestore.firestore()
-                db.collection("users")
-                    .getDocuments { (querySnapshot, error) in
-                        if let error = error {
-                            print("Error fetching users: \(error.localizedDescription)")
-                            completionHandler(.failure(error))
-                        } else {
-                            var users: [UserModel] = []
-                            for document in querySnapshot!.documents {
-                                print("Fetched user document: \(document.data())")
-                                let imageURL = document["imageUrl"] as? String
-                                let bio = document["bio"] as? String
-                                let countryCode = document["countryCode"] as? String
-                                let fcmToken = document["fcmToken"] as? String
-                                let gender = document["gender"] as? String
-                                let name = document["name"] as? String
-                                let phoneNumber = document["phoneNumber"] as? String
-                                let uid = document["uid"] as? String
-                                let username = document["username"] as? String
-                                let followers = document["followers"] as? [String]
-                                let followings = document["followings"] as? [String]
-                                let isPrivate = document["isPrivate"] as? String
-                                let followingsRequest = document["followingsRequest"] as? [String]
-                                let followersRequest = document["followersRequest"] as? [String]
-                                let usersChatList = document["usersChatList"] as? [String]
-                                let usersChatNotification = document["usersChatNotification"] as? [String]
-                                if uid != currentUid { // Check if the uid is not the current user's uid
-                                    let user = UserModel(uid: uid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers : followers ?? [] , followings: followings ?? [] , isPrivate:isPrivate ?? "" , followingsRequest : followingsRequest ?? [] , followersRequest : followersRequest ?? [] , usersChatList : usersChatList ?? [] , usersChatNotification :usersChatNotification ?? [])
-                                    users.append(user)
-                                    print(users)
-                                }
-                                
-                            }
-                            DispatchQueue.main.async {
-                                completionHandler(.success(users))
-                            }
-                        }
-                    }
-            case .failure(let failure):
-                print(failure)
-                completionHandler(.failure(failure))
-            }
-        }
-    }
-    
-    // MARK: - Fetch CurrentUser From Firebase
-    
-    func fetchCurrentUserFromFirebase(completionHandler: @escaping (Result<UserModel?, Error>) -> Void) {
-        Data.shared.getData(key: "CurrentUserId") { (result: Result<String?, Error>) in
-            switch result {
-            case .success(let currentUid):
-                if let currentUid = currentUid{
-                    let db = Firestore.firestore()
-                    db.collection("users").document(currentUid).getDocument { (document, error) in
-                        if let error = error {
-                            print("Error fetching current user: \(error.localizedDescription)")
-                            completionHandler(.failure(error))
-                        } else if let document = document, document.exists {
-                            print("Fetched current user document: \(document.data())")
+        if let currentUid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid){
+            let db = Firestore.firestore()
+            db.collection("users")
+                .getDocuments { (querySnapshot, error) in
+                    if let error = error {
+                        print("Error fetching users: \(error.localizedDescription)")
+                        completionHandler(.failure(error))
+                    } else {
+                        var users: [UserModel] = []
+                        for document in querySnapshot!.documents {
+                            print("Fetched user document: \(document.data())")
                             let imageURL = document["imageUrl"] as? String
                             let bio = document["bio"] as? String
                             let countryCode = document["countryCode"] as? String
@@ -126,21 +75,58 @@ class FetchUserInfo {
                             let followersRequest = document["followersRequest"] as? [String]
                             let usersChatList = document["usersChatList"] as? [String]
                             let usersChatNotification = document["usersChatNotification"] as? [String]
-                            let user = UserModel(uid: uid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers : followers ?? [] , followings: followings ?? [] , isPrivate : isPrivate ?? "" ,followingsRequest : followingsRequest ?? [] , followersRequest : followersRequest ?? [] , usersChatList : usersChatList ?? [] , usersChatNotification : usersChatNotification ?? [])
-                            DispatchQueue.main.async {
-                                completionHandler(.success(user))
+                            if uid != currentUid { // Check if the uid is not the current user's uid
+                                let user = UserModel(uid: uid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers : followers ?? [] , followings: followings ?? [] , isPrivate:isPrivate ?? "" , followingsRequest : followingsRequest ?? [] , followersRequest : followersRequest ?? [] , usersChatList : usersChatList ?? [] , usersChatNotification :usersChatNotification ?? [])
+                                users.append(user)
+                                print(users)
                             }
-                        } else {
-                            // User document not found
-                            DispatchQueue.main.async {
-                                completionHandler(.success(nil))
-                            }
+                            
+                        }
+                        DispatchQueue.main.async {
+                            completionHandler(.success(users))
                         }
                     }
                 }
-            case .failure(let failure):
-                print(failure)
-                completionHandler(.failure(failure))
+        }
+    }
+    
+    // MARK: - Fetch CurrentUser From Firebase
+    
+    func fetchCurrentUserFromFirebase(completionHandler: @escaping (Result<UserModel?, Error>) -> Void) {
+        if let currentUid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid){
+            let db = Firestore.firestore()
+            db.collection("users").document(currentUid).getDocument { (document, error) in
+                if let error = error {
+                    print("Error fetching current user: \(error.localizedDescription)")
+                    completionHandler(.failure(error))
+                } else if let document = document, document.exists {
+                    print("Fetched current user document: \(document.data())")
+                    let imageURL = document["imageUrl"] as? String
+                    let bio = document["bio"] as? String
+                    let countryCode = document["countryCode"] as? String
+                    let fcmToken = document["fcmToken"] as? String
+                    let gender = document["gender"] as? String
+                    let name = document["name"] as? String
+                    let phoneNumber = document["phoneNumber"] as? String
+                    let uid = document["uid"] as? String
+                    let username = document["username"] as? String
+                    let followers = document["followers"] as? [String]
+                    let followings = document["followings"] as? [String]
+                    let isPrivate = document["isPrivate"] as? String
+                    let followingsRequest = document["followingsRequest"] as? [String]
+                    let followersRequest = document["followersRequest"] as? [String]
+                    let usersChatList = document["usersChatList"] as? [String]
+                    let usersChatNotification = document["usersChatNotification"] as? [String]
+                    let user = UserModel(uid: uid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers : followers ?? [] , followings: followings ?? [] , isPrivate : isPrivate ?? "" ,followingsRequest : followingsRequest ?? [] , followersRequest : followersRequest ?? [] , usersChatList : usersChatList ?? [] , usersChatNotification : usersChatNotification ?? [])
+                    DispatchQueue.main.async {
+                        completionHandler(.success(user))
+                    }
+                } else {
+                    // User document not found
+                    DispatchQueue.main.async {
+                        completionHandler(.success(nil))
+                    }
+                }
             }
         }
     }
@@ -207,6 +193,5 @@ class FetchUserInfo {
             }
         }
     }
-    
     
 }
