@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 import SkeletonView
 import RxSwift
 
@@ -17,10 +16,8 @@ class HomeVC: UIViewController {
     @IBOutlet weak var notificationLbl: CircularLabel!
     @IBOutlet weak var directMsgNotificationLbl: CircularLabel!
     
-    var userName: String?
     var allPost = [PostModel]()
     var allUniqueUsersArray = [UserModel]()
-    var uid: String?
     var refreshControl = UIRefreshControl()
     var viewModel = HomeVCViewModel()
     let disPatchGroup = DispatchGroup()
@@ -130,8 +127,6 @@ class HomeVC: UIViewController {
     }
     
     private func configureUI() {
-        guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        uid = currentUid
         updateUI()
     }
 }
@@ -155,10 +150,6 @@ extension HomeVC {
             ImageLoader.loadImage(for: URL(string:url), into: userImg, withPlaceholder: UIImage(systemName: "person.fill"))
         }
         
-        if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name){
-            userName = name
-        }
-        
         disPatchGroup.enter()
         viewModel.fetchAllPostsOfFollowings { result in
             self.disPatchGroup.leave()
@@ -171,11 +162,6 @@ extension HomeVC {
                 self.feedTableView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
                 self.feedTableView.reloadData()
             }
-        }
-        
-        disPatchGroup.enter()
-        DispatchQueue.main.async { [weak self] in
-            self?.disPatchGroup.leave()
         }
         
         disPatchGroup.enter()
@@ -263,7 +249,7 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         
         disPatchGroup.enter()
         DispatchQueue.main.async { [weak self] in
-            if let uid = self?.uid {
+            if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
                 if (post.likedBy.contains(uid)){
                     cell.isLiked = true
                     let imageName = cell.isLiked ? "heart.fill" : "heart"
@@ -300,15 +286,8 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                                     switch result {
                                     case.success(let data):
                                         if let data = data , let fmcToken = data.fcmToken {
-                                            Data.shared.getData(key: "Name") { [weak self]  (result: Result<String?, Error>) in
-                                                switch result {
-                                                case .success(let name):
-                                                    if let name = name {
-                                                        PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Liked your post.")
-                                                    }
-                                                case.failure(let error):
-                                                    print(error)
-                                                }
+                                            if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name) {
+                                                PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Liked your post.")
                                             }
                                         }
                                     case.failure(let error):
