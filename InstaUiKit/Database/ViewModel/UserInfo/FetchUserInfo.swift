@@ -15,6 +15,36 @@ class FetchUserInfo {
         
     }
     
+    // MARK: - Fetch Users Info from Userdefault
+    
+    enum UserInfoFromUserdefault: String {
+        case uid = "CurrentUserId"
+        case name = "Name"
+        case userName = "UserName"
+        case bio = "Bio"
+        case gender = "Gender"
+        case countryCode = "CountryCode"
+        case phoneNumber = "PhoneNumber"
+        case profileUrl = "ProfileUrl"
+        case isPrivate = "IsPrivate"
+    }
+    
+    static func fetchUserInfoFromUserdefault(type: UserInfoFromUserdefault) -> String? {
+        let semaphore = DispatchSemaphore(value: 0)
+        var result: String?
+        Data.shared.getData(key: type.rawValue) { (dataResult: Result<String?, Error>) in
+            switch dataResult {
+            case .success(let data):
+                result = data
+            case .failure(let error):
+                print(error)
+            }
+            semaphore.signal()
+        }
+        semaphore.wait()
+        return result
+    }
+    
     // MARK: - Fetch Unique Users From Firebase
     
     func fetchUniqueUsersFromFirebase(completionHandler: @escaping (Result<[UserModel], Error>) -> Void) {
