@@ -16,6 +16,7 @@ import Firebase
 class PostViewModel {
     static let shared = PostViewModel()
     var imagesArray: [UIImage] = []
+    let dispatchGroup = DispatchGroup()
     private init(){}
     
     func fetchAllPhotos(completion: @escaping ([UIImage]) -> Void) {
@@ -56,22 +57,22 @@ class PostViewModel {
                                 return
                             }
                             let db = Firestore.firestore()
-                                var imageDocData: [String: Any] = [
-                                    "postImageURL": downloadURL.absoluteString,
-                                    "caption": caption,
-                                    "location": location,
-                                    "uid": uid,
-                                    "timestamp": FieldValue.serverTimestamp() // Add timestamp as FieldValue
-                                ]
-                                db.collection("post").addDocument(data: imageDocData) { (error) in
-                                    if let error = error {
-                                        print("Error adding document: \(error)")
-                                        completionHandler(false)
-                                    } else {
-                                        print("Document added successfully")
-                                        completionHandler(true)
-                                    }
+                            var imageDocData: [String: Any] = [
+                                "postImageURL": downloadURL.absoluteString,
+                                "caption": caption,
+                                "location": location,
+                                "uid": uid,
+                                "timestamp": FieldValue.serverTimestamp() // Add timestamp as FieldValue
+                            ]
+                            db.collection("post").addDocument(data: imageDocData) { (error) in
+                                if let error = error {
+                                    print("Error adding document: \(error)")
+                                    completionHandler(false)
+                                } else {
+                                    print("Document added successfully")
+                                    completionHandler(true)
                                 }
+                            }
                         } else {
                             print("Error getting image download URL: \(error?.localizedDescription ?? "")")
                             completionHandler(false)
@@ -83,7 +84,7 @@ class PostViewModel {
     }
     
     
-    func fetchPostDataOfPerticularUser(forUID uid: String, completion: @escaping (Result<[PostModel], Error>) -> Void) {
+    func fetchPostDataOfPerticularUser(forUID uid: String, completion: @escaping (Result<[PostAllDataModel], Error>) -> Void) {
         let db = Firestore.firestore()
         db.collection("post")
             .whereField("uid", isEqualTo: uid)
@@ -92,55 +93,9 @@ class PostViewModel {
                     print("Error fetching data: \(error.localizedDescription)")
                     completion(.failure(error))
                 } else {
-                    var posts: [PostModel] = []
+                    var posts: [PostAllDataModel] = []
                     for document in querySnapshot!.documents {
-                        let data = document.data()
-                        print("Document ID: \(document.documentID)")
-                        print("Data: \(data)")
-                        let postImageURL = data["postImageURL"] as? String ?? ""
-                        let caption = data["caption"] as? String ?? ""
-                        let location = data["location"] as? String ?? ""
-                        let postDocumentID = document.documentID
-                        let likedBy = data["likedBy"] as? [String] ?? []
-                        let likesCount = data["likesCount"] as? Int ?? 0
-                        let comments = data["comments"] as? [[String: Any]] ?? []
-                        if let timestamp = data["timestamp"] as? Timestamp {
-                            let post = PostModel(
-                                postImageURL: postImageURL,
-                                caption: caption,
-                                location: location,
-                                uid: uid,
-                                postDocumentID: postDocumentID,
-                                likedBy: likedBy,
-                                likesCount: likesCount,
-                                comments: comments,
-                                timestamp: timestamp
-                            )
-                            posts.append(post)
-                        }
-                    }
-                    // Sort the posts by timestamp in descending order
-                    posts.sort { $0.timestamp.seconds > $1.timestamp.seconds }
-                    print("Fetched \(posts.count) posts.")
-                    completion(.success(posts))
-                }
-            }
-    }
-    
-    
-    
-    
-    func fetchAllPosts(completion: @escaping (Result<[PostModel], Error>) -> Void) {
-        let db = Firestore.firestore()
-        db.collection("post")
-            .order(by: "timestamp", descending: true) // Sort by the timestamp field in descending order
-            .getDocuments { (querySnapshot, error) in
-                if let error = error {
-                    print("Error fetching data: \(error.localizedDescription)")
-                    completion(.failure(error))
-                } else {
-                    var posts: [PostModel] = []
-                    for document in querySnapshot!.documents {
+                        self.dispatchGroup.enter()
                         let data = document.data()
                         let postImageURL = data["postImageURL"] as? String ?? ""
                         let caption = data["caption"] as? String ?? ""
@@ -151,22 +106,104 @@ class PostViewModel {
                         let likesCount = data["likesCount"] as? Int ?? 0
                         let comments = data["comments"] as? [[String: Any]] ?? []
                         if let timestamp = data["timestamp"] as? Timestamp {
-                            let post = PostModel(
-                                postImageURL: postImageURL,
-                                caption: caption,
-                                location: location,
-                                uid: uid,
-                                postDocumentID: postDocumentID,
-                                likedBy: likedBy,
-                                likesCount: likesCount,
-                                comments: comments,
-                                timestamp: timestamp
-                            )
-                            posts.append(post)
+                            FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+                                switch result {
+                                case.success(let user):
+                                    if let user = user , let name = user.name , let userName = user.username , let profilrImgUrl = user.imageUrl{
+                                        posts.append(PostAllDataModel(postImageURL: postImageURL, caption: caption, location: location, name: name, uid: uid, profileImageUrl: profilrImgUrl, postDocumentID: postDocumentID, likedBy: likedBy, likesCount: likesCount, comments: comments, username: userName, timestamp: timestamp))
+                                        self.dispatchGroup.leave()
+                                    }
+                                case.failure(let error):
+                                    print(error)
+                                    self.dispatchGroup.leave()
+                                }
+                            }
                         }
                     }
-                    print("Fetched \(posts.count) posts.")
-                    completion(.success(posts))
+                    self.dispatchGroup.notify(queue: .main) {
+                        completion(.success(posts))
+                    }
+                }
+            }
+    }
+    
+    
+    
+    
+    func fetchAllPosts(completion: @escaping (Result<[PostAllDataModel], Error>) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("post")
+            .order(by: "timestamp", descending: true) // Sort by the timestamp field in descending order
+            .getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print("Error fetching data: \(error.localizedDescription)")
+                    completion(.failure(error))
+                } else {
+                    var posts: [PostAllDataModel] = []
+                    for document in querySnapshot!.documents {
+                        self.dispatchGroup.enter()
+                        let data = document.data()
+                        let postImageURL = data["postImageURL"] as? String ?? ""
+                        let caption = data["caption"] as? String ?? ""
+                        let location = data["location"] as? String ?? ""
+                        let uid = data["uid"] as? String ?? ""
+                        let postDocumentID = document.documentID // Get document ID
+                        let likedBy = data["likedBy"] as? [String] ?? []
+                        let likesCount = data["likesCount"] as? Int ?? 0
+                        let comments = data["comments"] as? [[String: Any]] ?? []
+                        if let timestamp = data["timestamp"] as? Timestamp {
+                            FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+                                switch result {
+                                case.success(let user):
+                                    if let user = user , let name = user.name , let userName = user.username , let profilrImgUrl = user.imageUrl{
+                                        posts.append(PostAllDataModel(postImageURL: postImageURL, caption: caption, location: location, name: name, uid: uid, profileImageUrl: profilrImgUrl, postDocumentID: postDocumentID, likedBy: likedBy, likesCount: likesCount, comments: comments, username: userName, timestamp: timestamp))
+                                        self.dispatchGroup.leave()
+                                    }
+                                case.failure(let error):
+                                    print(error)
+                                    self.dispatchGroup.leave()
+                                }
+                            }
+                        }
+                    }
+                    self.dispatchGroup.notify(queue: .main) {
+                        completion(.success(posts))
+                    }
+                }
+            }
+    }
+    
+    
+    func fetchPostbyPostDocumentID(byPostDocumentID postDocumentID: String, completion: @escaping (Result<PostAllDataModel?, Error>) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("post").document(postDocumentID)
+            .getDocument { (documentSnapshot, error) in
+                if let error = error {
+                    print("Error fetching post data: \(error.localizedDescription)")
+                    completion(.failure(error))
+                } else {
+                    let data = documentSnapshot?.data() ?? [:]
+                    let postImageURL = data["postImageURL"] as? String ?? ""
+                    let caption = data["caption"] as? String ?? ""
+                    let location = data["location"] as? String ?? ""
+                    let uid = data["uid"] as? String ?? ""
+                    let likedBy = data["likedBy"] as? [String] ?? []
+                    let likesCount = data["likesCount"] as? Int ?? 0
+                    let comments = data["comments"] as? [[String: Any]] ?? []
+                    if let timestamp = data["timestamp"] as? Timestamp {
+                        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+                            switch result {
+                            case.success(let user):
+                                if let user = user , let name = user.name , let userName = user.username , let profilrImgUrl = user.imageUrl{
+                                    let posts = (PostAllDataModel(postImageURL: postImageURL, caption: caption, location: location, name: name, uid: uid, profileImageUrl: profilrImgUrl, postDocumentID: postDocumentID, likedBy: likedBy, likesCount: likesCount, comments: comments, username: userName, timestamp: timestamp))
+                                    completion(.success(posts))
+                                }
+                            case.failure(let error):
+                                print(error)
+                                completion(.failure(error))
+                            }
+                        }
+                    }
                 }
             }
     }
@@ -268,40 +305,6 @@ class PostViewModel {
             print("User is not authenticated.")
             completion(false) // Notify that the operation failed
         }
-    }
-    
-    func fetchPostbyPostDocumentID(byPostDocumentID postDocumentID: String, completion: @escaping (Result<PostModel?, Error>) -> Void) {
-        let db = Firestore.firestore()
-        db.collection("post").document(postDocumentID)
-            .getDocument { (documentSnapshot, error) in
-                if let error = error {
-                    print("Error fetching post data: \(error.localizedDescription)")
-                    completion(.failure(error))
-                } else {
-                    let data = documentSnapshot?.data() ?? [:]
-                    let postImageURL = data["postImageURL"] as? String ?? ""
-                    let caption = data["caption"] as? String ?? ""
-                    let location = data["location"] as? String ?? ""
-                    let uid = data["uid"] as? String ?? ""
-                    let likedBy = data["likedBy"] as? [String] ?? []
-                    let likesCount = data["likesCount"] as? Int ?? 0
-                    let comments = data["comments"] as? [[String: Any]] ?? []
-                    if let timestamp = data["timestamp"] as? Timestamp {
-                        let post = PostModel(
-                            postImageURL: postImageURL,
-                            caption: caption,
-                            location: location,
-                            uid: uid,
-                            postDocumentID: postDocumentID,
-                            likedBy: likedBy,
-                            likesCount: likesCount,
-                            comments: comments,
-                            timestamp: timestamp
-                        )
-                        completion(.success(post))
-                    }
-                }
-            }
     }
     
 }

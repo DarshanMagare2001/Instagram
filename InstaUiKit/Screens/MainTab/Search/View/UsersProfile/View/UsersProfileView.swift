@@ -19,7 +19,7 @@ class UsersProfileView: UIViewController {
     @IBOutlet weak var headLine: UILabel!
     @IBOutlet weak var msgBtn: UIButton!
     
-    var allPost = [PostModel]()
+    var allPost = [PostAllDataModel]()
     var user : UserModel?
     var currentUser : UserModel?
     var isFollowAndMsgBtnShow : Bool?
@@ -222,7 +222,7 @@ extension UsersProfileView: UICollectionViewDelegate, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UsersProfileViewCell", for: indexPath) as! UsersProfileViewCell
-        if let imageURL = URL(string: allPost[indexPath.row].postImageURL) {
+        if let imageURL = URL(string: allPost[indexPath.row].postImageURL ?? "") {
             ImageLoader.loadImage(for: imageURL, into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
             tapGesture.delegate = self

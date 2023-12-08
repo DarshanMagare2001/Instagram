@@ -12,8 +12,8 @@ class CommentsVC: UIViewController {
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var userImg: CircleImageView!
     @IBOutlet weak var commentTxtFld: UITextField!
-    var allPost : PostModel?
-    var currentPostData : PostModel?
+    var allPost : PostAllDataModel?
+    var currentPostData : PostAllDataModel?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,16 +40,16 @@ class CommentsVC: UIViewController {
     
     
     @IBAction func postBtnPressed(_ sender: UIButton) {
-        if let allPost = allPost , let comment = commentTxtFld.text {
-            PostViewModel.shared.addCommentToPost(postDocumentID: allPost.postDocumentID, commentText: comment) { value in
+        if let allPost = allPost , let comment = commentTxtFld.text , let postDocumentID = allPost.postDocumentID{
+            PostViewModel.shared.addCommentToPost(postDocumentID: postDocumentID, commentText: comment) { value in
                 self.fetchCurrentPostData()
             }
         }
     }
     
     func fetchCurrentPostData(){
-        if let allPost = allPost {
-            PostViewModel.shared.fetchPostbyPostDocumentID(byPostDocumentID: allPost.postDocumentID) { result in
+        if let allPost = allPost , let postDocumentID = allPost.postDocumentID {
+            PostViewModel.shared.fetchPostbyPostDocumentID(byPostDocumentID: postDocumentID) { result in
                 switch result {
                 case.success(let data):
                     if let data = data {
@@ -68,12 +68,12 @@ class CommentsVC: UIViewController {
 
 extension CommentsVC : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currentPostData?.comments.count ?? 0
+        return currentPostData?.comments?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentCell
-        if let postData = currentPostData?.comments[indexPath.row],
+        if let postData = currentPostData?.comments?[indexPath.row],
            let uid = postData["uid"] as? String,
            let comment = postData["comment"] as? String {
             DispatchQueue.main.async {

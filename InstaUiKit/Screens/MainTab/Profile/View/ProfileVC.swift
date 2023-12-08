@@ -24,7 +24,7 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var followersTxtLbl: UILabel!
     var viewModel1 = AuthenticationViewModel()
     var viewModel2 = ProfileViewModel()
-    var allPost = [PostModel]()
+    var allPost = [PostAllDataModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.showAnimatedGradientSkeleton()
@@ -220,7 +220,7 @@ extension ProfileVC:  SkeletonCollectionViewDataSource  , SkeletonCollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosCell", for: indexPath) as! PhotosCell
-        if let imageURL = URL(string: allPost[indexPath.row].postImageURL) {
+        if let imageURL = URL(string: allPost[indexPath.row].postImageURL ?? "") {
             ImageLoader.loadImage(for: imageURL, into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
             tapGesture.delegate = self

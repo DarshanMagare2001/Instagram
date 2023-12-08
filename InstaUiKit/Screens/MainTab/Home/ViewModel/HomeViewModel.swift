@@ -9,18 +9,20 @@ import Foundation
 
 class HomeVCViewModel {
     
-    func fetchAllPostsOfFollowings(completion: @escaping (Result<[PostModel]?, Error>) -> Void) {
+    func fetchAllPostsOfFollowings(completion: @escaping (Result<[PostAllDataModel]?, Error>) -> Void) {
         FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case .success(let user):
                 if let user = user, let followings = user.followings , let currentUserUid = user.uid {
-                    var posts = [PostModel]()
+                    var posts = [PostAllDataModel]()
                     PostViewModel.shared.fetchAllPosts { result in
                         switch result {
                         case .success(let fetchedPosts):
                             for post in fetchedPosts {
-                                if followings.contains(post.uid) || currentUserUid == (post.uid) {
-                                    posts.append(post)
+                                if let uid = post.uid {
+                                    if followings.contains(uid) || currentUserUid == (uid) {
+                                        posts.append(post)
+                                    }
                                 }
                             }
                             completion(.success(posts))

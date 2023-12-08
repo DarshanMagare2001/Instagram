@@ -16,7 +16,7 @@ class HomeVC: UIViewController {
     @IBOutlet weak var notificationLbl: CircularLabel!
     @IBOutlet weak var directMsgNotificationLbl: CircularLabel!
     @IBOutlet weak var storyView: UIView!
-    var allPost = [PostModel]()
+    var allPost = [PostAllDataModel]()
     var allUniqueUsersArray = [UserModel]()
     var refreshControl = UIRefreshControl()
     var viewModel = HomeVCViewModel()
@@ -222,38 +222,37 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         cell.totalLikesCount.text = nil
         cell.likedByLbl.text = nil
         
-        disPatchGroup.enter()
-        FetchUserInfo.shared.fetchUserDataByUid(uid: post.uid) { [weak self] result in
-            self?.disPatchGroup.leave()
-            switch result {
-            case.success(let data):
-                if let data = data , let imgUrl = data.imageUrl , let name = data.name {
-                    ImageLoader.loadImage(for: URL(string:imgUrl), into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
-                    ImageLoader.loadImage(for: URL(string:imgUrl), into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
-                    cell.userName.text = name
-                }
-            case.failure(let error):
-                print(error)
-            }
-        }
+        guard let postUid = post.uid ,
+              let postName = post.name ,
+              let profileImgUrl = post.profileImageUrl ,
+              let postImageURL = post.postImageURL,
+              let postLocation = post.location,
+              let postCaption = post.caption ,
+              let postComments = post.comments,
+              let postUserName = post.username,
+              let postLikesCounts = post.likesCount,
+              let postLikedBy = post.likedBy,
+              let postPostDocumentID = post.postDocumentID else { return UITableViewCell()}
         
-        disPatchGroup.enter()
         DispatchQueue.main.async { [weak self] in
-            ImageLoader.loadImage(for: URL(string: post.postImageURL), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
-            cell.postLocationLbl.text = post.location
-            cell.postCaption.text = post.caption
-            cell.totalLikesCount.text = "\(post.likesCount) Likes"
-            self?.disPatchGroup.leave()
+            ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
+            ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
+            ImageLoader.loadImage(for: URL(string: postImageURL), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+            cell.userName.text = postName
+            cell.postLocationLbl.text = postLocation
+            cell.postCaption.text = postCaption
+            cell.totalLikesCount.text = "\(postLikesCounts) Likes"
         }
         
+        
         disPatchGroup.enter()
-        if let randomLikedByUID = post.likedBy.randomElement() {
+        if let randomLikedByUID = postLikedBy.randomElement() {
             FetchUserInfo.shared.fetchUserDataByUid(uid: randomLikedByUID) { [weak self] result in
                 self?.disPatchGroup.leave()
                 switch result {
                 case .success(let data):
                     if let data = data , let name = data.name {
-                        cell.likedByLbl.text = "Liked by \(name) and \(Int(post.likedBy.count - 1)) others."
+                        cell.likedByLbl.text = "Liked by \(name) and \(Int(postLikedBy.count - 1)) others."
                     }
                 case .failure(let error):
                     print(error)
@@ -261,10 +260,12 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
             }
         }
         
+        
         disPatchGroup.enter()
         DispatchQueue.main.async { [weak self] in
             if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
-                if (post.likedBy.contains(uid)){
+                
+                if (postLikedBy.contains(uid)){
                     cell.isLiked = true
                     let imageName = cell.isLiked ? "heart.fill" : "heart"
                     cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
@@ -278,7 +279,7 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                 
                 cell.likeBtnTapped = { [weak self] in
                     if cell.isLiked {
-                        PostViewModel.shared.unlikePost(postDocumentID: post.postDocumentID, userUID: uid) { success in
+                        PostViewModel.shared.unlikePost(postDocumentID: postPostDocumentID, userUID: uid) { success in
                             if success {
                                 // Update the UI: Set the correct image for the like button
                                 cell.isLiked = false
@@ -288,15 +289,14 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                             }
                         }
                     } else {
-                        PostViewModel.shared.likePost(postDocumentID: post.postDocumentID, userUID: uid) { [weak self] success in
+                        PostViewModel.shared.likePost(postDocumentID: postPostDocumentID, userUID: uid) { [weak self] success in
                             if success {
                                 // Update the UI: Set the correct image for the like button
                                 cell.isLiked = true
                                 let imageName = cell.isLiked ? "heart.fill" : "heart"
                                 cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
                                 cell.likeBtn.tintColor = cell.isLiked ? .red : .black
-                                
-                                FetchUserInfo.shared.fetchUserDataByUid(uid: post.uid) { [weak self] result in
+                                FetchUserInfo.shared.fetchUserDataByUid(uid: postUid) { [weak self] result in
                                     switch result {
                                     case.success(let data):
                                         if let data = data , let fmcToken = data.fcmToken {

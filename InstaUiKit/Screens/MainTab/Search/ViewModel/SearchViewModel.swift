@@ -11,13 +11,13 @@ import UIKit
 class SearchVCViewModel {
     static let shared = SearchVCViewModel()
   
-    func fetchAllPostURL(completionHandler: @escaping (Result<[PostModel?], Error>) -> Void) {
+    func fetchAllPostURL(completionHandler: @escaping (Result<[PostAllDataModel?], Error>) -> Void) {
         PostViewModel.shared.fetchAllPosts { result in
             switch result {
             case .success(let images):
                 // Handle the images
                 print("Fetched images: \(images)")
-                var postArray = [PostModel?]()
+                var postArray = [PostAllDataModel?]()
                 DispatchQueue.main.async {
                     for i in images {
                         // Use the contains method with a closure

@@ -10,7 +10,7 @@ import SkeletonView
 
 class LikesVC: UIViewController {
     @IBOutlet weak var tableViewOutlet: UITableView!
-    var allPost = [PostModel]()
+    var allPost = [PostAllDataModel]()
     var currentUserUid: String?
     var currentUser: UserModel?
     var refreshControll = UIRefreshControl()
@@ -79,8 +79,10 @@ extension LikesVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section < allPost.count {
-            let filteredLikes = allPost[section].likedBy.filter { $0 != currentUserUid }
-            return filteredLikes.count
+            if let likedBy = allPost[section].likedBy {
+                let filteredLikes = likedBy.filter { $0 != currentUserUid }
+                return filteredLikes.count
+            }
         }
         return 0
     }
@@ -89,10 +91,10 @@ extension LikesVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         let likesCell = tableView.dequeueReusableCell(withIdentifier: "LikesCell", for: indexPath) as! LikesCell
         let section = indexPath.section
         let row = indexPath.row
-        if section < allPost.count && row < allPost[section].likedBy.count {
-            let uid = allPost[section].likedBy.filter { $0 != currentUserUid }
+        guard let postLikedBy = allPost[section].likedBy else {return UITableViewCell()}
+        if section < allPost.count && row < postLikedBy.count {
+            let uid = postLikedBy.filter { $0 != currentUserUid }
             DispatchQueue.main.async {
-                
                 FetchUserInfo.shared.fetchUserDataByUid(uid: uid[indexPath.row]) { result in
                     switch result {
                     case.success(let user):
@@ -106,8 +108,7 @@ extension LikesVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                         print(error)
                     }
                 }
-                
-                if let imageURL = URL(string: self.allPost[section].postImageURL) {
+                if let imageURL = URL(string: self.allPost[section].postImageURL ?? "") {
                     ImageLoader.loadImage(for: imageURL, into: likesCell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
                 }
             }

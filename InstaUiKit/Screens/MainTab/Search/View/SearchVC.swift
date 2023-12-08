@@ -16,7 +16,7 @@ class SearchVC: UIViewController {
     @IBOutlet weak var tableView: UIView!
     @IBOutlet weak var collectionView: UIView!
     var allUniqueUsersArray = [UserModel]()
-    var allPost = [PostModel?]()
+    var allPost = [PostAllDataModel?]()
     let disposeBag = DisposeBag()
     var currentUser : UserModel?
     var tableViewRefreshControl = UIRefreshControl()
@@ -186,7 +186,7 @@ extension SearchVC {
                 // Handle tap action
                 cell.tapAction = { [weak self] in
                     if let data = element {
-                        var tempData = [PostModel]()
+                        var tempData = [PostAllDataModel]()
                         tempData.append(data)
                         self?.handleCellTap(at: row, data: tempData)
                     }
@@ -195,7 +195,7 @@ extension SearchVC {
                     .disposed(by: disposeBag)
     }
     
-    func handleCellTap(at index: Int , data : [PostModel] ) {
+    func handleCellTap(at index: Int , data : [PostAllDataModel] ) {
         print(data)
         let storyboard = UIStoryboard.Common
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedViewVC") as! FeedViewVC
