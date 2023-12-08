@@ -98,6 +98,10 @@ class HomeVC: UIViewController {
         }
         disPatchGroup.notify(queue: .main) { [weak self] in
             self?.refreshControl.endRefreshing()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
+                self?.storyView.isHidden = false
+                self?.storyView.alpha = 1.0
+            }
         }
     }
     
@@ -345,7 +349,6 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         }
         lastOffset = offset
     }
-    
     
 }
 
