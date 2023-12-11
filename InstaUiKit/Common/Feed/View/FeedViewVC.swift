@@ -24,7 +24,7 @@ class FeedViewVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(false, animated: animated)
         navigationItem.hidesBackButton = true
-        navigationController?.title = "All Posts"
+        navigationItem.title = "All Posts"
         let backButton = UIBarButtonItem(image: UIImage(named: "BackArrow"), style: .plain, target: self, action: #selector(backButtonPressed))
         backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
