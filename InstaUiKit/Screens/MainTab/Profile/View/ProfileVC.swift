@@ -19,7 +19,6 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var followersCountLbl: UILabel!
     @IBOutlet weak var postCountLbl: UILabel!
     @IBOutlet weak var sideMenueName: UILabel!
-    @IBOutlet weak var headerName: UILabel!
     @IBOutlet weak var followingsTxtLbl: UILabel!
     @IBOutlet weak var followersTxtLbl: UILabel!
     var viewModel1 = AuthenticationViewModel()
@@ -39,9 +38,19 @@ class ProfileVC: UIViewController {
         updateUI()
     }
     
+    private func setBarItemsForProfileVC() {
+        if let mainTabVC = tabBarController as? MainTabVC {
+            if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name){
+                self.userName.text = name
+                self.sideMenueName.text = name
+                mainTabVC.setBarItemsForProfileVC(profileName: name)
+            }
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+        setBarItemsForProfileVC()
         DispatchQueue.main.async {
             self.configuration()
             self.updateUI()
@@ -152,12 +161,6 @@ extension ProfileVC {
             }
         } else {
             print("URL is nil or empty")
-        }
-        
-        if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name){
-            self.userName.text = name
-            self.sideMenueName.text = name
-            self.headerName.text = name
         }
         
         if let bio = FetchUserInfo.fetchUserInfoFromUserdefault(type: .bio){

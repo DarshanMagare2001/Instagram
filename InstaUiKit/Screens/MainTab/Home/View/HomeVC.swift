@@ -21,15 +21,24 @@ class HomeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        notificationLbl.isHidden = true
-        directMsgNotificationLbl.isHidden = true
+        
+        //        notificationLbl.isHidden = true
+        //        directMsgNotificationLbl.isHidden = true
         configureTableView()
         setupRefreshControl()
         configureUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setBarItemsForHomeVC()
         fetchAllKindNotifications()
+    }
+    
+    private func setBarItemsForHomeVC() {
+        if let mainTabVC = tabBarController as? MainTabVC {
+            mainTabVC.setBarItemsForHomeVC()
+        }
     }
     
     private func fetchAllKindNotifications(){
@@ -38,10 +47,10 @@ class HomeVC: UIViewController {
             case.success(let notificationCount):
                 print(notificationCount)
                 if notificationCount != 0 {
-                    self?.notificationLbl.isHidden = false
-                    self?.notificationLbl.text = "\(notificationCount)"
+                    //                    self?.notificationLbl.isHidden = false
+                    //                    self?.notificationLbl.text = "\(notificationCount)"
                 }else{
-                    self?.notificationLbl.isHidden = true
+                    //                    self?.notificationLbl.isHidden = true
                 }
             case.failure(let error):
                 print(error)
@@ -54,10 +63,10 @@ class HomeVC: UIViewController {
                 print(notificationCount)
                 if let notificationCount = notificationCount {
                     if notificationCount != 0 {
-                        self?.directMsgNotificationLbl.isHidden = false
-                        self?.directMsgNotificationLbl.text = "\(notificationCount)"
+                        //                        self?.directMsgNotificationLbl.isHidden = false
+                        //                        self?.directMsgNotificationLbl.text = "\(notificationCount)"
                     }else{
-                        self?.directMsgNotificationLbl.isHidden = true
+                        //                        self?.directMsgNotificationLbl.isHidden = true
                     }
                 }
             case.failure(let error):

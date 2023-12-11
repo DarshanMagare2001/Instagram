@@ -26,6 +26,16 @@ class PostVC: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        setBarItemsForPostVC()
+    }
+    
+    private func setBarItemsForPostVC() {
+        if let mainTabVC = tabBarController as? MainTabVC {
+            mainTabVC.setBarItemsForPostVC()
+        }
+    }
+    
     @IBAction func nxtBtnPressed(_ sender: UIButton) {
         if let img = selectedImage {
             let storyboard = UIStoryboard.MainTab

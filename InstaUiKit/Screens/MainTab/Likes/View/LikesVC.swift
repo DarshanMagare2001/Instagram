@@ -29,6 +29,16 @@ class LikesVC: UIViewController {
         self.tableViewOutlet.showAnimatedGradientSkeleton()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        setBarItemsForLikesVC()
+    }
+    
+    private func setBarItemsForLikesVC() {
+        if let mainTabVC = tabBarController as? MainTabVC {
+            mainTabVC.setBarItemsForLikesVC()
+        }
+    }
+    
     @objc func refresh(send: UIRefreshControl) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.fetchData()
