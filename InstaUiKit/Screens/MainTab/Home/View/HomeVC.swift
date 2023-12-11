@@ -15,12 +15,10 @@ class HomeVC: UIViewController {
     @IBOutlet weak var userImg: CircleImageView!
     @IBOutlet weak var notificationLbl: CircularLabel!
     @IBOutlet weak var directMsgNotificationLbl: CircularLabel!
-    @IBOutlet weak var storyView: UIView!
     var allPost = [PostAllDataModel]()
     var allUniqueUsersArray = [UserModel]()
     var refreshControl = UIRefreshControl()
     var viewModel = HomeVCViewModel()
-    var lastOffset: CGFloat = 0
     let disPatchGroup = DispatchGroup()
     
     override func viewDidLoad() {
@@ -98,10 +96,6 @@ class HomeVC: UIViewController {
         }
         disPatchGroup.notify(queue: .main) { [weak self] in
             self?.refreshControl.endRefreshing()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
-                self?.storyView.isHidden = false
-                self?.storyView.alpha = 1.0
-            }
         }
     }
     
@@ -330,24 +324,6 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         disPatchGroup.notify(queue: .main){}
         
         return cell
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offset = scrollView.contentOffset.y
-        let sensitivity: CGFloat = 10.0
-        if offset < lastOffset - sensitivity {
-            UIView.animate(withDuration: 0.3) {
-                self.storyView.isHidden = false
-                self.storyView.alpha = 1.0
-            }
-        } else if offset > lastOffset + sensitivity {
-            UIView.animate(withDuration: 0.3) {
-                self.storyView.alpha = 0.0
-            } completion: { _ in
-                self.storyView.isHidden = true
-            }
-        }
-        lastOffset = offset
     }
     
 }

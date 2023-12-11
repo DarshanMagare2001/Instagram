@@ -19,9 +19,6 @@ class PostVC: UIViewController {
         super.viewDidLoad()
         LoaderVCViewModel.shared.showLoader()
         imageView.isHidden = true
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
         DispatchQueue.main.async {
             self.configuration()
             self.updateCell()
@@ -45,7 +42,6 @@ extension PostVC {
     
     func configuration(){
         initViewModel()
-        eventObserver()
     }
     
     func initViewModel(){
@@ -57,11 +53,6 @@ extension PostVC {
                 LoaderVCViewModel.shared.hideLoader()
             }
         }
-    }
-    
-    func eventObserver(){
-        
-        
     }
     
     func updateCell() {
