@@ -41,19 +41,26 @@ class ProfileVC: UIViewController {
     private func setBarItemsForProfileVC() {
         if let mainTabVC = tabBarController as? MainTabVC {
             if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name){
-                self.userName.text = name
-                self.sideMenueName.text = name
-                mainTabVC.setBarItemsForProfileVC(profileName: name)
+                DispatchQueue.main.async {
+                    self.userName.text = name
+                    self.sideMenueName.text = name
+                    mainTabVC.setBarItemsForProfileVC(profileName: name){
+                        UIView.animate(withDuration: 0.5) {
+                            self.sideMenuView.alpha = 1.0
+                            self.sideMenuView.transform = CGAffineTransform(translationX: 0, y: 0)
+                        }
+                    }
+                }
             }
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setBarItemsForProfileVC()
         DispatchQueue.main.async {
             self.configuration()
             self.updateUI()
+            self.setBarItemsForProfileVC()
         }
         self.photosCollectionView.isSkeletonable = true
         self.photosCollectionView.showAnimatedGradientSkeleton()
@@ -81,14 +88,6 @@ class ProfileVC: UIViewController {
                 print(error)
             }
         }
-    }
-    
-    @IBAction func sideMenuBtnPressed(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.5) {
-            self.sideMenuView.alpha = 1.0
-            self.sideMenuView.transform = CGAffineTransform(translationX: 0, y: 0)
-        }
-        
     }
     
     @IBAction func sideMenuCloseBtnPressed(_ sender: UIButton) {

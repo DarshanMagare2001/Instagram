@@ -9,6 +9,7 @@ import UIKit
 
 class MainTabVC: UITabBarController {
     private var postActionClosureForPostNxtBtn: (() -> Void)?
+    private var postActionClosureForsideBtnTapped: (() -> Void)?
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: true)
@@ -53,7 +54,7 @@ class MainTabVC: UITabBarController {
     @objc private func nextButtonTapped() {
         postActionClosureForPostNxtBtn?()
     }
-
+    
     
     func setBarItemsForLikesVC(){
         navigationItem.title = nil
@@ -62,10 +63,20 @@ class MainTabVC: UITabBarController {
         navigationItem.title = "Likes"
     }
     
-    func setBarItemsForProfileVC(profileName:String){
+    func setBarItemsForProfileVC(profileName: String, action: @escaping () -> Void) {
         navigationItem.rightBarButtonItem = nil
         navigationItem.leftBarButtonItems = nil
+        if let nextButtonImage = UIImage(systemName: "line.3.horizontal")?.withRenderingMode(.alwaysOriginal) {
+            let sideBtn = UIBarButtonItem(image: nextButtonImage, style: .plain, target: self, action: #selector(sideBtnTapped))
+            navigationItem.rightBarButtonItem = sideBtn
+            self.postActionClosureForsideBtnTapped = action
+        }
         navigationItem.title = profileName
+    }
+
+    
+    @objc private func sideBtnTapped() {
+        postActionClosureForsideBtnTapped?()
     }
     
 }
