@@ -41,6 +41,7 @@ class ProfileVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
         DispatchQueue.main.async {
             self.configuration()
             self.updateUI()
