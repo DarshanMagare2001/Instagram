@@ -83,12 +83,12 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hIO-71-ENG"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="hIO-71-ENG" firstAttribute="bottom" secondItem="b9l-Vg-iEu" secondAttribute="bottom" id="4aq-rq-wt1"/>
-                            <constraint firstItem="hIO-71-ENG" firstAttribute="trailing" secondItem="b9l-Vg-iEu" secondAttribute="trailing" id="7XQ-Ef-aVa"/>
-                            <constraint firstItem="b9l-Vg-iEu" firstAttribute="top" secondItem="hIO-71-ENG" secondAttribute="top" id="eT6-uA-Wap"/>
-                            <constraint firstItem="b9l-Vg-iEu" firstAttribute="leading" secondItem="hIO-71-ENG" secondAttribute="leading" id="yFd-Vj-ddX"/>
+                            <constraint firstItem="b9l-Vg-iEu" firstAttribute="leading" secondItem="zPs-W1-0Up" secondAttribute="leading" id="6rg-ha-3fr"/>
+                            <constraint firstAttribute="bottom" secondItem="b9l-Vg-iEu" secondAttribute="bottom" id="83K-fU-zTd"/>
+                            <constraint firstAttribute="trailing" secondItem="b9l-Vg-iEu" secondAttribute="trailing" id="gE3-XV-zQS"/>
+                            <constraint firstItem="b9l-Vg-iEu" firstAttribute="top" secondItem="zPs-W1-0Up" secondAttribute="top" id="ncF-tA-au0"/>
                         </constraints>
                     </view>
                     <connections>
@@ -369,6 +369,9 @@
     <resources>
         <image name="BackArrow" width="10" height="18"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="separatorColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
