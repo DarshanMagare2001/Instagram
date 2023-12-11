@@ -8,6 +8,7 @@
 import UIKit
 
 class MainTabVC: UITabBarController {
+    private var postActionClosureForPostNxtBtn: (() -> Void)?
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: true)
@@ -23,6 +24,7 @@ class MainTabVC: UITabBarController {
     
     func setBarItemsForHomeVC(){
         navigationItem.title = nil
+        navigationItem.rightBarButtonItem = nil
         let userProfileImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 160, height: 40))
         userProfileImageView.contentMode = .scaleToFill
         userProfileImageView.clipsToBounds = true
@@ -35,25 +37,35 @@ class MainTabVC: UITabBarController {
     
     func setBarItemsForSearchVC(){
         navigationItem.title = nil
+        navigationItem.rightBarButtonItem = nil
         navigationItem.title = "Search"
         navigationItem.leftBarButtonItems = nil
     }
     
-    func setBarItemsForPostVC(){
+    func setBarItemsForPostVC(action: @escaping () -> Void) {
         navigationItem.title = nil
-        navigationItem.title = "Post"
         navigationItem.leftBarButtonItems = nil
+        navigationItem.title = "Post"
+        let nextButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(nextButtonTapped))
+        navigationItem.rightBarButtonItem = nextButton
+        self.postActionClosureForPostNxtBtn = action
     }
+    @objc private func nextButtonTapped() {
+        postActionClosureForPostNxtBtn?()
+    }
+
     
     func setBarItemsForLikesVC(){
         navigationItem.title = nil
-        navigationItem.title = "Likes"
+        navigationItem.rightBarButtonItem = nil
         navigationItem.leftBarButtonItems = nil
+        navigationItem.title = "Likes"
     }
     
     func setBarItemsForProfileVC(profileName:String){
-        navigationItem.title = profileName
+        navigationItem.rightBarButtonItem = nil
         navigationItem.leftBarButtonItems = nil
+        navigationItem.title = profileName
     }
     
 }

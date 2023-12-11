@@ -32,18 +32,16 @@ class PostVC: UIViewController {
     
     private func setBarItemsForPostVC() {
         if let mainTabVC = tabBarController as? MainTabVC {
-            mainTabVC.setBarItemsForPostVC()
-        }
-    }
-    
-    @IBAction func nxtBtnPressed(_ sender: UIButton) {
-        if let img = selectedImage {
-            let storyboard = UIStoryboard.MainTab
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "UploadVC") as! UploadVC
-            destinationVC.img = img
-            self.navigationController?.pushViewController(destinationVC, animated: true)
-        }else{
-            Alert.shared.alertOk(title: "Warning!", message: "Select Photo First", presentingViewController: self){ _ in}
+            mainTabVC.setBarItemsForPostVC{
+                if let img = self.selectedImage {
+                    let storyboard = UIStoryboard.MainTab
+                    let destinationVC = storyboard.instantiateViewController(withIdentifier: "UploadVC") as! UploadVC
+                    destinationVC.img = img
+                    self.navigationController?.pushViewController(destinationVC, animated: true)
+                }else{
+                    Alert.shared.alertOk(title: "Warning!", message: "Select Photo First", presentingViewController: self){ _ in}
+                }
+            }
         }
     }
     
