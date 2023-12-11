@@ -11,11 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedCell" rowHeight="651" id="KGk-i7-Jjw" customClass="FeedCell" customModule="InstaUiKit" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="616" height="651"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedCell" rowHeight="621" id="KGk-i7-Jjw" customClass="FeedCell" customModule="InstaUiKit" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="616" height="621"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="616" height="651"/>
+                <rect key="frame" x="0.0" y="0.0" width="616" height="621"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UcO-dA-GRy">
@@ -153,10 +153,10 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WBp-Qc-C6o">
-                        <rect key="frame" x="10" y="501.5" width="596" height="84.5"/>
+                        <rect key="frame" x="10" y="501.5" width="596" height="52.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="GNn-9f-iqv" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="24" width="40" height="37"/>
+                                <rect key="frame" x="0.0" y="8" width="40" height="37"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="3Ez-QR-B6l"/>
@@ -167,7 +167,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="62D-D4-fLa">
-                                <rect key="frame" x="50" y="32.5" width="546" height="19.5"/>
+                                <rect key="frame" x="50" y="16.5" width="546" height="19.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -181,7 +181,7 @@
                         </userDefinedRuntimeAttributes>
                     </stackView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w5c-Pt-eTN">
-                        <rect key="frame" x="10" y="591" width="596" height="50"/>
+                        <rect key="frame" x="10" y="559" width="596" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="Z3W-CQ-Fad"/>
                         </constraints>
@@ -192,9 +192,18 @@
                             <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iGr-Rl-7Df">
+                        <rect key="frame" x="20" y="609" width="576" height="1"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="eNz-KO-IAQ"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="iGr-Rl-7Df" secondAttribute="trailing" id="6IY-4r-ukh"/>
                     <constraint firstItem="WBp-Qc-C6o" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="A7h-h0-zv2"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="iGr-Rl-7Df" secondAttribute="bottom" id="DZS-yg-Q1g"/>
                     <constraint firstItem="LF5-lR-dk5" firstAttribute="top" secondItem="UcO-dA-GRy" secondAttribute="bottom" id="EjN-He-Umr"/>
                     <constraint firstItem="w5c-Pt-eTN" firstAttribute="top" secondItem="WBp-Qc-C6o" secondAttribute="bottom" constant="5" id="HGI-Xf-Ra7"/>
                     <constraint firstAttribute="trailing" secondItem="WBp-Qc-C6o" secondAttribute="trailing" constant="10" id="JXn-HZ-ovU"/>
@@ -205,8 +214,9 @@
                     <constraint firstAttribute="trailing" secondItem="gMO-aV-oUu" secondAttribute="trailing" id="QOS-bS-5bO"/>
                     <constraint firstItem="w5c-Pt-eTN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Rrn-gR-hdn"/>
                     <constraint firstItem="WBp-Qc-C6o" firstAttribute="top" secondItem="gMO-aV-oUu" secondAttribute="bottom" constant="5" id="UFU-Ds-80h"/>
+                    <constraint firstItem="iGr-Rl-7Df" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="cm5-6E-RXi"/>
                     <constraint firstItem="UcO-dA-GRy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="gFx-ns-cxu"/>
-                    <constraint firstAttribute="bottom" secondItem="w5c-Pt-eTN" secondAttribute="bottom" constant="10" id="mJy-M9-Osj"/>
+                    <constraint firstItem="iGr-Rl-7Df" firstAttribute="top" secondItem="w5c-Pt-eTN" secondAttribute="bottom" id="n23-Af-zpl"/>
                     <constraint firstAttribute="trailing" secondItem="w5c-Pt-eTN" secondAttribute="trailing" constant="10" id="oaK-F2-lax"/>
                     <constraint firstAttribute="trailing" secondItem="UcO-dA-GRy" secondAttribute="trailing" id="qOh-Nz-sBx"/>
                     <constraint firstItem="gMO-aV-oUu" firstAttribute="top" secondItem="LF5-lR-dk5" secondAttribute="bottom" id="tV2-sw-dRr"/>
@@ -231,7 +241,7 @@
                 <outlet property="userImg2" destination="GNn-9f-iqv" id="ZFN-aW-vG9"/>
                 <outlet property="userName" destination="iBT-zD-uem" id="t7u-er-Ofc"/>
             </connections>
-            <point key="canvasLocation" x="43.478260869565219" y="156.36160714285714"/>
+            <point key="canvasLocation" x="43.478260869565219" y="145.64732142857142"/>
         </tableViewCell>
     </objects>
     <resources>

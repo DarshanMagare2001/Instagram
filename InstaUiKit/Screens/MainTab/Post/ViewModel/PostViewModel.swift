@@ -106,7 +106,7 @@ class PostViewModel {
                         let likesCount = data["likesCount"] as? Int ?? 0
                         let comments = data["comments"] as? [[String: Any]] ?? []
                         if let timestamp = data["timestamp"] as? Timestamp {
-                            FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+                            FetchUserInfo.shared.fetchUserDataByUid(uid: uid) { result in
                                 switch result {
                                 case.success(let user):
                                     if let user = user , let name = user.name , let userName = user.username , let profilrImgUrl = user.imageUrl{
@@ -128,12 +128,10 @@ class PostViewModel {
     }
     
     
-    
-    
     func fetchAllPosts(completion: @escaping (Result<[PostAllDataModel], Error>) -> Void) {
         let db = Firestore.firestore()
         db.collection("post")
-            .order(by: "timestamp", descending: true) // Sort by the timestamp field in descending order
+            .order(by: "timestamp", descending: true)
             .getDocuments { (querySnapshot, error) in
                 if let error = error {
                     print("Error fetching data: \(error.localizedDescription)")
@@ -147,31 +145,41 @@ class PostViewModel {
                         let caption = data["caption"] as? String ?? ""
                         let location = data["location"] as? String ?? ""
                         let uid = data["uid"] as? String ?? ""
-                        let postDocumentID = document.documentID // Get document ID
+                        let postDocumentID = document.documentID
                         let likedBy = data["likedBy"] as? [String] ?? []
                         let likesCount = data["likesCount"] as? Int ?? 0
                         let comments = data["comments"] as? [[String: Any]] ?? []
+
                         if let timestamp = data["timestamp"] as? Timestamp {
-                            FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
-                                switch result {
-                                case.success(let user):
-                                    if let user = user , let name = user.name , let userName = user.username , let profilrImgUrl = user.imageUrl{
-                                        posts.append(PostAllDataModel(postImageURL: postImageURL, caption: caption, location: location, name: name, uid: uid, profileImageUrl: profilrImgUrl, postDocumentID: postDocumentID, likedBy: likedBy, likesCount: likesCount, comments: comments, username: userName, timestamp: timestamp))
-                                        self.dispatchGroup.leave()
-                                    }
-                                case.failure(let error):
-                                    print(error)
+                            FetchUserInfo.shared.fetchUserDataByUid(uid: uid) { result in
+                                defer {
                                     self.dispatchGroup.leave()
                                 }
+
+                                switch result {
+                                case .success(let user):
+                                    guard let user = user, let name = user.name, let userName = user.username, let profileImgUrl = user.imageUrl else {
+                                        return
+                                    }
+
+                                    posts.append(PostAllDataModel(postImageURL: postImageURL, caption: caption, location: location, name: name, uid: uid, profileImageUrl: profileImgUrl, postDocumentID: postDocumentID, likedBy: likedBy, likesCount: likesCount, comments: comments, username: userName, timestamp: timestamp))
+                                case .failure(let error):
+                                    print(error)
+                                }
                             }
+                        } else {
+                            self.dispatchGroup.leave()
                         }
                     }
+
                     self.dispatchGroup.notify(queue: .main) {
                         completion(.success(posts))
                     }
                 }
             }
     }
+
+    
     
     
     func fetchPostbyPostDocumentID(byPostDocumentID postDocumentID: String, completion: @escaping (Result<PostAllDataModel?, Error>) -> Void) {
@@ -191,7 +199,7 @@ class PostViewModel {
                     let likesCount = data["likesCount"] as? Int ?? 0
                     let comments = data["comments"] as? [[String: Any]] ?? []
                     if let timestamp = data["timestamp"] as? Timestamp {
-                        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+                        FetchUserInfo.shared.fetchUserDataByUid(uid: uid) { result in
                             switch result {
                             case.success(let user):
                                 if let user = user , let name = user.name , let userName = user.username , let profilrImgUrl = user.imageUrl{
