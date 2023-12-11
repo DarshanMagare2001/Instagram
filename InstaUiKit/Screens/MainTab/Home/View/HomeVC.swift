@@ -11,8 +11,6 @@ import RxSwift
 
 class HomeVC: UIViewController {
     @IBOutlet weak var feedTableView: UITableView!
-    @IBOutlet weak var storiesCollectionView: UICollectionView!
-    @IBOutlet weak var userImg: CircleImageView!
     @IBOutlet weak var notificationLbl: CircularLabel!
     @IBOutlet weak var directMsgNotificationLbl: CircularLabel!
     var allPost = [PostAllDataModel]()
@@ -66,6 +64,7 @@ class HomeVC: UIViewController {
                 print(error)
             }
         }
+        
     }
     
     
@@ -78,8 +77,6 @@ class HomeVC: UIViewController {
     private func makeSkeletonable(){
         feedTableView.isSkeletonable = true
         feedTableView.showAnimatedGradientSkeleton()
-        storiesCollectionView.isSkeletonable = true
-        storiesCollectionView.showAnimatedGradientSkeleton()
     }
     
     private func setupRefreshControl() {
@@ -99,13 +96,6 @@ class HomeVC: UIViewController {
         }
     }
     
-    @IBAction func addStoryBtnPressed(_ sender: UIButton) {
-        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "AddStoryVC") { [weak self] destinationVC in
-            if let destinationVC = destinationVC {
-                self?.navigationController?.pushViewController(destinationVC, animated: true)
-            }
-        }
-    }
     
     
     @IBAction func directMsgBtnPressed(_ sender: UIButton) {
@@ -144,11 +134,6 @@ extension HomeVC {
     }
     
     private func fetchData() {
-        
-        if let url = FetchUserInfo.fetchUserInfoFromUserdefault(type: .profileUrl){
-            ImageLoader.loadImage(for: URL(string:url), into: userImg, withPlaceholder: UIImage(systemName: "person.fill"))
-        }
-        
         disPatchGroup.enter()
         viewModel.fetchAllPostsOfFollowings { result in
             self.disPatchGroup.leave()
@@ -180,10 +165,6 @@ extension HomeVC {
                 if let data = data {
                     self.allUniqueUsersArray = data
                 }
-                self.storiesCollectionView.stopSkeletonAnimation()
-                self.view.stopSkeletonAnimation()
-                self.storiesCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
-                self.storiesCollectionView.reloadData()
             }
         }
     }
@@ -191,8 +172,18 @@ extension HomeVC {
 
 extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allPost.count
+        if section == 0{
+            return 1
+        }
+        if section == 1 {
+            return allPost.count
+        }
+        return 0
     }
     
     func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int{
@@ -204,157 +195,144 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
-        let post = allPost[indexPath.row]
         
-        cell.userImg1.image = nil
-        cell.userImg2.image = nil
-        cell.userName.text = nil
-        cell.postImg.image = nil
-        cell.postLocationLbl.text = nil
-        cell.postCaption.text = nil
-        cell.totalLikesCount.text = nil
-        cell.likedByLbl.text = nil
-        
-        guard let postUid = post.uid ,
-              let postName = post.name ,
-              let profileImgUrl = post.profileImageUrl ,
-              let postImageURL = post.postImageURL,
-              let postLocation = post.location,
-              let postCaption = post.caption ,
-              let postComments = post.comments,
-              let postUserName = post.username,
-              let postLikesCounts = post.likesCount,
-              let postLikedBy = post.likedBy,
-              let postPostDocumentID = post.postDocumentID else { return UITableViewCell()}
-        
-        DispatchQueue.main.async { [weak self] in
-            ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
-            ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
-            ImageLoader.loadImage(for: URL(string: postImageURL), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
-            cell.userName.text = postName
-            cell.postLocationLbl.text = postLocation
-            cell.postCaption.text = postCaption
-            cell.totalLikesCount.text = "\(postLikesCounts) Likes"
-        }
-        
-        
-        disPatchGroup.enter()
-        if let randomLikedByUID = postLikedBy.randomElement() {
-            FetchUserInfo.shared.fetchUserDataByUid(uid: randomLikedByUID) { [weak self] result in
-                self?.disPatchGroup.leave()
-                switch result {
-                case .success(let data):
-                    if let data = data , let name = data.name {
-                        cell.likedByLbl.text = "Liked by \(name) and \(Int(postLikedBy.count - 1)) others."
-                    }
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
-        
-        
-        disPatchGroup.enter()
-        DispatchQueue.main.async { [weak self] in
-            if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
-                
-                if (postLikedBy.contains(uid)){
-                    cell.isLiked = true
-                    let imageName = cell.isLiked ? "heart.fill" : "heart"
-                    cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
-                    cell.likeBtn.tintColor = cell.isLiked ? .red : .black
-                }else{
-                    cell.isLiked = false
-                    let imageName = cell.isLiked ? "heart.fill" : "heart"
-                    cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
-                    cell.likeBtn.tintColor = cell.isLiked ? .red : .black
-                }
-                
-                cell.likeBtnTapped = { [weak self] in
-                    if cell.isLiked {
-                        PostViewModel.shared.unlikePost(postDocumentID: postPostDocumentID, userUID: uid) { success in
-                            if success {
-                                // Update the UI: Set the correct image for the like button
-                                cell.isLiked = false
-                                let imageName = cell.isLiked ? "heart.fill" : "heart"
-                                cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
-                                cell.likeBtn.tintColor = cell.isLiked ? .red : .black
-                            }
-                        }
-                    } else {
-                        PostViewModel.shared.likePost(postDocumentID: postPostDocumentID, userUID: uid) { [weak self] success in
-                            if success {
-                                // Update the UI: Set the correct image for the like button
-                                cell.isLiked = true
-                                let imageName = cell.isLiked ? "heart.fill" : "heart"
-                                cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
-                                cell.likeBtn.tintColor = cell.isLiked ? .red : .black
-                                FetchUserInfo.shared.fetchUserDataByUid(uid: postUid) { [weak self] result in
-                                    switch result {
-                                    case.success(let data):
-                                        if let data = data , let fmcToken = data.fcmToken {
-                                            if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name) {
-                                                PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Liked your post.")
-                                            }
-                                        }
-                                    case.failure(let error):
-                                        print(error)
-                                    }
-                                }
-                                
-                            }
-                        }
+        if indexPath.section == 0 {
+            let cell2 = tableView.dequeueReusableCell(withIdentifier: "HomeVCCell", for: indexPath) as! HomeVCCell
+            cell2.allUniqueUsersArray = allUniqueUsersArray
+            cell2.addStoryBtnPressed = { [weak self] in
+                Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "AddStoryVC") { [weak self] destinationVC in
+                    if let destinationVC = destinationVC {
+                        self?.navigationController?.pushViewController(destinationVC, animated: true)
                     }
                 }
             }
-            self?.disPatchGroup.leave()
+            return cell2
         }
         
-        disPatchGroup.enter()
-        DispatchQueue.main.async { [weak self] in
-            cell.commentsBtnTapped = { [weak self] in
-                let storyboard = UIStoryboard.Common
-                let destinationVC = storyboard.instantiateViewController(withIdentifier: "CommentsVC") as! CommentsVC
-                destinationVC.allPost = post
-                self?.navigationController?.pushViewController(destinationVC, animated: true)
-            }
-            self?.disPatchGroup.leave()
-        }
-        disPatchGroup.notify(queue: .main){}
-        
-        return cell
-    }
-    
-}
-
-
-extension HomeVC: SkeletonCollectionViewDataSource  , SkeletonCollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        allUniqueUsersArray.count
-    }
-    
-    func collectionSkeletonView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
-    }
-    
-    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
-        return "StoriesCell"
-    }
-    
-    func collectionView (_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StoriesCell", for: indexPath) as! StoriesCell
-        if let uid = allUniqueUsersArray[indexPath.row].uid,
-           let name = allUniqueUsersArray[indexPath.row].name,
-           let imgUrl = allUniqueUsersArray[indexPath.row].imageUrl{
+        if indexPath.section == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
+            let post = allPost[indexPath.row]
+            
+            cell.userImg1.image = nil
+            cell.userImg2.image = nil
+            cell.userName.text = nil
+            cell.postImg.image = nil
+            cell.postLocationLbl.text = nil
+            cell.postCaption.text = nil
+            cell.totalLikesCount.text = nil
+            cell.likedByLbl.text = nil
+            
+            guard let postUid = post.uid ,
+                  let postName = post.name ,
+                  let profileImgUrl = post.profileImageUrl ,
+                  let postImageURL = post.postImageURL,
+                  let postLocation = post.location,
+                  let postCaption = post.caption ,
+                  let postComments = post.comments,
+                  let postUserName = post.username,
+                  let postLikesCounts = post.likesCount,
+                  let postLikedBy = post.likedBy,
+                  let postPostDocumentID = post.postDocumentID else { return UITableViewCell()}
+            
             DispatchQueue.main.async { [weak self] in
-                ImageLoader.loadImage(for: URL(string: imgUrl), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
-                cell.userName.text = name
+                ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
+                ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
+                ImageLoader.loadImage(for: URL(string: postImageURL), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                cell.userName.text = postName
+                cell.postLocationLbl.text = postLocation
+                cell.postCaption.text = postCaption
+                cell.totalLikesCount.text = "\(postLikesCounts) Likes"
             }
+            
+            
+            disPatchGroup.enter()
+            if let randomLikedByUID = postLikedBy.randomElement() {
+                FetchUserInfo.shared.fetchUserDataByUid(uid: randomLikedByUID) { [weak self] result in
+                    self?.disPatchGroup.leave()
+                    switch result {
+                    case .success(let data):
+                        if let data = data , let name = data.name {
+                            cell.likedByLbl.text = "Liked by \(name) and \(Int(postLikedBy.count - 1)) others."
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            }
+            
+            
+            disPatchGroup.enter()
+            DispatchQueue.main.async { [weak self] in
+                if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
+                    
+                    if (postLikedBy.contains(uid)){
+                        cell.isLiked = true
+                        let imageName = cell.isLiked ? "heart.fill" : "heart"
+                        cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+                        cell.likeBtn.tintColor = cell.isLiked ? .red : .black
+                    }else{
+                        cell.isLiked = false
+                        let imageName = cell.isLiked ? "heart.fill" : "heart"
+                        cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+                        cell.likeBtn.tintColor = cell.isLiked ? .red : .black
+                    }
+                    
+                    cell.likeBtnTapped = { [weak self] in
+                        if cell.isLiked {
+                            PostViewModel.shared.unlikePost(postDocumentID: postPostDocumentID, userUID: uid) { success in
+                                if success {
+                                    // Update the UI: Set the correct image for the like button
+                                    cell.isLiked = false
+                                    let imageName = cell.isLiked ? "heart.fill" : "heart"
+                                    cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+                                    cell.likeBtn.tintColor = cell.isLiked ? .red : .black
+                                }
+                            }
+                        } else {
+                            PostViewModel.shared.likePost(postDocumentID: postPostDocumentID, userUID: uid) { [weak self] success in
+                                if success {
+                                    // Update the UI: Set the correct image for the like button
+                                    cell.isLiked = true
+                                    let imageName = cell.isLiked ? "heart.fill" : "heart"
+                                    cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+                                    cell.likeBtn.tintColor = cell.isLiked ? .red : .black
+                                    FetchUserInfo.shared.fetchUserDataByUid(uid: postUid) { [weak self] result in
+                                        switch result {
+                                        case.success(let data):
+                                            if let data = data , let fmcToken = data.fcmToken {
+                                                if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name) {
+                                                    PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Liked your post.")
+                                                }
+                                            }
+                                        case.failure(let error):
+                                            print(error)
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+                self?.disPatchGroup.leave()
+            }
+            
+            disPatchGroup.enter()
+            DispatchQueue.main.async { [weak self] in
+                cell.commentsBtnTapped = { [weak self] in
+                    let storyboard = UIStoryboard.Common
+                    let destinationVC = storyboard.instantiateViewController(withIdentifier: "CommentsVC") as! CommentsVC
+                    destinationVC.allPost = post
+                    self?.navigationController?.pushViewController(destinationVC, animated: true)
+                }
+                self?.disPatchGroup.leave()
+            }
+            disPatchGroup.notify(queue: .main){}
+            return cell
         }
-        return cell
+        return UITableViewCell()
     }
-    
 }
+
 
 

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class PostVC: UIViewController {
     @IBOutlet weak var imgForPost: UIImageView!
@@ -17,7 +18,7 @@ class PostVC: UIViewController {
     var selectedImage : UIImage?
     override func viewDidLoad() {
         super.viewDidLoad()
-        LoaderVCViewModel.shared.showLoader()
+        MessageLoader.shared.showLoader(withText: "Fetchings Images.")
         imageView.isHidden = true
         DispatchQueue.main.async {
             self.configuration()
@@ -50,7 +51,7 @@ extension PostVC {
                 PostViewModel.shared.imagesArray = images
                 self.collectionView.reloadData()
                 self.updateCell()
-                LoaderVCViewModel.shared.hideLoader()
+                MessageLoader.shared.hideLoader()
             }
         }
     }

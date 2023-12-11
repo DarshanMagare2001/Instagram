@@ -141,205 +141,215 @@
                                     <constraint firstItem="uAK-kj-RTh" firstAttribute="leading" secondItem="E6M-dW-uI0" secondAttribute="leading" constant="15" id="ybe-Gc-HVb"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="FwX-wF-vla">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="wRA-dK-GUe">
                                 <rect key="frame" x="0.0" y="55" width="320" height="513"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c0X-T9-eHT">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="135"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="BTi-Ow-LiT">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="135"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="edV-p4-1Kk">
-                                                        <rect key="frame" x="0.0" y="0.0" width="95" height="135"/>
-                                                        <subviews>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UUR-TG-CWN">
-                                                                <rect key="frame" x="10" y="15" width="80" height="105"/>
-                                                                <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gR2-TP-olN">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
-                                                                        <subviews>
-                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Png-ox-dSp" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
-                                                                                <rect key="frame" x="0.0" y="1.5" width="80" height="77"/>
-                                                                                <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                <constraints>
-                                                                                    <constraint firstAttribute="width" constant="80" id="NOX-hl-1So"/>
-                                                                                    <constraint firstAttribute="height" constant="80" id="hm7-eW-I0t"/>
-                                                                                </constraints>
-                                                                            </imageView>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTF-U7-hug" customClass="CircularButtonWithBorder" customModule="InstaUiKit" customModuleProvider="target">
-                                                                                <rect key="frame" x="58" y="58" width="25" height="25"/>
-                                                                                <color key="backgroundColor" name="GlobalBlue"/>
-                                                                                <constraints>
-                                                                                    <constraint firstAttribute="width" constant="25" id="ZcW-BQ-DCg"/>
-                                                                                    <constraint firstAttribute="height" constant="25" id="fY2-gW-NTs"/>
-                                                                                </constraints>
-                                                                                <state key="normal" title="Button"/>
-                                                                                <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system">
-                                                                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                </buttonConfiguration>
-                                                                                <connections>
-                                                                                    <action selector="addStoryBtnPressed:" destination="cUk-uZ-knu" eventType="touchUpInside" id="Xf2-Z7-aef"/>
-                                                                                </connections>
-                                                                            </button>
-                                                                        </subviews>
-                                                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="bottom" secondItem="Png-ox-dSp" secondAttribute="bottom" id="1Va-JM-1MY"/>
-                                                                            <constraint firstAttribute="bottom" secondItem="DTF-U7-hug" secondAttribute="bottom" constant="-3" id="6Fl-sw-g1C"/>
-                                                                            <constraint firstAttribute="trailing" secondItem="DTF-U7-hug" secondAttribute="trailing" constant="-3" id="LSl-ST-b48"/>
-                                                                            <constraint firstAttribute="trailing" secondItem="Png-ox-dSp" secondAttribute="trailing" id="PYh-jF-nLp"/>
-                                                                            <constraint firstItem="Png-ox-dSp" firstAttribute="leading" secondItem="gR2-TP-olN" secondAttribute="leading" id="g28-fb-eCf"/>
-                                                                            <constraint firstItem="Png-ox-dSp" firstAttribute="top" secondItem="gR2-TP-olN" secondAttribute="top" id="rey-hH-fKp"/>
-                                                                        </constraints>
-                                                                    </view>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Story" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ag9-z9-i5Y">
-                                                                        <rect key="frame" x="6" y="90" width="68.5" height="15"/>
-                                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                </subviews>
-                                                            </stackView>
-                                                        </subviews>
-                                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="UUR-TG-CWN" secondAttribute="trailing" constant="5" id="I6e-Jv-dmF"/>
-                                                            <constraint firstItem="UUR-TG-CWN" firstAttribute="leading" secondItem="edV-p4-1Kk" secondAttribute="leading" constant="10" id="l2t-eX-aDg"/>
-                                                            <constraint firstAttribute="bottom" secondItem="UUR-TG-CWN" secondAttribute="bottom" constant="15" id="xbI-XZ-587"/>
-                                                            <constraint firstItem="UUR-TG-CWN" firstAttribute="top" secondItem="edV-p4-1Kk" secondAttribute="top" constant="15" id="zJw-sb-t79"/>
-                                                        </constraints>
-                                                    </view>
-                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="vJS-b4-9bH">
-                                                        <rect key="frame" x="100" y="0.0" width="220" height="135"/>
-                                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UhC-95-Tta">
-                                                            <size key="itemSize" width="213" height="89"/>
-                                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                        </collectionViewFlowLayout>
-                                                        <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="StoriesCell" id="f43-Fh-trG" customClass="StoriesCell" customModule="InstaUiKit" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="23" width="213" height="89"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="DXl-W9-hzE">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="213" height="89"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeVCCell" rowHeight="147" id="FA9-0B-L9o" customClass="HomeVCCell" customModule="InstaUiKit" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.5" width="320" height="147"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FA9-0B-L9o" id="fXN-Lp-JUA">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="147"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="H9d-JM-6FC">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="147"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="BTi-Ow-LiT">
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="146"/>
+                                                            <subviews>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="edV-p4-1Kk">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="95" height="146"/>
                                                                     <subviews>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dE4-I3-Da1">
-                                                                            <rect key="frame" x="10" y="10" width="193" height="69"/>
+                                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UUR-TG-CWN">
+                                                                            <rect key="frame" x="10" y="15" width="80" height="116"/>
                                                                             <subviews>
-                                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JJF-be-Ckm" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
-                                                                                    <rect key="frame" x="54" y="0.0" width="85" height="59"/>
+                                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gR2-TP-olN">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                                                     <subviews>
-                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6Pk-J3-PiK" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
-                                                                                            <rect key="frame" x="5" y="6.5" width="75" height="46"/>
+                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Png-ox-dSp" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
+                                                                                            <rect key="frame" x="0.0" y="1.5" width="80" height="77"/>
                                                                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             <constraints>
-                                                                                                <constraint firstAttribute="height" constant="75" id="1hd-d1-8vG"/>
-                                                                                                <constraint firstAttribute="width" constant="75" id="ua9-kC-beh"/>
+                                                                                                <constraint firstAttribute="width" constant="80" id="NOX-hl-1So"/>
+                                                                                                <constraint firstAttribute="height" constant="80" id="hm7-eW-I0t"/>
                                                                                             </constraints>
-                                                                                            <userDefinedRuntimeAttributes>
-                                                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                                                            </userDefinedRuntimeAttributes>
                                                                                         </imageView>
+                                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTF-U7-hug" customClass="CircularButtonWithBorder" customModule="InstaUiKit" customModuleProvider="target">
+                                                                                            <rect key="frame" x="58" y="58" width="25" height="25"/>
+                                                                                            <color key="backgroundColor" name="GlobalBlue"/>
+                                                                                            <constraints>
+                                                                                                <constraint firstAttribute="width" constant="25" id="ZcW-BQ-DCg"/>
+                                                                                                <constraint firstAttribute="height" constant="25" id="fY2-gW-NTs"/>
+                                                                                            </constraints>
+                                                                                            <state key="normal" title="Button"/>
+                                                                                            <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system">
+                                                                                                <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                            </buttonConfiguration>
+                                                                                            <connections>
+                                                                                                <action selector="addStoryBtnPressed:" destination="FA9-0B-L9o" eventType="touchUpInside" id="61T-ak-Tsa"/>
+                                                                                            </connections>
+                                                                                        </button>
                                                                                     </subviews>
-                                                                                    <color key="backgroundColor" red="0.89000000000000001" green="0.38473341688220297" blue="0.59616045621320324" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <constraints>
-                                                                                        <constraint firstAttribute="trailing" secondItem="6Pk-J3-PiK" secondAttribute="trailing" constant="5" id="0Lp-Kb-WNr"/>
-                                                                                        <constraint firstAttribute="height" constant="85" id="3rt-sa-Zbp"/>
-                                                                                        <constraint firstAttribute="bottom" secondItem="6Pk-J3-PiK" secondAttribute="bottom" constant="5" id="4wQ-2S-IQ4"/>
-                                                                                        <constraint firstItem="6Pk-J3-PiK" firstAttribute="leading" secondItem="JJF-be-Ckm" secondAttribute="leading" constant="5" id="REd-QN-SoC"/>
-                                                                                        <constraint firstAttribute="width" constant="85" id="oas-yH-ihb"/>
-                                                                                        <constraint firstItem="6Pk-J3-PiK" firstAttribute="top" secondItem="JJF-be-Ckm" secondAttribute="top" constant="5" id="xGo-7m-Zht"/>
+                                                                                        <constraint firstAttribute="bottom" secondItem="Png-ox-dSp" secondAttribute="bottom" id="1Va-JM-1MY"/>
+                                                                                        <constraint firstAttribute="bottom" secondItem="DTF-U7-hug" secondAttribute="bottom" constant="-3" id="6Fl-sw-g1C"/>
+                                                                                        <constraint firstAttribute="trailing" secondItem="DTF-U7-hug" secondAttribute="trailing" constant="-3" id="LSl-ST-b48"/>
+                                                                                        <constraint firstAttribute="trailing" secondItem="Png-ox-dSp" secondAttribute="trailing" id="PYh-jF-nLp"/>
+                                                                                        <constraint firstItem="Png-ox-dSp" firstAttribute="leading" secondItem="gR2-TP-olN" secondAttribute="leading" id="g28-fb-eCf"/>
+                                                                                        <constraint firstItem="Png-ox-dSp" firstAttribute="top" secondItem="gR2-TP-olN" secondAttribute="top" id="rey-hH-fKp"/>
                                                                                     </constraints>
-                                                                                    <userDefinedRuntimeAttributes>
-                                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHiddenWhenSkeletonIsActive" value="NO"/>
-                                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isUserInteractionDisabledWhenSkeletonIsActive" value="NO"/>
-                                                                                    </userDefinedRuntimeAttributes>
                                                                                 </view>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Darshan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v4i-IM-kDk">
-                                                                                    <rect key="frame" x="69.5" y="69" width="54" height="0.0"/>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Story" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ag9-z9-i5Y">
+                                                                                    <rect key="frame" x="6" y="90" width="68.5" height="26"/>
                                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
-                                                                                    <userDefinedRuntimeAttributes>
-                                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                                                    </userDefinedRuntimeAttributes>
                                                                                 </label>
                                                                             </subviews>
-                                                                            <userDefinedRuntimeAttributes>
-                                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                                            </userDefinedRuntimeAttributes>
                                                                         </stackView>
                                                                     </subviews>
                                                                     <constraints>
-                                                                        <constraint firstItem="dE4-I3-Da1" firstAttribute="top" secondItem="DXl-W9-hzE" secondAttribute="top" constant="10" id="52O-9g-fJn"/>
-                                                                        <constraint firstItem="dE4-I3-Da1" firstAttribute="leading" secondItem="DXl-W9-hzE" secondAttribute="leading" constant="10" id="NGE-5F-XjW"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="dE4-I3-Da1" secondAttribute="bottom" constant="10" id="hUj-TQ-TDD"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="dE4-I3-Da1" secondAttribute="trailing" constant="10" id="xzh-GK-L5s"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="UUR-TG-CWN" secondAttribute="trailing" constant="5" id="I6e-Jv-dmF"/>
+                                                                        <constraint firstItem="UUR-TG-CWN" firstAttribute="leading" secondItem="edV-p4-1Kk" secondAttribute="leading" constant="10" id="l2t-eX-aDg"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="UUR-TG-CWN" secondAttribute="bottom" constant="15" id="xbI-XZ-587"/>
+                                                                        <constraint firstItem="UUR-TG-CWN" firstAttribute="top" secondItem="edV-p4-1Kk" secondAttribute="top" constant="15" id="zJw-sb-t79"/>
                                                                     </constraints>
+                                                                </view>
+                                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="vJS-b4-9bH">
+                                                                    <rect key="frame" x="100" y="0.0" width="220" height="146"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UhC-95-Tta">
+                                                                        <size key="itemSize" width="213" height="89"/>
+                                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                    </collectionViewFlowLayout>
+                                                                    <cells>
+                                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="StoriesCell" id="f43-Fh-trG" customClass="StoriesCell" customModule="InstaUiKit" customModuleProvider="target">
+                                                                            <rect key="frame" x="0.0" y="28.5" width="213" height="89"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="DXl-W9-hzE">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="213" height="89"/>
+                                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                                <subviews>
+                                                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dE4-I3-Da1">
+                                                                                        <rect key="frame" x="10" y="10" width="193" height="69"/>
+                                                                                        <subviews>
+                                                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JJF-be-Ckm" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
+                                                                                                <rect key="frame" x="54" y="0.0" width="85" height="59"/>
+                                                                                                <subviews>
+                                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6Pk-J3-PiK" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
+                                                                                                        <rect key="frame" x="5" y="6.5" width="75" height="46"/>
+                                                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                                        <constraints>
+                                                                                                            <constraint firstAttribute="height" constant="75" id="1hd-d1-8vG"/>
+                                                                                                            <constraint firstAttribute="width" constant="75" id="ua9-kC-beh"/>
+                                                                                                        </constraints>
+                                                                                                        <userDefinedRuntimeAttributes>
+                                                                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                                                                        </userDefinedRuntimeAttributes>
+                                                                                                    </imageView>
+                                                                                                </subviews>
+                                                                                                <color key="backgroundColor" red="0.89000000000000001" green="0.38473341688220297" blue="0.59616045621320324" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                                <constraints>
+                                                                                                    <constraint firstAttribute="trailing" secondItem="6Pk-J3-PiK" secondAttribute="trailing" constant="5" id="0Lp-Kb-WNr"/>
+                                                                                                    <constraint firstAttribute="height" constant="85" id="3rt-sa-Zbp"/>
+                                                                                                    <constraint firstAttribute="bottom" secondItem="6Pk-J3-PiK" secondAttribute="bottom" constant="5" id="4wQ-2S-IQ4"/>
+                                                                                                    <constraint firstItem="6Pk-J3-PiK" firstAttribute="leading" secondItem="JJF-be-Ckm" secondAttribute="leading" constant="5" id="REd-QN-SoC"/>
+                                                                                                    <constraint firstAttribute="width" constant="85" id="oas-yH-ihb"/>
+                                                                                                    <constraint firstItem="6Pk-J3-PiK" firstAttribute="top" secondItem="JJF-be-Ckm" secondAttribute="top" constant="5" id="xGo-7m-Zht"/>
+                                                                                                </constraints>
+                                                                                                <userDefinedRuntimeAttributes>
+                                                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isHiddenWhenSkeletonIsActive" value="NO"/>
+                                                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isUserInteractionDisabledWhenSkeletonIsActive" value="NO"/>
+                                                                                                </userDefinedRuntimeAttributes>
+                                                                                            </view>
+                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Darshan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v4i-IM-kDk">
+                                                                                                <rect key="frame" x="69.5" y="69" width="54" height="0.0"/>
+                                                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                                                                                <nil key="textColor"/>
+                                                                                                <nil key="highlightedColor"/>
+                                                                                                <userDefinedRuntimeAttributes>
+                                                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                                                                </userDefinedRuntimeAttributes>
+                                                                                            </label>
+                                                                                        </subviews>
+                                                                                        <userDefinedRuntimeAttributes>
+                                                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                                                        </userDefinedRuntimeAttributes>
+                                                                                    </stackView>
+                                                                                </subviews>
+                                                                                <constraints>
+                                                                                    <constraint firstItem="dE4-I3-Da1" firstAttribute="top" secondItem="DXl-W9-hzE" secondAttribute="top" constant="10" id="52O-9g-fJn"/>
+                                                                                    <constraint firstItem="dE4-I3-Da1" firstAttribute="leading" secondItem="DXl-W9-hzE" secondAttribute="leading" constant="10" id="NGE-5F-XjW"/>
+                                                                                    <constraint firstAttribute="bottom" secondItem="dE4-I3-Da1" secondAttribute="bottom" constant="10" id="hUj-TQ-TDD"/>
+                                                                                    <constraint firstAttribute="trailing" secondItem="dE4-I3-Da1" secondAttribute="trailing" constant="10" id="xzh-GK-L5s"/>
+                                                                                </constraints>
+                                                                                <userDefinedRuntimeAttributes>
+                                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                                                </userDefinedRuntimeAttributes>
+                                                                            </collectionViewCellContentView>
+                                                                            <size key="customSize" width="213" height="89"/>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                                            </userDefinedRuntimeAttributes>
+                                                                            <connections>
+                                                                                <outlet property="userImg" destination="6Pk-J3-PiK" id="75C-c4-HyO"/>
+                                                                                <outlet property="userName" destination="v4i-IM-kDk" id="mQe-EK-cJQ"/>
+                                                                            </connections>
+                                                                        </collectionViewCell>
+                                                                    </cells>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                                                     </userDefinedRuntimeAttributes>
-                                                                </collectionViewCellContentView>
-                                                                <size key="customSize" width="213" height="89"/>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                                </userDefinedRuntimeAttributes>
-                                                                <connections>
-                                                                    <outlet property="userImg" destination="6Pk-J3-PiK" id="75C-c4-HyO"/>
-                                                                    <outlet property="userName" destination="v4i-IM-kDk" id="mQe-EK-cJQ"/>
-                                                                </connections>
-                                                            </collectionViewCell>
-                                                        </cells>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <outlet property="dataSource" destination="cUk-uZ-knu" id="sFH-gu-r9P"/>
-                                                            <outlet property="delegate" destination="cUk-uZ-knu" id="EP3-y9-AUd"/>
-                                                        </connections>
-                                                    </collectionView>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="135" id="Sb6-h3-U5Z"/>
-                                                </constraints>
-                                            </stackView>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstItem="BTi-Ow-LiT" firstAttribute="leading" secondItem="c0X-T9-eHT" secondAttribute="leading" id="Yhf-ri-xJe"/>
-                                            <constraint firstAttribute="trailing" secondItem="BTi-Ow-LiT" secondAttribute="trailing" id="gMK-CE-D0P"/>
-                                            <constraint firstItem="BTi-Ow-LiT" firstAttribute="top" secondItem="c0X-T9-eHT" secondAttribute="top" id="qd8-Vo-I2o"/>
-                                            <constraint firstAttribute="bottom" secondItem="BTi-Ow-LiT" secondAttribute="bottom" id="wlc-95-CKh"/>
-                                        </constraints>
-                                    </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="wRA-dK-GUe">
-                                        <rect key="frame" x="0.0" y="135" width="320" height="378"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                </collectionView>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="135" id="bgg-u5-r6W"/>
+                                                            </constraints>
+                                                        </stackView>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pjc-D4-UhU">
+                                                            <rect key="frame" x="0.0" y="146" width="320" height="1"/>
+                                                            <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="1" id="Euc-mT-9FI"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="H9d-JM-6FC" firstAttribute="leading" secondItem="fXN-Lp-JUA" secondAttribute="leading" id="QND-YK-YTx"/>
+                                                <constraint firstAttribute="bottom" secondItem="H9d-JM-6FC" secondAttribute="bottom" id="WJT-7g-rmP"/>
+                                                <constraint firstItem="H9d-JM-6FC" firstAttribute="top" secondItem="fXN-Lp-JUA" secondAttribute="top" id="kff-E2-6TP"/>
+                                                <constraint firstAttribute="trailing" secondItem="H9d-JM-6FC" secondAttribute="trailing" id="uLy-3a-THR"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="dataSource" destination="cUk-uZ-knu" id="hnN-uM-b0n"/>
-                                            <outlet property="delegate" destination="cUk-uZ-knu" id="zYn-i5-j8W"/>
+                                            <outlet property="addStoryBtn" destination="DTF-U7-hug" id="cKX-I8-AMQ"/>
+                                            <outlet property="collectionViewOutlet" destination="vJS-b4-9bH" id="fKY-DK-F5U"/>
+                                            <outlet property="userImg" destination="Png-ox-dSp" id="nKQ-oS-OmE"/>
                                         </connections>
-                                    </tableView>
-                                </subviews>
-                            </stackView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="cUk-uZ-knu" id="hnN-uM-b0n"/>
+                                    <outlet property="delegate" destination="cUk-uZ-knu" id="zYn-i5-j8W"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="l8Z-LT-Qrg"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="FwX-wF-vla" secondAttribute="trailing" id="1yb-6N-wAt"/>
+                            <constraint firstItem="wRA-dK-GUe" firstAttribute="trailing" secondItem="l8Z-LT-Qrg" secondAttribute="trailing" id="1rU-kd-LSh"/>
+                            <constraint firstAttribute="bottom" secondItem="wRA-dK-GUe" secondAttribute="bottom" id="3kx-Hz-oe8"/>
                             <constraint firstItem="E6M-dW-uI0" firstAttribute="top" secondItem="l8Z-LT-Qrg" secondAttribute="top" id="6n6-53-Qhj"/>
-                            <constraint firstAttribute="bottom" secondItem="FwX-wF-vla" secondAttribute="bottom" id="8g9-hS-eo8"/>
-                            <constraint firstItem="FwX-wF-vla" firstAttribute="leading" secondItem="qcg-aQ-X77" secondAttribute="leading" id="HIN-yM-j8B"/>
+                            <constraint firstItem="wRA-dK-GUe" firstAttribute="leading" secondItem="l8Z-LT-Qrg" secondAttribute="leading" id="BTI-Y8-nNS"/>
                             <constraint firstItem="E6M-dW-uI0" firstAttribute="leading" secondItem="qcg-aQ-X77" secondAttribute="leading" id="bSY-HC-K4w"/>
                             <constraint firstAttribute="trailing" secondItem="E6M-dW-uI0" secondAttribute="trailing" id="c5u-8O-hvp"/>
-                            <constraint firstItem="FwX-wF-vla" firstAttribute="top" secondItem="E6M-dW-uI0" secondAttribute="bottom" id="rwo-YQ-hfw"/>
+                            <constraint firstItem="wRA-dK-GUe" firstAttribute="top" secondItem="E6M-dW-uI0" secondAttribute="bottom" id="te0-KE-Bgb"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="InstaHome" id="ESL-ze-Icr">
@@ -349,8 +359,6 @@
                         <outlet property="directMsgNotificationLbl" destination="sFj-L9-gdB" id="97H-Kg-nRh"/>
                         <outlet property="feedTableView" destination="wRA-dK-GUe" id="AIy-JC-yre"/>
                         <outlet property="notificationLbl" destination="OrU-0s-3dD" id="YBy-xa-nxj"/>
-                        <outlet property="storiesCollectionView" destination="vJS-b4-9bH" id="Q80-Hm-TYJ"/>
-                        <outlet property="userImg" destination="Png-ox-dSp" id="6uD-5D-o6e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="moa-i2-ojo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
