@@ -32,7 +32,7 @@ class MainTabVC: UITabBarController {
         }
     }
     
-    func setBarItemsForHomeVC(action: @escaping BarButtonAction) {
+    func setBarItemsForHomeVC(notificationCountForDirectMsg:Int,notificationCountForNotificationBtn:Int,action: @escaping BarButtonAction) {
         navigationItem.title = nil
         navigationItem.rightBarButtonItem = nil
         
@@ -45,9 +45,8 @@ class MainTabVC: UITabBarController {
         let userProfileItem = UIBarButtonItem(customView: userProfileView)
         navigationItem.leftBarButtonItems = [userProfileItem]
         
-        
-        let directMsgBtn = createCircularButtonWithLabel(image: UIImage(systemName: "paperplane"), action: #selector(directMsgBtnTapped), count: 1)
-        let notificationBtn = createCircularButtonWithLabel(image: UIImage(systemName: "bell"), action: #selector(notificationBtnTapped), count: 1)
+        let directMsgBtn = createCircularButtonWithLabel(image: UIImage(systemName: "paperplane"), action: #selector(directMsgBtnTapped), count: notificationCountForDirectMsg)
+        let notificationBtn = createCircularButtonWithLabel(image: UIImage(systemName: "bell"), action: #selector(notificationBtnTapped), count: notificationCountForNotificationBtn)
         navigationItem.rightBarButtonItems = [directMsgBtn, notificationBtn]
         self.postActionClosureForDirectMsgBtnForHomeVC = { action(.directMessage) }
         self.postActionClosureForNotificationBtnForHomeVC = { action(.notification) }

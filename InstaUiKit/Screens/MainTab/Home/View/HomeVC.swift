@@ -37,7 +37,7 @@ class HomeVC: UIViewController {
     
     private func setBarItemsForHomeVC() {
         if let mainTabVC = tabBarController as? MainTabVC {
-            mainTabVC.setBarItemsForHomeVC { buttonType in
+            mainTabVC.setBarItemsForHomeVC(notificationCountForDirectMsg: 1, notificationCountForNotificationBtn: 2) { buttonType in
                 switch buttonType {
                 case .directMessage:
                     Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "DirectMsgVC") { [weak self] destinationVC in
