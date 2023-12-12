@@ -33,8 +33,11 @@ class MainTabVC: UITabBarController {
     }
     
     func setBarItemsForHomeVC(isdirectMsgHaveNotification: Bool, isNotificationBtnHaveNotification: Bool, notificationCountForDirectMsg: Int, notificationCountForNotificationBtn: Int, action: @escaping BarButtonAction) {
+        
         navigationItem.title = nil
         navigationItem.rightBarButtonItem = nil
+        navigationItem.rightBarButtonItems = nil
+        navigationItem.leftBarButtonItems = nil
         
         let userProfileImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 160, height: 40))
         userProfileImageView.contentMode = .scaleToFill
