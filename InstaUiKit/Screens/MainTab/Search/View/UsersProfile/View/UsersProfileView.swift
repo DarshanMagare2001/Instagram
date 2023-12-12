@@ -37,8 +37,10 @@ class UsersProfileView: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+        navigationItem.hidesBackButton = true
+        let backButton = UIBarButtonItem(image: UIImage(named: "BackArrow"), style: .plain, target: self, action: #selector(backButtonPressed))
+        backButton.tintColor = .black
+        navigationItem.leftBarButtonItem = backButton
         
         FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
             switch result {
@@ -96,10 +98,14 @@ class UsersProfileView: UIViewController {
             if let imgUrl = user.imageUrl , let names = user.name , let bio = user.bio  , let username = user.username {
                 ImageLoader.loadImage(for: URL(string: imgUrl), into: self.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
                 name.text = username
-                headLine.text = names
+                navigationItem.title = names
                 userBio.text = bio
             }
         }
+    }
+    
+    @objc func backButtonPressed() {
+        navigationController?.popViewController(animated: true)
     }
     
     func updateCell() {
