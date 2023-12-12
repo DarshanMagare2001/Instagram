@@ -106,11 +106,19 @@ class ProfileVC: UIViewController {
     
     
     @IBAction func logOutBtnPressed(_ sender: UIButton) {
-        viewModel1.logout()
-        Navigator.shared.navigate(storyboard: UIStoryboard.Main, destinationVCIdentifier: "SignInVC"){ destinationVC in
-            if let destinationVC = destinationVC {
-                self.navigationController?.pushViewController(destinationVC, animated: true)
+        Alert.shared.alertYesNo(title: "Log Out!", message: "Do you want to logOut?.", presentingViewController: self) { _ in
+            MessageLoader.shared.showLoader(withText: "Logging out..")
+            self.viewModel1.logout()
+            DispatchQueue.main.asyncAfter(deadline: .now()+1){
+                MessageLoader.shared.hideLoader()
+                Navigator.shared.navigate(storyboard: UIStoryboard.Main, destinationVCIdentifier: "SignInVC"){ destinationVC in
+                    if let destinationVC = destinationVC {
+                        self.navigationController?.pushViewController(destinationVC, animated: true)
+                    }
+                }
             }
+        } noHandler: { _ in
+            print("No")
         }
     }
     

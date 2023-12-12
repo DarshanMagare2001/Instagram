@@ -56,15 +56,15 @@ class EditProfileVC: UIViewController {
     }
     
     @objc func doneBtnPressed() {
-        LoaderVCViewModel.shared.showLoader()
+        MessageLoader.shared.showLoader(withText: "Please wait saving User data..")
         viewModel.saveDataToFirebase(name: nameTxtFld.text, username: userNameTxtFld.text, bio: bioTxtFld.text, countryCode: countryCode, phoneNumber: phoneNumberTxtFld.text, gender: gender, isPrivate: isPrivate){ value in
             if value{
-                LoaderVCViewModel.shared.hideLoader()
+                MessageLoader.shared.hideLoader()
                 if let navigationController = self.navigationController {
                     navigationController.popViewController(animated: true)
                 }
             }else{
-                LoaderVCViewModel.shared.hideLoader()
+                MessageLoader.shared.hideLoader()
                 if let navigationController = self.navigationController {
                     navigationController.popViewController(animated: true)
                 }
@@ -189,7 +189,7 @@ extension EditProfileVC: ImagePickerDelegate , UIViewControllerTransitioningDele
         userImg.image = image
         selectedImg = image
         imagePicker.dismiss()
-        LoaderVCViewModel.shared.showLoader()
+        MessageLoader.shared.showLoader(withText: "Profile Photo Uploading..")
         viewModel.saveUserImageToFirebase(image: image) { result in
             switch result {
             case .success(let url):
@@ -202,17 +202,17 @@ extension EditProfileVC: ImagePickerDelegate , UIViewControllerTransitioningDele
                             switch result {
                             case .success(let data):
                                 print(data)
-                                LoaderVCViewModel.shared.hideLoader()
+                                MessageLoader.shared.hideLoader()
                             case .failure(let error):
                                 print(error)
-                                LoaderVCViewModel.shared.hideLoader()
+                                MessageLoader.shared.hideLoader()
                             }
                         }
                     }
                 }
             case .failure(let error):
                 print(error)
-                LoaderVCViewModel.shared.hideLoader()
+                MessageLoader.shared.hideLoader()
             }
         }
     }
