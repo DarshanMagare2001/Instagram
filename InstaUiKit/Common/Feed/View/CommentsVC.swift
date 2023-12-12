@@ -21,6 +21,12 @@ class CommentsVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        navigationItem.hidesBackButton = true
+        navigationItem.title = "Comments"
+        let backButton = UIBarButtonItem(image: UIImage(named: "BackArrow"), style: .plain, target: self, action: #selector(backButtonPressed))
+        backButton.tintColor = .black
+        navigationItem.leftBarButtonItem = backButton
+        
         Data.shared.getData(key: "ProfileUrl") { (result:Result<String?,Error>) in
             switch result {
             case .success(let url):
@@ -34,7 +40,7 @@ class CommentsVC: UIViewController {
         fetchCurrentPostData()
     }
     
-    @IBAction func backBtnPressed(_ sender: UIButton) {
+    @objc func backButtonPressed() {
         navigationController?.popViewController(animated: true)
     }
     

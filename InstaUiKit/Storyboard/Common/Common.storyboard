@@ -107,32 +107,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yUl-Ia-L1a">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="HxP-0T-pXz"/>
-                                    <constraint firstAttribute="height" constant="50" id="gXr-1W-C4R"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="BackArrow" title=" "/>
-                                <connections>
-                                    <action selector="backBtnPressed:" destination="i6f-QH-PdU" eventType="touchUpInside" id="OWR-Na-BjU"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comments" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="coc-UW-qPS">
-                                <rect key="frame" x="120" y="15" width="80" height="18"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipR-Hf-RmE">
-                                <rect key="frame" x="0.0" y="50" width="320" height="518"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IAl-Yl-Vey">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="518"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XWE-HA-WhK">
-                                                <rect key="frame" x="0.0" y="448" width="320" height="70"/>
+                                                <rect key="frame" x="0.0" y="498" width="320" height="70"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="chc-Sr-7ex">
                                                         <rect key="frame" x="10" y="5" width="300" height="60"/>
@@ -185,7 +167,7 @@
                                                 </constraints>
                                             </view>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="DTA-sg-Khx">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="448"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="498"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommentCell" rowHeight="62" id="CeM-AA-UmE" customClass="CommentCell" customModule="InstaUiKit" customModuleProvider="target">
@@ -261,7 +243,7 @@
                                     <constraint firstItem="IAl-Yl-Vey" firstAttribute="leading" secondItem="ipR-Hf-RmE" secondAttribute="leading" id="EPt-2f-uwW"/>
                                     <constraint firstItem="IAl-Yl-Vey" firstAttribute="height" secondItem="ipR-Hf-RmE" secondAttribute="height" id="Qno-4H-wFu"/>
                                     <constraint firstAttribute="bottom" secondItem="IAl-Yl-Vey" secondAttribute="bottom" id="cl2-Be-jzX"/>
-                                    <constraint firstItem="IAl-Yl-Vey" firstAttribute="top" secondItem="ipR-Hf-RmE" secondAttribute="top" id="nK2-yl-E92"/>
+                                    <constraint firstItem="IAl-Yl-Vey" firstAttribute="top" secondItem="ipR-Hf-RmE" secondAttribute="top" id="hQb-Cg-fd9"/>
                                     <constraint firstAttribute="trailing" secondItem="IAl-Yl-Vey" secondAttribute="trailing" id="ojn-u1-hgl"/>
                                 </constraints>
                             </scrollView>
@@ -270,11 +252,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="IAl-Yl-Vey" firstAttribute="width" secondItem="ExT-S0-ghf" secondAttribute="width" id="5EO-ia-nAq"/>
-                            <constraint firstItem="coc-UW-qPS" firstAttribute="centerX" secondItem="ExT-S0-ghf" secondAttribute="centerX" id="7H6-x0-mpC"/>
-                            <constraint firstItem="yUl-Ia-L1a" firstAttribute="top" secondItem="FAS-Gs-3b1" secondAttribute="top" id="JSS-WR-Sf9"/>
-                            <constraint firstItem="ipR-Hf-RmE" firstAttribute="top" secondItem="yUl-Ia-L1a" secondAttribute="bottom" id="LIE-Gx-uQ2"/>
-                            <constraint firstItem="coc-UW-qPS" firstAttribute="top" secondItem="FAS-Gs-3b1" secondAttribute="top" constant="15" id="Lze-6i-v99"/>
-                            <constraint firstItem="yUl-Ia-L1a" firstAttribute="leading" secondItem="FAS-Gs-3b1" secondAttribute="leading" id="cxP-Pp-cK6"/>
+                            <constraint firstItem="ipR-Hf-RmE" firstAttribute="top" secondItem="FAS-Gs-3b1" secondAttribute="top" id="J2V-1L-lIx"/>
                             <constraint firstItem="FAS-Gs-3b1" firstAttribute="trailing" secondItem="ipR-Hf-RmE" secondAttribute="trailing" id="gZY-jf-FEb"/>
                             <constraint firstItem="FAS-Gs-3b1" firstAttribute="bottom" secondItem="ipR-Hf-RmE" secondAttribute="bottom" id="tWf-A4-JVV"/>
                             <constraint firstItem="ipR-Hf-RmE" firstAttribute="leading" secondItem="FAS-Gs-3b1" secondAttribute="leading" id="yDT-Xu-qdp"/>
@@ -353,7 +331,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="BackArrow" width="10" height="18"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
