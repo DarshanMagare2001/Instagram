@@ -18,7 +18,7 @@ class SignInVCViewModel {
     }
     
     func login(emailTxtFld: String?, passwordTxtFld: String?, completionHandler: @escaping (Bool) -> Void) {
-        LoaderVCViewModel.shared.showLoader()
+        MessageLoader.shared.showLoader(withText: "Signing In..")
         guard let email = emailTxtFld, let password = passwordTxtFld, !email.isEmpty, !password.isEmpty else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 Alert.shared.alertOk(title: "Warning!", message: "Please fill in all the required fields before proceeding.", presentingViewController: self.presentingViewController!){ _ in}
@@ -80,7 +80,7 @@ class SignInVCViewModel {
     
     func saveUserToCoreData(uid:String , email:String? , password : String? , completion : @escaping ()->Void){
         DispatchQueue.main.async {
-            LoaderVCViewModel.shared.hideLoader()
+            MessageLoader.shared.hideLoader()
             Alert.shared.alertYesNo(title: "Save User!", message: "Do you want to save user?.", presentingViewController: self.presentingViewController!) { _ in
                 print("Yes")
                 if let email = email, let password = password {

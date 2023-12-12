@@ -46,7 +46,7 @@ class SignUpVC: UIViewController {
                     }
                 }
             }else{
-                LoaderVCViewModel.shared.hideLoader()
+                MessageLoader.shared.hideLoader()
             }
         }
     }
@@ -86,7 +86,7 @@ class SignUpVC: UIViewController {
     
     func saveUserToCoreData(uid:String){
         DispatchQueue.main.async {
-            LoaderVCViewModel.shared.hideLoader()
+            MessageLoader.shared.hideLoader()
             Alert.shared.alertYesNo(title: "Save User!", message: "Do you want to save user?.", presentingViewController: self) { _ in
                 print("Yes")
                 if let email = self.emailTxtFld.text , let password = self.passwordTxtFld.text {

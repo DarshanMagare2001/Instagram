@@ -18,7 +18,7 @@ class SignUpVCViewModel {
     }
     
     func signUp(emailTxtFld: String?, passwordTxtFld: String?, completionHandler: @escaping (Bool) -> Void) {
-        LoaderVCViewModel.shared.showLoader()
+        MessageLoader.shared.showLoader(withText: "Signing Up..")
         guard let email = emailTxtFld, let password = passwordTxtFld, !email.isEmpty, !password.isEmpty else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 Alert.shared.alertOk(title: "Warning!", message: "Please fill in all the required fields before proceeding.", presentingViewController: self.presentingViewController!){_ in }

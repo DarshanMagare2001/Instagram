@@ -37,7 +37,7 @@ class SignInVC: UIViewController, passUserBack {
                                 case .success(let success):
                                     print(success)
                                     if self.coreDataUsers.contains(where: { $0.uid == uid }) {
-                                        LoaderVCViewModel.shared.hideLoader()
+                                        MessageLoader.shared.hideLoader()
                                         self.gotoMainTab()
                                     } else {
                                         self.viewModel.saveUserToCoreData(uid: uid, email: self.emailTxtFld.text, password: self.passwordTxtFld.text) {
@@ -47,7 +47,7 @@ class SignInVC: UIViewController, passUserBack {
                                 case .failure(let failure):
                                     print(failure)
                                     if self.coreDataUsers.contains(where: { $0.uid == uid }) {
-                                        LoaderVCViewModel.shared.hideLoader()
+                                        MessageLoader.shared.hideLoader()
                                         self.gotoMainTab()
                                     } else {
                                         self.viewModel.saveUserToCoreData(uid: uid, email: self.emailTxtFld.text, password: self.passwordTxtFld.text) {
@@ -60,7 +60,7 @@ class SignInVC: UIViewController, passUserBack {
                     }
                 }
             }else{
-                LoaderVCViewModel.shared.hideLoader()
+                MessageLoader.shared.hideLoader()
             }
         }
     }
@@ -132,11 +132,11 @@ class SignInVC: UIViewController, passUserBack {
                                     switch result {
                                     case .success(let success):
                                         print(success)
-                                        LoaderVCViewModel.shared.hideLoader()
+                                        MessageLoader.shared.hideLoader()
                                         self.gotoMainTab()
                                     case .failure(let failure):
                                         print(failure)
-                                        LoaderVCViewModel.shared.hideLoader()
+                                        MessageLoader.shared.hideLoader()
                                         self.gotoMainTab()
                                     }
                                 }
@@ -144,7 +144,7 @@ class SignInVC: UIViewController, passUserBack {
                         }
                     }
                 }else{
-                    LoaderVCViewModel.shared.hideLoader()
+                    MessageLoader.shared.hideLoader()
                 }
             }
         }
