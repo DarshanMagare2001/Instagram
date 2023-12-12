@@ -298,20 +298,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="78x-73-cpf">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="P1n-wz-WRf"/>
-                                    <constraint firstAttribute="height" constant="50" id="way-AV-oSh"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="BackArrow" title=" "/>
-                                <connections>
-                                    <action selector="backBtnPressed:" destination="12o-nO-MSn" eventType="touchUpInside" id="3lm-qf-FrE"/>
-                                </connections>
-                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3Hl-wo-o0C">
-                                <rect key="frame" x="10" y="60" width="300" height="508"/>
+                                <rect key="frame" x="10" y="0.0" width="300" height="568"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="n82-tN-qeg">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="51"/>
@@ -334,7 +322,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8aS-yt-MLJ">
-                                        <rect key="frame" x="0.0" y="120" width="300" height="388"/>
+                                        <rect key="frame" x="0.0" y="120" width="300" height="448"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <connections>
                                             <outlet property="dataSource" destination="12o-nO-MSn" id="vZu-Ab-ldb"/>
@@ -349,10 +337,8 @@
                         <constraints>
                             <constraint firstItem="CIw-lY-ulg" firstAttribute="trailing" secondItem="3Hl-wo-o0C" secondAttribute="trailing" constant="10" id="D3B-Kh-24J"/>
                             <constraint firstItem="CIw-lY-ulg" firstAttribute="bottom" secondItem="3Hl-wo-o0C" secondAttribute="bottom" id="IMo-gQ-diy"/>
-                            <constraint firstItem="3Hl-wo-o0C" firstAttribute="top" secondItem="78x-73-cpf" secondAttribute="bottom" constant="10" id="dWY-2u-qSl"/>
-                            <constraint firstItem="78x-73-cpf" firstAttribute="leading" secondItem="CIw-lY-ulg" secondAttribute="leading" id="f2h-l4-ed4"/>
                             <constraint firstItem="3Hl-wo-o0C" firstAttribute="leading" secondItem="J2i-Dp-qRn" secondAttribute="leading" constant="10" id="gjb-ST-DiR"/>
-                            <constraint firstItem="78x-73-cpf" firstAttribute="top" secondItem="CIw-lY-ulg" secondAttribute="top" id="wJd-Rb-Co9"/>
+                            <constraint firstItem="3Hl-wo-o0C" firstAttribute="top" secondItem="CIw-lY-ulg" secondAttribute="top" id="hmY-JW-UN2"/>
                         </constraints>
                     </view>
                     <connections>
