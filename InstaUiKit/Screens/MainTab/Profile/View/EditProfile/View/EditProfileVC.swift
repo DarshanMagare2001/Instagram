@@ -38,8 +38,24 @@ class EditProfileVC: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.hidesBackButton = true
+        navigationItem.title = "Edit Profile"
+        let cancleBtn = UIBarButtonItem(title:"Cancle", style: .plain, target: self, action: #selector(cancleBtnPressed))
+        cancleBtn.tintColor = .black
+        navigationItem.leftBarButtonItem = cancleBtn
+        
+        let doneBtn = UIBarButtonItem(title:"Done", style: .plain, target: self, action: #selector(doneBtnPressed))
+        doneBtn.tintColor = UIColor(named: "GlobalBlue")
+        navigationItem.rightBarButtonItem = doneBtn
+    }
     
-    @IBAction func doneBtnPressed(_ sender: UIButton) {
+    
+    @objc func cancleBtnPressed() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func doneBtnPressed() {
         LoaderVCViewModel.shared.showLoader()
         viewModel.saveDataToFirebase(name: nameTxtFld.text, username: userNameTxtFld.text, bio: bioTxtFld.text, countryCode: countryCode, phoneNumber: phoneNumberTxtFld.text, gender: gender, isPrivate: isPrivate){ value in
             if value{
@@ -94,12 +110,6 @@ class EditProfileVC: UIViewController {
         print(isPrivate)
         
     }
-    
-    
-    @IBAction func cancelBtnPressed(_ sender: UIButton) {
-        navigationController?.popViewController(animated: true)
-    }
-    
     
     @IBAction func countryPickerBtnPressed(_ sender: UIButton) {
         countryPickerLabelTapped()

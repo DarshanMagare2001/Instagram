@@ -1749,59 +1749,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9xp-yy-bOW">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="0.0"/>
-                                <color key="backgroundColor" systemColor="systemGray6Color"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qTG-cU-tUS">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PR2-ca-POl">
-                                        <rect key="frame" x="0.0" y="0.0" width="73.5" height="32"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Cancel">
-                                            <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="15"/>
-                                        </buttonConfiguration>
-                                        <connections>
-                                            <action selector="cancelBtnPressed:" destination="3r0-p1-L7V" eventType="touchUpInside" id="3xX-jP-oAS"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="siC-7b-ZCw">
-                                        <rect key="frame" x="258" y="0.0" width="62" height="32"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Done">
-                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="15"/>
-                                        </buttonConfiguration>
-                                        <connections>
-                                            <action selector="doneBtnPressed:" destination="3r0-p1-L7V" eventType="touchUpInside" id="HXP-0A-nrJ"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Profile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AjH-Mw-sh2">
-                                        <rect key="frame" x="120" y="5" width="80.5" height="22"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="siC-7b-ZCw" secondAttribute="bottom" id="0yJ-eF-XtJ"/>
-                                    <constraint firstAttribute="bottom" secondItem="AjH-Mw-sh2" secondAttribute="bottom" constant="5" id="7aC-fT-2Xu"/>
-                                    <constraint firstAttribute="trailing" secondItem="siC-7b-ZCw" secondAttribute="trailing" id="Nb0-3W-mzU"/>
-                                    <constraint firstItem="AjH-Mw-sh2" firstAttribute="centerX" secondItem="qTG-cU-tUS" secondAttribute="centerX" id="VCS-20-Cn6"/>
-                                    <constraint firstItem="AjH-Mw-sh2" firstAttribute="top" secondItem="qTG-cU-tUS" secondAttribute="top" constant="5" id="XLb-Tm-NGh"/>
-                                    <constraint firstItem="PR2-ca-POl" firstAttribute="leading" secondItem="qTG-cU-tUS" secondAttribute="leading" id="e35-a4-AWp"/>
-                                    <constraint firstItem="PR2-ca-POl" firstAttribute="top" secondItem="qTG-cU-tUS" secondAttribute="top" id="nB5-PN-rP7"/>
-                                    <constraint firstItem="siC-7b-ZCw" firstAttribute="top" secondItem="qTG-cU-tUS" secondAttribute="top" id="p32-Ib-T0I"/>
-                                    <constraint firstAttribute="bottom" secondItem="PR2-ca-POl" secondAttribute="bottom" id="phc-w0-mjd"/>
-                                </constraints>
-                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRs-OZ-P1t">
-                                <rect key="frame" x="0.0" y="32" width="320" height="536"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R38-9N-7mz">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="589.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="625"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tnG-gl-KMZ">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="172"/>
@@ -2157,17 +2109,10 @@
                         <viewLayoutGuide key="safeArea" id="SGz-Op-3da"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="SGz-Op-3da" firstAttribute="trailing" secondItem="9xp-yy-bOW" secondAttribute="trailing" id="131-XB-45R"/>
-                            <constraint firstItem="9xp-yy-bOW" firstAttribute="top" secondItem="sFP-Nv-sz3" secondAttribute="top" id="5q1-Qc-1CS"/>
                             <constraint firstItem="R38-9N-7mz" firstAttribute="width" secondItem="sFP-Nv-sz3" secondAttribute="width" id="BdM-sc-HMV"/>
                             <constraint firstItem="SGz-Op-3da" firstAttribute="trailing" secondItem="lRs-OZ-P1t" secondAttribute="trailing" id="Ofh-GB-0Qd"/>
-                            <constraint firstItem="qTG-cU-tUS" firstAttribute="top" secondItem="9xp-yy-bOW" secondAttribute="bottom" id="a8F-kY-clZ"/>
-                            <constraint firstItem="qTG-cU-tUS" firstAttribute="top" secondItem="SGz-Op-3da" secondAttribute="top" id="b93-Zl-Dzi"/>
-                            <constraint firstItem="SGz-Op-3da" firstAttribute="trailing" secondItem="qTG-cU-tUS" secondAttribute="trailing" id="dhS-0H-i5v"/>
+                            <constraint firstItem="lRs-OZ-P1t" firstAttribute="top" secondItem="SGz-Op-3da" secondAttribute="top" id="Vr6-KQ-koG"/>
                             <constraint firstItem="lRs-OZ-P1t" firstAttribute="leading" secondItem="SGz-Op-3da" secondAttribute="leading" id="gix-Vm-Qba"/>
-                            <constraint firstItem="lRs-OZ-P1t" firstAttribute="top" secondItem="qTG-cU-tUS" secondAttribute="bottom" id="qnz-Ve-eid"/>
-                            <constraint firstItem="qTG-cU-tUS" firstAttribute="leading" secondItem="SGz-Op-3da" secondAttribute="leading" id="s7e-J3-Mm2"/>
-                            <constraint firstItem="9xp-yy-bOW" firstAttribute="leading" secondItem="SGz-Op-3da" secondAttribute="leading" id="wyz-gE-nb0"/>
                             <constraint firstItem="SGz-Op-3da" firstAttribute="bottom" secondItem="lRs-OZ-P1t" secondAttribute="bottom" id="yVG-zr-CMb"/>
                         </constraints>
                     </view>
