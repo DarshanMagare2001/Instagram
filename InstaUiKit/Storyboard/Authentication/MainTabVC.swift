@@ -34,18 +34,32 @@ class MainTabVC: UITabBarController {
         userProfileView.addSubview(userProfileImageView)
         let userProfileItem = UIBarButtonItem(customView: userProfileView)
         navigationItem.leftBarButtonItems = [userProfileItem]
+        
+        let firstRightButton = UIBarButtonItem(image: UIImage(systemName: "paperplane"), style: .plain, target: self, action: #selector(firstButtonTapped))
+        firstRightButton.tintColor = UIColor.black
+        let secondRightButton = UIBarButtonItem(image: UIImage(systemName: "bell"), style: .plain, target: self, action: #selector(secondButtonTapped))
+        secondRightButton.tintColor = UIColor.black
+        navigationItem.rightBarButtonItems = [firstRightButton, secondRightButton]
+    }
+    
+    @objc func firstButtonTapped() {
+    }
+
+    @objc func secondButtonTapped() {
     }
     
     func setBarItemsForSearchVC(){
         navigationItem.title = nil
         navigationItem.rightBarButtonItem = nil
-        navigationItem.title = "Search"
+        navigationItem.rightBarButtonItems = nil
         navigationItem.leftBarButtonItems = nil
+        navigationItem.title = "Search"
     }
     
     func setBarItemsForPostVC(action: @escaping () -> Void) {
         navigationItem.title = nil
         navigationItem.leftBarButtonItems = nil
+        navigationItem.rightBarButtonItems = nil
         navigationItem.title = "Post"
         let nextButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(nextButtonTapped))
         navigationItem.rightBarButtonItem = nextButton
@@ -60,12 +74,14 @@ class MainTabVC: UITabBarController {
         navigationItem.title = nil
         navigationItem.rightBarButtonItem = nil
         navigationItem.leftBarButtonItems = nil
+        navigationItem.rightBarButtonItems = nil
         navigationItem.title = "Likes"
     }
     
     func setBarItemsForProfileVC(profileName: String, action: @escaping () -> Void) {
         navigationItem.rightBarButtonItem = nil
         navigationItem.leftBarButtonItems = nil
+        navigationItem.rightBarButtonItems = nil
         if let nextButtonImage = UIImage(systemName: "line.3.horizontal")?.withRenderingMode(.alwaysOriginal) {
             let sideBtn = UIBarButtonItem(image: nextButtonImage, style: .plain, target: self, action: #selector(sideBtnTapped))
             navigationItem.rightBarButtonItem = sideBtn
