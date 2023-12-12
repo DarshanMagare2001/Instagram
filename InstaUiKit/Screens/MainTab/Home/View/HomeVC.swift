@@ -37,7 +37,22 @@ class HomeVC: UIViewController {
     
     private func setBarItemsForHomeVC() {
         if let mainTabVC = tabBarController as? MainTabVC {
-            mainTabVC.setBarItemsForHomeVC()
+            mainTabVC.setBarItemsForHomeVC { buttonType in
+                switch buttonType {
+                case .directMessage:
+                    Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "DirectMsgVC") { [weak self] destinationVC in
+                        if let destinationVC = destinationVC {
+                            self?.navigationController?.pushViewController(destinationVC, animated: true)
+                        }
+                    }
+                case .notification:
+                    Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "NotificationVC") { [weak self] destinationVC in
+                        if let destinationVC = destinationVC {
+                            self?.navigationController?.pushViewController(destinationVC, animated: true)
+                        }
+                    }
+                }
+            }
         }
     }
     
@@ -102,25 +117,6 @@ class HomeVC: UIViewController {
         }
         disPatchGroup.notify(queue: .main) { [weak self] in
             self?.refreshControl.endRefreshing()
-        }
-    }
-    
-    
-    
-    @IBAction func directMsgBtnPressed(_ sender: UIButton) {
-        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "DirectMsgVC") { [weak self] destinationVC in
-            if let destinationVC = destinationVC {
-                self?.navigationController?.pushViewController(destinationVC, animated: true)
-            }
-        }
-    }
-    
-    
-    @IBAction func notificationBtnPressed(_ sender: UIButton) {
-        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "NotificationVC") { [weak self] destinationVC in
-            if let destinationVC = destinationVC {
-                self?.navigationController?.pushViewController(destinationVC, animated: true)
-            }
         }
     }
     

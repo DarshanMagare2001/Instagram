@@ -8,8 +8,17 @@
 import UIKit
 
 class MainTabVC: UITabBarController {
-    private var postActionClosureForPostNxtBtn: (() -> Void)?
-    private var postActionClosureForsideBtnTapped: (() -> Void)?
+    private var postActionClosureForPostNxtBtnForPostVC: (() -> Void)?
+    private var postActionClosureForsideBtnTappedForProfileVC: (() -> Void)?
+    private var postActionClosureForDirectMsgBtnForHomeVC: (() -> Void)?
+    private var postActionClosureForNotificationBtnForHomeVC: (() -> Void)?
+    typealias BarButtonAction = (_ buttonType: BarButtonTypeForHomeVC) -> Void
+    
+    enum BarButtonTypeForHomeVC {
+        case directMessage
+        case notification
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: true)
@@ -23,7 +32,7 @@ class MainTabVC: UITabBarController {
         }
     }
     
-    func setBarItemsForHomeVC(){
+    func setBarItemsForHomeVC(action: @escaping BarButtonAction){
         navigationItem.title = nil
         navigationItem.rightBarButtonItem = nil
         let userProfileImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 160, height: 40))
@@ -34,19 +43,24 @@ class MainTabVC: UITabBarController {
         userProfileView.addSubview(userProfileImageView)
         let userProfileItem = UIBarButtonItem(customView: userProfileView)
         navigationItem.leftBarButtonItems = [userProfileItem]
-        
-        let firstRightButton = UIBarButtonItem(image: UIImage(systemName: "paperplane"), style: .plain, target: self, action: #selector(firstButtonTapped))
-        firstRightButton.tintColor = UIColor.black
-        let secondRightButton = UIBarButtonItem(image: UIImage(systemName: "bell"), style: .plain, target: self, action: #selector(secondButtonTapped))
-        secondRightButton.tintColor = UIColor.black
-        navigationItem.rightBarButtonItems = [firstRightButton, secondRightButton]
+        let directMsgBtn = UIBarButtonItem(image: UIImage(systemName: "paperplane"), style: .plain, target: self, action: #selector(directMsgBtnTapped))
+        directMsgBtn.tintColor = UIColor.black
+        let notificationBtn = UIBarButtonItem(image: UIImage(systemName: "bell"), style: .plain, target: self, action: #selector(notificationBtnTapped))
+        notificationBtn.tintColor = UIColor.black
+        navigationItem.rightBarButtonItems = [directMsgBtn, notificationBtn]
+        self.postActionClosureForDirectMsgBtnForHomeVC = { action(.directMessage) }
+        self.postActionClosureForNotificationBtnForHomeVC = { action(.notification) }
     }
     
-    @objc func firstButtonTapped() {
+    @objc func directMsgBtnTapped(){
+        postActionClosureForDirectMsgBtnForHomeVC?()
     }
 
-    @objc func secondButtonTapped() {
+    @objc func notificationBtnTapped() {
+        postActionClosureForNotificationBtnForHomeVC?()
     }
+
+    
     
     func setBarItemsForSearchVC(){
         navigationItem.title = nil
@@ -63,10 +77,10 @@ class MainTabVC: UITabBarController {
         navigationItem.title = "Post"
         let nextButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(nextButtonTapped))
         navigationItem.rightBarButtonItem = nextButton
-        self.postActionClosureForPostNxtBtn = action
+        self.postActionClosureForPostNxtBtnForPostVC = action
     }
     @objc private func nextButtonTapped() {
-        postActionClosureForPostNxtBtn?()
+        postActionClosureForPostNxtBtnForPostVC?()
     }
     
     
@@ -85,14 +99,14 @@ class MainTabVC: UITabBarController {
         if let nextButtonImage = UIImage(systemName: "line.3.horizontal")?.withRenderingMode(.alwaysOriginal) {
             let sideBtn = UIBarButtonItem(image: nextButtonImage, style: .plain, target: self, action: #selector(sideBtnTapped))
             navigationItem.rightBarButtonItem = sideBtn
-            self.postActionClosureForsideBtnTapped = action
+            self.postActionClosureForsideBtnTappedForProfileVC = action
         }
         navigationItem.title = profileName
     }
-
+    
     
     @objc private func sideBtnTapped() {
-        postActionClosureForsideBtnTapped?()
+        postActionClosureForsideBtnTappedForProfileVC?()
     }
     
 }
