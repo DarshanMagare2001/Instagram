@@ -295,40 +295,12 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                     
                     cell.likeBtnTapped = { [weak self] in
                         if cell.isLiked {
-                            PostViewModel.shared.unlikePost(postDocumentID: postPostDocumentID, userUID: uid) { success in
-                                if success {
-                                    // Update the UI: Set the correct image for the like button
-                                    cell.isLiked = false
-                                    let imageName = cell.isLiked ? "heart.fill" : "heart"
-                                    cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
-                                    cell.likeBtn.tintColor = cell.isLiked ? .red : .black
-                                }
-                            }
+                            self?.unLikePost(postPostDocumentID: postPostDocumentID, uid: uid, cell: cell)
                         } else {
-                            PostViewModel.shared.likePost(postDocumentID: postPostDocumentID, userUID: uid) { [weak self] success in
-                                if success {
-                                    // Update the UI: Set the correct image for the like button
-                                    cell.isLiked = true
-                                    let imageName = cell.isLiked ? "heart.fill" : "heart"
-                                    cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
-                                    cell.likeBtn.tintColor = cell.isLiked ? .red : .black
-                                    FetchUserInfo.shared.fetchUserDataByUid(uid: postUid) { [weak self] result in
-                                        switch result {
-                                        case.success(let data):
-                                            if let data = data , let fmcToken = data.fcmToken {
-                                                if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name) {
-                                                    PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Liked your post.")
-                                                }
-                                            }
-                                        case.failure(let error):
-                                            print(error)
-                                        }
-                                    }
-                                    
-                                }
-                            }
+                            self?.likePost(postPostDocumentID: postPostDocumentID, uid: uid, postUid: postUid, cell: cell)
                         }
                     }
+                    
                 }
                 self?.disPatchGroup.leave()
             }
@@ -349,9 +321,51 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         return UITableViewCell()
     }
     
+    private func likePost(postPostDocumentID:String,
+                          uid:String,
+                          postUid:String,
+                          cell:FeedCell){
+        PostViewModel.shared.likePost(postDocumentID: postPostDocumentID, userUID: uid) { [weak self] success in
+            if success {
+                // Update the UI: Set the correct image for the like button
+                cell.isLiked = true
+                let imageName = cell.isLiked ? "heart.fill" : "heart"
+                cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+                cell.likeBtn.tintColor = cell.isLiked ? .red : .black
+                FetchUserInfo.shared.fetchUserDataByUid(uid: postUid) { [weak self] result in
+                    switch result {
+                    case.success(let data):
+                        if let data = data , let fmcToken = data.fcmToken {
+                            if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name) {
+                                PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Liked your post.")
+                            }
+                        }
+                    case.failure(let error):
+                        print(error)
+                    }
+                }
+                
+            }
+        }
+    }
+    
+    private func unLikePost(postPostDocumentID:String,
+                            uid:String,
+                            cell:FeedCell){
+        PostViewModel.shared.unlikePost(postDocumentID: postPostDocumentID, userUID: uid) { success in
+            if success {
+                // Update the UI: Set the correct image for the like button
+                cell.isLiked = false
+                let imageName = cell.isLiked ? "heart.fill" : "heart"
+                cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+                cell.likeBtn.tintColor = cell.isLiked ? .red : .black
+            }
+        }
+    }
+    
     @objc func didDoubleTap(_ gesture: UITapGestureRecognizer) {
         guard let gestureView = gesture.view, let postImg = gestureView as? UIImageView else { return }
-
+        
         let size = min(postImg.frame.size.width, postImg.frame.size.height) / 3
         let heart = UIImageView(image: UIImage(systemName: "heart.fill"))
         heart.frame = CGRect(x: (postImg.frame.size.width - size) / 2,
@@ -360,7 +374,7 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                              height: size)
         heart.tintColor = .red
         postImg.addSubview(heart)
-
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             UIView.animate(withDuration: 0.5, animations: {
                 heart.alpha = 0
@@ -371,7 +385,6 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
             })
         }
     }
-
     
 }
 
