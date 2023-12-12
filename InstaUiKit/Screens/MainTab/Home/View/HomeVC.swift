@@ -256,13 +256,11 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                 cell.totalLikesCount.text = "\(postLikesCounts) Likes"
             }
             
-           
-            
             cell.doubleTapAction = { [weak self] in
                 guard let self = self else { return }
             
+                
             }
-            
             
             disPatchGroup.enter()
             if let randomLikedByUID = postLikedBy.randomElement() {

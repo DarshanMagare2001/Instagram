@@ -44,7 +44,7 @@ class FeedCell: UITableViewCell {
         heart.tintColor = .red
         postImg.addSubview(heart)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+        DispatchQueue.main.asyncAfter(deadline:.now()+0.2) { [weak self] in
             UIView.animate(withDuration: 0.5, animations: {
                 heart.alpha = 0
             }, completion: { done in
@@ -53,12 +53,12 @@ class FeedCell: UITableViewCell {
                 }
             })
         }
+        
     }
     
     @IBAction func likeBtnPressed(_ sender: UIButton) {
         likeBtnTapped?()
     }
-    
     
     @IBAction func commentBtnPressed(_ sender: UIButton) {
         commentsBtnTapped?()
@@ -66,8 +66,6 @@ class FeedCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        
     }
     
 }
