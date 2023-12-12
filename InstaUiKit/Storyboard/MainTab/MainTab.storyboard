@@ -407,26 +407,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRy-2i-82S">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="6V6-Ff-Fv9"/>
-                                    <constraint firstAttribute="width" constant="50" id="U3v-bz-Y5l"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="BackArrow" title=" "/>
-                                <connections>
-                                    <action selector="backBtnPressed:" destination="KmQ-k7-TR7" eventType="touchUpInside" id="2tJ-W6-OfB"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notification" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qpB-Op-0eq">
-                                <rect key="frame" x="112.5" y="15" width="95.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="2KY-EL-qPZ">
-                                <rect key="frame" x="10" y="70" width="300" height="498"/>
+                                <rect key="frame" x="10" y="0.0" width="300" height="568"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NotificationCell" rowHeight="88" id="cDQ-RB-RFi" customClass="NotificationCell" customModule="InstaUiKit" customModuleProvider="target">
@@ -515,14 +497,10 @@
                         <viewLayoutGuide key="safeArea" id="7qs-pk-PJw"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="qpB-Op-0eq" firstAttribute="top" secondItem="7qs-pk-PJw" secondAttribute="top" constant="15" id="5OQ-rk-x3X"/>
-                            <constraint firstItem="2KY-EL-qPZ" firstAttribute="top" secondItem="bRy-2i-82S" secondAttribute="bottom" constant="20" id="Oew-Zq-E3C"/>
-                            <constraint firstItem="2KY-EL-qPZ" firstAttribute="leading" secondItem="7qs-pk-PJw" secondAttribute="leading" constant="10" id="Pye-TI-tMN"/>
-                            <constraint firstItem="qpB-Op-0eq" firstAttribute="centerX" secondItem="v1Z-ri-cPT" secondAttribute="centerX" id="QoD-UG-oeD"/>
-                            <constraint firstItem="bRy-2i-82S" firstAttribute="top" secondItem="7qs-pk-PJw" secondAttribute="top" id="QxO-Kf-yxn"/>
-                            <constraint firstItem="7qs-pk-PJw" firstAttribute="trailing" secondItem="2KY-EL-qPZ" secondAttribute="trailing" constant="10" id="UWB-ed-Q3S"/>
-                            <constraint firstItem="7qs-pk-PJw" firstAttribute="bottom" secondItem="2KY-EL-qPZ" secondAttribute="bottom" id="gqZ-2v-9OI"/>
-                            <constraint firstItem="bRy-2i-82S" firstAttribute="leading" secondItem="7qs-pk-PJw" secondAttribute="leading" id="rNB-pY-paR"/>
+                            <constraint firstAttribute="bottom" secondItem="2KY-EL-qPZ" secondAttribute="bottom" id="1rw-1c-ueB"/>
+                            <constraint firstAttribute="trailing" secondItem="2KY-EL-qPZ" secondAttribute="trailing" constant="10" id="Hoj-Kn-j4A"/>
+                            <constraint firstItem="2KY-EL-qPZ" firstAttribute="leading" secondItem="v1Z-ri-cPT" secondAttribute="leading" constant="10" id="eX3-uL-ZTX"/>
+                            <constraint firstItem="2KY-EL-qPZ" firstAttribute="top" secondItem="v1Z-ri-cPT" secondAttribute="top" id="ffV-Kx-gTn"/>
                         </constraints>
                     </view>
                     <connections>
