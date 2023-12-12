@@ -32,9 +32,10 @@ class MainTabVC: UITabBarController {
         }
     }
     
-    func setBarItemsForHomeVC(action: @escaping BarButtonAction){
+    func setBarItemsForHomeVC(action: @escaping BarButtonAction) {
         navigationItem.title = nil
         navigationItem.rightBarButtonItem = nil
+        
         let userProfileImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 160, height: 40))
         userProfileImageView.contentMode = .scaleToFill
         userProfileImageView.clipsToBounds = true
@@ -43,6 +44,8 @@ class MainTabVC: UITabBarController {
         userProfileView.addSubview(userProfileImageView)
         let userProfileItem = UIBarButtonItem(customView: userProfileView)
         navigationItem.leftBarButtonItems = [userProfileItem]
+        
+        
         let directMsgBtn = UIBarButtonItem(image: UIImage(systemName: "paperplane"), style: .plain, target: self, action: #selector(directMsgBtnTapped))
         directMsgBtn.tintColor = UIColor.black
         let notificationBtn = UIBarButtonItem(image: UIImage(systemName: "bell"), style: .plain, target: self, action: #selector(notificationBtnTapped))
@@ -52,14 +55,14 @@ class MainTabVC: UITabBarController {
         self.postActionClosureForNotificationBtnForHomeVC = { action(.notification) }
     }
     
+    
     @objc func directMsgBtnTapped(){
         postActionClosureForDirectMsgBtnForHomeVC?()
     }
-
+    
     @objc func notificationBtnTapped() {
         postActionClosureForNotificationBtnForHomeVC?()
     }
-
     
     
     func setBarItemsForSearchVC(){
