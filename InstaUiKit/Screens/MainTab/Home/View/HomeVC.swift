@@ -222,7 +222,7 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         
         if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
-        
+            
             let post = allPost[indexPath.row]
             
             cell.userImg1.image = nil

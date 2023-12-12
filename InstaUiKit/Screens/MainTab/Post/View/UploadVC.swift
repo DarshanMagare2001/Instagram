@@ -21,7 +21,7 @@ class UploadVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.hidesBackButton = true
-        navigationItem.title = "Chats"
+        navigationItem.title = "Upload"
         let backButton = UIBarButtonItem(image: UIImage(named: "BackArrow"), style: .plain, target: self, action: #selector(backButtonPressed))
         backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
@@ -40,16 +40,18 @@ class UploadVC: UIViewController {
                                 yesHandler: { _ in
             
             print("User selected Yes")
-            LoaderVCViewModel.shared.showLoader()
+            
+            MessageLoader.shared.showLoader(withText: "Please wait Uploading..")
+            
             if let img = self.img, let caption = self.captionTxtFld.text, let location = self.locationTxtFld.text{
                 PostViewModel.shared.uploadImageToFirebaseStorage(image: img, caption: caption, location: location){ value in
                     if value {
-                        LoaderVCViewModel.shared.hideLoader()
+                        MessageLoader.shared.hideLoader()
                         Alert.shared.alertOk(title: "Success!", message: "Your Photo uploaded successfully.", presentingViewController: self){ _ in
                             self.navigationController?.popViewController(animated: true)
                         }
                     }else{
-                        LoaderVCViewModel.shared.hideLoader()
+                        MessageLoader.shared.hideLoader()
                         Alert.shared.alertOk(title: "Error!", message: "Your Photo not uploaded.", presentingViewController: self){ _ in}
                     }
                 }
