@@ -256,11 +256,6 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                 cell.totalLikesCount.text = "\(postLikesCounts) Likes"
             }
             
-            cell.doubleTapAction = { [weak self] in
-                guard let self = self else { return }
-            
-                
-            }
             
             disPatchGroup.enter()
             if let randomLikedByUID = postLikedBy.randomElement() {
@@ -292,6 +287,11 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                         let imageName = cell.isLiked ? "heart.fill" : "heart"
                         cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
                         cell.likeBtn.tintColor = cell.isLiked ? .red : .black
+                    }
+                    
+                    cell.doubleTapAction = { [weak self] in
+                        guard let self = self else { return }
+                        self.likePost(postPostDocumentID: postPostDocumentID, uid: uid, postUid: postUid, cell: cell)
                     }
                     
                     cell.likeBtnTapped = { [weak self] in
