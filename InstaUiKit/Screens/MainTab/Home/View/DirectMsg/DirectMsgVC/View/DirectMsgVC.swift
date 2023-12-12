@@ -35,7 +35,16 @@ class DirectMsgVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+        navigationItem.hidesBackButton = true
+        navigationItem.title = "Chats"
+        let backButton = UIBarButtonItem(image: UIImage(named: "BackArrow"), style: .plain, target: self, action: #selector(backButtonPressed))
+        backButton.tintColor = .black
+        navigationItem.leftBarButtonItem = backButton
+        
+        let addChatBtn = UIBarButtonItem(image: UIImage(systemName:"plus"), style: .plain, target: self, action: #selector(addChatBtnPressed))
+        addChatBtn.tintColor = .black
+        navigationItem.rightBarButtonItem = addChatBtn
+        
         FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case.success(let user):
@@ -49,15 +58,14 @@ class DirectMsgVC: UIViewController {
         }
     }
     
-    @IBAction func backBtnPressed(_ sender: UIButton) {
+    @objc func backButtonPressed() {
         navigationController?.popViewController(animated: true)
     }
     
-    
-    @IBAction func addChatBtnPressed(_ sender: UIButton) {
+    @objc func addChatBtnPressed() {
         goToAddChatVC()
     }
-    
+   
     func goToAddChatVC() {
         let storyboard = UIStoryboard.MainTab
         // Filter users whose uid is not in chatUsers
