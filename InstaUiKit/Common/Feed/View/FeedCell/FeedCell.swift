@@ -23,9 +23,8 @@ class FeedCell: UITableViewCell {
     var isLiked: Bool = false
     override func awakeFromNib() {
         super.awakeFromNib()
-        
     }
-    
+   
     @IBAction func likeBtnPressed(_ sender: UIButton) {
         likeBtnTapped?()
     }
