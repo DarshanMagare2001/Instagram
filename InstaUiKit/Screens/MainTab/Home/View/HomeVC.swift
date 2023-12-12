@@ -222,9 +222,7 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         
         if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
-            let tapGesture = UITapGestureRecognizer(target: self,
-                                                    action: #selector(didDoubleTap(_ :)))
-            tapGesture.numberOfTapsRequired = 2
+        
             let post = allPost[indexPath.row]
             
             cell.userImg1.image = nil
@@ -258,8 +256,13 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                 cell.totalLikesCount.text = "\(postLikesCounts) Likes"
             }
             
-            cell.postImg.addGestureRecognizer(tapGesture)
-            cell.postImg.clipsToBounds = true
+           
+            
+            cell.doubleTapAction = { [weak self] in
+                guard let self = self else { return }
+            
+            }
+            
             
             disPatchGroup.enter()
             if let randomLikedByUID = postLikedBy.randomElement() {
@@ -360,29 +363,6 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                 cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
                 cell.likeBtn.tintColor = cell.isLiked ? .red : .black
             }
-        }
-    }
-    
-    @objc func didDoubleTap(_ gesture: UITapGestureRecognizer) {
-        guard let gestureView = gesture.view, let postImg = gestureView as? UIImageView else { return }
-        
-        let size = min(postImg.frame.size.width, postImg.frame.size.height) / 3
-        let heart = UIImageView(image: UIImage(systemName: "heart.fill"))
-        heart.frame = CGRect(x: (postImg.frame.size.width - size) / 2,
-                             y: (postImg.frame.size.height - size) / 2,
-                             width: size,
-                             height: size)
-        heart.tintColor = .red
-        postImg.addSubview(heart)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            UIView.animate(withDuration: 0.5, animations: {
-                heart.alpha = 0
-            }, completion: { done in
-                if done {
-                    heart.removeFromSuperview()
-                }
-            })
         }
     }
     

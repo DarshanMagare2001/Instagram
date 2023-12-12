@@ -20,11 +20,41 @@ class FeedCell: UITableViewCell {
     @IBOutlet weak var likedByLbl: UILabel!
     var likeBtnTapped: (() -> Void)?
     var commentsBtnTapped: (() -> Void)?
+    var doubleTapAction: (() -> Void)?
     var isLiked: Bool = false
     override func awakeFromNib() {
         super.awakeFromNib()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didDoubleTap))
+        tapGesture.numberOfTapsRequired = 2
+        postImg.addGestureRecognizer(tapGesture)
+        postImg.isUserInteractionEnabled = true
+        postImg.clipsToBounds = true
     }
-   
+    
+    @objc func didDoubleTap(_ gesture: UITapGestureRecognizer) {
+        doubleTapAction?()
+        guard let gestureView = gesture.view, let postImg = gestureView as? UIImageView else { return }
+        
+        let size = min(postImg.frame.size.width, postImg.frame.size.height) / 3
+        let heart = UIImageView(image: UIImage(systemName: "heart.fill"))
+        heart.frame = CGRect(x: (postImg.frame.size.width - size) / 2,
+                             y: (postImg.frame.size.height - size) / 2,
+                             width: size,
+                             height: size)
+        heart.tintColor = .red
+        postImg.addSubview(heart)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            UIView.animate(withDuration: 0.5, animations: {
+                heart.alpha = 0
+            }, completion: { done in
+                if done {
+                    heart.removeFromSuperview()
+                }
+            })
+        }
+    }
+    
     @IBAction func likeBtnPressed(_ sender: UIButton) {
         likeBtnTapped?()
     }
