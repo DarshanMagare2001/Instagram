@@ -32,7 +32,7 @@ class MainTabVC: UITabBarController {
         }
     }
     
-    func setBarItemsForHomeVC(notificationCountForDirectMsg:Int,notificationCountForNotificationBtn:Int,action: @escaping BarButtonAction) {
+    func setBarItemsForHomeVC(isdirectMsgHaveNotification:Bool,isNotificationBtnHaveNotification:Bool,notificationCountForDirectMsg:Int,notificationCountForNotificationBtn:Int,action: @escaping BarButtonAction) {
         navigationItem.title = nil
         navigationItem.rightBarButtonItem = nil
         
