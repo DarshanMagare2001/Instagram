@@ -18,7 +18,6 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var followingCountLbl: UILabel!
     @IBOutlet weak var followersCountLbl: UILabel!
     @IBOutlet weak var postCountLbl: UILabel!
-    @IBOutlet weak var sideMenueName: UILabel!
     @IBOutlet weak var followingsTxtLbl: UILabel!
     @IBOutlet weak var followersTxtLbl: UILabel!
     var viewModel1 = AuthenticationViewModel()
@@ -43,7 +42,6 @@ class ProfileVC: UIViewController {
             if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name){
                 DispatchQueue.main.async {
                     self.userName.text = name
-                    self.sideMenueName.text = name
                     mainTabVC.setBarItemsForProfileVC(profileName: name){
                         UIView.animate(withDuration: 0.5) {
                             self.sideMenuView.alpha = 1.0
