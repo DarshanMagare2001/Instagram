@@ -32,10 +32,10 @@ class MainTabVC: UITabBarController {
         }
     }
     
-    func setBarItemsForHomeVC(isdirectMsgHaveNotification:Bool,isNotificationBtnHaveNotification:Bool,notificationCountForDirectMsg:Int,notificationCountForNotificationBtn:Int,action: @escaping BarButtonAction){
+    func setBarItemsForHomeVC(isdirectMsgHaveNotification: Bool, isNotificationBtnHaveNotification: Bool, notificationCountForDirectMsg: Int, notificationCountForNotificationBtn: Int, action: @escaping BarButtonAction) {
         navigationItem.title = nil
         navigationItem.rightBarButtonItem = nil
-        
+
         let userProfileImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 160, height: 40))
         userProfileImageView.contentMode = .scaleToFill
         userProfileImageView.clipsToBounds = true
@@ -44,38 +44,33 @@ class MainTabVC: UITabBarController {
         userProfileView.addSubview(userProfileImageView)
         let userProfileItem = UIBarButtonItem(customView: userProfileView)
         navigationItem.leftBarButtonItems = [userProfileItem]
-        
-        if isdirectMsgHaveNotification && isNotificationBtnHaveNotification  {
-            let directMsgBtn = createCircularButtonWithLabel(image: UIImage(systemName: "paperplane"), action: #selector(directMsgBtnTapped), count: notificationCountForDirectMsg)
-            let notificationBtn = createCircularButtonWithLabel(image: UIImage(systemName: "bell"), action: #selector(notificationBtnTapped), count: notificationCountForNotificationBtn)
-            navigationItem.rightBarButtonItems = [directMsgBtn, notificationBtn]
-        }
-        
-        if !isdirectMsgHaveNotification && !isNotificationBtnHaveNotification  {
-            let directMsgBtn = UIBarButtonItem(image: UIImage(systemName: "paperplane"), style: .plain, target: self, action: #selector(directMsgBtnTapped))
-                directMsgBtn.tintColor = UIColor.black
-            let notificationBtn = UIBarButtonItem(image: UIImage(systemName: "bell"), style: .plain, target: self, action: #selector(notificationBtnTapped))
-                notificationBtn.tintColor = UIColor.black
-            navigationItem.rightBarButtonItems = [directMsgBtn, notificationBtn]
-        }
-      
+
+        var barButtonItems: [UIBarButtonItem] = []
+
         if isdirectMsgHaveNotification {
             let directMsgBtn = createCircularButtonWithLabel(image: UIImage(systemName: "paperplane"), action: #selector(directMsgBtnTapped), count: notificationCountForDirectMsg)
-            let notificationBtn = UIBarButtonItem(image: UIImage(systemName: "bell"), style: .plain, target: self, action: #selector(notificationBtnTapped))
-                notificationBtn.tintColor = UIColor.black
-            navigationItem.rightBarButtonItems = [directMsgBtn, notificationBtn]
-        }
-        
-        if isNotificationBtnHaveNotification {
+            barButtonItems.append(directMsgBtn)
+        } else {
             let directMsgBtn = UIBarButtonItem(image: UIImage(systemName: "paperplane"), style: .plain, target: self, action: #selector(directMsgBtnTapped))
-                directMsgBtn.tintColor = UIColor.black
-            let notificationBtn = createCircularButtonWithLabel(image: UIImage(systemName: "bell"), action: #selector(notificationBtnTapped), count: notificationCountForNotificationBtn)
-            navigationItem.rightBarButtonItems = [directMsgBtn, notificationBtn]
+            directMsgBtn.tintColor = UIColor.black
+            barButtonItems.append(directMsgBtn)
         }
-        
+
+        if isNotificationBtnHaveNotification {
+            let notificationBtn = createCircularButtonWithLabel(image: UIImage(systemName: "bell"), action: #selector(notificationBtnTapped), count: notificationCountForNotificationBtn)
+            barButtonItems.append(notificationBtn)
+        } else {
+            let notificationBtn = UIBarButtonItem(image: UIImage(systemName: "bell"), style: .plain, target: self, action: #selector(notificationBtnTapped))
+            notificationBtn.tintColor = UIColor.black
+            barButtonItems.append(notificationBtn)
+        }
+
+        navigationItem.rightBarButtonItems = barButtonItems
+
         self.postActionClosureForDirectMsgBtnForHomeVC = { action(.directMessage) }
         self.postActionClosureForNotificationBtnForHomeVC = { action(.notification) }
     }
+
     
     func createCircularButtonWithLabel(image: UIImage?, action: Selector, count: Int) -> UIBarButtonItem {
         let container = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
