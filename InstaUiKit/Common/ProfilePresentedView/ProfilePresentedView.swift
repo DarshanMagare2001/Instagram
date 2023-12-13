@@ -21,6 +21,9 @@ class ProfilePresentedView: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(disMiss))
         mainView.isUserInteractionEnabled = true
         mainView.addGestureRecognizer(tapGesture)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         updateView()
     }
     
