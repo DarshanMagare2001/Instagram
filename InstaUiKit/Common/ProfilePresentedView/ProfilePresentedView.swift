@@ -17,6 +17,13 @@ class ProfilePresentedView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setBlurView()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(disMiss))
+        mainView.isUserInteractionEnabled = true
+        mainView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func disMiss(){
+        dismiss(animated: true)
     }
     
     func setBlurView() {
@@ -26,7 +33,6 @@ class ProfilePresentedView: UIViewController {
         mainView.addSubview(blurView)
         mainView.addSubview(mainStackView)
     }
-    
     
 }
 
