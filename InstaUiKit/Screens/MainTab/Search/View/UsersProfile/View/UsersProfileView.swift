@@ -16,7 +16,6 @@ class UsersProfileView: UIViewController {
     @IBOutlet weak var totalFollowersCount: UILabel!
     @IBOutlet weak var totalFollowingCount: UILabel!
     @IBOutlet weak var folloBtn: UIButton!
-    @IBOutlet weak var headLine: UILabel!
     @IBOutlet weak var msgBtn: UIButton!
     
     var allPost = [PostAllDataModel]()
@@ -41,6 +40,7 @@ class UsersProfileView: UIViewController {
     @objc func didTapUserImg() {
         let storyboard = UIStoryboard.Common
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "ProfilePresentedView") as! ProfilePresentedView
+        destinationVC.user = user
         destinationVC.modalPresentationStyle = .overFullScreen
         present(destinationVC, animated: true, completion: nil)
     }

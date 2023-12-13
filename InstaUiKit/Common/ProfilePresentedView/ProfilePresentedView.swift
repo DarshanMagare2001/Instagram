@@ -14,12 +14,14 @@ class ProfilePresentedView: UIViewController {
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var bioLbl: UILabel!
     @IBOutlet weak var mainStackView: UIStackView!
+    var user : UserModel?
     override func viewDidLoad() {
         super.viewDidLoad()
         setBlurView()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(disMiss))
         mainView.isUserInteractionEnabled = true
         mainView.addGestureRecognizer(tapGesture)
+        updateView()
     }
     
     @objc func disMiss(){
@@ -32,6 +34,17 @@ class ProfilePresentedView: UIViewController {
         blurView.effect = UIBlurEffect(style: .regular)
         mainView.addSubview(blurView)
         mainView.addSubview(mainStackView)
+    }
+    
+    func updateView(){
+        if let user = user , let imgUrl = user.imageUrl , let name = user.name , let userName = user.username , let bio = user.bio {
+            DispatchQueue.main.async { [weak self] in
+                ImageLoader.loadImage(for: URL(string: imgUrl), into: (self?.userImg)!, withPlaceholder: UIImage(systemName: "person.fill"))
+                self?.nameLbl.text = name
+                self?.userNameLbl.text = userName
+                self?.bioLbl.text = bio
+            }
+        }
     }
     
 }
