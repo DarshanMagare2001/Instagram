@@ -36,16 +36,25 @@ class ProfilePresentedView: UIViewController {
         mainView.addSubview(mainStackView)
     }
     
-    func updateView(){
-        if let user = user , let imgUrl = user.imageUrl , let name = user.name , let userName = user.username , let bio = user.bio {
+    func updateView() {
+        if let user = user, let imgUrl = user.imageUrl, let name = user.name, let userName = user.username, let bio = user.bio {
             DispatchQueue.main.async { [weak self] in
                 ImageLoader.loadImage(for: URL(string: imgUrl), into: (self?.userImg)!, withPlaceholder: UIImage(systemName: "person.fill"))
                 self?.nameLbl.text = name
                 self?.userNameLbl.text = userName
                 self?.bioLbl.text = bio
+
+                // Add 360-degree rotating effect to userImg
+                let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.y")
+                rotationAnimation.toValue = NSNumber(value: Double.pi * 2.0)
+                rotationAnimation.duration = 3.0  // Adjust the duration as needed
+                rotationAnimation.repeatCount = .infinity
+                self?.userImg.layer.add(rotationAnimation, forKey: "rotationAnimation")
             }
         }
     }
+
+    
     
 }
 
