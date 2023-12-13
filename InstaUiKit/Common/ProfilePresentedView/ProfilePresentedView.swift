@@ -43,18 +43,23 @@ class ProfilePresentedView: UIViewController {
                 self?.nameLbl.text = name
                 self?.userNameLbl.text = userName
                 self?.bioLbl.text = bio
-
+                
                 // Add 360-degree rotating effect to userImg
                 let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.y")
                 rotationAnimation.toValue = NSNumber(value: Double.pi * 2.0)
                 rotationAnimation.duration = 3.0  // Adjust the duration as needed
-                rotationAnimation.repeatCount = .infinity
+                rotationAnimation.delegate = self // Set the animation delegate
                 self?.userImg.layer.add(rotationAnimation, forKey: "rotationAnimation")
             }
         }
     }
-
-    
     
 }
 
+extension ProfilePresentedView: CAAnimationDelegate {
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        if flag {
+            userImg.layer.removeAllAnimations()
+        }
+    }
+}
