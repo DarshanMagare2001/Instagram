@@ -280,6 +280,7 @@ extension ProfileVC:  SkeletonCollectionViewDataSource  , SkeletonCollectionView
         cell.imagePressed = { [weak self] in
             let storyboard = UIStoryboard.Common
             let destinationVC = storyboard.instantiateViewController(withIdentifier: "PostPresentedView") as! PostPresentedView
+            destinationVC.modalPresentationStyle = .overFullScreen
             self?.present(destinationVC, animated: true, completion: nil)
         }
         return cell
