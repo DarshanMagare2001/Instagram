@@ -35,36 +35,37 @@ class UsersProfileView: UIViewController {
             msgBtn.isHidden = true
         }
         updateCell()
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapUserImg))
         userImg.isUserInteractionEnabled = true
         userImg.addGestureRecognizer(tapGesture)
         
-        let followingTapGesture = UITapGestureRecognizer(target: self, action: #selector(followingCountLabelTapped))
-        totalFollowingCount.isUserInteractionEnabled = true
-        totalFollowingCount.addGestureRecognizer(followingTapGesture)
+        let followingsTextLblTapGesture = UITapGestureRecognizer(target: self, action: #selector(followingsTextLblTapped))
+        followingsTextLbl.isUserInteractionEnabled = true
+        followingsTextLbl.addGestureRecognizer(followingsTextLblTapGesture)
         
-        let followersTapGesture = UITapGestureRecognizer(target: self, action: #selector(followersCountLabelTapped))
-        totalFollowersCount.isUserInteractionEnabled = true
-        totalFollowersCount.addGestureRecognizer(followersTapGesture)
+        let followersTextLblTapGesture = UITapGestureRecognizer(target: self, action: #selector(followersTextLblTapped))
+        followersTextLbl.isUserInteractionEnabled = true
+        followersTextLbl.addGestureRecognizer(followersTextLblTapGesture)
         
-        let postTxtLblTapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapPostTxtLbl))
-        totalPostCount.isUserInteractionEnabled = true
-        totalPostCount.addGestureRecognizer(postTxtLblTapGesture)
+        let postTextLblTapGesture = UITapGestureRecognizer(target: self, action: #selector(postTextLblTapped))
+        postTextLbl.isUserInteractionEnabled = true
+        postTextLbl.addGestureRecognizer(postTextLblTapGesture)
         
     }
     
-    @objc func didTapPostTxtLbl(){
+    @objc func postTextLblTapped(){
         let storyboard = UIStoryboard.Common
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedViewVC") as! FeedViewVC
         destinationVC.allPost = allPost
         navigationController?.pushViewController(destinationVC, animated: true)
     }
     
-    @objc func followingCountLabelTapped() {
+    @objc func followingsTextLblTapped() {
         goToFollowerAndFollowing()
     }
     
-    @objc func followersCountLabelTapped() {
+    @objc func followersTextLblTapped() {
         goToFollowerAndFollowing()
     }
     
