@@ -329,6 +329,37 @@
             </objects>
             <point key="canvasLocation" x="2171.25" y="62.323943661971832"/>
         </scene>
+        <!--Profile Presented View-->
+        <scene sceneID="97y-wd-eW7">
+            <objects>
+                <viewController storyboardIdentifier="ProfilePresentedView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rb0-oV-acd" customClass="ProfilePresentedView" customModule="InstaUiKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gAX-ma-HoY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KhV-cy-5yV">
+                                <rect key="frame" x="60" y="184" width="200" height="200"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="opQ-eH-LPl"/>
+                                    <constraint firstAttribute="height" constant="200" id="tMg-Pl-Hmf"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="wQD-J7-EAv"/>
+                        <constraints>
+                            <constraint firstItem="KhV-cy-5yV" firstAttribute="centerX" secondItem="gAX-ma-HoY" secondAttribute="centerX" id="Cmp-yE-wIW"/>
+                            <constraint firstItem="KhV-cy-5yV" firstAttribute="centerY" secondItem="gAX-ma-HoY" secondAttribute="centerY" id="VuG-uG-NCt"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mainView" destination="gAX-ma-HoY" id="4yZ-Vd-WRk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LY6-Bw-OEt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2835" y="61"/>
+        </scene>
     </scenes>
     <resources>
         <image name="person.fill" catalog="system" width="128" height="120"/>

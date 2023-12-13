@@ -38,10 +38,13 @@ class UsersProfileView: UIViewController {
         userImg.addGestureRecognizer(tapGesture)
     }
     
-    @objc func didTapUserImg(){
-        print("didTapUserImg")
-        
+    @objc func didTapUserImg() {
+        let storyboard = UIStoryboard.Common
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "ProfilePresentedView") as! ProfilePresentedView
+        destinationVC.modalPresentationStyle = .overFullScreen
+        present(destinationVC, animated: true, completion: nil)
     }
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
