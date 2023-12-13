@@ -9,7 +9,7 @@ import UIKit
 
 class UsersProfileView: UIViewController {
     @IBOutlet weak var collectionViewOutlet: UICollectionView!
-    @IBOutlet weak var userImg: CircleImageView!
+    @IBOutlet weak var userImg: UIImageView!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var userBio: UILabel!
     @IBOutlet weak var totalPostCount: UILabel!
@@ -33,6 +33,13 @@ class UsersProfileView: UIViewController {
             msgBtn.isHidden = true
         }
         updateCell()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapUserImg))
+        userImg.isUserInteractionEnabled = true
+        userImg.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func didTapUserImg(){
+        print("didTapUserImg")
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -145,27 +145,20 @@ extension HomeVC {
     }
     
     private func fetchData() {
-        disPatchGroup.enter()
         viewModel.fetchAllPostsOfFollowings { result in
-            self.disPatchGroup.leave()
             if case .success(let posts) = result {
                 if let posts = posts {
                     self.allPost = posts
                 }
-                self.feedTableView.stopSkeletonAnimation()
-                self.view.stopSkeletonAnimation()
-                self.feedTableView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
-                self.feedTableView.reloadData()
+                DispatchQueue.main.async { [weak self] in
+                    self?.feedTableView.stopSkeletonAnimation()
+                    self?.view.stopSkeletonAnimation()
+                    self?.feedTableView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+                    self?.feedTableView.reloadData()
+                }
             }
         }
-        
-        disPatchGroup.enter()
-        DispatchQueue.main.async { [weak self] in
-            self?.fetchUniqueUsers()
-            self?.disPatchGroup.leave()
-        }
-        disPatchGroup.notify(queue: .main){}
-        
+        fetchUniqueUsers()
     }
     
     
@@ -258,22 +251,6 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
             
             
             disPatchGroup.enter()
-            if let randomLikedByUID = postLikedBy.randomElement() {
-                FetchUserInfo.shared.fetchUserDataByUid(uid: randomLikedByUID) { [weak self] result in
-                    self?.disPatchGroup.leave()
-                    switch result {
-                    case .success(let data):
-                        if let data = data , let name = data.name {
-                            cell.likedByLbl.text = "Liked by \(name) and \(Int(postLikedBy.count - 1)) others."
-                        }
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
-            }
-            
-            
-            disPatchGroup.enter()
             DispatchQueue.main.async { [weak self] in
                 if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
                     
@@ -316,7 +293,25 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                 }
                 self?.disPatchGroup.leave()
             }
+            
+            
+            disPatchGroup.enter()
+            if let randomLikedByUID = postLikedBy.randomElement() {
+                FetchUserInfo.shared.fetchUserDataByUid(uid: randomLikedByUID) { [weak self] result in
+                    self?.disPatchGroup.leave()
+                    switch result {
+                    case .success(let data):
+                        if let data = data , let name = data.name {
+                            cell.likedByLbl.text = "Liked by \(name) and \(Int(postLikedBy.count - 1)) others."
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            }
+            
             disPatchGroup.notify(queue: .main){}
+            
             return cell
         }
         return UITableViewCell()
