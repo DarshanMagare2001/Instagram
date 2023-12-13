@@ -388,6 +388,21 @@
             </objects>
             <point key="canvasLocation" x="2835" y="61"/>
         </scene>
+        <!--Post Presented View-->
+        <scene sceneID="YLb-vN-V4g">
+            <objects>
+                <viewController storyboardIdentifier="PostPresentedView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kRO-dR-Ufe" customClass="PostPresentedView" customModule="InstaUiKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2ex-bo-K9T">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="pkK-9A-PYa"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Ky-s5-0dR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3489" y="61"/>
+        </scene>
     </scenes>
     <resources>
         <image name="person.fill" catalog="system" width="128" height="120"/>

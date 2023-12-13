@@ -278,7 +278,9 @@ extension ProfileVC:  SkeletonCollectionViewDataSource  , SkeletonCollectionView
             ImageLoader.loadImage(for: imageURL, into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
         }
         cell.imagePressed = { [weak self] in
-            print(cellData)
+            let storyboard = UIStoryboard.Common
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "PostPresentedView") as! PostPresentedView
+            self?.present(destinationVC, animated: true, completion: nil)
         }
         return cell
     }

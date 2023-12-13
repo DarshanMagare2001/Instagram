@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1303EC702B29778D004EC523 /* ProfilePresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303EC6F2B29778D004EC523 /* ProfilePresentedView.swift */; };
+		1303EC732B29AB63004EC523 /* PostPresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303EC722B29AB63004EC523 /* PostPresentedView.swift */; };
 		130C23422B2031EA0033B763 /* AddChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C23412B2031EA0033B763 /* AddChatVC.swift */; };
 		130C23462B20363E0033B763 /* AddChatVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C23452B20363E0033B763 /* AddChatVCCell.swift */; };
 		130C23582B20469F0033B763 /* MessageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C23572B20469F0033B763 /* MessageLoader.swift */; };
@@ -114,6 +115,7 @@
 
 /* Begin PBXFileReference section */
 		1303EC6F2B29778D004EC523 /* ProfilePresentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresentedView.swift; sourceTree = "<group>"; };
+		1303EC722B29AB63004EC523 /* PostPresentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPresentedView.swift; sourceTree = "<group>"; };
 		130C23412B2031EA0033B763 /* AddChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChatVC.swift; sourceTree = "<group>"; };
 		130C23452B20363E0033B763 /* AddChatVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChatVCCell.swift; sourceTree = "<group>"; };
 		130C23572B20469F0033B763 /* MessageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageLoader.swift; sourceTree = "<group>"; };
@@ -241,6 +243,14 @@
 				1303EC6F2B29778D004EC523 /* ProfilePresentedView.swift */,
 			);
 			path = ProfilePresentedView;
+			sourceTree = "<group>";
+		};
+		1303EC712B29AB47004EC523 /* PostPresentedview */ = {
+			isa = PBXGroup;
+			children = (
+				1303EC722B29AB63004EC523 /* PostPresentedView.swift */,
+			);
+			path = PostPresentedview;
 			sourceTree = "<group>";
 		};
 		130C23432B2032330033B763 /* DirectMsgVC */ = {
@@ -988,6 +998,7 @@
 		13DBE77B2AEB986A0006F3B9 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				1303EC712B29AB47004EC523 /* PostPresentedview */,
 				1303EC6E2B297763004EC523 /* ProfilePresentedView */,
 				137E549A2B14766400186558 /* FollowerAndFollowing */,
 				1355B8D02B0CCB630027A2AF /* SendNotification */,
@@ -1273,6 +1284,7 @@
 				13DBE78E2AEBC1F60006F3B9 /* SignUpVCViewModel.swift in Sources */,
 				13C508CC2B109F650013C52D /* UsersProfileViewModel.swift in Sources */,
 				1368D18B2B174F1E00B42AC4 /* CDUsers+CoreDataClass.swift in Sources */,
+				1303EC732B29AB63004EC523 /* PostPresentedView.swift in Sources */,
 				13E2F45E2B18554A002BDA4A /* SwitchAccountViewModel.swift in Sources */,
 				13DBE7952AEBD0CA0006F3B9 /* SaveData.swift in Sources */,
 				1392D02C2A80B54A004B6654 /* ProfileVC.swift in Sources */,
