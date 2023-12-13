@@ -111,12 +111,11 @@ class PostViewModel {
                                 case.success(let user):
                                     if let user = user , let name = user.name , let userName = user.username , let profilrImgUrl = user.imageUrl{
                                         posts.append(PostAllDataModel(postImageURL: postImageURL, caption: caption, location: location, name: name, uid: uid, profileImageUrl: profilrImgUrl, postDocumentID: postDocumentID, likedBy: likedBy, likesCount: likesCount, comments: comments, username: userName, timestamp: timestamp))
-                                        self.dispatchGroup.leave()
                                     }
                                 case.failure(let error):
                                     print(error)
-                                    self.dispatchGroup.leave()
                                 }
+                                self.dispatchGroup.leave()
                             }
                         }
                     }
