@@ -273,20 +273,14 @@ extension ProfileVC:  SkeletonCollectionViewDataSource  , SkeletonCollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosCell", for: indexPath) as! PhotosCell
-        if let imageURL = URL(string: allPost[indexPath.row].postImageURL ?? "") {
+        let cellData = allPost[indexPath.row]
+        if let imageURL = URL(string: cellData.postImageURL ?? "") {
             ImageLoader.loadImage(for: imageURL, into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
-            tapGesture.delegate = self
-            cell.img.addGestureRecognizer(tapGesture)
-            cell.img.isUserInteractionEnabled = true
+        }
+        cell.imagePressed = { [weak self] in
+            print(cellData)
         }
         return cell
     }
     
-    @objc func imageTapped(_ sender: UITapGestureRecognizer) {
-        //        let storyboard = UIStoryboard.Common
-        //        let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedViewVC") as! FeedViewVC
-        //        destinationVC.allPost = allPost
-        //        navigationController?.pushViewController(destinationVC, animated: true)
-    }
 }
