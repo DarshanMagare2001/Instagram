@@ -898,54 +898,54 @@
                                                                                 <rect key="frame" x="110" y="20" width="190" height="50"/>
                                                                                 <subviews>
                                                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="HNH-nT-npB">
-                                                                                        <rect key="frame" x="-22.5" y="7" width="235" height="36"/>
+                                                                                        <rect key="frame" x="-35" y="2" width="260.5" height="46"/>
                                                                                         <subviews>
-                                                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Zl2-VQ-VjJ">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="65" height="36"/>
+                                                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Zl2-VQ-VjJ">
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="73.5" height="46"/>
                                                                                                 <subviews>
                                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="HIk-pw-jrv">
-                                                                                                        <rect key="frame" x="0.0" y="0.0" width="65" height="18"/>
+                                                                                                        <rect key="frame" x="0.0" y="0.0" width="73.5" height="18"/>
                                                                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                         <nil key="highlightedColor"/>
                                                                                                     </label>
                                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posts" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Cok-4i-0wN">
-                                                                                                        <rect key="frame" x="0.0" y="18" width="65" height="18"/>
-                                                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                                                        <rect key="frame" x="0.0" y="28" width="73.5" height="18"/>
+                                                                                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
                                                                                                         <nil key="textColor"/>
                                                                                                         <nil key="highlightedColor"/>
                                                                                                     </label>
                                                                                                 </subviews>
                                                                                             </stackView>
-                                                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="0So-vW-Pdp">
-                                                                                                <rect key="frame" x="85" y="0.0" width="65" height="36"/>
+                                                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0So-vW-Pdp">
+                                                                                                <rect key="frame" x="93.5" y="0.0" width="73.5" height="46"/>
                                                                                                 <subviews>
                                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="kR5-2T-U5f">
-                                                                                                        <rect key="frame" x="0.0" y="0.0" width="65" height="18"/>
+                                                                                                        <rect key="frame" x="0.0" y="0.0" width="73.5" height="18"/>
                                                                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                         <nil key="highlightedColor"/>
                                                                                                     </label>
                                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Followers" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="aAe-vb-kuv">
-                                                                                                        <rect key="frame" x="0.0" y="18" width="65" height="18"/>
-                                                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                                                        <rect key="frame" x="0.0" y="28" width="73.5" height="18"/>
+                                                                                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
                                                                                                         <nil key="textColor"/>
                                                                                                         <nil key="highlightedColor"/>
                                                                                                     </label>
                                                                                                 </subviews>
                                                                                             </stackView>
-                                                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="tHE-9k-FPN">
-                                                                                                <rect key="frame" x="170" y="0.0" width="65" height="36"/>
+                                                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tHE-9k-FPN">
+                                                                                                <rect key="frame" x="187" y="0.0" width="73.5" height="46"/>
                                                                                                 <subviews>
                                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="yoC-HC-JIY">
-                                                                                                        <rect key="frame" x="0.0" y="0.0" width="65" height="18"/>
+                                                                                                        <rect key="frame" x="0.0" y="0.0" width="73.5" height="18"/>
                                                                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                         <nil key="highlightedColor"/>
                                                                                                     </label>
                                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Following" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="qnj-nJ-WMs">
-                                                                                                        <rect key="frame" x="0.0" y="18" width="65" height="18"/>
-                                                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                                                        <rect key="frame" x="0.0" y="28" width="73.5" height="18"/>
+                                                                                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
                                                                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                         <nil key="highlightedColor"/>
                                                                                                     </label>
@@ -1100,8 +1100,11 @@
                     <connections>
                         <outlet property="collectionViewOutlet" destination="sAw-W7-k0a" id="0Z7-uG-2GD"/>
                         <outlet property="folloBtn" destination="A7a-OE-5zp" id="qDD-8e-h1m"/>
+                        <outlet property="followersTextLbl" destination="aAe-vb-kuv" id="pW8-oQ-dqo"/>
+                        <outlet property="followingsTextLbl" destination="qnj-nJ-WMs" id="dDQ-dQ-P2E"/>
                         <outlet property="msgBtn" destination="9V7-Pr-9pb" id="0nJ-F2-ofm"/>
                         <outlet property="name" destination="Ovh-5v-qTN" id="NRN-1R-Yrc"/>
+                        <outlet property="postTextLbl" destination="Cok-4i-0wN" id="nkk-Q1-N2p"/>
                         <outlet property="totalFollowersCount" destination="kR5-2T-U5f" id="ZS1-kc-q1h"/>
                         <outlet property="totalFollowingCount" destination="yoC-HC-JIY" id="D9g-pV-sIf"/>
                         <outlet property="totalPostCount" destination="HIk-pw-jrv" id="dvd-6g-4eX"/>

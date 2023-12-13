@@ -9,4 +9,14 @@ import UIKit
 
 class UsersProfileViewCell: UICollectionViewCell {
     @IBOutlet weak var postImg: UIImageView!
+    var postImgPressed: (() -> Void)?
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(postImgTapped))
+        postImg.addGestureRecognizer(tapGesture)
+        postImg.isUserInteractionEnabled = true
+    }
+    @objc func postImgTapped() {
+        postImgPressed?()
+    }
 }

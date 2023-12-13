@@ -17,6 +17,9 @@ class UsersProfileView: UIViewController {
     @IBOutlet weak var totalFollowingCount: UILabel!
     @IBOutlet weak var folloBtn: UIButton!
     @IBOutlet weak var msgBtn: UIButton!
+    @IBOutlet weak var postTextLbl: UILabel!
+    @IBOutlet weak var followersTextLbl: UILabel!
+    @IBOutlet weak var followingsTextLbl: UILabel!
     
     var allPost = [PostAllDataModel]()
     var user : UserModel?
@@ -35,7 +38,36 @@ class UsersProfileView: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapUserImg))
         userImg.isUserInteractionEnabled = true
         userImg.addGestureRecognizer(tapGesture)
+        
+        let followingTapGesture = UITapGestureRecognizer(target: self, action: #selector(followingCountLabelTapped))
+        totalFollowingCount.isUserInteractionEnabled = true
+        totalFollowingCount.addGestureRecognizer(followingTapGesture)
+        
+        let followersTapGesture = UITapGestureRecognizer(target: self, action: #selector(followersCountLabelTapped))
+        totalFollowersCount.isUserInteractionEnabled = true
+        totalFollowersCount.addGestureRecognizer(followersTapGesture)
+        
+        let postTxtLblTapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapPostTxtLbl))
+        totalPostCount.isUserInteractionEnabled = true
+        totalPostCount.addGestureRecognizer(postTxtLblTapGesture)
+        
     }
+    
+    @objc func didTapPostTxtLbl(){
+        let storyboard = UIStoryboard.Common
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedViewVC") as! FeedViewVC
+        destinationVC.allPost = allPost
+        navigationController?.pushViewController(destinationVC, animated: true)
+    }
+    
+    @objc func followingCountLabelTapped() {
+        goToFollowerAndFollowing()
+    }
+    
+    @objc func followersCountLabelTapped() {
+        goToFollowerAndFollowing()
+    }
+    
     
     @objc func didTapUserImg() {
         let storyboard = UIStoryboard.Common
@@ -44,7 +76,16 @@ class UsersProfileView: UIViewController {
         destinationVC.modalPresentationStyle = .overFullScreen
         present(destinationVC, animated: true, completion: nil)
     }
-
+    
+    func goToFollowerAndFollowing(){
+        if let user = user {
+            let storyboard = UIStoryboard.Common
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "FollowersAndFollowingVC") as! FollowersAndFollowingVC
+            destinationVC.user = user
+            self.navigationController?.pushViewController(destinationVC, animated: true)
+        }
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -60,7 +101,7 @@ class UsersProfileView: UIViewController {
                     self.currentUser = user
                 }
             case.failure(let error):
-            print(error)
+                print(error)
             }
         }
         
@@ -87,7 +128,7 @@ class UsersProfileView: UIViewController {
                                 }
                             }
                         case .failure(let error):
-                           print(error)
+                            print(error)
                         }
                     }
                 }
@@ -129,9 +170,6 @@ class UsersProfileView: UIViewController {
         collectionViewOutlet.collectionViewLayout = flowLayout
     }
     
-    @IBAction func backBtnPressed(_ sender: UIButton) {
-        navigationController?.popViewController(animated: true)
-    }
     
     @IBAction func folloBtnPressed(_ sender: UIButton) {
         if let user = user {
@@ -239,20 +277,20 @@ extension UsersProfileView: UICollectionViewDelegate, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UsersProfileViewCell", for: indexPath) as! UsersProfileViewCell
-        if let imageURL = URL(string: allPost[indexPath.row].postImageURL ?? "") {
+        let cellData = allPost[indexPath.row]
+        if let imageURL = URL(string: cellData.postImageURL ?? "") {
             ImageLoader.loadImage(for: imageURL, into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
-            tapGesture.delegate = self
-            cell.postImg.addGestureRecognizer(tapGesture)
-            cell.postImg.isUserInteractionEnabled = true
         }
+        
+        cell.postImgPressed = { [weak self] in
+            let storyboard = UIStoryboard.Common
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "PostPresentedView") as! PostPresentedView
+            destinationVC.post = cellData
+            destinationVC.modalPresentationStyle = .overFullScreen
+            self?.present(destinationVC, animated: true, completion: nil)
+        }
+        
         return cell
     }
     
-    @objc func imageTapped(_ sender: UITapGestureRecognizer) {
-        let storyboard = UIStoryboard.Common
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedViewVC") as! FeedViewVC
-        destinationVC.allPost = allPost
-        navigationController?.pushViewController(destinationVC, animated: true)
-    }
 }
