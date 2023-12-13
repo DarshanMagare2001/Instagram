@@ -1246,7 +1246,7 @@
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posts" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="drE-BH-T48">
                                                                                 <rect key="frame" x="0.0" y="25" width="60" height="25"/>
-                                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
@@ -1263,7 +1263,7 @@
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Followers" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="6IT-9Y-rI8">
                                                                                 <rect key="frame" x="0.0" y="25" width="60" height="25"/>
-                                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
@@ -1280,7 +1280,7 @@
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Following" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="ebx-wZ-gKG">
                                                                                 <rect key="frame" x="0.0" y="25" width="60" height="25"/>
-                                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
                                                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
@@ -1742,6 +1742,7 @@
                         <outlet property="followingsTxtLbl" destination="ebx-wZ-gKG" id="r9P-M4-gAz"/>
                         <outlet property="photosCollectionView" destination="cxU-kg-deA" id="18T-Pc-CRB"/>
                         <outlet property="postCountLbl" destination="eWf-Wp-6ZB" id="uK1-G8-GMs"/>
+                        <outlet property="postTxtLbl" destination="drE-BH-T48" id="Lnu-oK-CPp"/>
                         <outlet property="sideMenuView" destination="rlx-4h-paG" id="mHt-Sp-h4X"/>
                         <outlet property="userBio" destination="cKA-ig-voD" id="dbB-gS-FaE"/>
                         <outlet property="userImg" destination="Nb4-OW-Zoo" id="vAn-Cv-P7w"/>

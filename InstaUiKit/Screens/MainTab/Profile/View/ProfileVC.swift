@@ -20,12 +20,14 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var postCountLbl: UILabel!
     @IBOutlet weak var followingsTxtLbl: UILabel!
     @IBOutlet weak var followersTxtLbl: UILabel!
+    @IBOutlet weak var postTxtLbl: UILabel!
     var viewModel1 = AuthenticationViewModel()
     var viewModel2 = ProfileViewModel()
     var allPost = [PostAllDataModel]()
     var currentUser : UserModel?
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.view.showAnimatedGradientSkeleton()
         let followingTapGesture = UITapGestureRecognizer(target: self, action: #selector(followingCountLabelTapped))
         followingsTxtLbl.isUserInteractionEnabled = true
@@ -39,8 +41,20 @@ class ProfileVC: UIViewController {
         userImg.isUserInteractionEnabled = true
         userImg.addGestureRecognizer(userImgTapGesture)
         
+        let postTxtLblTapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapPostTxtLbl))
+        postTxtLbl.isUserInteractionEnabled = true
+        postTxtLbl.addGestureRecognizer(postTxtLblTapGesture)
+        
         configuration()
         updateUI()
+    }
+    
+    
+    @objc func didTapPostTxtLbl(){
+        let storyboard = UIStoryboard.Common
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedViewVC") as! FeedViewVC
+        destinationVC.allPost = allPost
+        navigationController?.pushViewController(destinationVC, animated: true)
     }
     
     
@@ -50,6 +64,14 @@ class ProfileVC: UIViewController {
         destinationVC.user = currentUser
         destinationVC.modalPresentationStyle = .overFullScreen
         present(destinationVC, animated: true, completion: nil)
+    }
+    
+    @objc func followingCountLabelTapped() {
+        goToFollowerAndFollowing()
+    }
+    
+    @objc func followersCountLabelTapped() {
+        goToFollowerAndFollowing()
     }
     
     
@@ -92,13 +114,7 @@ class ProfileVC: UIViewController {
         self.photosCollectionView.showAnimatedGradientSkeleton()
     }
     
-    @objc func followingCountLabelTapped() {
-        goToFollowerAndFollowing()
-    }
     
-    @objc func followersCountLabelTapped() {
-        goToFollowerAndFollowing()
-    }
     
     func goToFollowerAndFollowing(){
         FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
@@ -268,9 +284,9 @@ extension ProfileVC:  SkeletonCollectionViewDataSource  , SkeletonCollectionView
     }
     
     @objc func imageTapped(_ sender: UITapGestureRecognizer) {
-        let storyboard = UIStoryboard.Common
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedViewVC") as! FeedViewVC
-        destinationVC.allPost = allPost
-        navigationController?.pushViewController(destinationVC, animated: true)
+        //        let storyboard = UIStoryboard.Common
+        //        let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedViewVC") as! FeedViewVC
+        //        destinationVC.allPost = allPost
+        //        navigationController?.pushViewController(destinationVC, animated: true)
     }
 }
