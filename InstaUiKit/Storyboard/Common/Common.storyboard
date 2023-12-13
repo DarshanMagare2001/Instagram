@@ -337,23 +337,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KhV-cy-5yV">
-                                <rect key="frame" x="60" y="184" width="200" height="200"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="opQ-eH-LPl"/>
-                                    <constraint firstAttribute="height" constant="200" id="tMg-Pl-Hmf"/>
-                                </constraints>
-                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="jJm-0Y-RLv">
+                                <rect key="frame" x="15" y="78.5" width="290" height="411.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fsx-18-TD8">
+                                        <rect key="frame" x="0.0" y="0.0" width="290" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="jEZ-77-Acg" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="42" width="290" height="287"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="290" id="Jjr-C4-Inh"/>
+                                            <constraint firstAttribute="width" constant="290" id="LgC-QR-evR"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0yy-4e-qI6">
+                                        <rect key="frame" x="0.0" y="350.5" width="290" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acv-U2-BOk">
+                                        <rect key="frame" x="0.0" y="391" width="290" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wQD-J7-EAv"/>
                         <constraints>
-                            <constraint firstItem="KhV-cy-5yV" firstAttribute="centerX" secondItem="gAX-ma-HoY" secondAttribute="centerX" id="Cmp-yE-wIW"/>
-                            <constraint firstItem="KhV-cy-5yV" firstAttribute="centerY" secondItem="gAX-ma-HoY" secondAttribute="centerY" id="VuG-uG-NCt"/>
+                            <constraint firstItem="jJm-0Y-RLv" firstAttribute="centerY" secondItem="gAX-ma-HoY" secondAttribute="centerY" id="ai4-Pb-LKd"/>
+                            <constraint firstItem="jJm-0Y-RLv" firstAttribute="centerX" secondItem="gAX-ma-HoY" secondAttribute="centerX" id="poj-HV-eza"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bioLbl" destination="acv-U2-BOk" id="Aqo-vn-P7W"/>
                         <outlet property="mainView" destination="gAX-ma-HoY" id="4yZ-Vd-WRk"/>
+                        <outlet property="nameLbl" destination="Fsx-18-TD8" id="M7s-CD-LmL"/>
+                        <outlet property="userImg" destination="jEZ-77-Acg" id="Y44-Nw-pR2"/>
+                        <outlet property="userNameLbl" destination="0yy-4e-qI6" id="rfa-Pz-QWY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LY6-Bw-OEt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

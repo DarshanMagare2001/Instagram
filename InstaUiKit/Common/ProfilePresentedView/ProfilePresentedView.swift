@@ -9,7 +9,10 @@ import UIKit
 
 class ProfilePresentedView: UIViewController {
     @IBOutlet var mainView: UIView!
-    
+    @IBOutlet weak var nameLbl: UILabel!
+    @IBOutlet weak var userImg: CircleImageView!
+    @IBOutlet weak var userNameLbl: UILabel!
+    @IBOutlet weak var bioLbl: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         setBlurView()
