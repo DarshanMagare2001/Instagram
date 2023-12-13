@@ -40,6 +40,7 @@ class UsersProfileView: UIViewController {
     
     @objc func didTapUserImg(){
         print("didTapUserImg")
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
