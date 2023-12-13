@@ -8,6 +8,7 @@
 import UIKit
 
 class PostPresentedView: UIViewController {
+    
     @IBOutlet var baseView: UIView!
     @IBOutlet weak var mainView: RoundedViewWithBorder!
     @IBOutlet weak var userImg1: CircleImageView!
@@ -16,6 +17,8 @@ class PostPresentedView: UIViewController {
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var likeByLbl: UILabel!
     @IBOutlet weak var captionLbl: UILabel!
+    
+    var post : PostAllDataModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +38,14 @@ class PostPresentedView: UIViewController {
         blurView.effect = UIBlurEffect(style: .regular)
         baseView.addSubview(blurView)
         baseView.addSubview(mainView)
+        updateView()
+    }
+    
+    func updateView(){
+        if let post = post , let profileImgUrl = post.profileImageUrl {
+            ImageLoader.loadImage(for: URL(string: profileImgUrl), into: userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
+            ImageLoader.loadImage(for: URL(string: profileImgUrl), into: userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
+        }
     }
     
 }
