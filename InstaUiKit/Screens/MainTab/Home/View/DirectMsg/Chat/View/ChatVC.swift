@@ -90,6 +90,8 @@ class ChatVC: MessagesViewController {
         
         // Back button
         let backButton = UIBarButtonItem(image: UIImage(named: "BackArrow"), style: .plain, target: self, action: #selector(backButtonPressed))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapUserView))
+        
         backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
         
@@ -104,12 +106,20 @@ class ChatVC: MessagesViewController {
         if let imgUrl = receiverUser?.imageUrl {
             userProfileImageView.sd_setImage(with: URL(string: imgUrl))
         }
-        
+        userProfileImageView.addGestureRecognizer(tapGesture)
         // Add user name label
         let userNameLabel = UILabel(frame: CGRect(x: -75, y: 0, width: 200, height: 44)) // Reduced width to 75
         userNameLabel.text = receiverUser?.name
         userNameLabel.textColor = .black
         userNameLabel.font = UIFont.systemFont(ofSize: 16)
+        userNameLabel.addGestureRecognizer(tapGesture)
+        
+        userProfileImageView.isUserInteractionEnabled = true
+        userNameLabel.isUserInteractionEnabled = true
+        
+        
+        userProfileView.isUserInteractionEnabled = true
+        userProfileView.addGestureRecognizer(tapGesture)
         
         // Add subviews to the custom view
         userProfileView.addSubview(userProfileImageView)
@@ -119,6 +129,13 @@ class ChatVC: MessagesViewController {
         navigationItem.titleView = userProfileView
     }
     
+    @objc func didTapUserView(){
+        let storyboard = UIStoryboard.MainTab
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "UsersProfileView") as! UsersProfileView
+        destinationVC.user = receiverUser
+        destinationVC.isFollowAndMsgBtnShow = false
+        navigationController?.pushViewController(destinationVC, animated: true)
+    }
     
     
     @objc func backButtonPressed() {
