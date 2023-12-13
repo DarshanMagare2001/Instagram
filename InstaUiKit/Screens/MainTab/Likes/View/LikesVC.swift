@@ -113,14 +113,25 @@ extension LikesVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                                 ImageLoader.loadImage(for: URL(string: imgUrl), into: likesCell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
                                 likesCell.likeByLbl.text = "\(name) liked your post"
                             }
+                            
+                            likesCell.userImgPressed = { [weak self] in
+                                let stroryboard = UIStoryboard.MainTab
+                                let destinationVC = stroryboard.instantiateViewController(withIdentifier: "UsersProfileView") as! UsersProfileView
+                                destinationVC.user = user
+                                destinationVC.isFollowAndMsgBtnShow = true
+                                self?.navigationController?.pushViewController(destinationVC, animated: true)
+                            }
+                            
                         }
                     case.failure(let error):
                         print(error)
                     }
                 }
+                
                 if let imageURL = URL(string: self.allPost[section].postImageURL ?? "") {
                     ImageLoader.loadImage(for: imageURL, into: likesCell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
                 }
+                
             }
         }
         return likesCell
