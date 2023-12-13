@@ -58,7 +58,24 @@ class PostPresentedView: UIViewController {
                 self.nameLbl.text = name
                 self.locationLbl.text = location
                 self.captionLbl.text = caption
+                self.likeByLbl.text = "Loading.."
             }
+            
+            if let randomLikedByUID = likedBy.randomElement() {
+                FetchUserInfo.shared.fetchUserDataByUid(uid: randomLikedByUID) { [weak self] result in
+                    switch result {
+                    case .success(let data):
+                        if let data = data , let name = data.name {
+                            DispatchQueue.main.async {
+                                self?.likeByLbl.text = "Liked by \(name) and \(Int(likedBy.count - 1)) others."
+                            }
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            }
+            
         }
     }
     
