@@ -149,29 +149,35 @@ class PostViewModel {
                         let likedBy = data["likedBy"] as? [String] ?? []
                         let likesCount = data["likesCount"] as? Int ?? 0
                         let comments = data["comments"] as? [[String: Any]] ?? []
-
                         if let timestamp = data["timestamp"] as? Timestamp {
                             FetchUserInfo.shared.fetchUserDataByUid(uid: uid) { result in
-                                defer {
-                                    self.dispatchGroup.leave()
-                                }
-
                                 switch result {
                                 case .success(let user):
                                     guard let user = user, let name = user.name, let userName = user.username, let profileImgUrl = user.imageUrl else {
                                         return
                                     }
-
-                                    posts.append(PostAllDataModel(postImageURL: postImageURL, caption: caption, location: location, name: name, uid: uid, profileImageUrl: profileImgUrl, postDocumentID: postDocumentID, likedBy: likedBy, likesCount: likesCount, comments: comments, username: userName, timestamp: timestamp))
+                                    let post = PostAllDataModel(
+                                        postImageURL: postImageURL,
+                                        caption: caption,
+                                        location: location,
+                                        name: name,
+                                        uid: uid,
+                                        profileImageUrl: profileImgUrl,
+                                        postDocumentID: postDocumentID,
+                                        likedBy: likedBy,
+                                        likesCount: likesCount,
+                                        comments: comments,
+                                        username: userName,
+                                        timestamp: timestamp
+                                    )
+                                    posts.append(post)
                                 case .failure(let error):
                                     print(error)
                                 }
+                                self.dispatchGroup.leave()
                             }
-                        } else {
-                            self.dispatchGroup.leave()
                         }
                     }
-
                     self.dispatchGroup.notify(queue: .main) {
                         completion(.success(posts))
                     }
@@ -179,7 +185,6 @@ class PostViewModel {
             }
     }
 
-    
     
     
     func fetchPostbyPostDocumentID(byPostDocumentID postDocumentID: String, completion: @escaping (Result<PostAllDataModel?, Error>) -> Void) {
