@@ -13,6 +13,7 @@ class ProfilePresentedView: UIViewController {
     @IBOutlet weak var userImg: CircleImageView!
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var bioLbl: UILabel!
+    @IBOutlet weak var mainStackView: UIStackView!
     override func viewDidLoad() {
         super.viewDidLoad()
         setBlurView()
@@ -23,7 +24,9 @@ class ProfilePresentedView: UIViewController {
         blurView.frame = view.frame
         blurView.effect = UIBlurEffect(style: .regular)
         mainView.addSubview(blurView)
+        mainView.addSubview(mainStackView)
     }
+    
     
 }
 
