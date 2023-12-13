@@ -531,6 +531,7 @@
                         <outlet property="locationLbl" destination="LXb-TD-nBI" id="o35-b3-X8m"/>
                         <outlet property="mainView" destination="EsR-8n-zCn" id="lmq-in-Vyb"/>
                         <outlet property="nameLbl" destination="dwd-Hg-kq2" id="EA6-pl-AzF"/>
+                        <outlet property="postImg" destination="WZg-Cv-A1S" id="171-qi-tWY"/>
                         <outlet property="userImg1" destination="z3g-f9-rJq" id="yK6-C4-yb6"/>
                         <outlet property="userImg2" destination="c1E-OK-GGy" id="JiA-MT-PcZ"/>
                     </connections>

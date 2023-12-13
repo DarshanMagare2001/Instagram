@@ -13,6 +13,7 @@ class PostPresentedView: UIViewController {
     @IBOutlet weak var mainView: RoundedViewWithBorder!
     @IBOutlet weak var userImg1: CircleImageView!
     @IBOutlet weak var userImg2: CircleImageView!
+    @IBOutlet weak var postImg: UIImageView!
     @IBOutlet weak var locationLbl: UILabel!
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var likeByLbl: UILabel!
@@ -42,9 +43,22 @@ class PostPresentedView: UIViewController {
     }
     
     func updateView(){
-        if let post = post , let profileImgUrl = post.profileImageUrl {
-            ImageLoader.loadImage(for: URL(string: profileImgUrl), into: userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
-            ImageLoader.loadImage(for: URL(string: profileImgUrl), into: userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
+        if let post = post ,
+           let profileImgUrl = post.profileImageUrl ,
+           let postImgUrl = post.postImageURL,
+           let name = post.name ,
+           let location = post.location ,
+           let caption = post.caption ,
+           let likedBy = post.likedBy
+        {
+            DispatchQueue.main.async {
+                ImageLoader.loadImage(for: URL(string: profileImgUrl), into: self.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
+                ImageLoader.loadImage(for: URL(string: profileImgUrl), into: self.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
+                ImageLoader.loadImage(for: URL(string: postImgUrl), into: self.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                self.nameLbl.text = name
+                self.locationLbl.text = location
+                self.captionLbl.text = caption
+            }
         }
     }
     
