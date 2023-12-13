@@ -23,6 +23,7 @@ class ProfileVC: UIViewController {
     var viewModel1 = AuthenticationViewModel()
     var viewModel2 = ProfileViewModel()
     var allPost = [PostAllDataModel]()
+    var currentUser : UserModel?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.showAnimatedGradientSkeleton()
@@ -33,9 +34,24 @@ class ProfileVC: UIViewController {
         let followersTapGesture = UITapGestureRecognizer(target: self, action: #selector(followersCountLabelTapped))
         followersTxtLbl.isUserInteractionEnabled = true
         followersTxtLbl.addGestureRecognizer(followersTapGesture)
+        
+        let userImgTapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapUserImg))
+        userImg.isUserInteractionEnabled = true
+        userImg.addGestureRecognizer(userImgTapGesture)
+        
         configuration()
         updateUI()
     }
+    
+    
+    @objc func didTapUserImg(){
+        let storyboard = UIStoryboard.Common
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "ProfilePresentedView") as! ProfilePresentedView
+        destinationVC.user = currentUser
+        destinationVC.modalPresentationStyle = .overFullScreen
+        present(destinationVC, animated: true, completion: nil)
+    }
+    
     
     private func setBarItemsForProfileVC() {
         if let mainTabVC = tabBarController as? MainTabVC {
@@ -55,6 +71,18 @@ class ProfileVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+            switch result {
+            case.success(let data):
+                if let data = data {
+                    self.currentUser = data
+                }
+            case.failure(let error):
+                print(error)
+            }
+        }
+        
         DispatchQueue.main.async {
             self.configuration()
             self.updateUI()
