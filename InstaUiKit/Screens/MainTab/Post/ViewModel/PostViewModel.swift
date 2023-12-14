@@ -19,26 +19,6 @@ class PostViewModel {
     let dispatchGroup = DispatchGroup()
     private init(){}
     
-    func fetchAllPhotos(completion: @escaping ([UIImage]) -> Void) {
-        var images: [UIImage] = []
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        let fetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
-        let imageManager = PHImageManager.default()
-        fetchResult.enumerateObjects { asset, _, _ in
-            let targetSize = CGSize(width: 700, height: 700) // Adjust the target size as needed
-            let requestOptions = PHImageRequestOptions()
-            requestOptions.isSynchronous = true
-            imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: requestOptions) { image, _ in
-                if let image = image {
-                    images.append(image)
-                }
-            }
-        }
-        completion(images)
-    }
-    
-    
     func uploadImageToFirebaseStorage(image: UIImage, caption: String, location: String, completionHandler: @escaping (Bool) -> Void) {
         let imageName = "\(Int(Date().timeIntervalSince1970)).jpg"
         let storageRef = Storage.storage().reference().child("images/\(imageName)")
@@ -183,7 +163,7 @@ class PostViewModel {
                 }
             }
     }
-
+    
     
     
     func fetchPostbyPostDocumentID(byPostDocumentID postDocumentID: String, completion: @escaping (Result<PostAllDataModel?, Error>) -> Void) {

@@ -8,7 +8,6 @@
 import UIKit
 
 class MainTabVC: UITabBarController {
-    private var postActionClosureForPostNxtBtnForPostVC: (() -> Void)?
     private var postActionClosureForsideBtnTappedForProfileVC: (() -> Void)?
     private var postActionClosureForDirectMsgBtnForHomeVC: (() -> Void)?
     private var postActionClosureForNotificationBtnForHomeVC: (() -> Void)?
@@ -127,20 +126,6 @@ class MainTabVC: UITabBarController {
         navigationItem.leftBarButtonItems = nil
         navigationItem.title = "Search"
     }
-    
-    func setBarItemsForPostVC(action: @escaping () -> Void) {
-        navigationItem.title = nil
-        navigationItem.leftBarButtonItems = nil
-        navigationItem.rightBarButtonItems = nil
-        navigationItem.title = "Post"
-        let nextButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(nextButtonTapped))
-        navigationItem.rightBarButtonItem = nextButton
-        self.postActionClosureForPostNxtBtnForPostVC = action
-    }
-    @objc private func nextButtonTapped() {
-        postActionClosureForPostNxtBtnForPostVC?()
-    }
-    
     
     func setBarItemsForLikesVC(){
         navigationItem.title = nil

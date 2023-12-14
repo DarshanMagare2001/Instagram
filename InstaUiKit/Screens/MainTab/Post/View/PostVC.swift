@@ -17,7 +17,7 @@ class PostVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         config.library.maxNumberOfItems = 4
-        config.screens = [.library, .photo, .video]
+        config.screens = [.library,.photo]
         config.library.mediaType = .photoAndVideo
         imgPicker = YPImagePicker(configuration: config)
         presentImagePicker()
@@ -26,14 +26,6 @@ class PostVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
-    
-//    let storyboard = UIStoryboard.MainTab
-//    let destinationVC = storyboard.instantiateViewController(withIdentifier: "UploadVC") as! UploadVC
-//    destinationVC.img = img
-//    self.navigationController?.pushViewController(destinationVC, animated: true)
-    
-//    Alert.shared.alertOk(title: "Warning!", message: "Select Photo First", presentingViewController: self){ _ in}
-    
     
     func presentImagePicker() {
         // Check if the image picker is already presented
@@ -47,9 +39,13 @@ class PostVC: UIViewController {
             for item in items {
                 switch item {
                 case .photo(let photo):
-                    print("Photo Selected")
+                    let image = photo.image
+                    let storyboard = UIStoryboard.MainTab
+                    let destinationVC = storyboard.instantiateViewController(withIdentifier: "UploadVC") as! UploadVC
+                    destinationVC.img = image
+                    self?.navigationController?.pushViewController(destinationVC, animated: true)
                 case .video(let video):
-                    print("Video Selected")
+                    print(video)
                 }
             }
             self?.navigationController?.popViewController(animated: true)
