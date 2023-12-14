@@ -11,11 +11,11 @@ class UploadVC: UIViewController {
     @IBOutlet weak var selectedImg: UIImageView!
     @IBOutlet weak var captionTxtFld: UITextField!
     @IBOutlet weak var locationTxtFld: UITextField!
-    var img : UIImage?
+    var img : [UIImage]?
     override func viewDidLoad() {
         super.viewDidLoad()
         if let img = img {
-            selectedImg.image = img
+            selectedImg.image = img[0]
         }
     }
     
@@ -45,7 +45,7 @@ class UploadVC: UIViewController {
             MessageLoader.shared.showLoader(withText: "Please wait Uploading..")
             
             if let img = self.img, let caption = self.captionTxtFld.text, let location = self.locationTxtFld.text{
-                PostViewModel.shared.uploadImageToFirebaseStorage(image: img, caption: caption, location: location){ value in
+                PostViewModel.shared.uploadImageToFirebaseStorage(image: img[0], caption: caption, location: location){ value in
                     if value {
                         MessageLoader.shared.hideLoader()
                         Alert.shared.alertOk(title: "Success!", message: "Your Photo uploaded successfully.", presentingViewController: self){ _ in

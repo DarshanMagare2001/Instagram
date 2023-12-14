@@ -14,6 +14,7 @@ class PostVC: UIViewController {
     @IBOutlet weak var imageView: UIView!
     var config = YPImagePickerConfiguration()
     var imgPicker = YPImagePicker()
+    let disPatchGroup = DispatchGroup()
     override func viewDidLoad() {
         super.viewDidLoad()
         config.library.maxNumberOfItems = 4
@@ -34,22 +35,34 @@ class PostVC: UIViewController {
             }
         }
         imgPicker.didFinishPicking { [weak self] items , _ in
+            var images = [UIImage]()
             for item in items {
+                self?.disPatchGroup.enter()
                 switch item {
                 case .photo(let photo):
                     let image = photo.image
-                    let storyboard = UIStoryboard.MainTab
-                    let destinationVC = storyboard.instantiateViewController(withIdentifier: "UploadVC") as! UploadVC
-                    destinationVC.img = image
-                    self?.navigationController?.pushViewController(destinationVC, animated: true)
+                    images.append(image)
+                    self?.disPatchGroup.leave()
                 case .video(let video):
                     print(video)
                 }
             }
+            
+            self?.disPatchGroup.notify(queue: .main) {
+                self?.gotoUploadVC(images:images)
+            }
+            
         }
         self.addChild(imgPicker)
         self.view.addSubview(imgPicker.view)
         imgPicker.didMove(toParent: self)
+    }
+    
+    private func gotoUploadVC(images:[UIImage]){
+        let storyboard = UIStoryboard.MainTab
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "UploadVC") as! UploadVC
+        destinationVC.img = images
+        self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
 }
