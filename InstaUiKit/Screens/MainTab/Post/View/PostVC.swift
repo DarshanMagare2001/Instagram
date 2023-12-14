@@ -33,7 +33,7 @@ class PostVC: UIViewController {
                 return
             }
         }
-        imgPicker.didFinishPicking { [weak self] items, cancelled in
+        imgPicker.didFinishPicking { [weak self] items , _ in
             for item in items {
                 switch item {
                 case .photo(let photo):
