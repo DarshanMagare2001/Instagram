@@ -17,9 +17,11 @@ class AddStoryVC: UIViewController {
         config.screens = [.library, .photo, .video]
         config.library.mediaType = .photoAndVideo
         imgPicker = YPImagePicker(configuration: config)
-        
-        // Display the YPImagePicker directly on the main view
         presentImagePicker()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     func presentImagePicker() {
@@ -29,7 +31,6 @@ class AddStoryVC: UIViewController {
                 return
             }
         }
-        
         // Present the image picker on the main view
         imgPicker.didFinishPicking { [weak self] items, cancelled in
             for item in items {
@@ -40,24 +41,13 @@ class AddStoryVC: UIViewController {
                     print("Video Selected")
                 }
             }
-            self?.imgPicker.dismiss(animated: true, completion: nil)
+            self?.navigationController?.popViewController(animated: true)
         }
-        
         self.addChild(imgPicker)
         self.view.addSubview(imgPicker.view)
         imgPicker.didMove(toParent: self)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        navigationItem.hidesBackButton = true
-        let backButton = UIBarButtonItem(image: UIImage(named: "BackArrow"), style: .plain, target: self, action: #selector(backButtonPressed))
-        backButton.tintColor = .black
-        navigationItem.leftBarButtonItem = backButton
-    }
-    
-    @objc func backButtonPressed() {
-        navigationController?.popViewController(animated: true)
-    }
 }
 
 extension UIApplication {
