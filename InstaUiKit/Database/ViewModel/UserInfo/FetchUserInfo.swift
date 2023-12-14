@@ -75,8 +75,9 @@ class FetchUserInfo {
                             let followersRequest = document["followersRequest"] as? [String]
                             let usersChatList = document["usersChatList"] as? [String]
                             let usersChatNotification = document["usersChatNotification"] as? [String]
+                            let usersStories = document["usersStories"] as? [[String:String]]
                             if uid != currentUid { // Check if the uid is not the current user's uid
-                                let user = UserModel(uid: uid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers : followers ?? [] , followings: followings ?? [] , isPrivate:isPrivate ?? "" , followingsRequest : followingsRequest ?? [] , followersRequest : followersRequest ?? [] , usersChatList : usersChatList ?? [] , usersChatNotification :usersChatNotification ?? [])
+                                let user = UserModel(uid: uid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers : followers ?? [] , followings: followings ?? [] , isPrivate:isPrivate ?? "" , followingsRequest : followingsRequest ?? [] , followersRequest : followersRequest ?? [] , usersChatList : usersChatList ?? [] , usersChatNotification :usersChatNotification ?? [] , usersStories : usersStories ?? [])
                                 users.append(user)
                                 print(users)
                             }
@@ -117,7 +118,8 @@ class FetchUserInfo {
                     let followersRequest = document["followersRequest"] as? [String]
                     let usersChatList = document["usersChatList"] as? [String]
                     let usersChatNotification = document["usersChatNotification"] as? [String]
-                    let user = UserModel(uid: uid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers : followers ?? [] , followings: followings ?? [] , isPrivate : isPrivate ?? "" ,followingsRequest : followingsRequest ?? [] , followersRequest : followersRequest ?? [] , usersChatList : usersChatList ?? [] , usersChatNotification : usersChatNotification ?? [])
+                    let usersStories = document["usersStories"] as? [[String:String]]
+                    let user = UserModel(uid: uid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers : followers ?? [] , followings: followings ?? [] , isPrivate : isPrivate ?? "" ,followingsRequest : followingsRequest ?? [] , followersRequest : followersRequest ?? [] , usersChatList : usersChatList ?? [] , usersChatNotification : usersChatNotification ?? [] , usersStories : usersStories ?? [])
                     DispatchQueue.main.async {
                         completionHandler(.success(user))
                     }
@@ -157,7 +159,8 @@ class FetchUserInfo {
                 let followersRequest = document["followersRequest"] as? [String]
                 let usersChatList = document["usersChatList"] as? [String]
                 let usersChatNotification = document["usersChatNotification"] as? [String]
-                let user = UserModel(uid: userUid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers: followers ?? [], followings: followings ?? [] , isPrivate : isPrivate ?? "" ,followingsRequest : followingsRequest ?? [] , followersRequest : followersRequest ?? [] , usersChatList : usersChatList ?? [] , usersChatNotification : usersChatNotification ?? [])
+                let usersStories = document["usersStories"] as? [[String:String]]
+                let user = UserModel(uid: userUid ?? "", bio: bio ?? "", fcmToken: fcmToken ?? "", phoneNumber: phoneNumber ?? "", countryCode: countryCode ?? "", name: name ?? "", imageUrl: imageURL ?? "", gender: gender ?? "", username: username ?? "", followers: followers ?? [], followings: followings ?? [] , isPrivate : isPrivate ?? "" ,followingsRequest : followingsRequest ?? [] , followersRequest : followersRequest ?? [] , usersChatList : usersChatList ?? [] , usersChatNotification : usersChatNotification ?? [] , usersStories : usersStories ?? [])
                 DispatchQueue.main.async {
                     completionHandler(.success(user))
                 }
