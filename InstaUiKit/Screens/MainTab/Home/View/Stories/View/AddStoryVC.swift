@@ -6,13 +6,30 @@
 //
 
 import UIKit
+import YPImagePicker
 
 class AddStoryVC: UIViewController {
-    
+    var config = YPImagePickerConfiguration()
+    var imgPicker = YPImagePicker()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        config.library.maxNumberOfItems = 4
+        config.screens = [.library, .photo, .video]
+        config.library.mediaType = .photoAndVideo
+        imgPicker = YPImagePicker(configuration: config)
+        self.present(self.imgPicker, animated: true, completion: nil)
+        self.imgPicker.didFinishPicking { items, cancelled in
+            for item in items {
+                switch item {
+                case .photo(let photo):
+                    print("Photo Selected")
+                    
+                case .video(let video):
+                    print("Video Selected")
+                }
+            }
+            self.imgPicker.dismiss(animated: true, completion: nil)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
