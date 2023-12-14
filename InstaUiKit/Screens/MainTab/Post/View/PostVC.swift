@@ -49,6 +49,7 @@ class PostVC: UIViewController {
             }
             
             self?.disPatchGroup.notify(queue: .main) {
+                guard  images.count > 0 else {return}
                 self?.gotoUploadVC(images:images)
             }
             
