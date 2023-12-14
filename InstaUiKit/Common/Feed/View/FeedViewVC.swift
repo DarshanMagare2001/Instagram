@@ -61,7 +61,7 @@ extension FeedViewVC: UITableViewDelegate, UITableViewDataSource {
             guard let postUid = post.uid ,
                   let postName = post.name ,
                   let profileImgUrl = post.profileImageUrl ,
-                  let postImageURL = post.postImageURL,
+                  let postImageURLs = post.postImageURLs,
                   let postLocation = post.location,
                   let postCaption = post.caption ,
                   let postComments = post.comments,
@@ -74,7 +74,7 @@ extension FeedViewVC: UITableViewDelegate, UITableViewDataSource {
             DispatchQueue.main.async { [weak self] in
                 ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
                 ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
-                ImageLoader.loadImage(for: URL(string: postImageURL), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                ImageLoader.loadImage(for: URL(string: postImageURLs[0]), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
                 cell.postLocationLbl.text = postLocation
                 cell.postCaption.text = postCaption
                 cell.totalLikesCount.text = "\(postLikesCounts) Likes"

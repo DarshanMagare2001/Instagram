@@ -22,13 +22,13 @@ class PostViewModel {
     func uploadImagesToFirebaseStorage(images: [UIImage], caption: String, location: String, completionHandler: @escaping (Bool) -> Void) {
         let group = DispatchGroup()
         var downloadURLs: [String] = []
-
+        
         for (index, image) in images.enumerated() {
             group.enter()
-
+            
             let imageName = "\(Int(Date().timeIntervalSince1970))_\(index).jpg"
             let storageRef = Storage.storage().reference().child("images/\(imageName)")
-
+            
             if let imageData = image.jpegData(compressionQuality: 0.5) {
                 storageRef.putData(imageData, metadata: nil) { (metadata, error) in
                     if let error = error {
@@ -51,7 +51,7 @@ class PostViewModel {
                 group.leave()
             }
         }
-
+        
         group.notify(queue: .main) {
             // All images have been uploaded
             guard !downloadURLs.isEmpty, let uid = Auth.auth().currentUser?.uid else {
@@ -59,7 +59,7 @@ class PostViewModel {
                 completionHandler(false)
                 return
             }
-
+            
             let db = Firestore.firestore()
             var imageDocData: [String: Any] = [
                 "postImageURLs": downloadURLs,
@@ -68,7 +68,7 @@ class PostViewModel {
                 "uid": uid,
                 "timestamp": FieldValue.serverTimestamp()
             ]
-
+            
             db.collection("post").addDocument(data: imageDocData) { (error) in
                 if let error = error {
                     print("Error adding document: \(error)")
@@ -80,7 +80,7 @@ class PostViewModel {
             }
         }
     }
-
+    
     
     
     func fetchPostDataOfPerticularUser(forUID uid: String, completion: @escaping (Result<[PostAllDataModel], Error>) -> Void) {
@@ -96,7 +96,7 @@ class PostViewModel {
                     for document in querySnapshot!.documents {
                         self.dispatchGroup.enter()
                         let data = document.data()
-                        let postImageURL = data["postImageURL"] as? String ?? ""
+                        let postImageURLs = data["postImageURLs"] as? [String] ?? []
                         let caption = data["caption"] as? String ?? ""
                         let location = data["location"] as? String ?? ""
                         let uid = data["uid"] as? String ?? ""
@@ -109,7 +109,7 @@ class PostViewModel {
                                 switch result {
                                 case.success(let user):
                                     if let user = user , let name = user.name , let userName = user.username , let profilrImgUrl = user.imageUrl{
-                                        posts.append(PostAllDataModel(postImageURL: postImageURL, caption: caption, location: location, name: name, uid: uid, profileImageUrl: profilrImgUrl, postDocumentID: postDocumentID, likedBy: likedBy, likesCount: likesCount, comments: comments, username: userName, timestamp: timestamp))
+                                        posts.append(PostAllDataModel(postImageURLs: postImageURLs, caption: caption, location: location, name: name, uid: uid, profileImageUrl: profilrImgUrl, postDocumentID: postDocumentID, likedBy: likedBy, likesCount: likesCount, comments: comments, username: userName, timestamp: timestamp))
                                     }
                                 case.failure(let error):
                                     print(error)
@@ -139,7 +139,7 @@ class PostViewModel {
                     for document in querySnapshot!.documents {
                         self.dispatchGroup.enter()
                         let data = document.data()
-                        let postImageURL = data["postImageURL"] as? String ?? ""
+                        let postImageURLs = data["postImageURLs"] as? [String] ?? []
                         let caption = data["caption"] as? String ?? ""
                         let location = data["location"] as? String ?? ""
                         let uid = data["uid"] as? String ?? ""
@@ -155,7 +155,7 @@ class PostViewModel {
                                         return
                                     }
                                     let post = PostAllDataModel(
-                                        postImageURL: postImageURL,
+                                        postImageURLs: postImageURLs,
                                         caption: caption,
                                         location: location,
                                         name: name,
@@ -194,7 +194,7 @@ class PostViewModel {
                     completion(.failure(error))
                 } else {
                     let data = documentSnapshot?.data() ?? [:]
-                    let postImageURL = data["postImageURL"] as? String ?? ""
+                    let postImageURLs = data["postImageURLs"] as? [String] ?? []
                     let caption = data["caption"] as? String ?? ""
                     let location = data["location"] as? String ?? ""
                     let uid = data["uid"] as? String ?? ""
@@ -206,7 +206,7 @@ class PostViewModel {
                             switch result {
                             case.success(let user):
                                 if let user = user , let name = user.name , let userName = user.username , let profilrImgUrl = user.imageUrl{
-                                    let posts = (PostAllDataModel(postImageURL: postImageURL, caption: caption, location: location, name: name, uid: uid, profileImageUrl: profilrImgUrl, postDocumentID: postDocumentID, likedBy: likedBy, likesCount: likesCount, comments: comments, username: userName, timestamp: timestamp))
+                                    let posts = (PostAllDataModel(postImageURLs: postImageURLs, caption: caption, location: location, name: name, uid: uid, profileImageUrl: profilrImgUrl, postDocumentID: postDocumentID, likedBy: likedBy, likesCount: likesCount, comments: comments, username: userName, timestamp: timestamp))
                                     completion(.success(posts))
                                 }
                             case.failure(let error):

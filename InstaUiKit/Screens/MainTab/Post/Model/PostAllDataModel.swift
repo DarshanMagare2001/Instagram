@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 
 struct PostAllDataModel {
-    var postImageURL: String?
+    var postImageURLs: [String]?
     var caption: String?
     var location: String?
     var name: String?
@@ -22,8 +22,8 @@ struct PostAllDataModel {
     var username: String?
     var timestamp: Timestamp?
 
-    init(postImageURL: String, caption: String, location: String, name: String, uid: String, profileImageUrl: String, postDocumentID: String, likedBy: [String], likesCount: Int, comments: [[String: Any]], username: String, timestamp: Timestamp) {
-        self.postImageURL = postImageURL
+    init(postImageURLs: [String], caption: String, location: String, name: String, uid: String, profileImageUrl: String, postDocumentID: String, likedBy: [String], likesCount: Int, comments: [[String: Any]], username: String, timestamp: Timestamp) {
+        self.postImageURLs = postImageURLs
         self.caption = caption
         self.location = location
         self.name = name

@@ -8,7 +8,7 @@
 import FirebaseFirestore
 
 struct PostModel {
-    var postImageURL: String
+    var postImageURLs: [String]
     var caption: String
     var location: String
     var uid: String
@@ -19,7 +19,7 @@ struct PostModel {
     var timestamp: Timestamp 
 
     init(
-        postImageURL: String,
+        postImageURLs: [String],
         caption: String,
         location: String,
         uid: String,
@@ -29,7 +29,7 @@ struct PostModel {
         comments: [[String: Any]],
         timestamp: Timestamp
     ) {
-        self.postImageURL = postImageURL
+        self.postImageURLs = postImageURLs
         self.caption = caption
         self.location = location
         self.uid = uid

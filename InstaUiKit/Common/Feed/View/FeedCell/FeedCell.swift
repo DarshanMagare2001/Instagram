@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol FeedCellDelegate: AnyObject {
+    func feedCell(_ cell: FeedCell, didSelectPageAtIndex index: Int)
+}
+
 class FeedCell: UITableViewCell {
     @IBOutlet weak var userImg1: UIImageView!
     @IBOutlet weak var userImg2: UIImageView!
@@ -18,10 +22,12 @@ class FeedCell: UITableViewCell {
     @IBOutlet weak var likeBtn: UIButton!
     @IBOutlet weak var totalLikesCount: UILabel!
     @IBOutlet weak var likedByLbl: UILabel!
+    @IBOutlet weak var steperControl: UIPageControl!
     var likeBtnTapped: (() -> Void)?
     var commentsBtnTapped: (() -> Void)?
     var doubleTapAction: (() -> Void)?
     var isLiked: Bool = false
+    weak var delegate: FeedCellDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didDoubleTap))
@@ -54,6 +60,11 @@ class FeedCell: UITableViewCell {
             })
         }
         
+    }
+    
+    
+    @IBAction func stepperControlPressed(_ sender: UIPageControl) {
+        delegate?.feedCell(self, didSelectPageAtIndex: sender.currentPage)
     }
     
     @IBAction func likeBtnPressed(_ sender: UIButton) {
