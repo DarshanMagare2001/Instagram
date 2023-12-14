@@ -20,6 +20,7 @@ class UploadVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: true)
         navigationItem.hidesBackButton = true
         navigationItem.title = "Upload"
         let backButton = UIBarButtonItem(image: UIImage(named: "BackArrow"), style: .plain, target: self, action: #selector(backButtonPressed))

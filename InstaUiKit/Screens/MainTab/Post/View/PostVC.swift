@@ -20,21 +20,19 @@ class PostVC: UIViewController {
         config.screens = [.library,.photo]
         config.library.mediaType = .photoAndVideo
         imgPicker = YPImagePicker(configuration: config)
-        presentImagePicker()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: true)
+        presentImagePicker()
     }
     
     func presentImagePicker() {
-        // Check if the image picker is already presented
         if let topViewController = UIApplication.topViewController() {
             if topViewController.presentedViewController is YPImagePicker {
                 return
             }
         }
-        // Present the image picker on the main view
         imgPicker.didFinishPicking { [weak self] items, cancelled in
             for item in items {
                 switch item {
@@ -48,12 +46,10 @@ class PostVC: UIViewController {
                     print(video)
                 }
             }
-            self?.navigationController?.popViewController(animated: true)
         }
         self.addChild(imgPicker)
         self.view.addSubview(imgPicker.view)
         imgPicker.didMove(toParent: self)
     }
-    
     
 }
