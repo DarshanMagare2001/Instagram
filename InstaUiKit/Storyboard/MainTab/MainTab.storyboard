@@ -1043,13 +1043,35 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Fmf-cT-pLG">
                                 <rect key="frame" x="20" y="20" width="280" height="150"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZJo-78-urP">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ufn-Ls-tYV">
                                         <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZJo-78-urP">
+                                                <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="150" id="JAY-dA-vcE"/>
+                                                    <constraint firstAttribute="width" constant="150" id="hpj-rO-MFn"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square.and.arrow.up.on.square.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="pM5-mp-fKU">
+                                                <rect key="frame" x="100" y="97.5" width="40" height="45"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="X0F-TA-eKU"/>
+                                                    <constraint firstAttribute="height" constant="40" id="ray-7s-IRa"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="150" id="JAY-dA-vcE"/>
-                                            <constraint firstAttribute="width" constant="150" id="hpj-rO-MFn"/>
+                                            <constraint firstAttribute="trailing" secondItem="ZJo-78-urP" secondAttribute="trailing" id="25c-Fh-pPS"/>
+                                            <constraint firstAttribute="trailing" secondItem="pM5-mp-fKU" secondAttribute="trailing" constant="10" id="JNf-dm-OS5"/>
+                                            <constraint firstItem="ZJo-78-urP" firstAttribute="top" secondItem="Ufn-Ls-tYV" secondAttribute="top" id="Nw1-yL-gNi"/>
+                                            <constraint firstAttribute="bottom" secondItem="ZJo-78-urP" secondAttribute="bottom" id="SDD-2B-TR0"/>
+                                            <constraint firstAttribute="bottom" secondItem="pM5-mp-fKU" secondAttribute="bottom" constant="10" id="kkT-MQ-OUc"/>
+                                            <constraint firstItem="ZJo-78-urP" firstAttribute="leading" secondItem="Ufn-Ls-tYV" secondAttribute="leading" id="tXT-nt-O9n"/>
                                         </constraints>
-                                    </imageView>
+                                    </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="7fZ-LH-EIE">
                                         <rect key="frame" x="160" y="0.0" width="120" height="150"/>
                                         <subviews>
@@ -1079,6 +1101,7 @@
                     <connections>
                         <outlet property="captionTxtFld" destination="Nsq-om-ONi" id="5dv-td-mat"/>
                         <outlet property="locationTxtFld" destination="jcD-7k-yiq" id="oaq-qq-1Ln"/>
+                        <outlet property="multipleSignImg" destination="pM5-mp-fKU" id="mlh-Wc-f9r"/>
                         <outlet property="selectedImg" destination="ZJo-78-urP" id="ElA-DK-iKM"/>
                     </connections>
                 </viewController>
@@ -2085,6 +2108,7 @@
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="power.circle" catalog="system" width="128" height="121"/>
+        <image name="square.and.arrow.up.on.square.fill" catalog="system" width="117" height="128"/>
         <image name="xmark.app.fill" catalog="system" width="128" height="114"/>
         <namedColor name="GlobalBlue">
             <color red="0.21568627450980393" green="0.59215686274509804" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

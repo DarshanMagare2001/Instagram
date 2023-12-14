@@ -11,11 +11,13 @@ class UploadVC: UIViewController {
     @IBOutlet weak var selectedImg: UIImageView!
     @IBOutlet weak var captionTxtFld: UITextField!
     @IBOutlet weak var locationTxtFld: UITextField!
+    @IBOutlet weak var multipleSignImg: UIImageView!
     var img : [UIImage]?
     override func viewDidLoad() {
         super.viewDidLoad()
         if let img = img {
             selectedImg.image = img[0]
+            multipleSignImg.isHidden = (img.count > 1 ? false : true)
         }
     }
     
