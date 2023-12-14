@@ -30,6 +30,7 @@ class LikesVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: true)
         setBarItemsForLikesVC()
     }
     

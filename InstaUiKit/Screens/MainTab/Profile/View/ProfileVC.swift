@@ -93,6 +93,7 @@ class ProfileVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
         
         FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
             switch result {

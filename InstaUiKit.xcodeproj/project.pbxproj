@@ -54,6 +54,7 @@
 		137E54A02B1476BD00186558 /* FollowersAndFollowingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137E549F2B1476BD00186558 /* FollowersAndFollowingViewModel.swift */; };
 		137E67A12B18A2FD00525169 /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137E67A02B18A2FD00525169 /* NotificationVC.swift */; };
 		13844A4C2B2B07C700ABB9F0 /* YPImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 13844A4B2B2B07C700ABB9F0 /* YPImagePicker */; };
+		13844A4E2B2B10A500ABB9F0 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13844A4D2B2B10A500ABB9F0 /* UIApplication+Extensions.swift */; };
 		1385F38F2AF5205F006C8363 /* UsersProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1385F38E2AF5205F006C8363 /* UsersProfileView.swift */; };
 		138BC5D42A73806E00020297 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BC5D32A73806E00020297 /* EditProfileVC.swift */; };
 		138BC5D92A73922100020297 /* DirectMsgVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BC5D82A73922100020297 /* DirectMsgVC.swift */; };
@@ -151,6 +152,7 @@
 		137E549B2B14768800186558 /* FollowersAndFollowingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersAndFollowingVC.swift; sourceTree = "<group>"; };
 		137E549F2B1476BD00186558 /* FollowersAndFollowingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersAndFollowingViewModel.swift; sourceTree = "<group>"; };
 		137E67A02B18A2FD00525169 /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
+		13844A4D2B2B10A500ABB9F0 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		1385F38E2AF5205F006C8363 /* UsersProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersProfileView.swift; sourceTree = "<group>"; };
 		138BC5D32A73806E00020297 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		138BC5D82A73922100020297 /* DirectMsgVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectMsgVC.swift; sourceTree = "<group>"; };
@@ -403,6 +405,7 @@
 			children = (
 				139110002A864CBD00CABCD5 /* ImageLoader+Extensions.swift */,
 				13DBE7742AEB938C0006F3B9 /* Storyboard+Extensions.swift */,
+				13844A4D2B2B10A500ABB9F0 /* UIApplication+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1324,6 +1327,7 @@
 				13FB7D622A723F0900D8FC5C /* StoriesCell.swift in Sources */,
 				138BC5FC2A73BED600020297 /* ImagePicker.swift in Sources */,
 				13DBE7932AEBC32A0006F3B9 /* Alert.swift in Sources */,
+				13844A4E2B2B10A500ABB9F0 /* UIApplication+Extensions.swift in Sources */,
 				13DBE7892AEBC12E0006F3B9 /* AuthenticationViewModel.swift in Sources */,
 				1392D0222A80B50C004B6654 /* MainTabVC.swift in Sources */,
 				1355B8D22B0CCB840027A2AF /* Notification.swift in Sources */,
