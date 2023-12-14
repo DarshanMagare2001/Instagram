@@ -110,6 +110,15 @@
         }
       },
       {
+        "package": "PryntTrimmerView",
+        "repositoryURL": "https://github.com/HHK1/PryntTrimmerView",
+        "state": {
+          "branch": null,
+          "revision": "ac1b60a22c7e6a6514de7a66d2f3d5b537c956d5",
+          "version": "4.0.2"
+        }
+      },
+      {
         "package": "RxSwift",
         "repositoryURL": "https://github.com/ReactiveX/RxSwift.git",
         "state": {
@@ -137,12 +146,30 @@
         }
       },
       {
+        "package": "Stevia",
+        "repositoryURL": "https://github.com/freshOS/Stevia",
+        "state": {
+          "branch": null,
+          "revision": "cfb1a1d2159277bb553c3dc46f3f742c0275566d",
+          "version": "5.1.2"
+        }
+      },
+      {
         "package": "SwiftProtobuf",
         "repositoryURL": "https://github.com/apple/swift-protobuf.git",
         "state": {
           "branch": null,
           "revision": "07f7f26ded8df9645c072f220378879c4642e063",
           "version": "1.25.1"
+        }
+      },
+      {
+        "package": "YPImagePicker",
+        "repositoryURL": "https://github.com/Yummypets/YPImagePicker.git",
+        "state": {
+          "branch": null,
+          "revision": "2db04eb020e3ef03828d3207d85250e110fa5919",
+          "version": "5.2.2"
         }
       }
     ]

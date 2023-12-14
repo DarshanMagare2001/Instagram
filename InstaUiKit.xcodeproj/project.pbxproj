@@ -53,6 +53,7 @@
 		137E549C2B14768800186558 /* FollowersAndFollowingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137E549B2B14768800186558 /* FollowersAndFollowingVC.swift */; };
 		137E54A02B1476BD00186558 /* FollowersAndFollowingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137E549F2B1476BD00186558 /* FollowersAndFollowingViewModel.swift */; };
 		137E67A12B18A2FD00525169 /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137E67A02B18A2FD00525169 /* NotificationVC.swift */; };
+		13844A4C2B2B07C700ABB9F0 /* YPImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 13844A4B2B2B07C700ABB9F0 /* YPImagePicker */; };
 		1385F38F2AF5205F006C8363 /* UsersProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1385F38E2AF5205F006C8363 /* UsersProfileView.swift */; };
 		138BC5D42A73806E00020297 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BC5D32A73806E00020297 /* EditProfileVC.swift */; };
 		138BC5D92A73922100020297 /* DirectMsgVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BC5D82A73922100020297 /* DirectMsgVC.swift */; };
@@ -223,6 +224,7 @@
 				13127A712AF36017008C7927 /* FirebaseAuth in Frameworks */,
 				138BC6022A73D8CB00020297 /* Kingfisher in Frameworks */,
 				13127A772AF36017008C7927 /* FirebaseFirestore in Frameworks */,
+				13844A4C2B2B07C700ABB9F0 /* YPImagePicker in Frameworks */,
 				1361C9672AFDEA9D00C00A71 /* SkeletonView in Frameworks */,
 				1329391C2B1F2D0F003E9B92 /* SDWebImage in Frameworks */,
 				13127A812AF36017008C7927 /* FirebaseStorage in Frameworks */,
@@ -682,7 +684,6 @@
 		138BC5D62A7391ED00020297 /* Stories */ = {
 			isa = PBXGroup;
 			children = (
-				13C508C62B108AFA0013C52D /* Model */,
 				13C508C52B108AF30013C52D /* View */,
 				13C508C42B108AEB0013C52D /* ViewModel */,
 			);
@@ -961,13 +962,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		13C508C62B108AFA0013C52D /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		13C508CA2B109F2A0013C52D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1147,6 +1141,7 @@
 				1361C9662AFDEA9D00C00A71 /* SkeletonView */,
 				1329391B2B1F2D0F003E9B92 /* SDWebImage */,
 				1329391D2B1F2D0F003E9B92 /* SDWebImageMapKit */,
+				13844A4B2B2B07C700ABB9F0 /* YPImagePicker */,
 			);
 			productName = InstaUiKit;
 			productReference = 131166342A70FB9900CD0373 /* InstaUiKit.app */;
@@ -1182,6 +1177,7 @@
 				13127A6F2AF36017008C7927 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				1361C9652AFDEA9D00C00A71 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 				1329391A2B1F2D0F003E9B92 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				13844A4A2B2B07C700ABB9F0 /* XCRemoteSwiftPackageReference "YPImagePicker" */,
 			);
 			productRefGroup = 131166352A70FB9900CD0373 /* Products */;
 			projectDirPath = "";
@@ -1590,6 +1586,14 @@
 				kind = branch;
 			};
 		};
+		13844A4A2B2B07C700ABB9F0 /* XCRemoteSwiftPackageReference "YPImagePicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Yummypets/YPImagePicker.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.2.2;
+			};
+		};
 		138BC6002A73D8CB00020297 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -1668,6 +1672,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1361C9652AFDEA9D00C00A71 /* XCRemoteSwiftPackageReference "SkeletonView" */;
 			productName = SkeletonView;
+		};
+		13844A4B2B2B07C700ABB9F0 /* YPImagePicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 13844A4A2B2B07C700ABB9F0 /* XCRemoteSwiftPackageReference "YPImagePicker" */;
+			productName = YPImagePicker;
 		};
 		138BC6012A73D8CB00020297 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
