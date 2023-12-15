@@ -221,6 +221,8 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate  {
             
             cell.userImg1.image = nil
             cell.userImg2.image = nil
+            cell.userImg3.image = nil
+            cell.userImg4.image = nil
             cell.userName.text = nil
             cell.postImg.image = nil
             cell.postLocationLbl.text = nil

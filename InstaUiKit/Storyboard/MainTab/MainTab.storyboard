@@ -208,6 +208,9 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="135" id="bgg-u5-r6W"/>
                                                             </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                            </userDefinedRuntimeAttributes>
                                                         </stackView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pjc-D4-UhU">
                                                             <rect key="frame" x="0.0" y="146" width="320" height="1"/>
@@ -215,8 +218,14 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="1" id="Euc-mT-9FI"/>
                                                             </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                            </userDefinedRuntimeAttributes>
                                                         </view>
                                                     </subviews>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
@@ -225,7 +234,13 @@
                                                 <constraint firstItem="H9d-JM-6FC" firstAttribute="top" secondItem="fXN-Lp-JUA" secondAttribute="top" id="kff-E2-6TP"/>
                                                 <constraint firstAttribute="trailing" secondItem="H9d-JM-6FC" secondAttribute="trailing" id="uLy-3a-THR"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="addStoryBtn" destination="DTF-U7-hug" id="cKX-I8-AMQ"/>
                                             <outlet property="collectionViewOutlet" destination="vJS-b4-9bH" id="fKY-DK-F5U"/>
@@ -233,6 +248,9 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="dataSource" destination="cUk-uZ-knu" id="hnN-uM-b0n"/>
                                     <outlet property="delegate" destination="cUk-uZ-knu" id="zYn-i5-j8W"/>
