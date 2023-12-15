@@ -243,6 +243,8 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
             DispatchQueue.main.async { [weak self] in
                 ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
                 ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
+                ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg3, withPlaceholder: UIImage(systemName: "person.fill"))
+                ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg4, withPlaceholder: UIImage(systemName: "person.fill"))
                 ImageLoader.loadImage(for: URL(string: postImageURLs), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
                 cell.userName.text = postName
                 cell.postLocationLbl.text = postLocation

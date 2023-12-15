@@ -14,6 +14,8 @@ protocol FeedCellDelegate: AnyObject {
 class FeedCell: UITableViewCell {
     @IBOutlet weak var userImg1: UIImageView!
     @IBOutlet weak var userImg2: UIImageView!
+    @IBOutlet weak var userImg3: CircleImageView!
+    @IBOutlet weak var userImg4: CircleImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var postLocationLbl: UILabel!
     @IBOutlet weak var postImg: UIImageView!
