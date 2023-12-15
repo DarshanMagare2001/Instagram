@@ -43,16 +43,24 @@ class UsersProfileView: UIViewController {
         userImg.addGestureRecognizer(tapGesture)
         
         let followingsTextLblTapGesture = UITapGestureRecognizer(target: self, action: #selector(followingsTextLblTapped))
-        followingsTextLbl.isUserInteractionEnabled = true
         followingsTextLbl.addGestureRecognizer(followingsTextLblTapGesture)
         
         let followersTextLblTapGesture = UITapGestureRecognizer(target: self, action: #selector(followersTextLblTapped))
-        followersTextLbl.isUserInteractionEnabled = true
         followersTextLbl.addGestureRecognizer(followersTextLblTapGesture)
         
         let postTextLblTapGesture = UITapGestureRecognizer(target: self, action: #selector(postTextLblTapped))
-        postTextLbl.isUserInteractionEnabled = true
         postTextLbl.addGestureRecognizer(postTextLblTapGesture)
+        
+        
+        if let user = user , let isPrivate = user.isPrivate {
+            if (isPrivate == "true") {
+                isPrivateAccountBoard.isHidden = false
+                makeLblsUserUnInteractable()
+            }else{
+                isPrivateAccountBoard.isHidden = true
+                makeLblsUserInteractable()
+            }
+        }
         
     }
     
@@ -82,6 +90,18 @@ class UsersProfileView: UIViewController {
         present(destinationVC, animated: true, completion: nil)
     }
     
+    func makeLblsUserInteractable(){
+        followingsTextLbl.isUserInteractionEnabled = true
+        followersTextLbl.isUserInteractionEnabled = true
+        postTextLbl.isUserInteractionEnabled = true
+    }
+    
+    func makeLblsUserUnInteractable(){
+        followingsTextLbl.isUserInteractionEnabled = false
+        followersTextLbl.isUserInteractionEnabled = false
+        postTextLbl.isUserInteractionEnabled = false
+    }
+    
     func goToFollowerAndFollowing(){
         if let user = user {
             let storyboard = UIStoryboard.Common
@@ -98,14 +118,6 @@ class UsersProfileView: UIViewController {
         let backButton = UIBarButtonItem(image: UIImage(named: "BackArrow"), style: .plain, target: self, action: #selector(backButtonPressed))
         backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
-        
-        if let user = user , let isPrivate = user.isPrivate {
-            if (isPrivate == "true") {
-                isPrivateAccountBoard.isHidden = false
-            }else{
-                isPrivateAccountBoard.isHidden = true
-            }
-        }
         
         FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
             switch result {
@@ -131,11 +143,13 @@ class UsersProfileView: UIViewController {
                                     self.folloBtn.setTitle("Requested", for: .normal)
                                     self.msgBtn.isHidden = true
                                     self.isPrivateAccountBoard.isHidden = false
+                                    self.makeLblsUserUnInteractable()
                                 }else if let userFollowings = user.followers{
                                     if (userFollowings.contains(currentUid)){
                                         self.folloBtn.setTitle("UnFollow", for: .normal)
                                         self.msgBtn.isHidden = false
                                         self.isPrivateAccountBoard.isHidden = true
+                                        self.makeLblsUserInteractable()
                                     }else{
                                         self.folloBtn.setTitle("Follow", for: .normal)
                                         self.msgBtn.isHidden = true
@@ -201,8 +215,10 @@ class UsersProfileView: UIViewController {
                                     self.msgBtn.isHidden = true
                                     if isPrivate == "true"{
                                         self.isPrivateAccountBoard.isHidden = false
+                                        self.makeLblsUserUnInteractable()
                                     }else{
                                         self.isPrivateAccountBoard.isHidden = true
+                                        self.makeLblsUserInteractable()
                                     }
                                 }else{
                                     if isPrivate == "false" {
@@ -210,10 +226,12 @@ class UsersProfileView: UIViewController {
                                         self.folloBtn.setTitle("UnFollow", for: .normal)
                                         self.msgBtn.isHidden = false
                                         self.isPrivateAccountBoard.isHidden = true
+                                        self.makeLblsUserInteractable()
                                     }else{
                                         self.followRequest()
                                         self.folloBtn.setTitle("Requested", for: .normal)
                                         self.isPrivateAccountBoard.isHidden = false
+                                        self.makeLblsUserUnInteractable()
                                     }
                                 }
                             }
