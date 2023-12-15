@@ -11,15 +11,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedCell" rowHeight="557" id="KGk-i7-Jjw" customClass="FeedCell" customModule="InstaUiKit" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="616" height="557"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedCell" rowHeight="549" id="KGk-i7-Jjw" customClass="FeedCell" customModule="InstaUiKit" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="616" height="549"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="616" height="557"/>
+                <rect key="frame" x="0.0" y="0.0" width="616" height="549"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="mZj-so-he4">
-                        <rect key="frame" x="0.0" y="0.0" width="616" height="561"/>
+                        <rect key="frame" x="0.0" y="0.0" width="616" height="551"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UcO-dA-GRy">
                                 <rect key="frame" x="0.0" y="0.0" width="616" height="80"/>
@@ -118,257 +118,233 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="L0s-1e-GVe">
-                                <rect key="frame" x="0.0" y="380" width="616" height="181"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Q3-zd-Wt4">
+                                <rect key="frame" x="0.0" y="380" width="616" height="50"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gMO-aV-oUu">
-                                        <rect key="frame" x="0.0" y="0.0" width="616" height="85"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="80o-Ci-FWM">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="VxQ-Tz-42W">
-                                                <rect key="frame" x="10" y="5" width="100" height="75"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Q3-zd-Wt4">
-                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
-                                                        <subviews>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="80o-Ci-FWM">
-                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
-                                                                <subviews>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rfr-if-cBN">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="height" constant="50" id="Lxh-m7-pI3"/>
-                                                                            <constraint firstAttribute="width" constant="50" id="ZTQ-ay-gjq"/>
-                                                                        </constraints>
-                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <state key="normal" title="Button"/>
-                                                                        <buttonConfiguration key="configuration" style="plain" title=" " imagePadding="0.0">
-                                                                            <imageReference key="image" image="heart" catalog="system" symbolScale="large"/>
-                                                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
-                                                                        </buttonConfiguration>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                        <connections>
-                                                                            <action selector="likeBtnPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="DCj-VY-SLt"/>
-                                                                        </connections>
-                                                                    </button>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h9R-Fp-jcg">
-                                                                        <rect key="frame" x="50" y="0.0" width="50" height="50"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="width" constant="50" id="7xQ-Wz-aCf"/>
-                                                                            <constraint firstAttribute="height" constant="50" id="Qmk-sd-Nz1"/>
-                                                                        </constraints>
-                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <state key="normal" title="Button"/>
-                                                                        <buttonConfiguration key="configuration" style="plain" image="bubble.right" catalog="system" title=" "/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                        <connections>
-                                                                            <action selector="commentBtnPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="SYK-4b-N7A"/>
-                                                                        </connections>
-                                                                    </button>
-                                                                </subviews>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="50" id="T04-c1-Tnn"/>
-                                                                </constraints>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                                </userDefinedRuntimeAttributes>
-                                                            </stackView>
-                                                        </subviews>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                        <constraints>
-                                                            <constraint firstItem="80o-Ci-FWM" firstAttribute="leading" secondItem="1Q3-zd-Wt4" secondAttribute="leading" id="6O1-JB-5Ka"/>
-                                                            <constraint firstAttribute="bottom" secondItem="80o-Ci-FWM" secondAttribute="bottom" id="HPF-GU-QaX"/>
-                                                            <constraint firstAttribute="trailing" secondItem="80o-Ci-FWM" secondAttribute="trailing" id="icT-oM-O5D"/>
-                                                            <constraint firstItem="80o-Ci-FWM" firstAttribute="top" secondItem="1Q3-zd-Wt4" secondAttribute="top" id="yov-Ud-iux"/>
-                                                        </constraints>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T9r-vC-fcc">
-                                                        <rect key="frame" x="0.0" y="55" width="100" height="20"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="20" id="4Gz-bn-gZy"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </label>
-                                                </subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rfr-if-cBN">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="Lxh-m7-pI3"/>
+                                                    <constraint firstAttribute="width" constant="50" id="ZTQ-ay-gjq"/>
+                                                </constraints>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title=" " imagePadding="0.0">
+                                                    <imageReference key="image" image="heart" catalog="system" symbolScale="large"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
+                                                </buttonConfiguration>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
-                                            </stackView>
+                                                <connections>
+                                                    <action selector="likeBtnPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="DCj-VY-SLt"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h9R-Fp-jcg">
+                                                <rect key="frame" x="50" y="0.0" width="50" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="7xQ-Wz-aCf"/>
+                                                    <constraint firstAttribute="height" constant="50" id="Qmk-sd-Nz1"/>
+                                                </constraints>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="bubble.right" catalog="system" title=" "/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="commentBtnPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="SYK-4b-N7A"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstItem="VxQ-Tz-42W" firstAttribute="leading" secondItem="gMO-aV-oUu" secondAttribute="leading" constant="10" id="3L7-YP-v15"/>
-                                            <constraint firstAttribute="height" constant="85" id="JC5-Qu-Cia"/>
-                                            <constraint firstAttribute="bottom" secondItem="VxQ-Tz-42W" secondAttribute="bottom" constant="5" id="R8U-UU-iYU"/>
-                                            <constraint firstItem="VxQ-Tz-42W" firstAttribute="top" secondItem="gMO-aV-oUu" secondAttribute="top" constant="5" id="bQu-qW-8jG"/>
+                                            <constraint firstAttribute="height" constant="50" id="T04-c1-Tnn"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                         </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8MX-ho-W0z">
-                                        <rect key="frame" x="0.0" y="90" width="616" height="30"/>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="80o-Ci-FWM" secondAttribute="bottom" id="BLP-tX-Orf"/>
+                                    <constraint firstAttribute="height" constant="50" id="Bx5-rl-EoI"/>
+                                    <constraint firstItem="80o-Ci-FWM" firstAttribute="top" secondItem="1Q3-zd-Wt4" secondAttribute="top" id="ViU-ng-Jwm"/>
+                                    <constraint firstItem="80o-Ci-FWM" firstAttribute="leading" secondItem="1Q3-zd-Wt4" secondAttribute="leading" id="jyP-pP-3ND"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gMO-aV-oUu">
+                                <rect key="frame" x="0.0" y="430" width="616" height="25"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T9r-vC-fcc">
+                                        <rect key="frame" x="10" y="0.0" width="596" height="25"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="T9r-vC-fcc" secondAttribute="bottom" id="UKU-tg-dvz"/>
+                                    <constraint firstItem="T9r-vC-fcc" firstAttribute="leading" secondItem="gMO-aV-oUu" secondAttribute="leading" constant="10" id="e9s-f1-E2z"/>
+                                    <constraint firstItem="T9r-vC-fcc" firstAttribute="top" secondItem="gMO-aV-oUu" secondAttribute="top" id="jbv-y9-phS"/>
+                                    <constraint firstAttribute="trailing" secondItem="T9r-vC-fcc" secondAttribute="trailing" constant="10" id="kZi-XV-amA"/>
+                                    <constraint firstAttribute="height" constant="25" id="qOw-Hz-dWQ"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8MX-ho-W0z">
+                                <rect key="frame" x="0.0" y="455" width="616" height="50"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="WBp-Qc-C6o">
+                                        <rect key="frame" x="10" y="10" width="596" height="30"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="WBp-Qc-C6o">
-                                                <rect key="frame" x="10" y="0.0" width="596" height="30"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BBS-OC-ICl">
+                                                <rect key="frame" x="0.0" y="0.0" width="60" height="30"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BBS-OC-ICl">
-                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="30"/>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Ll-88-mIa">
+                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Ll-88-mIa">
-                                                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                                                                <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="GNn-9f-iqv" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="1.5" width="30" height="27"/>
-                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="width" constant="30" id="7mK-qh-pgy"/>
-                                                                            <constraint firstAttribute="height" constant="30" id="ibH-Yw-W8y"/>
-                                                                        </constraints>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </imageView>
-                                                                </subviews>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="GNn-9f-iqv" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="1.5" width="30" height="27"/>
+                                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="trailing" secondItem="GNn-9f-iqv" secondAttribute="trailing" id="3KZ-Qk-6GF"/>
-                                                                    <constraint firstAttribute="width" constant="30" id="Cp9-Lv-NdD"/>
-                                                                    <constraint firstAttribute="height" constant="30" id="buN-Jt-2lq"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="GNn-9f-iqv" secondAttribute="bottom" id="nus-EM-Hrf"/>
-                                                                    <constraint firstItem="GNn-9f-iqv" firstAttribute="leading" secondItem="4Ll-88-mIa" secondAttribute="leading" id="px5-kN-ZOS"/>
-                                                                    <constraint firstItem="GNn-9f-iqv" firstAttribute="top" secondItem="4Ll-88-mIa" secondAttribute="top" id="v5j-1m-jKP"/>
+                                                                    <constraint firstAttribute="width" constant="30" id="7mK-qh-pgy"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="ibH-Yw-W8y"/>
                                                                 </constraints>
-                                                            </view>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ksg-07-PmZ">
-                                                                <rect key="frame" x="30" y="0.0" width="30" height="30"/>
-                                                                <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1eq-wb-Qhj" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
-                                                                        <rect key="frame" x="-15" y="1.5" width="30" height="27"/>
-                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="width" constant="30" id="BDO-x7-LVf"/>
-                                                                            <constraint firstAttribute="height" constant="30" id="sJK-oE-p6v"/>
-                                                                        </constraints>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </imageView>
-                                                                </subviews>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                <constraints>
-                                                                    <constraint firstItem="1eq-wb-Qhj" firstAttribute="leading" secondItem="Ksg-07-PmZ" secondAttribute="leading" constant="-15" id="2ni-oG-NUN"/>
-                                                                    <constraint firstAttribute="width" constant="30" id="3Vp-GT-JCr"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="1eq-wb-Qhj" secondAttribute="bottom" id="iqa-IZ-50E"/>
-                                                                    <constraint firstAttribute="height" constant="30" id="mpV-1C-gSA"/>
-                                                                    <constraint firstItem="1eq-wb-Qhj" firstAttribute="top" secondItem="Ksg-07-PmZ" secondAttribute="top" id="zL5-7z-kPp"/>
-                                                                </constraints>
-                                                            </view>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XQq-m9-dJP">
-                                                                <rect key="frame" x="60" y="0.0" width="0.0" height="30"/>
-                                                                <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="7hQ-Pf-kgE" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
-                                                                        <rect key="frame" x="-30" y="1.5" width="30" height="27"/>
-                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="height" constant="30" id="J13-S3-aMx"/>
-                                                                            <constraint firstAttribute="width" constant="30" id="Xe1-Zz-qAb"/>
-                                                                        </constraints>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </imageView>
-                                                                </subviews>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                <constraints>
-                                                                    <constraint firstItem="7hQ-Pf-kgE" firstAttribute="leading" secondItem="XQq-m9-dJP" secondAttribute="leading" constant="-30" id="5OD-PV-2iD"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="7hQ-Pf-kgE" secondAttribute="bottom" id="Hu8-1W-aQC"/>
-                                                                    <constraint firstItem="7hQ-Pf-kgE" firstAttribute="top" secondItem="XQq-m9-dJP" secondAttribute="top" id="Zoa-4a-yBk"/>
-                                                                    <constraint firstAttribute="height" constant="30" id="p3S-s2-I0X"/>
-                                                                    <constraint firstAttribute="width" id="uMy-f8-L6G"/>
-                                                                </constraints>
-                                                            </view>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </imageView>
                                                         </subviews>
-                                                    </stackView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="62D-D4-fLa">
-                                                        <rect key="frame" x="65" y="0.0" width="531" height="30"/>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </label>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="GNn-9f-iqv" secondAttribute="trailing" id="3KZ-Qk-6GF"/>
+                                                            <constraint firstAttribute="width" constant="30" id="Cp9-Lv-NdD"/>
+                                                            <constraint firstAttribute="height" constant="30" id="buN-Jt-2lq"/>
+                                                            <constraint firstAttribute="bottom" secondItem="GNn-9f-iqv" secondAttribute="bottom" id="nus-EM-Hrf"/>
+                                                            <constraint firstItem="GNn-9f-iqv" firstAttribute="leading" secondItem="4Ll-88-mIa" secondAttribute="leading" id="px5-kN-ZOS"/>
+                                                            <constraint firstItem="GNn-9f-iqv" firstAttribute="top" secondItem="4Ll-88-mIa" secondAttribute="top" id="v5j-1m-jKP"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ksg-07-PmZ">
+                                                        <rect key="frame" x="30" y="0.0" width="30" height="30"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1eq-wb-Qhj" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
+                                                                <rect key="frame" x="-15" y="1.5" width="30" height="27"/>
+                                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="30" id="BDO-x7-LVf"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="sJK-oE-p6v"/>
+                                                                </constraints>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </imageView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="1eq-wb-Qhj" firstAttribute="leading" secondItem="Ksg-07-PmZ" secondAttribute="leading" constant="-15" id="2ni-oG-NUN"/>
+                                                            <constraint firstAttribute="width" constant="30" id="3Vp-GT-JCr"/>
+                                                            <constraint firstAttribute="bottom" secondItem="1eq-wb-Qhj" secondAttribute="bottom" id="iqa-IZ-50E"/>
+                                                            <constraint firstAttribute="height" constant="30" id="mpV-1C-gSA"/>
+                                                            <constraint firstItem="1eq-wb-Qhj" firstAttribute="top" secondItem="Ksg-07-PmZ" secondAttribute="top" id="zL5-7z-kPp"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XQq-m9-dJP">
+                                                        <rect key="frame" x="60" y="0.0" width="0.0" height="30"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="7hQ-Pf-kgE" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
+                                                                <rect key="frame" x="-30" y="1.5" width="30" height="27"/>
+                                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="30" id="J13-S3-aMx"/>
+                                                                    <constraint firstAttribute="width" constant="30" id="Xe1-Zz-qAb"/>
+                                                                </constraints>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </imageView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="7hQ-Pf-kgE" firstAttribute="leading" secondItem="XQq-m9-dJP" secondAttribute="leading" constant="-30" id="5OD-PV-2iD"/>
+                                                            <constraint firstAttribute="bottom" secondItem="7hQ-Pf-kgE" secondAttribute="bottom" id="Hu8-1W-aQC"/>
+                                                            <constraint firstItem="7hQ-Pf-kgE" firstAttribute="top" secondItem="XQq-m9-dJP" secondAttribute="top" id="Zoa-4a-yBk"/>
+                                                            <constraint firstAttribute="height" constant="30" id="p3S-s2-I0X"/>
+                                                            <constraint firstAttribute="width" id="uMy-f8-L6G"/>
+                                                        </constraints>
+                                                    </view>
                                                 </subviews>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="TDh-VR-tud"/>
-                                                </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
                                             </stackView>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="WBp-Qc-C6o" secondAttribute="bottom" id="aV2-YV-LdT"/>
-                                            <constraint firstAttribute="height" constant="30" id="bEv-De-6vV"/>
-                                            <constraint firstItem="WBp-Qc-C6o" firstAttribute="top" secondItem="8MX-ho-W0z" secondAttribute="top" id="hoj-mZ-sYK"/>
-                                            <constraint firstItem="WBp-Qc-C6o" firstAttribute="leading" secondItem="8MX-ho-W0z" secondAttribute="leading" constant="10" id="pKj-nu-mC7"/>
-                                            <constraint firstAttribute="trailing" secondItem="WBp-Qc-C6o" secondAttribute="trailing" constant="10" id="r4r-R3-ofG"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Hb-1Y-Tfi">
-                                        <rect key="frame" x="0.0" y="125" width="616" height="50"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w5c-Pt-eTN">
-                                                <rect key="frame" x="10" y="0.0" width="596" height="50"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="Z3W-CQ-Fad"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="62D-D4-fLa">
+                                                <rect key="frame" x="65" y="0.0" width="531" height="30"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="Fbt-Ef-KeQ"/>
-                                            <constraint firstAttribute="bottom" secondItem="w5c-Pt-eTN" secondAttribute="bottom" id="One-ZQ-gGo"/>
-                                            <constraint firstItem="w5c-Pt-eTN" firstAttribute="top" secondItem="9Hb-1Y-Tfi" secondAttribute="top" id="Pd8-Ko-Pem"/>
-                                            <constraint firstItem="w5c-Pt-eTN" firstAttribute="leading" secondItem="9Hb-1Y-Tfi" secondAttribute="leading" constant="10" id="p86-P1-4Nw"/>
-                                            <constraint firstAttribute="trailing" secondItem="w5c-Pt-eTN" secondAttribute="trailing" constant="10" id="wmP-1W-6tW"/>
-                                        </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                         </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iGr-Rl-7Df">
-                                        <rect key="frame" x="0.0" y="180" width="616" height="1"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="XIW-RC-Ak7"/>
-                                            <constraint firstAttribute="height" constant="1" id="eNz-KO-IAQ"/>
-                                        </constraints>
-                                    </view>
+                                    </stackView>
                                 </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="WBp-Qc-C6o" secondAttribute="trailing" constant="10" id="Mi6-z9-q17"/>
+                                    <constraint firstItem="WBp-Qc-C6o" firstAttribute="leading" secondItem="8MX-ho-W0z" secondAttribute="leading" constant="10" id="PDn-3L-OJ8"/>
+                                    <constraint firstAttribute="bottom" secondItem="WBp-Qc-C6o" secondAttribute="bottom" constant="10" id="Vbd-wj-oO5"/>
+                                    <constraint firstAttribute="height" constant="50" id="bEv-De-6vV"/>
+                                    <constraint firstItem="WBp-Qc-C6o" firstAttribute="top" secondItem="8MX-ho-W0z" secondAttribute="top" constant="10" id="hoI-dh-zDf"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Hb-1Y-Tfi">
+                                <rect key="frame" x="0.0" y="505" width="616" height="45"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w5c-Pt-eTN">
+                                        <rect key="frame" x="10" y="10" width="596" height="25"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="w5c-Pt-eTN" secondAttribute="bottom" constant="10" id="061-1u-n7P"/>
+                                    <constraint firstItem="w5c-Pt-eTN" firstAttribute="top" secondItem="9Hb-1Y-Tfi" secondAttribute="top" constant="10" id="4D3-ve-VmJ"/>
+                                    <constraint firstAttribute="height" constant="45" id="Fbt-Ef-KeQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="w5c-Pt-eTN" secondAttribute="trailing" constant="10" id="GwJ-fP-9se"/>
+                                    <constraint firstItem="w5c-Pt-eTN" firstAttribute="leading" secondItem="9Hb-1Y-Tfi" secondAttribute="leading" constant="10" id="OXE-Jx-ofP"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                 </userDefinedRuntimeAttributes>
-                            </stackView>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iGr-Rl-7Df">
+                                <rect key="frame" x="0.0" y="550" width="616" height="1"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="XIW-RC-Ak7"/>
+                                    <constraint firstAttribute="height" constant="1" id="eNz-KO-IAQ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
@@ -408,7 +384,7 @@
                 <outlet property="userImg4View" destination="XQq-m9-dJP" id="Pim-di-gne"/>
                 <outlet property="userName" destination="iBT-zD-uem" id="t7u-er-Ofc"/>
             </connections>
-            <point key="canvasLocation" x="43.478260869565219" y="123.54910714285714"/>
+            <point key="canvasLocation" x="43.478260869565219" y="120.87053571428571"/>
         </tableViewCell>
     </objects>
     <resources>
