@@ -35,6 +35,17 @@ class FeedCell: UITableViewCell {
         super.awakeFromNib()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didDoubleTap))
         tapGesture.numberOfTapsRequired = 2
+        
+        let rightSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleRightSwipe(_:)))
+        rightSwipeGesture.direction = .right
+        postImg.addGestureRecognizer(rightSwipeGesture)
+        // Add left swipe gesture
+        let leftSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleLeftSwipe(_:)))
+        leftSwipeGesture.direction = .left
+        postImg.addGestureRecognizer(leftSwipeGesture)
+        // Make sure user interaction is enabled
+        postImg.isUserInteractionEnabled = true
+        
         userImg2View.isHidden = true
         userImg3View.isHidden = true
         userImg4View.isHidden = true
@@ -69,6 +80,17 @@ class FeedCell: UITableViewCell {
         
     }
     
+    @objc func handleRightSwipe(_ gesture: UISwipeGestureRecognizer) {
+        // Handle right swipe
+        steperControl.currentPage = max(0, steperControl.currentPage - 1)
+        steperControlPressed?(steperControl.currentPage)
+    }
+    
+    @objc func handleLeftSwipe(_ gesture: UISwipeGestureRecognizer) {
+        // Handle left swipe
+        steperControl.currentPage = min(steperControl.numberOfPages - 1, steperControl.currentPage + 1)
+        steperControlPressed?(steperControl.currentPage)
+    }
     
     @IBAction func stepperControlPressed(_ sender: UIPageControl) {
         steperControlPressed?(sender.currentPage)
