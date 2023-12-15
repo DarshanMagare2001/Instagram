@@ -20,7 +20,7 @@ class UsersProfileView: UIViewController {
     @IBOutlet weak var postTextLbl: UILabel!
     @IBOutlet weak var followersTextLbl: UILabel!
     @IBOutlet weak var followingsTextLbl: UILabel!
-    
+    @IBOutlet weak var isPrivateAccountBoard: UIView!
     var allPost = [PostAllDataModel]()
     var user : UserModel?
     var currentUser : UserModel?
@@ -29,11 +29,13 @@ class UsersProfileView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.msgBtn.isHidden = true
         if !isFollowAndMsgBtnShow!{
             folloBtn.isHidden = true
             msgBtn.isHidden = true
         }
+        
         updateCell()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapUserImg))
@@ -53,6 +55,8 @@ class UsersProfileView: UIViewController {
         postTextLbl.addGestureRecognizer(postTextLblTapGesture)
         
     }
+    
+    
     
     @objc func postTextLblTapped(){
         let storyboard = UIStoryboard.Common
@@ -95,6 +99,12 @@ class UsersProfileView: UIViewController {
         backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
         
+        if let user = user , let isPrivate = user.isPrivate {
+            if (isPrivate == "True") {
+                isPrivateAccountBoard.isHidden = false
+            }
+        }
+        
         FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case.success(let user):
@@ -118,10 +128,12 @@ class UsersProfileView: UIViewController {
                                 if followersRequest.contains(currentUid){
                                     self.folloBtn.setTitle("Requested", for: .normal)
                                     self.msgBtn.isHidden = true
+                                    self.isPrivateAccountBoard.isHidden = false
                                 }else if let userFollowings = user.followers{
                                     if (userFollowings.contains(currentUid)){
                                         self.folloBtn.setTitle("UnFollow", for: .normal)
                                         self.msgBtn.isHidden = false
+                                        self.isPrivateAccountBoard.isHidden = true
                                     }else{
                                         self.folloBtn.setTitle("Follow", for: .normal)
                                         self.msgBtn.isHidden = true
@@ -185,14 +197,17 @@ class UsersProfileView: UIViewController {
                                     self.removeFollowRequest()
                                     self.folloBtn.setTitle("Follow", for: .normal)
                                     self.msgBtn.isHidden = true
+                                    self.isPrivateAccountBoard.isHidden = false
                                 }else{
                                     if isPrivate == "false" {
                                         self.follow()
                                         self.folloBtn.setTitle("UnFollow", for: .normal)
                                         self.msgBtn.isHidden = false
+                                        self.isPrivateAccountBoard.isHidden = true
                                     }else{
                                         self.followRequest()
                                         self.folloBtn.setTitle("Requested", for: .normal)
+                                        self.isPrivateAccountBoard.isHidden = false
                                     }
                                 }
                             }
