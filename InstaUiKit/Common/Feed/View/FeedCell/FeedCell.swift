@@ -19,6 +19,7 @@ class FeedCell: UITableViewCell {
     @IBOutlet weak var userImg2View: UIView!
     @IBOutlet weak var userImg3View: UIView!
     @IBOutlet weak var userImg4View: UIView!
+    @IBOutlet weak var likedBysectionView: UIView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var postLocationLbl: UILabel!
     @IBOutlet weak var postImg: UIImageView!
@@ -40,6 +41,7 @@ class FeedCell: UITableViewCell {
         userImg2View.isHidden = true
         userImg3View.isHidden = true
         userImg4View.isHidden = true
+        likedBysectionView.isHidden = true
         postImg.addGestureRecognizer(tapGesture)
         postImg.isUserInteractionEnabled = true
         postImg.clipsToBounds = true

@@ -360,6 +360,7 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                                 let imageView: UIImageView
                                 switch i {
                                 case 0:
+                                    cell.likedBysectionView.isHidden = false
                                     cell.userImg2View.isHidden = false
                                     imageView = cell.userImg2
                                     cell.likedByLbl.text = "Liked by \(name) and \(Int(postLikedBy.count - 1)) others."

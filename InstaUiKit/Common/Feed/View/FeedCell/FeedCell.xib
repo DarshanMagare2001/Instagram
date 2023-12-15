@@ -69,6 +69,7 @@
                                     <constraint firstItem="R1T-Wr-Tns" firstAttribute="leading" secondItem="UcO-dA-GRy" secondAttribute="leading" constant="10" id="8rR-Jy-P29"/>
                                     <constraint firstItem="GnU-A4-J1f" firstAttribute="leading" secondItem="R1T-Wr-Tns" secondAttribute="trailing" constant="10" id="GaA-mx-aOZ"/>
                                     <constraint firstAttribute="bottom" secondItem="GnU-A4-J1f" secondAttribute="bottom" constant="10" id="He0-Js-eRw"/>
+                                    <constraint firstAttribute="height" constant="80" id="Xn7-gG-lnc"/>
                                     <constraint firstAttribute="bottom" secondItem="R1T-Wr-Tns" secondAttribute="bottom" constant="10" id="dZA-pX-JN2"/>
                                     <constraint firstItem="R1T-Wr-Tns" firstAttribute="top" secondItem="UcO-dA-GRy" secondAttribute="top" constant="10" id="vRV-HP-QTJ"/>
                                 </constraints>
@@ -104,6 +105,7 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="3Yj-2g-fip"/>
                                     <constraint firstItem="LF5-lR-dk5" firstAttribute="leading" secondItem="0aH-hi-dOe" secondAttribute="leading" id="7XE-jo-hKh"/>
                                     <constraint firstAttribute="bottom" secondItem="LF5-lR-dk5" secondAttribute="bottom" id="Bgf-4J-xGs"/>
                                     <constraint firstAttribute="bottom" secondItem="4bU-Sz-AMf" secondAttribute="bottom" constant="20" id="SUQ-3u-MbU"/>
@@ -191,6 +193,7 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="VxQ-Tz-42W" firstAttribute="leading" secondItem="gMO-aV-oUu" secondAttribute="leading" constant="10" id="3L7-YP-v15"/>
+                                            <constraint firstAttribute="height" constant="85" id="JC5-Qu-Cia"/>
                                             <constraint firstAttribute="bottom" secondItem="VxQ-Tz-42W" secondAttribute="bottom" constant="5" id="R8U-UU-iYU"/>
                                             <constraint firstItem="VxQ-Tz-42W" firstAttribute="top" secondItem="gMO-aV-oUu" secondAttribute="top" constant="5" id="bQu-qW-8jG"/>
                                         </constraints>
@@ -303,6 +306,7 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="WBp-Qc-C6o" secondAttribute="bottom" id="aV2-YV-LdT"/>
+                                            <constraint firstAttribute="height" constant="30" id="bEv-De-6vV"/>
                                             <constraint firstItem="WBp-Qc-C6o" firstAttribute="top" secondItem="8MX-ho-W0z" secondAttribute="top" id="hoj-mZ-sYK"/>
                                             <constraint firstItem="WBp-Qc-C6o" firstAttribute="leading" secondItem="8MX-ho-W0z" secondAttribute="leading" constant="10" id="pKj-nu-mC7"/>
                                             <constraint firstAttribute="trailing" secondItem="WBp-Qc-C6o" secondAttribute="trailing" constant="10" id="r4r-R3-ofG"/>
@@ -326,6 +330,7 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="Fbt-Ef-KeQ"/>
                                             <constraint firstAttribute="bottom" secondItem="w5c-Pt-eTN" secondAttribute="bottom" id="One-ZQ-gGo"/>
                                             <constraint firstItem="w5c-Pt-eTN" firstAttribute="top" secondItem="9Hb-1Y-Tfi" secondAttribute="top" id="Pd8-Ko-Pem"/>
                                             <constraint firstItem="w5c-Pt-eTN" firstAttribute="leading" secondItem="9Hb-1Y-Tfi" secondAttribute="leading" constant="10" id="p86-P1-4Nw"/>
@@ -336,6 +341,7 @@
                                         <rect key="frame" x="0.0" y="180" width="616" height="1"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="XIW-RC-Ak7"/>
                                             <constraint firstAttribute="height" constant="1" id="eNz-KO-IAQ"/>
                                         </constraints>
                                     </view>
@@ -365,6 +371,7 @@
                 <outlet property="commentBtn" destination="h9R-Fp-jcg" id="Xps-xP-Lod"/>
                 <outlet property="likeBtn" destination="Rfr-if-cBN" id="Hmf-Ha-deo"/>
                 <outlet property="likedByLbl" destination="62D-D4-fLa" id="1j6-m0-tdH"/>
+                <outlet property="likedBysectionView" destination="8MX-ho-W0z" id="Lgd-X1-D8h"/>
                 <outlet property="postCaption" destination="w5c-Pt-eTN" id="RHN-6i-G5U"/>
                 <outlet property="postImg" destination="LF5-lR-dk5" id="MbZ-mh-Zlf"/>
                 <outlet property="postLocationLbl" destination="BCd-Rg-aY6" id="bV0-rb-89R"/>
