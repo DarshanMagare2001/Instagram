@@ -5,56 +5,50 @@
 //  Created by IPS-161 on 07/11/23.
 //
 
-import Foundation
-import Firebase
-import FirebaseFirestore
+import UIKit
 
 class FeedViewModel {
-    static let shared = FeedViewModel()
-    private init() {}
     
-    let db = Firestore.firestore()
-    
-    // Function to like a post
-    func likePost(postUID: String, userUID: String) {
-        let postRef = db.collection("posts").document(postUID)
-        
-        postRef.getDocument { [weak self] document, error in
-            guard let self = self, let document = document, document.exists else {
-                return
-            }
-            
-            var postData = document.data()
-            
-            if var likesArray = postData?["likes"] as? [String] {
-                if !likesArray.contains(userUID) {
-                    likesArray.append(userUID)
-                    postData?["likes"] = likesArray
-                    postRef.setData(postData ?? [:])
+    func likePost(postPostDocumentID:String,
+                  uid:String,
+                  postUid:String,
+                  cell:FeedCell){
+        PostViewModel.shared.likePost(postDocumentID: postPostDocumentID, userUID: uid) { [weak self] success in
+            if success {
+                // Update the UI: Set the correct image for the like button
+                cell.isLiked = true
+                let imageName = cell.isLiked ? "heart.fill" : "heart"
+                cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+                cell.likeBtn.tintColor = cell.isLiked ? .red : .black
+                FetchUserInfo.shared.fetchUserDataByUid(uid: postUid) { [weak self] result in
+                    switch result {
+                    case.success(let data):
+                        if let data = data , let fmcToken = data.fcmToken {
+                            if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name) {
+                                PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Liked your post.")
+                            }
+                        }
+                    case.failure(let error):
+                        print(error)
+                    }
                 }
-            } else {
-                postData?["likes"] = [userUID]
-                postRef.setData(postData ?? [:])
+                
             }
         }
     }
-
-    // Function to unlike a post
-    func unlikePost(postUID: String, userUID: String) {
-        let postRef = db.collection("posts").document(postUID)
-        
-        postRef.getDocument { [weak self] document, error in
-            guard let self = self, let document = document, document.exists else {
-                return
-            }
-            
-            var postData = document.data()
-            
-            if var likesArray = postData?["likes"] as? [String], let index = likesArray.firstIndex(of: userUID) {
-                likesArray.remove(at: index)
-                postData?["likes"] = likesArray
-                postRef.setData(postData ?? [:])
+    
+    func unLikePost(postPostDocumentID:String,
+                    uid:String,
+                    cell:FeedCell){
+        PostViewModel.shared.unlikePost(postDocumentID: postPostDocumentID, userUID: uid) { success in
+            if success {
+                // Update the UI: Set the correct image for the like button
+                cell.isLiked = false
+                let imageName = cell.isLiked ? "heart.fill" : "heart"
+                cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+                cell.likeBtn.tintColor = cell.isLiked ? .red : .black
             }
         }
     }
+    
 }

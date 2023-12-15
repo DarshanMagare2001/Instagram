@@ -10,8 +10,10 @@ import FirebaseAuth
 
 class FeedViewVC: UIViewController {
     @IBOutlet weak var postTableViewOutlet: UITableView!
+    var viewModel = FeedViewModel()
     var allPost : [PostAllDataModel]?
     var uid : String?
+    let disPatchGroup = DispatchGroup()
     override func viewDidLoad() {
         super.viewDidLoad()
         let nib = UINib(nibName: "FeedCell", bundle: nil)
@@ -47,10 +49,13 @@ extension FeedViewVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
+        
         if let post = allPost?[indexPath.row] {
             
             cell.userImg1.image = nil
             cell.userImg2.image = nil
+            cell.userImg3.image = nil
+            cell.userImg4.image = nil
             cell.userName.text = nil
             cell.postImg.image = nil
             cell.postLocationLbl.text = nil
@@ -61,7 +66,7 @@ extension FeedViewVC: UITableViewDelegate, UITableViewDataSource {
             guard let postUid = post.uid ,
                   let postName = post.name ,
                   let profileImgUrl = post.profileImageUrl ,
-                  let postImageURLs = post.postImageURLs?[0],
+                  let postImageURLs = post.postImageURLs,
                   let postLocation = post.location,
                   let postCaption = post.caption ,
                   let postComments = post.comments,
@@ -71,75 +76,120 @@ extension FeedViewVC: UITableViewDelegate, UITableViewDataSource {
                   let postPostDocumentID = post.postDocumentID else { return UITableViewCell()}
             
             
+            cell.steperControl.numberOfPages = post.postImageURLs?.count ?? 0
+            cell.steperControl.currentPage = 0
+            DispatchQueue.main.async { [weak self] in
+                ImageLoader.loadImage(for: URL(string: postImageURLs[0]), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+            }
+            cell.steperControlPressed = { [weak self] pageIndex in
+                print(postImageURLs[pageIndex])
+                DispatchQueue.main.async { [weak self] in
+                    ImageLoader.loadImage(for: URL(string: postImageURLs[pageIndex]), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                }
+            }
+            
+            
             DispatchQueue.main.async { [weak self] in
                 ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
-                ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
-                ImageLoader.loadImage(for: URL(string: postImageURLs), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                cell.userName.text = postName
                 cell.postLocationLbl.text = postLocation
                 cell.postCaption.text = postCaption
                 cell.totalLikesCount.text = "\(postLikesCounts) Likes"
-                cell.userName.text = postName
             }
             
             
-            if let randomLikedByUID = postLikedBy.randomElement() {
-                FetchUserInfo.shared.fetchUserDataByUid(uid: randomLikedByUID) { result in
-                    switch result {
-                    case .success(let data):
-                        if let data = data , let name = data.name {
-                            cell.likedByLbl.text = "Liked by \(name) and \(Int(postLikedBy.count - 1)) others."
-                        }
-                    case .failure(let error):
-                        print(error)
+            disPatchGroup.enter()
+            DispatchQueue.main.async { [weak self] in
+                if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
+                    
+                    if (postLikedBy.contains(uid)){
+                        cell.isLiked = true
+                        let imageName = cell.isLiked ? "heart.fill" : "heart"
+                        cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+                        cell.likeBtn.tintColor = cell.isLiked ? .red : .black
+                    }else{
+                        cell.isLiked = false
+                        let imageName = cell.isLiked ? "heart.fill" : "heart"
+                        cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+                        cell.likeBtn.tintColor = cell.isLiked ? .red : .black
                     }
+                    
+                    cell.doubleTapAction = { [weak self] in
+                        guard let self = self else { return }
+                        self.viewModel.likePost(postPostDocumentID: postPostDocumentID, uid: uid, postUid: postUid, cell: cell)
+                    }
+                    
+                    cell.likeBtnTapped = { [weak self] in
+                        if cell.isLiked {
+                            self?.viewModel.unLikePost(postPostDocumentID: postPostDocumentID, uid: uid, cell: cell)
+                        } else {
+                            self?.viewModel.likePost(postPostDocumentID: postPostDocumentID, uid: uid, postUid: postUid, cell: cell)
+                        }
+                    }
+                    
                 }
+                self?.disPatchGroup.leave()
             }
             
-            if let uid = uid {
-                if (postLikedBy.contains(uid)){
-                    cell.isLiked = true
-                    let imageName = cell.isLiked ? "heart.fill" : "heart"
-                    cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
-                    cell.likeBtn.tintColor = cell.isLiked ? .red : .black
-                }else{
-                    cell.isLiked = false
-                    let imageName = cell.isLiked ? "heart.fill" : "heart"
-                    cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
-                    cell.likeBtn.tintColor = cell.isLiked ? .red : .black
+            disPatchGroup.enter()
+            DispatchQueue.main.async { [weak self] in
+                cell.commentsBtnTapped = { [weak self] in
+                    let storyboard = UIStoryboard.Common
+                    let destinationVC = storyboard.instantiateViewController(withIdentifier: "CommentsVC") as! CommentsVC
+                    destinationVC.allPost = post
+                    self?.navigationController?.pushViewController(destinationVC, animated: true)
+                }
+                self?.disPatchGroup.leave()
+            }
+            
+            
+            disPatchGroup.enter()
+            DispatchQueue.main.async { [weak self] in
+                guard !postLikedBy.isEmpty else {
+                    self?.disPatchGroup.leave()
+                    return
                 }
                 
-                cell.likeBtnTapped = { [weak self] in
-                    if cell.isLiked {
-                        PostViewModel.shared.unlikePost(postDocumentID: postPostDocumentID, userUID: uid) { success in
-                            if success {
-                                // Update the UI: Set the correct image for the like button
-                                cell.isLiked = false
-                                let imageName = cell.isLiked ? "heart.fill" : "heart"
-                                cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
-                                cell.likeBtn.tintColor = cell.isLiked ? .red : .black
+                let maxUsersToShow = min(3, postLikedBy.count)
+                for i in 0..<maxUsersToShow {
+                    let likedUser = postLikedBy[i]
+                    FetchUserInfo.shared.fetchUserDataByUid(uid: likedUser) { [weak self] result in
+                        switch result {
+                        case .success(let data):
+                            if let data = data, let profileImgUrl = data.imageUrl , let name = data.name  {
+                                let imageView: UIImageView
+                                switch i {
+                                case 0:
+                                    cell.likedBysectionView.isHidden = false
+                                    cell.userImg2View.isHidden = false
+                                    imageView = cell.userImg2
+                                    cell.likedByLbl.text = "Liked by \(name) and \(Int(postLikedBy.count - 1)) others."
+                                case 1:
+                                    cell.userImg3View.isHidden = false
+                                    imageView = cell.userImg3
+                                case 2:
+                                    cell.userImg4View.isHidden = false
+                                    imageView = cell.userImg4
+                                default:
+                                    return
+                                }
+                                ImageLoader.loadImage(for: URL(string: profileImgUrl), into: imageView, withPlaceholder: UIImage(systemName: "person.fill"))
                             }
+                        case .failure(let error):
+                            print(error)
                         }
-                    } else {
-                        PostViewModel.shared.likePost(postDocumentID: postPostDocumentID, userUID: uid) { success in
-                            if success {
-                                // Update the UI: Set the correct image for the like button
-                                cell.isLiked = true
-                                let imageName = cell.isLiked ? "heart.fill" : "heart"
-                                cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
-                                cell.likeBtn.tintColor = cell.isLiked ? .red : .black
-                            }
+                        
+                        if i == maxUsersToShow - 1 {
+                            self?.disPatchGroup.leave()
                         }
                     }
                 }
             }
             
-            cell.commentsBtnTapped = { [weak self] in
-                let storyboard = UIStoryboard.Common
-                let destinationVC = storyboard.instantiateViewController(withIdentifier: "CommentsVC") as! CommentsVC
-                destinationVC.allPost = post
-                self?.navigationController?.pushViewController(destinationVC, animated: true)
-            }
+            disPatchGroup.notify(queue: .main){}
+            
+            return cell
         }
-        return cell
+      return UITableViewCell()
     }
 }
