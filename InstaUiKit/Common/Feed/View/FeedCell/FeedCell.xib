@@ -271,6 +271,9 @@
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="90" id="XZW-sn-Pd0"/>
+                                                        </constraints>
                                                     </stackView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="62D-D4-fLa">
                                                         <rect key="frame" x="90" y="0.0" width="506" height="30"/>
@@ -359,8 +362,11 @@
                 <outlet property="totalLikesCount" destination="T9r-vC-fcc" id="Rr8-K8-VQF"/>
                 <outlet property="userImg1" destination="R1T-Wr-Tns" id="bJk-gv-GiQ"/>
                 <outlet property="userImg2" destination="GNn-9f-iqv" id="ZFN-aW-vG9"/>
+                <outlet property="userImg2View" destination="4Ll-88-mIa" id="1ax-Sw-Kky"/>
                 <outlet property="userImg3" destination="1eq-wb-Qhj" id="1jP-dq-GaT"/>
+                <outlet property="userImg3View" destination="Ksg-07-PmZ" id="qid-8R-DEg"/>
                 <outlet property="userImg4" destination="7hQ-Pf-kgE" id="srh-RP-Fsz"/>
+                <outlet property="userImg4View" destination="XQq-m9-dJP" id="Pim-di-gne"/>
                 <outlet property="userName" destination="iBT-zD-uem" id="t7u-er-Ofc"/>
             </connections>
             <point key="canvasLocation" x="43.478260869565219" y="118.86160714285714"/>

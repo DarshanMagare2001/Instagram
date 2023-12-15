@@ -360,11 +360,14 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                                 let imageView: UIImageView
                                 switch i {
                                 case 0:
+                                    cell.userImg2View.isHidden = false
                                     imageView = cell.userImg2
                                     cell.likedByLbl.text = "Liked by \(name) and \(Int(postLikedBy.count - 1)) others."
                                 case 1:
+                                    cell.userImg3View.isHidden = false
                                     imageView = cell.userImg3
                                 case 2:
+                                    cell.userImg4View.isHidden = false
                                     imageView = cell.userImg4
                                 default:
                                     return

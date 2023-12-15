@@ -16,6 +16,9 @@ class FeedCell: UITableViewCell {
     @IBOutlet weak var userImg2: UIImageView!
     @IBOutlet weak var userImg3: CircleImageView!
     @IBOutlet weak var userImg4: CircleImageView!
+    @IBOutlet weak var userImg2View: UIView!
+    @IBOutlet weak var userImg3View: UIView!
+    @IBOutlet weak var userImg4View: UIView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var postLocationLbl: UILabel!
     @IBOutlet weak var postImg: UIImageView!
@@ -34,6 +37,9 @@ class FeedCell: UITableViewCell {
         super.awakeFromNib()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didDoubleTap))
         tapGesture.numberOfTapsRequired = 2
+        userImg2View.isHidden = true
+        userImg3View.isHidden = true
+        userImg4View.isHidden = true
         postImg.addGestureRecognizer(tapGesture)
         postImg.isUserInteractionEnabled = true
         postImg.clipsToBounds = true
