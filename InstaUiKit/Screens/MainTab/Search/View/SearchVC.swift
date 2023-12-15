@@ -197,11 +197,7 @@ extension SearchVC {
                         }
                         
                         if let postCount = element?.postImageURLs?.count {
-                            if postCount > 1 {
-                                cell.multiplePostIcon.isHidden = false
-                            }else {
-                                cell.multiplePostIcon.isHidden = true
-                            }
+                            cell.multiplePostIcon.isHidden = (postCount > 1 ? false : true)
                         }
                         
                     }
