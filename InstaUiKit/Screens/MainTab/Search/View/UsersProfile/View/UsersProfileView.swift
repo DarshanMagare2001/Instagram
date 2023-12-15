@@ -100,8 +100,10 @@ class UsersProfileView: UIViewController {
         navigationItem.leftBarButtonItem = backButton
         
         if let user = user , let isPrivate = user.isPrivate {
-            if (isPrivate == "True") {
+            if (isPrivate == "true") {
                 isPrivateAccountBoard.isHidden = false
+            }else{
+                isPrivateAccountBoard.isHidden = true
             }
         }
         
@@ -197,7 +199,11 @@ class UsersProfileView: UIViewController {
                                     self.removeFollowRequest()
                                     self.folloBtn.setTitle("Follow", for: .normal)
                                     self.msgBtn.isHidden = true
-                                    self.isPrivateAccountBoard.isHidden = false
+                                    if isPrivate == "true"{
+                                        self.isPrivateAccountBoard.isHidden = false
+                                    }else{
+                                        self.isPrivateAccountBoard.isHidden = true
+                                    }
                                 }else{
                                     if isPrivate == "false" {
                                         self.follow()
