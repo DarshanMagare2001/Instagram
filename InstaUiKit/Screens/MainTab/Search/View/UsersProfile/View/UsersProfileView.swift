@@ -279,7 +279,7 @@ extension UsersProfileView: UICollectionViewDelegate, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UsersProfileViewCell", for: indexPath) as! UsersProfileViewCell
         let cellData = allPost[indexPath.row]
-        if let imageURL = URL(string: cellData.postImageURL ?? "") {
+        if let imageURL = URL(string: cellData.postImageURLs?[0] ?? "") {
             ImageLoader.loadImage(for: imageURL, into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
         }
         

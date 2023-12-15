@@ -192,7 +192,7 @@ extension SearchVC {
                         .rx
                         .items(cellIdentifier: "SearchVCCollectionViewCell", cellType: SearchVCCollectionViewCell.self)) { (row, element, cell) in
                     DispatchQueue.main.async {
-                        if let url = element?.postImageURL {
+                        if let url = element?.postImageURLs?[0] {
                             ImageLoader.loadImage(for: URL(string: url), into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
                         }
                     }

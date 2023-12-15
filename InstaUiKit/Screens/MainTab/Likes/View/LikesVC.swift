@@ -129,7 +129,7 @@ extension LikesVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                     }
                 }
                 
-                if let imageURL = URL(string: self.allPost[section].postImageURL ?? "") {
+                if let imageURL = URL(string: self.allPost[section].postImageURLs?[0] ?? "") {
                     ImageLoader.loadImage(for: imageURL, into: likesCell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
                 }
                 

@@ -45,7 +45,7 @@ class PostPresentedView: UIViewController {
     func updateView(){
         if let post = post ,
            let profileImgUrl = post.profileImageUrl ,
-           let postImgUrl = post.postImageURL,
+           let postImageURLs = post.postImageURLs?[0],
            let name = post.name ,
            let location = post.location ,
            let caption = post.caption ,
@@ -54,7 +54,7 @@ class PostPresentedView: UIViewController {
             DispatchQueue.main.async {
                 ImageLoader.loadImage(for: URL(string: profileImgUrl), into: self.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
                 ImageLoader.loadImage(for: URL(string: profileImgUrl), into: self.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
-                ImageLoader.loadImage(for: URL(string: postImgUrl), into: self.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                ImageLoader.loadImage(for: URL(string: postImageURLs), into: self.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
                 self.nameLbl.text = name
                 self.locationLbl.text = location
                 self.captionLbl.text = caption

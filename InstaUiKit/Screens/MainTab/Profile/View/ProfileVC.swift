@@ -275,7 +275,7 @@ extension ProfileVC:  SkeletonCollectionViewDataSource  , SkeletonCollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosCell", for: indexPath) as! PhotosCell
         let cellData = allPost[indexPath.row]
-        if let imageURL = URL(string: cellData.postImageURL ?? "") {
+        if let imageURL = URL(string: cellData.postImageURLs?[0] ?? "") {
             ImageLoader.loadImage(for: imageURL, into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
         }
         cell.imagePressed = { [weak self] in
