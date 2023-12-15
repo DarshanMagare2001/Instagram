@@ -278,6 +278,11 @@ extension ProfileVC:  SkeletonCollectionViewDataSource  , SkeletonCollectionView
         if let imageURL = URL(string: cellData.postImageURLs?[0] ?? "") {
             ImageLoader.loadImage(for: imageURL, into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
         }
+        
+        if let postCount = cellData.postImageURLs?.count {
+            cell.multiplePostIcon.isHidden = ( postCount > 1 ?  false : true )
+        }
+        
         cell.imagePressed = { [weak self] in
             let storyboard = UIStoryboard.Common
             let destinationVC = storyboard.instantiateViewController(withIdentifier: "PostPresentedView") as! PostPresentedView
