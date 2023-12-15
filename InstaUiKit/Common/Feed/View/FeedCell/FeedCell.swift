@@ -89,4 +89,8 @@ class FeedCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    func updatePageControl(with count: Int) {
+        steperControl.numberOfPages = count
+    }
+    
 }
