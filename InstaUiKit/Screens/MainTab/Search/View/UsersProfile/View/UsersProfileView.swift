@@ -283,6 +283,10 @@ extension UsersProfileView: UICollectionViewDelegate, UICollectionViewDataSource
             ImageLoader.loadImage(for: imageURL, into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
         }
         
+        if let postCount = cellData.postImageURLs?.count {
+            cell.multiplePostIcon.isHidden = ( postCount > 1 ?  false : true )
+        }
+        
         cell.postImgPressed = { [weak self] in
             let storyboard = UIStoryboard.Common
             let destinationVC = storyboard.instantiateViewController(withIdentifier: "PostPresentedView") as! PostPresentedView

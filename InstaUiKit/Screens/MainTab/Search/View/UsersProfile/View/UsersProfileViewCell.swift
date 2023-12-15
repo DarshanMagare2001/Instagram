@@ -9,6 +9,7 @@ import UIKit
 
 class UsersProfileViewCell: UICollectionViewCell {
     @IBOutlet weak var postImg: UIImageView!
+    @IBOutlet weak var multiplePostIcon: UIImageView!
     var postImgPressed: (() -> Void)?
     override func awakeFromNib() {
         super.awakeFromNib()

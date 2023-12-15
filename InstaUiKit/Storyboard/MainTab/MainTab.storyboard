@@ -1001,19 +1001,42 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="249" height="177"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <subviews>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="F0h-ZQ-eaj">
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HPv-js-3zQ">
                                                                             <rect key="frame" x="0.0" y="0.0" width="249" height="177"/>
-                                                                        </imageView>
+                                                                            <subviews>
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="F0h-ZQ-eaj">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="249" height="177"/>
+                                                                                </imageView>
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square.fill.on.square.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DVV-WJ-m6Q">
+                                                                                    <rect key="frame" x="199" y="127.5" width="40" height="39.5"/>
+                                                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="height" constant="40" id="Zdm-fo-n61"/>
+                                                                                        <constraint firstAttribute="width" constant="40" id="epQ-91-aE7"/>
+                                                                                    </constraints>
+                                                                                </imageView>
+                                                                            </subviews>
+                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="trailing" secondItem="F0h-ZQ-eaj" secondAttribute="trailing" id="BNP-LI-mGi"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="DVV-WJ-m6Q" secondAttribute="trailing" constant="10" id="Lig-y4-g6m"/>
+                                                                                <constraint firstAttribute="bottom" secondItem="F0h-ZQ-eaj" secondAttribute="bottom" id="MBj-v9-fbh"/>
+                                                                                <constraint firstItem="F0h-ZQ-eaj" firstAttribute="top" secondItem="HPv-js-3zQ" secondAttribute="top" id="bcN-7s-nxK"/>
+                                                                                <constraint firstAttribute="bottom" secondItem="DVV-WJ-m6Q" secondAttribute="bottom" constant="10" id="msF-ny-hrN"/>
+                                                                                <constraint firstItem="F0h-ZQ-eaj" firstAttribute="leading" secondItem="HPv-js-3zQ" secondAttribute="leading" id="vkn-yJ-XtU"/>
+                                                                            </constraints>
+                                                                        </view>
                                                                     </subviews>
                                                                     <constraints>
-                                                                        <constraint firstItem="F0h-ZQ-eaj" firstAttribute="leading" secondItem="eI9-X7-XGG" secondAttribute="leading" id="2Si-NI-yBI"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="F0h-ZQ-eaj" secondAttribute="trailing" id="8n9-DK-Fcp"/>
-                                                                        <constraint firstItem="F0h-ZQ-eaj" firstAttribute="top" secondItem="eI9-X7-XGG" secondAttribute="top" id="CVB-KZ-dWv"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="F0h-ZQ-eaj" secondAttribute="bottom" id="kSS-JB-XeQ"/>
+                                                                        <constraint firstItem="HPv-js-3zQ" firstAttribute="leading" secondItem="eI9-X7-XGG" secondAttribute="leading" id="g9b-3x-WbR"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="HPv-js-3zQ" secondAttribute="bottom" id="hKw-Ar-XvI"/>
+                                                                        <constraint firstItem="HPv-js-3zQ" firstAttribute="top" secondItem="eI9-X7-XGG" secondAttribute="top" id="jHT-pO-8UR"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="HPv-js-3zQ" secondAttribute="trailing" id="vPu-0s-uOg"/>
                                                                     </constraints>
                                                                 </collectionViewCellContentView>
                                                                 <size key="customSize" width="249" height="177"/>
                                                                 <connections>
+                                                                    <outlet property="multiplePostIcon" destination="DVV-WJ-m6Q" id="TCl-iX-6jU"/>
                                                                     <outlet property="postImg" destination="F0h-ZQ-eaj" id="6b1-i3-vLL"/>
                                                                 </connections>
                                                             </collectionViewCell>
