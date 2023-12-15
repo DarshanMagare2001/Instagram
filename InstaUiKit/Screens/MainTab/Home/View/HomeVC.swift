@@ -294,48 +294,95 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                 self?.disPatchGroup.leave()
             }
             
+//            disPatchGroup.enter()
+//            DispatchQueue.main.async { [weak self] in
+//                guard !postLikedBy.isEmpty else {
+//                    self?.disPatchGroup.leave()
+//                    return
+//                }
+//                let likedUser1 = postLikedBy[0]
+//                let likedUser2 = postLikedBy[1]
+//                let likedUser3 = postLikedBy[2]
+//                FetchUserInfo.shared.fetchUserDataByUid(uid: likedUser1) { [weak self] result in
+//                    switch result {
+//                    case .success(let data):
+//                        if let data = data , let name = data.name , let profileImgUrl = data.imageUrl {
+//                            cell.likedByLbl.text = "Liked by \(name) and \(Int(postLikedBy.count - 1)) others."
+//                            ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
+//                        }
+//                    case .failure(let error):
+//                        print(error)
+//                    }
+//                }
+//
+//                FetchUserInfo.shared.fetchUserDataByUid(uid: likedUser2) { [weak self] result in
+//                    switch result {
+//                    case .success(let data):
+//                        if let data = data , let profileImgUrl = data.imageUrl {
+//                            ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg3, withPlaceholder: UIImage(systemName: "person.fill"))
+//                        }
+//                    case .failure(let error):
+//                        print(error)
+//                    }
+//                }
+//
+//                FetchUserInfo.shared.fetchUserDataByUid(uid: likedUser3) { [weak self] result in
+//                    switch result {
+//                    case .success(let data):
+//                        if let data = data , let profileImgUrl = data.imageUrl {
+//                            ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg4, withPlaceholder: UIImage(systemName: "person.fill"))
+//                        }
+//                    case .failure(let error):
+//                        print(error)
+//                    }
+//                }
+//
+//                self?.disPatchGroup.leave()
+//
+//            }
+            
+            
             disPatchGroup.enter()
+
             DispatchQueue.main.async { [weak self] in
-                let likedUser1 = postLikedBy[0]
-                let likedUser2 = postLikedBy[1]
-                let likedUser3 = postLikedBy[2]
-                FetchUserInfo.shared.fetchUserDataByUid(uid: likedUser1) { [weak self] result in
-                    switch result {
-                    case .success(let data):
-                        if let data = data , let name = data.name , let profileImgUrl = data.imageUrl {
-                            cell.likedByLbl.text = "Liked by \(name) and \(Int(postLikedBy.count - 1)) others."
-                            ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
+                guard !postLikedBy.isEmpty else {
+                    self?.disPatchGroup.leave()
+                    return
+                }
+
+                let maxUsersToShow = min(3, postLikedBy.count)
+                for i in 0..<maxUsersToShow {
+                    let likedUser = postLikedBy[i]
+                    FetchUserInfo.shared.fetchUserDataByUid(uid: likedUser) { [weak self] result in
+                        switch result {
+                        case .success(let data):
+                            if let data = data, let profileImgUrl = data.imageUrl , let name = data.name  {
+                                let imageView: UIImageView
+                                switch i {
+                                case 0:
+                                    imageView = cell.userImg2
+                                    cell.likedByLbl.text = "Liked by \(name) and \(Int(postLikedBy.count - 1)) others."
+                                case 1:
+                                    imageView = cell.userImg3
+                                case 2:
+                                    imageView = cell.userImg4
+                                default:
+                                    return
+                                }
+                                ImageLoader.loadImage(for: URL(string: profileImgUrl), into: imageView, withPlaceholder: UIImage(systemName: "person.fill"))
+                            }
+                        case .failure(let error):
+                            print(error)
                         }
-                    case .failure(let error):
-                        print(error)
+
+                        if i == maxUsersToShow - 1 {
+                            self?.disPatchGroup.leave()
+                        }
                     }
                 }
-                
-                FetchUserInfo.shared.fetchUserDataByUid(uid: likedUser2) { [weak self] result in
-                    switch result {
-                    case .success(let data):
-                        if let data = data , let profileImgUrl = data.imageUrl {
-                            ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg3, withPlaceholder: UIImage(systemName: "person.fill"))
-                        }
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
-                
-                FetchUserInfo.shared.fetchUserDataByUid(uid: likedUser3) { [weak self] result in
-                    switch result {
-                    case .success(let data):
-                        if let data = data , let profileImgUrl = data.imageUrl {
-                            ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg4, withPlaceholder: UIImage(systemName: "person.fill"))
-                        }
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
-                
-                self?.disPatchGroup.leave()
-                
             }
+
+            
             
             disPatchGroup.notify(queue: .main){}
             
