@@ -98,8 +98,7 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="steperControlPressed:" destination="KGk-i7-Jjw" eventType="valueChanged" id="FQ8-w6-qBC"/>
-                                            <action selector="stepperControlPressed:" destination="KGk-i7-Jjw" eventType="valueChanged" id="Btx-jN-YsS"/>
+                                            <action selector="stepperControlPressed:" destination="KGk-i7-Jjw" eventType="valueChanged" id="jrl-zH-v4a"/>
                                         </connections>
                                     </pageControl>
                                 </subviews>

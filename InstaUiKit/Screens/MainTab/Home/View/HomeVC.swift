@@ -175,7 +175,7 @@ extension HomeVC {
     
 }
 
-extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
+extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate  {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -231,7 +231,7 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
             guard let postUid = post.uid ,
                   let postName = post.name ,
                   let profileImgUrl = post.profileImageUrl ,
-                  let postImageURLs = post.postImageURLs?[0],
+                  let postImageURLs = post.postImageURLs,
                   let postLocation = post.location,
                   let postCaption = post.caption ,
                   let postComments = post.comments,
@@ -240,12 +240,22 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                   let postLikedBy = post.likedBy,
                   let postPostDocumentID = post.postDocumentID else { return UITableViewCell()}
             
+            
+            cell.steperControl.numberOfPages = post.postImageURLs?.count ?? 0
+            cell.steperControl.currentPage = 0
+            DispatchQueue.main.async { [weak self] in
+                ImageLoader.loadImage(for: URL(string: postImageURLs[0]), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+            }
+            cell.steperControlPressed = { [weak self] pageIndex in
+                print(postImageURLs[pageIndex])
+                DispatchQueue.main.async { [weak self] in
+                    ImageLoader.loadImage(for: URL(string: postImageURLs[pageIndex]), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                }
+            }
+            
+            
             DispatchQueue.main.async { [weak self] in
                 ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
-                
-                cell.updatePageControl(with: post.postImageURLs?.count ?? 0)
-                
-                ImageLoader.loadImage(for: URL(string: postImageURLs), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
                 cell.userName.text = postName
                 cell.postLocationLbl.text = postLocation
                 cell.postCaption.text = postCaption
@@ -296,7 +306,7 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                 }
                 self?.disPatchGroup.leave()
             }
-           
+            
             
             disPatchGroup.enter()
             DispatchQueue.main.async { [weak self] in
@@ -304,7 +314,7 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                     self?.disPatchGroup.leave()
                     return
                 }
-
+                
                 let maxUsersToShow = min(3, postLikedBy.count)
                 for i in 0..<maxUsersToShow {
                     let likedUser = postLikedBy[i]
@@ -333,16 +343,14 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                         case .failure(let error):
                             print(error)
                         }
-
+                        
                         if i == maxUsersToShow - 1 {
                             self?.disPatchGroup.leave()
                         }
                     }
                 }
             }
-
-            
-            
+           
             disPatchGroup.notify(queue: .main){}
             
             return cell
