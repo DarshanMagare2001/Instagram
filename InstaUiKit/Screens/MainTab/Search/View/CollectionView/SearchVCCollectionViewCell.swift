@@ -9,9 +9,11 @@ import UIKit
 
 class SearchVCCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var img: UIImageView!
+    @IBOutlet weak var multiplePostIcon: UIImageView!
     var tapAction: (() -> Void)?
     override func awakeFromNib() {
         super.awakeFromNib()
+        multiplePostIcon.isHidden = true
         img.contentMode = .scaleAspectFill
         img.clipsToBounds = true
         setupTapGesture()

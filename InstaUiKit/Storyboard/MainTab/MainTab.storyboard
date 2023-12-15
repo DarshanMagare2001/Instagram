@@ -694,18 +694,40 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="210" height="176"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zt4-Ib-s9P">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tjs-uu-wQD">
                                                                     <rect key="frame" x="0.0" y="0.0" width="210" height="176"/>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                                    </userDefinedRuntimeAttributes>
-                                                                </imageView>
+                                                                    <subviews>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zt4-Ib-s9P">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="210" height="176"/>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                                            </userDefinedRuntimeAttributes>
+                                                                        </imageView>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square.fill.on.square.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="gq6-iX-7Qg">
+                                                                            <rect key="frame" x="160" y="126.5" width="40" height="39.5"/>
+                                                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="40" id="UFw-EB-m0f"/>
+                                                                                <constraint firstAttribute="width" constant="40" id="ghX-w5-7d9"/>
+                                                                            </constraints>
+                                                                        </imageView>
+                                                                    </subviews>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                    <constraints>
+                                                                        <constraint firstItem="Zt4-Ib-s9P" firstAttribute="leading" secondItem="Tjs-uu-wQD" secondAttribute="leading" id="1Zc-WR-6mU"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="gq6-iX-7Qg" secondAttribute="trailing" constant="10" id="1gU-Bf-FVC"/>
+                                                                        <constraint firstItem="Zt4-Ib-s9P" firstAttribute="top" secondItem="Tjs-uu-wQD" secondAttribute="top" id="7Yz-OU-d2x"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="Zt4-Ib-s9P" secondAttribute="trailing" id="DHI-jY-uXG"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="Zt4-Ib-s9P" secondAttribute="bottom" id="KG3-9B-biD"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="gq6-iX-7Qg" secondAttribute="bottom" constant="10" id="W8X-hK-KAm"/>
+                                                                    </constraints>
+                                                                </view>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstItem="Zt4-Ib-s9P" firstAttribute="leading" secondItem="14o-LX-9Xy" secondAttribute="leading" id="5eA-N3-Dlz"/>
-                                                                <constraint firstAttribute="trailing" secondItem="Zt4-Ib-s9P" secondAttribute="trailing" id="OGG-fo-cws"/>
-                                                                <constraint firstItem="Zt4-Ib-s9P" firstAttribute="top" secondItem="14o-LX-9Xy" secondAttribute="top" id="QPl-G6-uBX"/>
-                                                                <constraint firstAttribute="bottom" secondItem="Zt4-Ib-s9P" secondAttribute="bottom" id="Z9F-yC-KLl"/>
+                                                                <constraint firstItem="Tjs-uu-wQD" firstAttribute="top" secondItem="14o-LX-9Xy" secondAttribute="top" id="6nL-90-Plx"/>
+                                                                <constraint firstAttribute="bottom" secondItem="Tjs-uu-wQD" secondAttribute="bottom" id="aAS-0f-el1"/>
+                                                                <constraint firstItem="Tjs-uu-wQD" firstAttribute="leading" secondItem="14o-LX-9Xy" secondAttribute="leading" id="eIv-rg-Gvf"/>
+                                                                <constraint firstAttribute="trailing" secondItem="Tjs-uu-wQD" secondAttribute="trailing" id="gAO-18-Xnh"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
@@ -717,6 +739,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <outlet property="img" destination="Zt4-Ib-s9P" id="0hS-gF-uGd"/>
+                                                            <outlet property="multiplePostIcon" destination="gq6-iX-7Qg" id="iou-qK-Mm6"/>
                                                         </connections>
                                                     </collectionViewCell>
                                                 </cells>

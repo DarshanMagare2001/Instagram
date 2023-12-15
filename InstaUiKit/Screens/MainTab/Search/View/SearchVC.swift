@@ -195,6 +195,15 @@ extension SearchVC {
                         if let url = element?.postImageURLs?[0] {
                             ImageLoader.loadImage(for: URL(string: url), into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
                         }
+                        
+                        if let postCount = element?.postImageURLs?.count {
+                            if postCount > 1 {
+                                cell.multiplePostIcon.isHidden = false
+                            }else {
+                                cell.multiplePostIcon.isHidden = true
+                            }
+                        }
+                        
                     }
                     // Handle tap action
                     cell.tapAction = { [weak self] in
