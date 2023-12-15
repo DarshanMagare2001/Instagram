@@ -242,9 +242,6 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
             
             DispatchQueue.main.async { [weak self] in
                 ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg1, withPlaceholder: UIImage(systemName: "person.fill"))
-                ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
-                ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg3, withPlaceholder: UIImage(systemName: "person.fill"))
-                ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg4, withPlaceholder: UIImage(systemName: "person.fill"))
                 ImageLoader.loadImage(for: URL(string: postImageURLs), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
                 cell.userName.text = postName
                 cell.postLocationLbl.text = postLocation
@@ -297,20 +294,47 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                 self?.disPatchGroup.leave()
             }
             
-            
             disPatchGroup.enter()
-            if let randomLikedByUID = postLikedBy.randomElement() {
-                FetchUserInfo.shared.fetchUserDataByUid(uid: randomLikedByUID) { [weak self] result in
-                    self?.disPatchGroup.leave()
+            DispatchQueue.main.async { [weak self] in
+                let likedUser1 = postLikedBy[0]
+                let likedUser2 = postLikedBy[1]
+                let likedUser3 = postLikedBy[2]
+                FetchUserInfo.shared.fetchUserDataByUid(uid: likedUser1) { [weak self] result in
                     switch result {
                     case .success(let data):
-                        if let data = data , let name = data.name {
+                        if let data = data , let name = data.name , let profileImgUrl = data.imageUrl {
                             cell.likedByLbl.text = "Liked by \(name) and \(Int(postLikedBy.count - 1)) others."
+                            ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg2, withPlaceholder: UIImage(systemName: "person.fill"))
                         }
                     case .failure(let error):
                         print(error)
                     }
                 }
+                
+                FetchUserInfo.shared.fetchUserDataByUid(uid: likedUser2) { [weak self] result in
+                    switch result {
+                    case .success(let data):
+                        if let data = data , let profileImgUrl = data.imageUrl {
+                            ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg3, withPlaceholder: UIImage(systemName: "person.fill"))
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+                
+                FetchUserInfo.shared.fetchUserDataByUid(uid: likedUser3) { [weak self] result in
+                    switch result {
+                    case .success(let data):
+                        if let data = data , let profileImgUrl = data.imageUrl {
+                            ImageLoader.loadImage(for: URL(string:profileImgUrl), into: cell.userImg4, withPlaceholder: UIImage(systemName: "person.fill"))
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+                
+                self?.disPatchGroup.leave()
+                
             }
             
             disPatchGroup.notify(queue: .main){}
