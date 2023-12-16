@@ -407,103 +407,148 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="2KY-EL-qPZ">
-                                <rect key="frame" x="10" y="0.0" width="300" height="568"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NotificationCell" rowHeight="88" id="cDQ-RB-RFi" customClass="NotificationCell" customModule="InstaUiKit" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="300" height="88"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cDQ-RB-RFi" id="pC5-1n-WU9">
-                                            <rect key="frame" x="0.0" y="0.0" width="300" height="88"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="2Di-jC-Y4A">
-                                                    <rect key="frame" x="0.0" y="10" width="300" height="68"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UXb-W7-vY3">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="2KY-EL-qPZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NotificationCell" rowHeight="88" id="cDQ-RB-RFi" customClass="NotificationCell" customModule="InstaUiKit" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="44.5" width="320" height="88"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cDQ-RB-RFi" id="pC5-1n-WU9">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="gbe-Gp-ODx" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="1.5" width="80" height="65"/>
-                                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="80" id="9c3-ze-8cZ"/>
-                                                                <constraint firstAttribute="width" constant="80" id="dbV-5l-E1L"/>
-                                                            </constraints>
-                                                        </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="h27-hN-PYB">
-                                                            <rect key="frame" x="90" y="0.0" width="100" height="68"/>
-                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="5e9-ss-yY5">
-                                                            <rect key="frame" x="200" y="0.0" width="100" height="68"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="2Di-jC-Y4A">
+                                                            <rect key="frame" x="0.0" y="10" width="320" height="68"/>
                                                             <subviews>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1aP-hT-E1u" customClass="RoundedButton" customModule="InstaUiKit" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="31.5"/>
-                                                                    <color key="backgroundColor" red="0.08235294118" green="0.71372549019999998" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="gbe-Gp-ODx" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="1.5" width="80" height="65"/>
+                                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="100" id="HTj-Db-Q7F"/>
+                                                                        <constraint firstAttribute="height" constant="80" id="9c3-ze-8cZ"/>
+                                                                        <constraint firstAttribute="width" constant="80" id="dbV-5l-E1L"/>
                                                                     </constraints>
-                                                                    <state key="normal" title="Button"/>
-                                                                    <buttonConfiguration key="configuration" style="plain" title="Accept">
-                                                                        <fontDescription key="titleFontDescription" type="boldSystem" pointSize="15"/>
-                                                                        <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                    </buttonConfiguration>
-                                                                    <connections>
-                                                                        <action selector="acceptBtnPressed:" destination="cDQ-RB-RFi" eventType="touchUpInside" id="ege-e3-e0s"/>
-                                                                    </connections>
-                                                                </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGK-z3-jhc" customClass="RoundedButton" customModule="InstaUiKit" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="36.5" width="100" height="31.5"/>
-                                                                    <color key="backgroundColor" red="0.69803921570000005" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="width" constant="100" id="hnI-uD-9hK"/>
-                                                                    </constraints>
-                                                                    <state key="normal" title="Button"/>
-                                                                    <buttonConfiguration key="configuration" style="plain" title="Reject">
-                                                                        <fontDescription key="titleFontDescription" type="boldSystem" pointSize="15"/>
-                                                                        <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                    </buttonConfiguration>
-                                                                    <connections>
-                                                                        <action selector="rejectBtnPressed:" destination="cDQ-RB-RFi" eventType="touchUpInside" id="VIc-rG-XNH"/>
-                                                                    </connections>
-                                                                </button>
+                                                                </imageView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="h27-hN-PYB">
+                                                                    <rect key="frame" x="90" y="0.0" width="120" height="68"/>
+                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="5e9-ss-yY5">
+                                                                    <rect key="frame" x="220" y="0.0" width="100" height="68"/>
+                                                                    <subviews>
+                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1aP-hT-E1u" customClass="RoundedButton" customModule="InstaUiKit" customModuleProvider="target">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="31.5"/>
+                                                                            <color key="backgroundColor" red="0.08235294118" green="0.71372549019999998" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="100" id="HTj-Db-Q7F"/>
+                                                                            </constraints>
+                                                                            <state key="normal" title="Button"/>
+                                                                            <buttonConfiguration key="configuration" style="plain" title="Accept">
+                                                                                <fontDescription key="titleFontDescription" type="boldSystem" pointSize="15"/>
+                                                                                <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            </buttonConfiguration>
+                                                                            <connections>
+                                                                                <action selector="acceptBtnPressed:" destination="cDQ-RB-RFi" eventType="touchUpInside" id="ege-e3-e0s"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGK-z3-jhc" customClass="RoundedButton" customModule="InstaUiKit" customModuleProvider="target">
+                                                                            <rect key="frame" x="0.0" y="36.5" width="100" height="31.5"/>
+                                                                            <color key="backgroundColor" red="0.69803921570000005" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="100" id="hnI-uD-9hK"/>
+                                                                            </constraints>
+                                                                            <state key="normal" title="Button"/>
+                                                                            <buttonConfiguration key="configuration" style="plain" title="Reject">
+                                                                                <fontDescription key="titleFontDescription" type="boldSystem" pointSize="15"/>
+                                                                                <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            </buttonConfiguration>
+                                                                            <connections>
+                                                                                <action selector="rejectBtnPressed:" destination="cDQ-RB-RFi" eventType="touchUpInside" id="VIc-rG-XNH"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                    </subviews>
+                                                                </stackView>
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>
-                                                </stackView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="2Di-jC-Y4A" firstAttribute="top" secondItem="pC5-1n-WU9" secondAttribute="top" constant="10" id="1N4-Mg-ZzE"/>
-                                                <constraint firstAttribute="bottom" secondItem="2Di-jC-Y4A" secondAttribute="bottom" constant="10" id="LfM-7S-l8H"/>
-                                                <constraint firstAttribute="trailing" secondItem="2Di-jC-Y4A" secondAttribute="trailing" id="alL-RB-VKg"/>
-                                                <constraint firstItem="2Di-jC-Y4A" firstAttribute="leading" secondItem="pC5-1n-WU9" secondAttribute="leading" id="f7C-N1-5od"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
+                                                    <constraints>
+                                                        <constraint firstItem="2Di-jC-Y4A" firstAttribute="top" secondItem="pC5-1n-WU9" secondAttribute="top" constant="10" id="1N4-Mg-ZzE"/>
+                                                        <constraint firstAttribute="bottom" secondItem="2Di-jC-Y4A" secondAttribute="bottom" constant="10" id="LfM-7S-l8H"/>
+                                                        <constraint firstAttribute="trailing" secondItem="2Di-jC-Y4A" secondAttribute="trailing" id="alL-RB-VKg"/>
+                                                        <constraint firstItem="2Di-jC-Y4A" firstAttribute="leading" secondItem="pC5-1n-WU9" secondAttribute="leading" id="f7C-N1-5od"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="acceptBtn" destination="1aP-hT-E1u" id="PFb-3q-i8y"/>
+                                                    <outlet property="name" destination="h27-hN-PYB" id="Tfm-GW-okl"/>
+                                                    <outlet property="rejectBtn" destination="lGK-z3-jhc" id="AbD-0H-3Xy"/>
+                                                    <outlet property="userImg" destination="gbe-Gp-ODx" id="n87-J2-swX"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
                                         <connections>
-                                            <outlet property="acceptBtn" destination="1aP-hT-E1u" id="PFb-3q-i8y"/>
-                                            <outlet property="name" destination="h27-hN-PYB" id="Tfm-GW-okl"/>
-                                            <outlet property="rejectBtn" destination="lGK-z3-jhc" id="AbD-0H-3Xy"/>
-                                            <outlet property="userImg" destination="gbe-Gp-ODx" id="n87-J2-swX"/>
+                                            <outlet property="dataSource" destination="KmQ-k7-TR7" id="mxW-Ii-oOM"/>
+                                            <outlet property="delegate" destination="KmQ-k7-TR7" id="XSZ-iz-wCt"/>
                                         </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="KmQ-k7-TR7" id="mxW-Ii-oOM"/>
-                                    <outlet property="delegate" destination="KmQ-k7-TR7" id="XSZ-iz-wCt"/>
-                                </connections>
-                            </tableView>
+                                    </tableView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ytX-ns-3iJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="r9l-77-lhH">
+                                                <rect key="frame" x="20" y="226" width="280" height="116"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops!." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jic-dA-O7l">
+                                                        <rect key="frame" x="0.0" y="0.0" width="280" height="36"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You don't have any follow Request." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j0K-mG-nUM">
+                                                        <rect key="frame" x="0.0" y="56" width="280" height="60"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="25"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="r9l-77-lhH" secondAttribute="trailing" constant="20" id="6lP-F2-yCo"/>
+                                            <constraint firstItem="r9l-77-lhH" firstAttribute="leading" secondItem="ytX-ns-3iJ" secondAttribute="leading" constant="20" id="sV3-Ag-H7P"/>
+                                            <constraint firstItem="r9l-77-lhH" firstAttribute="centerY" secondItem="ytX-ns-3iJ" secondAttribute="centerY" id="z71-wz-xsk"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="2KY-EL-qPZ" firstAttribute="leading" secondItem="UXb-W7-vY3" secondAttribute="leading" id="6hP-p9-XEr"/>
+                                    <constraint firstItem="2KY-EL-qPZ" firstAttribute="top" secondItem="UXb-W7-vY3" secondAttribute="top" id="Id6-t2-2dy"/>
+                                    <constraint firstAttribute="trailing" secondItem="ytX-ns-3iJ" secondAttribute="trailing" id="JcB-hW-b9d"/>
+                                    <constraint firstAttribute="trailing" secondItem="2KY-EL-qPZ" secondAttribute="trailing" id="SJD-zg-lXT"/>
+                                    <constraint firstItem="ytX-ns-3iJ" firstAttribute="top" secondItem="UXb-W7-vY3" secondAttribute="top" id="XH4-C5-W0h"/>
+                                    <constraint firstAttribute="bottom" secondItem="ytX-ns-3iJ" secondAttribute="bottom" id="aqp-QB-ZQ2"/>
+                                    <constraint firstAttribute="bottom" secondItem="2KY-EL-qPZ" secondAttribute="bottom" id="jin-zT-hRG"/>
+                                    <constraint firstItem="ytX-ns-3iJ" firstAttribute="leading" secondItem="UXb-W7-vY3" secondAttribute="leading" id="mt2-jb-A3z"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7qs-pk-PJw"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="2KY-EL-qPZ" secondAttribute="bottom" id="1rw-1c-ueB"/>
-                            <constraint firstAttribute="trailing" secondItem="2KY-EL-qPZ" secondAttribute="trailing" constant="10" id="Hoj-Kn-j4A"/>
-                            <constraint firstItem="2KY-EL-qPZ" firstAttribute="leading" secondItem="v1Z-ri-cPT" secondAttribute="leading" constant="10" id="eX3-uL-ZTX"/>
-                            <constraint firstItem="2KY-EL-qPZ" firstAttribute="top" secondItem="v1Z-ri-cPT" secondAttribute="top" id="ffV-Kx-gTn"/>
+                            <constraint firstAttribute="bottom" secondItem="UXb-W7-vY3" secondAttribute="bottom" id="52G-1s-7ap"/>
+                            <constraint firstItem="UXb-W7-vY3" firstAttribute="leading" secondItem="v1Z-ri-cPT" secondAttribute="leading" id="PCu-J8-WPr"/>
+                            <constraint firstItem="UXb-W7-vY3" firstAttribute="top" secondItem="v1Z-ri-cPT" secondAttribute="top" id="bCS-E7-aZY"/>
+                            <constraint firstAttribute="trailing" secondItem="UXb-W7-vY3" secondAttribute="trailing" id="yO3-Z7-0FC"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="noNotificationView" destination="ytX-ns-3iJ" id="bLV-fT-mio"/>
                         <outlet property="tableViewOutlet" destination="2KY-EL-qPZ" id="7sO-bd-6pQ"/>
                     </connections>
                 </viewController>

@@ -10,11 +10,13 @@ import UIKit
 class NotificationVC: UIViewController {
     
     @IBOutlet weak var tableViewOutlet: UITableView!
+    @IBOutlet weak var noNotificationView: UIView!
     
     var currentUser : UserModel?
     var viewModel = NotificationViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
+        noNotificationView.isHidden = true
         fetchCurrentUser()
     }
     
@@ -31,6 +33,13 @@ class NotificationVC: UIViewController {
                 if let user = user {
                     print(user)
                     self.currentUser = user
+                    if let followersRequest = user.followersRequest {
+                        if followersRequest.isEmpty {
+                            self.noNotificationView.isHidden = false
+                        }else{
+                            self.noNotificationView.isHidden = true
+                        }
+                    }
                     self.tableViewOutlet.reloadData()
                 }
             case.failure(let error):
