@@ -68,7 +68,9 @@ extension NotificationVC : UITableViewDelegate , UITableViewDataSource {
                     if let user = user , let imgUrl = user.imageUrl , let name = user.name {
                         cell.name.text = name
                         ImageLoader.loadImage(for: URL(string:imgUrl), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                        
                         cell.acceptBtnBtnTapped = { [weak self] in
+                            MessageLoader.shared.showLoader(withText: "Accepting..")
                             self?.viewModel.acceptFollowRequest(toFollowsUid: cellData.uid, whoFollowingsUid: uid){ bool in
                                 if let toFollowsUid = cellData.uid {
                                     StoreUserInfo.shared.saveFollowingsToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: uid) { _ in
@@ -77,6 +79,7 @@ extension NotificationVC : UITableViewDelegate , UITableViewDataSource {
                                                 PushNotification.shared.sendPushNotification(to: fmcToken, title: "Request Accepted" , body: "\(name) Accepted your follow request.")
                                             }
                                             self?.fetchCurrentUser()
+                                            MessageLoader.shared.hideLoader()
                                         }
                                     }
                                 }
@@ -84,9 +87,11 @@ extension NotificationVC : UITableViewDelegate , UITableViewDataSource {
                         }
                         
                         cell.rejectBtnBtnBtnTapped = { [weak self] in
+                            MessageLoader.shared.showLoader(withText: "Rejecting..")
                             if let toFollowsUid = cellData.uid {
                                 self?.removeFollowRequest(toFollowsUid: toFollowsUid, whoFollowingsUid: uid) { bool in
                                     self?.fetchCurrentUser()
+                                    MessageLoader.shared.hideLoader()
                                 }
                             }
                         }
