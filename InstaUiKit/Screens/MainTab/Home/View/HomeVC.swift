@@ -192,23 +192,11 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate  {
     }
     
     func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        if section == 0 {
-            return 1
-        }
-        if section == 1 {
-            return 10
-        }
-        return 0
+        return 11
     }
     
     func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
-        if indexPath.section == 0 {
-            return "HomeVCCell"
-        }
-        if indexPath.section == 1 {
-            return "FeedCell"
-        }
-        return ""
+        return "FeedCell"
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
