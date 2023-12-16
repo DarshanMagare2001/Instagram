@@ -17,6 +17,9 @@ class NotificationVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         noNotificationView.isHidden = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         fetchCurrentUser()
     }
     
@@ -34,11 +37,7 @@ class NotificationVC: UIViewController {
                     print(user)
                     self.currentUser = user
                     if let followersRequest = user.followersRequest {
-                        if followersRequest.isEmpty {
-                            self.noNotificationView.isHidden = false
-                        }else{
-                            self.noNotificationView.isHidden = true
-                        }
+                        self.noNotificationView.isHidden = (followersRequest.isEmpty ? false : true)
                     }
                     self.tableViewOutlet.reloadData()
                 }
@@ -46,8 +45,9 @@ class NotificationVC: UIViewController {
                 print(error)
             }
         }
+        
     }
-   
+    
     @objc func backButtonPressed() {
         navigationController?.popViewController(animated: true)
     }
