@@ -73,6 +73,9 @@
                                                                                                 <constraint firstAttribute="width" constant="80" id="NOX-hl-1So"/>
                                                                                                 <constraint firstAttribute="height" constant="80" id="hm7-eW-I0t"/>
                                                                                             </constraints>
+                                                                                            <userDefinedRuntimeAttributes>
+                                                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="NO"/>
+                                                                                            </userDefinedRuntimeAttributes>
                                                                                         </imageView>
                                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTF-U7-hug" customClass="CircularButtonWithBorder" customModule="InstaUiKit" customModuleProvider="target">
                                                                                             <rect key="frame" x="58" y="58" width="25" height="25"/>
@@ -85,6 +88,9 @@
                                                                                             <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system" title="">
                                                                                                 <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             </buttonConfiguration>
+                                                                                            <userDefinedRuntimeAttributes>
+                                                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="NO"/>
+                                                                                            </userDefinedRuntimeAttributes>
                                                                                             <connections>
                                                                                                 <action selector="addStoryBtnPressed:" destination="FA9-0B-L9o" eventType="touchUpInside" id="61T-ak-Tsa"/>
                                                                                             </connections>
@@ -98,14 +104,24 @@
                                                                                         <constraint firstItem="Png-ox-dSp" firstAttribute="leading" secondItem="gR2-TP-olN" secondAttribute="leading" id="g28-fb-eCf"/>
                                                                                         <constraint firstItem="Png-ox-dSp" firstAttribute="top" secondItem="gR2-TP-olN" secondAttribute="top" id="rey-hH-fKp"/>
                                                                                     </constraints>
+                                                                                    <userDefinedRuntimeAttributes>
+                                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="NO"/>
+                                                                                    </userDefinedRuntimeAttributes>
                                                                                 </view>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Story" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ag9-z9-i5Y">
                                                                                     <rect key="frame" x="6" y="90" width="68.5" height="26"/>
                                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
+                                                                                    <userDefinedRuntimeAttributes>
+                                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="useFontLineHeight" value="NO"/>
+                                                                                    </userDefinedRuntimeAttributes>
                                                                                 </label>
                                                                             </subviews>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="NO"/>
+                                                                            </userDefinedRuntimeAttributes>
                                                                         </stackView>
                                                                     </subviews>
                                                                     <constraints>
@@ -114,6 +130,9 @@
                                                                         <constraint firstAttribute="bottom" secondItem="UUR-TG-CWN" secondAttribute="bottom" constant="15" id="xbI-XZ-587"/>
                                                                         <constraint firstItem="UUR-TG-CWN" firstAttribute="top" secondItem="edV-p4-1Kk" secondAttribute="top" constant="15" id="zJw-sb-t79"/>
                                                                     </constraints>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="NO"/>
+                                                                    </userDefinedRuntimeAttributes>
                                                                 </view>
                                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="vJS-b4-9bH">
                                                                     <rect key="frame" x="100" y="0.0" width="220" height="146"/>
@@ -275,7 +294,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="moa-i2-ojo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2107.5" y="67.605633802816897"/>
+            <point key="canvasLocation" x="-2106" y="72"/>
         </scene>
         <!--Direct MsgVC-->
         <scene sceneID="77z-u7-XjP">
