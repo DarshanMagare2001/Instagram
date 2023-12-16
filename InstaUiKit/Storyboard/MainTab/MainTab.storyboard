@@ -411,18 +411,18 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="2KY-EL-qPZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <rect key="frame" x="10" y="0.0" width="300" height="568"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NotificationCell" rowHeight="88" id="cDQ-RB-RFi" customClass="NotificationCell" customModule="InstaUiKit" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="320" height="88"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="300" height="88"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cDQ-RB-RFi" id="pC5-1n-WU9">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="88"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="2Di-jC-Y4A">
-                                                            <rect key="frame" x="0.0" y="10" width="320" height="68"/>
+                                                            <rect key="frame" x="0.0" y="10" width="300" height="68"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="gbe-Gp-ODx" customClass="CircleImageView" customModule="InstaUiKit" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="1.5" width="80" height="65"/>
@@ -433,13 +433,13 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="h27-hN-PYB">
-                                                                    <rect key="frame" x="90" y="0.0" width="120" height="68"/>
+                                                                    <rect key="frame" x="90" y="0.0" width="100" height="68"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="5e9-ss-yY5">
-                                                                    <rect key="frame" x="220" y="0.0" width="100" height="68"/>
+                                                                    <rect key="frame" x="200" y="0.0" width="100" height="68"/>
                                                                     <subviews>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1aP-hT-E1u" customClass="RoundedButton" customModule="InstaUiKit" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="100" height="31.5"/>
@@ -527,10 +527,10 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="2KY-EL-qPZ" firstAttribute="leading" secondItem="UXb-W7-vY3" secondAttribute="leading" id="6hP-p9-XEr"/>
+                                    <constraint firstItem="2KY-EL-qPZ" firstAttribute="leading" secondItem="UXb-W7-vY3" secondAttribute="leading" constant="10" id="6hP-p9-XEr"/>
                                     <constraint firstItem="2KY-EL-qPZ" firstAttribute="top" secondItem="UXb-W7-vY3" secondAttribute="top" id="Id6-t2-2dy"/>
                                     <constraint firstAttribute="trailing" secondItem="ytX-ns-3iJ" secondAttribute="trailing" id="JcB-hW-b9d"/>
-                                    <constraint firstAttribute="trailing" secondItem="2KY-EL-qPZ" secondAttribute="trailing" id="SJD-zg-lXT"/>
+                                    <constraint firstAttribute="trailing" secondItem="2KY-EL-qPZ" secondAttribute="trailing" constant="10" id="SJD-zg-lXT"/>
                                     <constraint firstItem="ytX-ns-3iJ" firstAttribute="top" secondItem="UXb-W7-vY3" secondAttribute="top" id="XH4-C5-W0h"/>
                                     <constraint firstAttribute="bottom" secondItem="ytX-ns-3iJ" secondAttribute="bottom" id="aqp-QB-ZQ2"/>
                                     <constraint firstAttribute="bottom" secondItem="2KY-EL-qPZ" secondAttribute="bottom" id="jin-zT-hRG"/>
