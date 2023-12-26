@@ -39,9 +39,7 @@ class SearchVC: UIViewController {
     
     
     private func setBarItemsForSearchVC() {
-        if let mainTabVC = tabBarController as? MainTabVC {
-            mainTabVC.setBarItemsForSearchVC()
-        }
+       
     }
     
     @objc func refreshCollectionView() {

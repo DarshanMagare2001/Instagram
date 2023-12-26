@@ -80,12 +80,12 @@ class ProfileVC: UIViewController {
             if let name = FetchUserData.fetchUserInfoFromUserdefault(type: .name){
                 DispatchQueue.main.async {
                     self.userName.text = name
-                    mainTabVC.setBarItemsForProfileVC(profileName: name){
-                        UIView.animate(withDuration: 0.5) {
-                            self.sideMenuView.alpha = 1.0
-                            self.sideMenuView.transform = CGAffineTransform(translationX: 0, y: 0)
-                        }
-                    }
+//                    mainTabVC.setBarItemsForProfileVC(profileName: name){
+//                        UIView.animate(withDuration: 0.5) {
+//                            self.sideMenuView.alpha = 1.0
+//                            self.sideMenuView.transform = CGAffineTransform(translationX: 0, y: 0)
+//                        }
+//                    }
                 }
             }
         }

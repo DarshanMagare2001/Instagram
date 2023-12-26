@@ -35,9 +35,7 @@ class LikesVC: UIViewController {
     }
     
     private func setBarItemsForLikesVC() {
-        if let mainTabVC = tabBarController as? MainTabVC {
-            mainTabVC.setBarItemsForLikesVC()
-        }
+        
     }
     
     @objc func refresh(send: UIRefreshControl) {

@@ -10,92 +10,19 @@ import SkeletonView
 import RxSwift
 
 class HomeVC: UIViewController {
+    
     @IBOutlet weak var feedTableView: UITableView!
     var allPost = [PostAllDataModel]()
     var allUniqueUsersArray = [UserModel]()
     var refreshControl = UIRefreshControl()
     var viewModel = HomeVCViewModel()
-    var notificationCountForDirectMsg : Int = 0
-    var notificationCountForNotificationBtn: Int = 0
-    var isnotificationShowForDirectMsg = false
-    var isnotificationShowForNotificationBtn = false
     let disPatchGroup = DispatchGroup()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setBarItemsForHomeVC(isdirectMsgHaveNotification: isnotificationShowForDirectMsg, isNotificationBtnHaveNotification: isnotificationShowForNotificationBtn, notificationCountForDirectMsg: notificationCountForDirectMsg, notificationCountForNotificationBtn: notificationCountForNotificationBtn)
         configureTableView()
         setupRefreshControl()
         configureUI()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        fetchAllKindNotifications()
-    }
-    
-    private func setBarItemsForHomeVC(isdirectMsgHaveNotification: Bool, isNotificationBtnHaveNotification: Bool, notificationCountForDirectMsg: Int, notificationCountForNotificationBtn: Int) {
-        if let mainTabVC = tabBarController as? MainTabVC {
-            mainTabVC.setBarItemsForHomeVC(isdirectMsgHaveNotification: isdirectMsgHaveNotification, isNotificationBtnHaveNotification: isNotificationBtnHaveNotification, notificationCountForDirectMsg: notificationCountForDirectMsg, notificationCountForNotificationBtn: notificationCountForNotificationBtn) { buttonType in
-                switch buttonType {
-                case .directMessage:
-                    Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "DirectMsgVC") { [weak self] destinationVC in
-                        if let destinationVC = destinationVC {
-                            self?.navigationController?.pushViewController(destinationVC, animated: true)
-                        }
-                    }
-                case .notification:
-                    Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "NotificationVC") { [weak self] destinationVC in
-                        if let destinationVC = destinationVC {
-                            self?.navigationController?.pushViewController(destinationVC, animated: true)
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    private func fetchAllKindNotifications(){
-        disPatchGroup.enter()
-        viewModel.fetchAllNotifications { [weak self] result in
-            switch result {
-            case.success(let notificationCount):
-                print(notificationCount)
-                if notificationCount != 0 {
-                    self?.isnotificationShowForNotificationBtn = true
-                    self?.notificationCountForNotificationBtn = notificationCount
-                }else{
-                    self?.isnotificationShowForNotificationBtn = false
-                }
-            case.failure(let error):
-                print(error)
-            }
-            self?.disPatchGroup.leave()
-        }
-        
-        disPatchGroup.enter()
-        viewModel.fetchUserChatNotificationCount { [weak self] result in
-            switch result {
-            case.success(let notificationCount):
-                print(notificationCount)
-                if let notificationCount = notificationCount {
-                    if notificationCount != 0 {
-                        self?.isnotificationShowForDirectMsg = true
-                        self?.notificationCountForDirectMsg = notificationCount
-                    }else{
-                        self?.isnotificationShowForDirectMsg = false
-                    }
-                }
-            case.failure(let error):
-                print(error)
-            }
-            self?.disPatchGroup.leave()
-        }
-        
-        disPatchGroup.notify(queue: .main) {
-            self.setBarItemsForHomeVC(isdirectMsgHaveNotification: self.isnotificationShowForDirectMsg, isNotificationBtnHaveNotification: self.isnotificationShowForNotificationBtn, notificationCountForDirectMsg: self.notificationCountForDirectMsg, notificationCountForNotificationBtn: self.notificationCountForNotificationBtn)
-        }
-        
     }
     
     private func configureTableView() {
@@ -135,7 +62,7 @@ class HomeVC: UIViewController {
 
 extension HomeVC {
     func updateUI() {
-        fetchAllKindNotifications()
+     
         disPatchGroup.enter()
         DispatchQueue.main.async { [weak self] in
             self?.fetchData()

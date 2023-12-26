@@ -9,10 +9,25 @@ import Foundation
 import UIKit
 
 final class ProfileVCBuilder {
+    
     static func build(factory:NavigationFactoryClosure) -> UIViewController {
         let storyboard = UIStoryboard.MainTab
         let profileVC = storyboard.instantiateViewController(withIdentifier: "ProfileVC") as!ProfileVC
         profileVC.title = "Profile"
+        profileVC.navigationItem.rightBarButtonItem = setBarButton()
         return factory(profileVC)
     }
+    
+    private static func setBarButton() -> UIBarButtonItem {
+        if let nextButtonImage = UIImage(systemName: "line.3.horizontal")?.withRenderingMode(.alwaysOriginal) {
+            let sideBtn = UIBarButtonItem(image: nextButtonImage, style: .plain, target: self, action: #selector(sideBtnTapped))
+            return sideBtn
+        }
+        return UIBarButtonItem()
+    }
+    
+    @objc private static func sideBtnTapped() {
+        
+    }
+    
 }
