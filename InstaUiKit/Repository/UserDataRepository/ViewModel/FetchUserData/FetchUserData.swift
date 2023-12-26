@@ -9,12 +9,20 @@ import Foundation
 import FirebaseFirestore
 import Firebase
 
+protocol FetchUserDataProtocol {
+    func fetchUniqueUsersFromFirebase(completionHandler: @escaping (Result<[UserModel], Error>) -> Void)
+    func fetchCurrentUserFromFirebase(completionHandler: @escaping (Result<UserModel?, Error>) -> Void)
+    func fetchUserDataByUid(uid: String, completionHandler: @escaping (Result<UserModel?, Error>) -> Void)
+    func getFCMToken(completion: @escaping (String?) -> Void)
+}
+
+
 class FetchUserData {
     static let shared = FetchUserData()
-    private init() {
-        
-    }
-    
+    private init() {}
+}
+
+extension FetchUserData : FetchUserDataProtocol {
     // MARK: - Fetch Users Info from Userdefault
     
     enum UserInfoFromUserdefault: String {
@@ -196,5 +204,4 @@ class FetchUserData {
             }
         }
     }
-    
 }
