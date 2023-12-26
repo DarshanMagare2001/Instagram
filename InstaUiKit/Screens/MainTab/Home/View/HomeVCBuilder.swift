@@ -15,15 +15,26 @@ final class HomeVCBuilder {
     private static var isnotificationShowForDirectMsg = false
     private static var isnotificationShowForNotificationBtn = false
     private static var viewModel = HomeVCViewModel()
+    static var directMsgBtnTappedClosure: (() -> Void)?
+    static var notificationBtnTappedClosure: (() -> Void)?
     
-    static func build(factory:NavigationFactoryClosure) -> UIViewController {
+    
+    static func build(factory: NavigationFactoryClosure) -> UIViewController {
         let storyboard = UIStoryboard.MainTab
-        let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeVC") as!HomeVC
+        let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeVC") as! HomeVC
         fetchAllKindNotifications()
         homeVC.navigationItem.leftBarButtonItems = [configureInstaLogo()]
         homeVC.navigationItem.rightBarButtonItems = configureBarButtons(isdirectMsgHaveNotification: isnotificationShowForDirectMsg, isNotificationBtnHaveNotification: isnotificationShowForNotificationBtn, notificationCountForDirectMsg: notificationCountForDirectMsg, notificationCountForNotificationBtn: notificationCountForNotificationBtn)
+        HomeVCBuilder.directMsgBtnTappedClosure = { [weak homeVC] in
+            homeVC?.directMsgBtnTapped()
+        }
+        
+        HomeVCBuilder.notificationBtnTappedClosure = { [weak homeVC] in
+            homeVC?.notificationBtnTapped()
+        }
         return factory(homeVC)
     }
+    
     
     private static func configureInstaLogo() -> UIBarButtonItem {
         let userProfileImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 160, height: 40))
@@ -135,22 +146,15 @@ final class HomeVCBuilder {
         return UIBarButtonItem(customView: container)
     }
     
+    
     @objc static func directMsgBtnTapped(){
         print("directMsgBtnTapped")
-        //        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "DirectMsgVC") {  destinationVC in
-        //            if let destinationVC = destinationVC {
-        //                self.navigationController?.pushViewController(destinationVC, animated: true)
-        //            }
-        //        }
+        directMsgBtnTappedClosure?()
     }
     
     @objc static func notificationBtnTapped() {
         print("notificationBtnTapped")
-        //        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "NotificationVC") {  destinationVC in
-        //            if let destinationVC = destinationVC {
-        //                self.navigationController?.pushViewController(destinationVC, animated: true)
-        //            }
-        //        }
+        notificationBtnTappedClosure?()
     }
     
 }

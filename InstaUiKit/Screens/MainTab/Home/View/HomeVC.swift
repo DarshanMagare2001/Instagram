@@ -25,7 +25,23 @@ class HomeVC: UIViewController {
         configureUI()
     }
     
-    private func configureTableView() {
+    func directMsgBtnTapped(){
+        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "DirectMsgVC") {  destinationVC in
+            if let destinationVC = destinationVC {
+                self.navigationController?.pushViewController(destinationVC, animated: true)
+            }
+        }
+    }
+    
+    func notificationBtnTapped(){
+        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "NotificationVC") {  destinationVC in
+            if let destinationVC = destinationVC {
+                self.navigationController?.pushViewController(destinationVC, animated: true)
+            }
+        }
+    }
+    
+    private func configureTableView(){
         let nib = UINib(nibName: "FeedCell", bundle: nil)
         feedTableView.register(nib, forCellReuseIdentifier: "FeedCell")
         makeSkeletonable()
@@ -62,7 +78,7 @@ class HomeVC: UIViewController {
 
 extension HomeVC {
     func updateUI() {
-     
+        
         disPatchGroup.enter()
         DispatchQueue.main.async { [weak self] in
             self?.fetchData()
@@ -278,7 +294,7 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate  {
                     }
                 }
             }
-           
+            
             disPatchGroup.notify(queue: .main){}
             
             return cell
