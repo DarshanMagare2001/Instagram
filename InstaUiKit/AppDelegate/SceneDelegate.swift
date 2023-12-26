@@ -16,17 +16,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
         window = UIWindow(windowScene: windowScene)
         if let currentUser = Auth.auth().currentUser {
-            print("User logged in")
-            let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
-            let mainTabVC = storyboard.instantiateViewController(withIdentifier: "MainTabVC") as! MainTabVC
-            let navigationController = UINavigationController(rootViewController: mainTabVC)
-            window?.rootViewController = navigationController
+            let subModules = (
+                home:HomeVCBuilder.build(factory: NavigationFactory.build(rootView:)),
+                search:SearchVCBuilder.build(factory: NavigationFactory.build(rootView:)),
+                post:PostVCBuilder.build(factory: NavigationFactory.build(rootView:)),
+                likes:LikesVCBuilder.build(factory: NavigationFactory.build(rootView:)),
+                profile:ProfileVCBuilder.build(factory: NavigationFactory.build(rootView:))
+            )
+            let controller = MainTabVCBuilder.build(subModules: subModules)
+            window?.rootViewController = controller
         } else {
-            print("User not logged in")
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let SignInVC = storyboard.instantiateViewController(withIdentifier: "SignInVC")
-            let navigationController = UINavigationController(rootViewController: SignInVC)
-            window?.rootViewController = navigationController
+            let controller = SignInVCBuilder.build(factory:NavigationFactory.build(rootView:))
+            window?.rootViewController = controller
         }
         window?.makeKeyAndVisible()
     }

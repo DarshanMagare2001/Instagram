@@ -7,11 +7,30 @@
 
 import UIKit
 
+typealias Tabs = (
+    home:UIViewController,
+    search:UIViewController,
+    post:UIViewController,
+    likes:UIViewController,
+    profile:UIViewController
+)
+
+
 class MainTabVC: UITabBarController {
     private var postActionClosureForsideBtnTappedForProfileVC: (() -> Void)?
     private var postActionClosureForDirectMsgBtnForHomeVC: (() -> Void)?
     private var postActionClosureForNotificationBtnForHomeVC: (() -> Void)?
     typealias BarButtonAction = (_ buttonType: BarButtonTypeForHomeVC) -> Void
+    
+    init(tabs:Tabs){
+        super.init(nibName: nil, bundle: nil)
+        viewControllers = [tabs.home,tabs.search,tabs.post,tabs.likes,tabs.profile]
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     enum BarButtonTypeForHomeVC {
         case directMessage
@@ -20,15 +39,15 @@ class MainTabVC: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationItem.hidesBackButton = true
-        if let viewControllers = viewControllers {
-            viewControllers[0].title = "Home"
-            viewControllers[1].title = "Search"
-            viewControllers[2].title = "Post"
-            viewControllers[3].title = "Likes"
-            viewControllers[4].title = "Profile"
-        }
+//        navigationController?.setNavigationBarHidden(false, animated: true)
+//        navigationItem.hidesBackButton = true
+//        if let viewControllers = viewControllers {
+//            viewControllers[0].title = "Home"
+//            viewControllers[1].title = "Search"
+//            viewControllers[2].title = "Post"
+//            viewControllers[3].title = "Likes"
+//            viewControllers[4].title = "Profile"
+//        }
     }
     
     func setBarItemsForHomeVC(isdirectMsgHaveNotification: Bool, isNotificationBtnHaveNotification: Bool, notificationCountForDirectMsg: Int, notificationCountForNotificationBtn: Int, action: @escaping BarButtonAction) {

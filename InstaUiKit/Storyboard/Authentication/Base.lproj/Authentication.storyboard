@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="myP-cz-uoA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
@@ -18,14 +18,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InstaLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ZBW-2j-e5i">
-                                <rect key="frame" x="60" y="124" width="200" height="50"/>
+                                <rect key="frame" x="60" y="80" width="200" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="Gpn-XY-beT"/>
                                     <constraint firstAttribute="height" constant="50" id="YKf-cS-5FX"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b1S-r1-tOc" customClass="RoundedButtonWithBorder" customModule="InstaUiKit" customModuleProvider="target">
-                                <rect key="frame" x="20" y="344" width="280" height="50"/>
+                                <rect key="frame" x="20" y="300" width="280" height="50"/>
                                 <color key="backgroundColor" name="GlobalBlue"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="q8b-eN-2A6"/>
@@ -40,7 +40,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehQ-Xc-vLG">
-                                <rect key="frame" x="20" y="404" width="280" height="32"/>
+                                <rect key="frame" x="20" y="360" width="280" height="32"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Switch accounts">
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="15"/>
@@ -97,7 +97,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Cvi-pw-Xfm">
-                                <rect key="frame" x="20" y="194" width="280" height="110"/>
+                                <rect key="frame" x="20" y="150" width="280" height="110"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="frh-Pl-nqE" customClass="RoundedViewWithBorder" customModule="InstaUiKit" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="280" height="50"/>
@@ -610,24 +610,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="my5-oZ-EpY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2250" y="57.04225352112676"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="c55-gk-T2g">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="myP-cz-uoA" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WlQ-zd-U3n">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="C6Z-Zq-bvS"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bjs-o2-QzT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="291" y="61"/>
         </scene>
     </scenes>
     <resources>
