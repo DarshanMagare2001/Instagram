@@ -32,7 +32,7 @@ class SignInVC: UIViewController, passUserBack {
                 if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
                     FetchUserInfo.shared.getFCMToken { fcmToken in
                         if let fcmToken = fcmToken {
-                            StoreUserInfo.shared.saveUsersFMCTokenAndUidToFirebase(uid: uid, fcmToken: fcmToken) { result in
+                            StoreUserData.shared.saveUsersFMCTokenAndUidToFirebase(uid: uid, fcmToken: fcmToken) { result in
                                 switch result {
                                 case .success(let success):
                                     print(success)
@@ -128,7 +128,7 @@ class SignInVC: UIViewController, passUserBack {
                     if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
                         FetchUserInfo.shared.getFCMToken { fcmToken in
                             if let fcmToken = fcmToken {
-                                StoreUserInfo.shared.saveUsersFMCTokenAndUidToFirebase(uid: uid, fcmToken: fcmToken) { result in
+                                StoreUserData.shared.saveUsersFMCTokenAndUidToFirebase(uid: uid, fcmToken: fcmToken) { result in
                                     switch result {
                                     case .success(let success):
                                         print(success)

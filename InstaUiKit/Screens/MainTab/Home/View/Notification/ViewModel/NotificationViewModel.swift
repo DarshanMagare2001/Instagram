@@ -11,7 +11,7 @@ import UIKit
 class NotificationViewModel {
     func acceptFollowRequest(toFollowsUid:String?,whoFollowingsUid:String? , completion:@escaping (Bool) -> Void ){
         if let toFollowsUid = toFollowsUid , let whoFollowingsUid = whoFollowingsUid {
-            StoreUserInfo.shared.saveFollowersToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { _ in
+            StoreUserData.shared.saveFollowersToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { _ in
                completion(true)
             }
         }

@@ -247,7 +247,7 @@ class UsersProfileView: UIViewController {
     
     @IBAction func messageBtnPressed(_ sender: UIButton) {
         if let currentUser = currentUser , let  senderId = currentUser.uid , let receiverId = user?.uid {
-            StoreUserInfo.shared.saveUsersChatList(senderId: senderId, receiverId: receiverId) { _ in}
+            StoreUserData.shared.saveUsersChatList(senderId: senderId, receiverId: receiverId) { _ in}
         }
         if let user = user {
             let storyboard = UIStoryboard(name: "MainTab", bundle: nil)

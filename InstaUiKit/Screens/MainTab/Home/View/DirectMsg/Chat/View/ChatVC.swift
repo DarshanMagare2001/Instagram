@@ -33,12 +33,12 @@ class ChatVC: MessagesViewController {
                 }
                 
                 if let senderId = self?.currentUserModel?.uid , let receiverId = self?.receiverUser?.uid {
-                    StoreUserInfo.shared.saveUsersChatNotifications(senderId: senderId, receiverId: receiverId) { _ in}
+                    StoreUserData.shared.saveUsersChatNotifications(senderId: senderId, receiverId: receiverId) { _ in}
                 }
                 
                 if let userChatList = self?.receiverUser?.usersChatList , let senderId = self?.currentUserModel?.uid  , let receiverId = self?.receiverUser?.uid {
                     if !userChatList.contains(senderId){
-                        StoreUserInfo.shared.saveUsersChatList(senderId: senderId, receiverId: receiverId) { _ in}
+                        StoreUserData.shared.saveUsersChatList(senderId: senderId, receiverId: receiverId) { _ in}
                     }
                 }
                 
@@ -71,7 +71,7 @@ class ChatVC: MessagesViewController {
                             self.messagesCollectionView.reloadData()
                             self.messagesCollectionView.scrollToLastItem(animated: true)
                             if let senderId = self.currentUserModel?.uid , let receiverId = self.receiverUser?.uid {
-                                StoreUserInfo.shared.removeUsersChatNotifications(senderId: senderId, receiverId: receiverId) { _ in}
+                                StoreUserData.shared.removeUsersChatNotifications(senderId: senderId, receiverId: receiverId) { _ in}
                             }
                         }
                     }

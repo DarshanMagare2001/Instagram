@@ -11,10 +11,10 @@ class UsersProfileViewModel {
     
     func saveFollower(uid : String? , completion : @escaping (Result<Bool,Error>) -> Void){
         if let whoFollowingsUid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) , let toFollowsUid = uid {
-            StoreUserInfo.shared.saveFollowersToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
+            StoreUserData.shared.saveFollowersToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
                 switch result {
                 case .success(let success):
-                    StoreUserInfo.shared.saveFollowingsToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
+                    StoreUserData.shared.saveFollowingsToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
                         switch result {
                         case .success(let success):
                             print(success)
@@ -34,11 +34,11 @@ class UsersProfileViewModel {
     
     func removeFollower(uid : String? , completion : @escaping (Result<Bool,Error>) -> Void){
         if let whoFollowingsUid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) , let toFollowsUid = uid {
-            StoreUserInfo.shared.removeFollowerFromFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
+            StoreUserData.shared.removeFollowerFromFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
                 switch result {
                 case .success(let success):
                     print(success)
-                    StoreUserInfo.shared.removeFollowingFromFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
+                    StoreUserData.shared.removeFollowingFromFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
                         switch result {
                         case .success(let success):
                             print(success)
@@ -58,10 +58,10 @@ class UsersProfileViewModel {
     
     func requestFollower(uid : String? , completion : @escaping (Result<Bool,Error>) -> Void){
         if let whoFollowingsUid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) , let toFollowsUid = uid {
-            StoreUserInfo.shared.saveFollowersRequestToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
+            StoreUserData.shared.saveFollowersRequestToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
                 switch result {
                 case .success(let success):
-                    StoreUserInfo.shared.saveFollowingsRequestToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
+                    StoreUserData.shared.saveFollowingsRequestToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
                         switch result {
                         case .success(let success):
                             print(success)
@@ -82,10 +82,10 @@ class UsersProfileViewModel {
     
     func removeFollowRequest(uid : String? , completion : @escaping (Result<Bool,Error>) -> Void){
         if let whoFollowingsUid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) , let toFollowsUid = uid {
-            StoreUserInfo.shared.removeFollowerRequestFromFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
+            StoreUserData.shared.removeFollowerRequestFromFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
                 switch result {
                 case .success(let success):
-                    StoreUserInfo.shared.removeFollowingRequestFromFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
+                    StoreUserData.shared.removeFollowingRequestFromFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
                         switch result {
                         case .success(let success):
                             print(success)

@@ -77,7 +77,7 @@ class DirectMsgViewModel {
             switch result {
             case.success(let data):
                 if let data = data , let senderId = data.uid , let receiverId = receiverId {
-                    StoreUserInfo.shared.removeUserFromChatUserListOfSender(senderId: senderId, receiverId: receiverId) { result in
+                    StoreUserData.shared.removeUserFromChatUserListOfSender(senderId: senderId, receiverId: receiverId) { result in
                         switch result {
                         case.success():
                             completion(true)

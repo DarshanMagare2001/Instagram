@@ -8,10 +8,28 @@
 import Foundation
 import FirebaseFirestore
 
-class StoreUserInfo {
-    static let shared = StoreUserInfo()
+protocol StoreUserDataProtocol {
+    func saveUsersFMCTokenAndUidToFirebase(uid: String, fcmToken: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func saveFollowersToFirebaseOfUser(toFollowsUid: String, whoFollowingsUid: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func saveFollowingsToFirebaseOfUser(toFollowsUid: String, whoFollowingsUid: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func removeFollowerFromFirebaseOfUser(toFollowsUid: String, whoFollowingsUid: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func removeFollowingFromFirebaseOfUser(toFollowsUid: String, whoFollowingsUid: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func saveFollowersRequestToFirebaseOfUser(toFollowsUid: String, whoFollowingsUid: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func saveFollowingsRequestToFirebaseOfUser(toFollowsUid: String, whoFollowingsUid: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func removeFollowerRequestFromFirebaseOfUser(toFollowsUid: String, whoFollowingsUid: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func removeFollowingRequestFromFirebaseOfUser(toFollowsUid: String, whoFollowingsUid: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func saveUsersChatList(senderId: String, receiverId: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func removeUserFromChatUserListOfSender(senderId: String, receiverId: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func saveUsersChatNotifications(senderId: String, receiverId: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func removeUsersChatNotifications(senderId: String, receiverId: String, completion: @escaping (Result<Void, Error>) -> Void)
+}
+
+class StoreUserData {
+    static let shared = StoreUserData()
     private init(){}
-    
+}
+
+extension StoreUserData : StoreUserDataProtocol {
     // MARK: - Save Users FMCToken And Uid
     
     func saveUsersFMCTokenAndUidToFirebase(uid: String, fcmToken: String, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -44,7 +62,7 @@ class StoreUserInfo {
             }
         }
     }
-
+    
     // MARK: - Save User's Followings
     
     func saveFollowingsToFirebaseOfUser(toFollowsUid: String, whoFollowingsUid: String, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -61,7 +79,7 @@ class StoreUserInfo {
     }
     
     // MARK: - Remove User from Followers
-
+    
     func removeFollowerFromFirebaseOfUser(toFollowsUid: String, whoFollowingsUid: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()
         let userRef = db.collection("users").document(toFollowsUid)
@@ -74,9 +92,9 @@ class StoreUserInfo {
             }
         }
     }
-
+    
     // MARK: - Remove User from Followings
-
+    
     func removeFollowingFromFirebaseOfUser(toFollowsUid: String, whoFollowingsUid: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()
         let userRef = db.collection("users").document(whoFollowingsUid)
@@ -123,7 +141,7 @@ class StoreUserInfo {
     }
     
     // MARK: - Remove User from FollowersRequest
-
+    
     func removeFollowerRequestFromFirebaseOfUser(toFollowsUid: String, whoFollowingsUid: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()
         let userRef = db.collection("users").document(toFollowsUid)
@@ -138,7 +156,7 @@ class StoreUserInfo {
     }
     
     // MARK: - Remove User from FollowingsRequest
-
+    
     func removeFollowingRequestFromFirebaseOfUser(toFollowsUid: String, whoFollowingsUid: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()
         let userRef = db.collection("users").document(whoFollowingsUid)
@@ -158,7 +176,7 @@ class StoreUserInfo {
         let db = Firestore.firestore()
         let userRefSenderId = db.collection("users").document(senderId)
         let userRefReceiverId = db.collection("users").document(receiverId)
-
+        
         let updateUsersChatList: (DocumentReference, String) -> Void = { userRef, uid in
             userRef.setData(["usersChatList": FieldValue.arrayUnion([uid])], merge: true) { error in
                 if let error = error {
@@ -168,13 +186,13 @@ class StoreUserInfo {
                 }
             }
         }
-
+        
         updateUsersChatList(userRefSenderId, receiverId)
         updateUsersChatList(userRefReceiverId, senderId)
     }
-
+    
     // MARK: - Remove User from chatUserListOfSender
-
+    
     func removeUserFromChatUserListOfSender(senderId: String, receiverId: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()
         let userRef = db.collection("users").document(senderId)
@@ -204,7 +222,7 @@ class StoreUserInfo {
     }
     
     // MARK: - Remove User's chatNotifications
-
+    
     func removeUsersChatNotifications(senderId: String, receiverId: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()
         let userRef = db.collection("users").document(senderId)
@@ -217,5 +235,4 @@ class StoreUserInfo {
             }
         }
     }
-    
 }

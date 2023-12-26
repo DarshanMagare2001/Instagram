@@ -82,7 +82,7 @@ extension NotificationVC : UITableViewDelegate , UITableViewDataSource {
                             MessageLoader.shared.showLoader(withText: "Accepting..")
                             self?.viewModel.acceptFollowRequest(toFollowsUid: cellData.uid, whoFollowingsUid: uid){ bool in
                                 if let toFollowsUid = cellData.uid {
-                                    StoreUserInfo.shared.saveFollowingsToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: uid) { _ in
+                                    StoreUserData.shared.saveFollowingsToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: uid) { _ in
                                         self?.removeFollowRequest(toFollowsUid: toFollowsUid, whoFollowingsUid: uid) { bool in
                                             if let fmcToken = user.fcmToken , let name = cellData.name {
                                                 PushNotification.shared.sendPushNotification(to: fmcToken, title: "Request Accepted" , body: "\(name) Accepted your follow request.")
@@ -134,10 +134,10 @@ extension NotificationVC : UITableViewDelegate , UITableViewDataSource {
     
     func removeFollowRequest(toFollowsUid:String?,whoFollowingsUid:String?,completion:@escaping (Bool) -> Void){
         if let toFollowsUid = toFollowsUid , let whoFollowingsUid = whoFollowingsUid {
-            StoreUserInfo.shared.removeFollowerRequestFromFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
+            StoreUserData.shared.removeFollowerRequestFromFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
                 switch result {
                 case.success(let success):
-                    StoreUserInfo.shared.removeFollowingRequestFromFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { _ in
+                    StoreUserData.shared.removeFollowingRequestFromFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { _ in
                         completion(true)
                     }
                 case.failure(let error):

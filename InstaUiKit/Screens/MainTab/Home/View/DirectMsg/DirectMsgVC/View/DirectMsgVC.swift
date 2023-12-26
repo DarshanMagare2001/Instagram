@@ -136,7 +136,7 @@ extension DirectMsgVC : passChatUserBack {
             if let userUid = user.uid {
                 MessageLoader.shared.showLoader(withText: "Adding Users")
                 if let currentUser = currentUser , let  senderId = currentUser.uid , let receiverId = user.uid {
-                    StoreUserInfo.shared.saveUsersChatList(senderId: senderId, receiverId: receiverId) { result in
+                    StoreUserData.shared.saveUsersChatList(senderId: senderId, receiverId: receiverId) { result in
                         switch result {
                         case.success():
                             self.viewModel.fetchChatUsers { result in
@@ -267,7 +267,7 @@ extension DirectMsgVC {
         }
         
         if let currentUser = currentUser , let  senderId = currentUser.uid , let receiverId = userToDelete {
-            StoreUserInfo.shared.removeUsersChatNotifications(senderId: senderId, receiverId: receiverId) { _ in}
+            StoreUserData.shared.removeUsersChatNotifications(senderId: senderId, receiverId: receiverId) { _ in}
         }
         
     }
