@@ -120,7 +120,7 @@ class UsersProfileView: UIViewController {
         backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
         
-        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case.success(let user):
                 if let user = user {
@@ -136,7 +136,7 @@ class UsersProfileView: UIViewController {
             if let uid = user.uid , let followers = user.followers?.count , let followings = user.followings?.count , let followersRequest = user.followersRequest {
                 
                 if isFollowAndMsgBtnShow!{
-                    FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+                    FetchUserData.shared.fetchCurrentUserFromFirebase { result in
                         switch result {
                         case.success(let userData):
                             if let userData = userData , let currentUid = userData.uid {
@@ -204,7 +204,7 @@ class UsersProfileView: UIViewController {
     @IBAction func folloBtnPressed(_ sender: UIButton) {
         if let user = user {
             if let uid = user.uid , let isPrivate = user.isPrivate  {
-                FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+                FetchUserData.shared.fetchCurrentUserFromFirebase { result in
                     switch result {
                     case.success(let userData):
                         if let userData = userData {
@@ -261,7 +261,7 @@ class UsersProfileView: UIViewController {
         viewModel.saveFollower(uid: user?.uid) { result  in
             switch result {
             case.success(let value):
-                if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name) {
+                if let name = FetchUserData.fetchUserInfoFromUserdefault(type: .name) {
                     if let fmcToken = self.user?.fcmToken {
                         PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Started following you.")
                     }
@@ -287,7 +287,7 @@ class UsersProfileView: UIViewController {
         viewModel.requestFollower(uid: user?.uid) { result  in
             switch result {
             case.success(let value):
-                if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name) {
+                if let name = FetchUserData.fetchUserInfoFromUserdefault(type: .name) {
                     if let fmcToken = self.user?.fcmToken {
                         PushNotification.shared.sendPushNotification(to: fmcToken, title: "Follow Request" , body: "\(name) requested to follow you.")
                     }

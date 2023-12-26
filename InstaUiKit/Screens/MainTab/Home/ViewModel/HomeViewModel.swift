@@ -11,7 +11,7 @@ import UIKit
 class HomeVCViewModel {
     
     func fetchAllPostsOfFollowings(completion: @escaping (Result<[PostAllDataModel]?, Error>) -> Void) {
-        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case .success(let user):
                 if let user = user, let followings = user.followings , let currentUserUid = user.uid {
@@ -41,12 +41,12 @@ class HomeVCViewModel {
     }
     
     func fetchFollowingUsers(completion:@escaping (Result<[UserModel]?,Error>) -> Void){
-        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case.success(let user):
                 if let user = user, let followings = user.followings {
                     var users = [UserModel]()
-                    FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
+                    FetchUserData.shared.fetchUniqueUsersFromFirebase { result in
                         switch result {
                         case .success(let fetchedUsers):
                             for user in fetchedUsers {
@@ -70,7 +70,7 @@ class HomeVCViewModel {
     }
     
     func fetchAllNotifications(completion:@escaping (Result<Int , Error>) -> Void){
-        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case.success(let user):
                 if let user = user {
@@ -84,7 +84,7 @@ class HomeVCViewModel {
     }
     
     func fetchUserChatNotificationCount(completion:@escaping (Result<Int?,Error>) -> Void){
-        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case.success(let user):
                 if let user = user , let notification = user.usersChatNotification {
@@ -108,11 +108,11 @@ class HomeVCViewModel {
                 let imageName = cell.isLiked ? "heart.fill" : "heart"
                 cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
                 cell.likeBtn.tintColor = cell.isLiked ? .red : .black
-                FetchUserInfo.shared.fetchUserDataByUid(uid: postUid) { [weak self] result in
+                FetchUserData.shared.fetchUserDataByUid(uid: postUid) { [weak self] result in
                     switch result {
                     case.success(let data):
                         if let data = data , let fmcToken = data.fcmToken {
-                            if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name) {
+                            if let name = FetchUserData.fetchUserInfoFromUserdefault(type: .name) {
                                 PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Liked your post.")
                             }
                         }

@@ -58,7 +58,7 @@ class ChatVC: MessagesViewController {
     
     func fetchData(){
         MessageLoader.shared.showLoader(withText: "Messages Fetching")
-        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case .success(let data):
                 MessageLoader.shared.hideLoader()

@@ -20,11 +20,11 @@ class FeedViewModel {
                 let imageName = cell.isLiked ? "heart.fill" : "heart"
                 cell.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
                 cell.likeBtn.tintColor = cell.isLiked ? .red : .black
-                FetchUserInfo.shared.fetchUserDataByUid(uid: postUid) { [weak self] result in
+                FetchUserData.shared.fetchUserDataByUid(uid: postUid) { [weak self] result in
                     switch result {
                     case.success(let data):
                         if let data = data , let fmcToken = data.fcmToken {
-                            if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name) {
+                            if let name = FetchUserData.fetchUserInfoFromUserdefault(type: .name) {
                                 PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Liked your post.")
                             }
                         }

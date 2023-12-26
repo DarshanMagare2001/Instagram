@@ -56,7 +56,7 @@ class FollowersAndFollowingVC: UIViewController {
             if let followersUids = user.followers {
                 for followersUid in followersUids {
                     group.enter()
-                    FetchUserInfo.shared.fetchUserDataByUid(uid: followersUid) { result in
+                    FetchUserData.shared.fetchUserDataByUid(uid: followersUid) { result in
                         defer { group.leave() }
                         switch result {
                         case .success(let userData):
@@ -75,7 +75,7 @@ class FollowersAndFollowingVC: UIViewController {
             if let followingsUids = user.followings {
                 for followingsUid in followingsUids {
                     group.enter()
-                    FetchUserInfo.shared.fetchUserDataByUid(uid: followingsUid) { result in
+                    FetchUserData.shared.fetchUserDataByUid(uid: followingsUid) { result in
                         defer { group.leave() }
                         switch result {
                         case .success(let userData):

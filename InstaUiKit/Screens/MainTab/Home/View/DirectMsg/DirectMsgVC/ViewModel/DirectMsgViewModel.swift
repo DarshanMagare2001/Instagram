@@ -13,12 +13,12 @@ class DirectMsgViewModel {
     
     func fetchUniqueUsers(completion:@escaping (Result<[UserModel]?,Error>) -> Void){
         var allUniqueUsersArray = [UserModel]()
-        FetchUserInfo.shared.fetchCurrentUserFromFirebase { [weak self] result in
+        FetchUserData.shared.fetchCurrentUserFromFirebase { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let user):
                 guard let user = user, let following = user.followings else {return}
-                FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
+                FetchUserData.shared.fetchUniqueUsersFromFirebase { result in
                     switch result {
                     case .success(let data):
                         let uniqueUserUids = Set(following)
@@ -43,13 +43,13 @@ class DirectMsgViewModel {
     
     func fetchChatUsers(completion:@escaping (Result<[UserModel]?,Error>) -> Void ) {
         var chatUsers = [UserModel]()
-        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case.success(let data):
                 if let data = data , let chatUserList = data.usersChatList {
                     for uid in chatUserList {
                         self.dispatchGroup.enter()
-                        FetchUserInfo.shared.fetchUserDataByUid(uid: uid) { result in
+                        FetchUserData.shared.fetchUserDataByUid(uid: uid) { result in
                             self.dispatchGroup.leave()
                             switch result {
                             case.success(let userData):
@@ -73,7 +73,7 @@ class DirectMsgViewModel {
     }
     
     func removeUserFromChatlistOfSender(receiverId : String? , completion : @escaping (Bool) -> Void ){
-        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case.success(let data):
                 if let data = data , let senderId = data.uid , let receiverId = receiverId {

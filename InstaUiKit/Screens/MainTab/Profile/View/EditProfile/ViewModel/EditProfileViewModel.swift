@@ -20,13 +20,13 @@ class EditProfileViewModel {
     
     func saveDataToFirebase(name:String?,username:String?,bio:String?,countryCode:String?,phoneNumber:String?,gender:String? , isPrivate : String?, completionHandler:@escaping(Bool) -> Void){
         guard let name = name , let username = username , let bio = bio, let countryCode = countryCode , let phoneNumber = phoneNumber , let gender = gender , let isPrivate = isPrivate else { return }
-        if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid){
+        if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid){
             ProfileViewModel.shared.saveUserToFirebase(uid: uid, name: name, username: username, bio: bio, phoneNumber: phoneNumber, gender: gender, countryCode: countryCode, isPrivate: isPrivate){ result in
                 switch result {
                 case .success():
                     print("User data saved successfully in database.")
                     
-                    FetchUserInfo.shared.fetchUserDataByUid(uid: uid) { result in
+                    FetchUserData.shared.fetchUserDataByUid(uid: uid) { result in
                         switch result {
                         case .success(let data):
                             if let data = data {
@@ -54,7 +54,7 @@ class EditProfileViewModel {
     func saveUserImageToFirebase(image: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {
         let storage = Storage.storage()
         let storageRef = storage.reference()
-        if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid){
+        if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid){
             let profileImagesRef = storageRef.child("profile_images/\(uid)")
             let imageFileName = "\(UUID().uuidString).jpg"
             if let imageData = image.jpegData(compressionQuality: 0.8) {
@@ -103,7 +103,7 @@ class EditProfileViewModel {
     func fetchUserProfileImageURL(completion: @escaping (Result<URL?, Error>) -> Void) {
         let storage = Storage.storage()
         let storageRef = storage.reference()
-        if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid){
+        if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid){
             let profileImagesRef = storageRef.child("profile_images/\(uid)")
             profileImagesRef.listAll { (result, error) in
                 if let error = error {

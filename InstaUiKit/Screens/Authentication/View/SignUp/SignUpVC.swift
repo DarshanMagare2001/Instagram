@@ -28,8 +28,8 @@ class SignUpVC: UIViewController {
     @IBAction func signUpBtnPressed(_ sender: UIButton) {
         viewModel.signUp(emailTxtFld: emailTxtFld.text, passwordTxtFld: passwordTxtFld.text) { value in
             if value {
-                if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
-                    FetchUserInfo.shared.getFCMToken { fcmToken in
+                if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid) {
+                    FetchUserData.shared.getFCMToken { fcmToken in
                         print(fcmToken)
                         if let fcmToken = fcmToken {
                             StoreUserData.shared.saveUsersFMCTokenAndUidToFirebase(uid: uid, fcmToken: fcmToken) { result in

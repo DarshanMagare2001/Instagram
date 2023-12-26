@@ -77,7 +77,7 @@ class ProfileVC: UIViewController {
     
     private func setBarItemsForProfileVC() {
         if let mainTabVC = tabBarController as? MainTabVC {
-            if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name){
+            if let name = FetchUserData.fetchUserInfoFromUserdefault(type: .name){
                 DispatchQueue.main.async {
                     self.userName.text = name
                     mainTabVC.setBarItemsForProfileVC(profileName: name){
@@ -95,7 +95,7 @@ class ProfileVC: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
         
-        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case.success(let data):
                 if let data = data {
@@ -118,7 +118,7 @@ class ProfileVC: UIViewController {
     
     
     func goToFollowerAndFollowing(){
-        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case.success(let user):
                 if let user = user {
@@ -203,7 +203,7 @@ extension ProfileVC {
     }
     
     func updateUI(){
-        if let url = FetchUserInfo.fetchUserInfoFromUserdefault(type: .profileUrl) {
+        if let url = FetchUserData.fetchUserInfoFromUserdefault(type: .profileUrl) {
             if let imageURL = URL(string: url) {
                 ImageLoader.loadImage(for: imageURL, into: self.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
             } else {
@@ -213,11 +213,11 @@ extension ProfileVC {
             print("URL is nil or empty")
         }
         
-        if let bio = FetchUserInfo.fetchUserInfoFromUserdefault(type: .bio){
+        if let bio = FetchUserData.fetchUserInfoFromUserdefault(type: .bio){
             self.userBio.text = bio
         }
         
-        if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
+        if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid) {
             PostViewModel.shared.fetchPostDataOfPerticularUser(forUID: uid) { result in
                 switch result {
                 case .success(let images):
@@ -239,7 +239,7 @@ extension ProfileVC {
                 }
             }
             
-            FetchUserInfo.shared.fetchCurrentUserFromFirebase { [self] result in
+            FetchUserData.shared.fetchCurrentUserFromFirebase { [self] result in
                 switch result {
                 case .success(let userData):
                     if let userData = userData,let followers = userData.followers?.count,let followings = userData.followings?.count {

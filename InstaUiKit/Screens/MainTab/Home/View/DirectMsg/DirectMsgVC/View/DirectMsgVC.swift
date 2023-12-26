@@ -45,7 +45,7 @@ class DirectMsgVC: UIViewController {
         addChatBtn.tintColor = .black
         navigationItem.rightBarButtonItem = addChatBtn
         
-        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case.success(let user):
                 if let user = user {

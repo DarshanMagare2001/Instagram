@@ -10,7 +10,7 @@ import Foundation
 class UsersProfileViewModel {
     
     func saveFollower(uid : String? , completion : @escaping (Result<Bool,Error>) -> Void){
-        if let whoFollowingsUid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) , let toFollowsUid = uid {
+        if let whoFollowingsUid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid) , let toFollowsUid = uid {
             StoreUserData.shared.saveFollowersToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
                 switch result {
                 case .success(let success):
@@ -33,7 +33,7 @@ class UsersProfileViewModel {
     }
     
     func removeFollower(uid : String? , completion : @escaping (Result<Bool,Error>) -> Void){
-        if let whoFollowingsUid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) , let toFollowsUid = uid {
+        if let whoFollowingsUid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid) , let toFollowsUid = uid {
             StoreUserData.shared.removeFollowerFromFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
                 switch result {
                 case .success(let success):
@@ -57,7 +57,7 @@ class UsersProfileViewModel {
     }
     
     func requestFollower(uid : String? , completion : @escaping (Result<Bool,Error>) -> Void){
-        if let whoFollowingsUid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) , let toFollowsUid = uid {
+        if let whoFollowingsUid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid) , let toFollowsUid = uid {
             StoreUserData.shared.saveFollowersRequestToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
                 switch result {
                 case .success(let success):
@@ -81,7 +81,7 @@ class UsersProfileViewModel {
     
     
     func removeFollowRequest(uid : String? , completion : @escaping (Result<Bool,Error>) -> Void){
-        if let whoFollowingsUid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) , let toFollowsUid = uid {
+        if let whoFollowingsUid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid) , let toFollowsUid = uid {
             StoreUserData.shared.removeFollowerRequestFromFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
                 switch result {
                 case .success(let success):

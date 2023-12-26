@@ -29,8 +29,8 @@ class SignInVC: UIViewController, passUserBack {
     @IBAction func logInBtnPressed(_ sender: UIButton) {
         viewModel.login(emailTxtFld: emailTxtFld.text, passwordTxtFld: passwordTxtFld.text) { value in
             if value {
-                if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
-                    FetchUserInfo.shared.getFCMToken { fcmToken in
+                if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid) {
+                    FetchUserData.shared.getFCMToken { fcmToken in
                         if let fcmToken = fcmToken {
                             StoreUserData.shared.saveUsersFMCTokenAndUidToFirebase(uid: uid, fcmToken: fcmToken) { result in
                                 switch result {
@@ -125,8 +125,8 @@ class SignInVC: UIViewController, passUserBack {
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
             self.viewModel.login(emailTxtFld: user.email, passwordTxtFld: user.password) { value in
                 if value {
-                    if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
-                        FetchUserInfo.shared.getFCMToken { fcmToken in
+                    if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid) {
+                        FetchUserData.shared.getFCMToken { fcmToken in
                             if let fcmToken = fcmToken {
                                 StoreUserData.shared.saveUsersFMCTokenAndUidToFirebase(uid: uid, fcmToken: fcmToken) { result in
                                     switch result {

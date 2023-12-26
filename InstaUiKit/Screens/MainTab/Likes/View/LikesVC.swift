@@ -51,7 +51,7 @@ class LikesVC: UIViewController {
     }
     
     func fetchData() {
-        if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
+        if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid) {
             self.currentUserUid = uid
             PostViewModel.shared.fetchPostDataOfPerticularUser(forUID: uid) { result in
                 switch result {
@@ -106,7 +106,7 @@ extension LikesVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         if section < allPost.count && row < postLikedBy.count {
             let uid = postLikedBy.filter { $0 != currentUserUid }
             DispatchQueue.main.async {
-                FetchUserInfo.shared.fetchUserDataByUid(uid: uid[indexPath.row]) { result in
+                FetchUserData.shared.fetchUserDataByUid(uid: uid[indexPath.row]) { result in
                     switch result {
                     case.success(let user):
                         if let user = user {

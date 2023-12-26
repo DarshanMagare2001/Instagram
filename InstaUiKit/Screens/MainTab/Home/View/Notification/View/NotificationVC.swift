@@ -30,7 +30,7 @@ class NotificationVC: UIViewController {
         backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
         
-        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case.success(let user):
                 if let user = user {
@@ -71,7 +71,7 @@ extension NotificationVC : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationCell", for: indexPath) as! NotificationCell
         if let cellData = currentUser , let uid = cellData.followersRequest?[indexPath.row] {
-            FetchUserInfo.shared.fetchUserDataByUid(uid:uid) { result in
+            FetchUserData.shared.fetchUserDataByUid(uid:uid) { result in
                 switch result {
                 case.success(let user):
                     if let user = user , let imgUrl = user.imageUrl , let name = user.name {
@@ -118,7 +118,7 @@ extension NotificationVC : UITableViewDelegate , UITableViewDataSource {
         let storyboard = UIStoryboard.MainTab
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "UsersProfileView") as! UsersProfileView
         if let cellData = currentUser , let uid = cellData.followersRequest?[indexPath.row] {
-            FetchUserInfo.shared.fetchUserDataByUid(uid:uid) { result in
+            FetchUserData.shared.fetchUserDataByUid(uid:uid) { result in
                 switch result {
                 case.success(let user):
                     if let user = user {

@@ -267,7 +267,7 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate  {
             
             disPatchGroup.enter()
             DispatchQueue.main.async { [weak self] in
-                if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
+                if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid) {
                     
                     if (postLikedBy.contains(uid)){
                         cell.isLiked = true
@@ -320,7 +320,7 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate  {
                 let maxUsersToShow = min(3, postLikedBy.count)
                 for i in 0..<maxUsersToShow {
                     let likedUser = postLikedBy[i]
-                    FetchUserInfo.shared.fetchUserDataByUid(uid: likedUser) { [weak self] result in
+                    FetchUserData.shared.fetchUserDataByUid(uid: likedUser) { [weak self] result in
                         switch result {
                         case .success(let data):
                             if let data = data, let profileImgUrl = data.imageUrl , let name = data.name  {

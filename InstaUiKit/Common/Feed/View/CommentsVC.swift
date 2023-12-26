@@ -83,7 +83,7 @@ extension CommentsVC : UITableViewDelegate , UITableViewDataSource {
            let uid = postData["uid"] as? String,
            let comment = postData["comment"] as? String {
             DispatchQueue.main.async {
-                FetchUserInfo.shared.fetchUserDataByUid(uid: uid) { result in
+                FetchUserData.shared.fetchUserDataByUid(uid: uid) { result in
                     switch result {
                     case .success(let data):
                         if let data = data , let url = data.imageUrl {

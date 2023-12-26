@@ -20,7 +20,7 @@ class HomeVCCell: UITableViewCell {
         super.awakeFromNib()
         collectionViewOutlet.delegate = self
         collectionViewOutlet.dataSource = self
-        if let url = FetchUserInfo.fetchUserInfoFromUserdefault(type: .profileUrl){
+        if let url = FetchUserData.fetchUserInfoFromUserdefault(type: .profileUrl){
             ImageLoader.loadImage(for: URL(string:url), into: userImg, withPlaceholder: UIImage(systemName: "person.fill"))
         }
     }

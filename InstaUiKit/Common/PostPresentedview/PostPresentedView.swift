@@ -62,7 +62,7 @@ class PostPresentedView: UIViewController {
             }
             
             if let randomLikedByUID = likedBy.randomElement() {
-                FetchUserInfo.shared.fetchUserDataByUid(uid: randomLikedByUID) { [weak self] result in
+                FetchUserData.shared.fetchUserDataByUid(uid: randomLikedByUID) { [weak self] result in
                     switch result {
                     case .success(let data):
                         if let data = data , let name = data.name {

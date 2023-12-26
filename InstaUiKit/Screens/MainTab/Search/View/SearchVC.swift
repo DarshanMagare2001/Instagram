@@ -64,13 +64,13 @@ class SearchVC: UIViewController {
         }
         
         
-        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case .success(let user):
                 if let user = user {
                     self.currentUser = user
                 }
-                FetchUserInfo.shared.fetchUniqueUsersFromFirebase { result in
+                FetchUserData.shared.fetchUniqueUsersFromFirebase { result in
                     switch result {
                     case .success(let data):
                         DispatchQueue.main.async {

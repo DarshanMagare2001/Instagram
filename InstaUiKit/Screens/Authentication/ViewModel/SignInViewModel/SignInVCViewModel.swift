@@ -52,7 +52,7 @@ class SignInVCViewModel {
                             }
                         }
                         
-                        FetchUserInfo.shared.fetchCurrentUserFromFirebase { result in
+                        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
                             switch result {
                             case .success(let data):
                                 if let data = data {

@@ -15,7 +15,7 @@ class SwitchAccountViewModel {
         for i in cdUsers {
             print(i.uid)
             dispatchGroup.enter()
-            FetchUserInfo.shared.fetchUserDataByUid(uid: i.uid) { result in
+            FetchUserData.shared.fetchUserDataByUid(uid: i.uid) { result in
                 switch result {
                 case .success(let user):
                     if let user = user {

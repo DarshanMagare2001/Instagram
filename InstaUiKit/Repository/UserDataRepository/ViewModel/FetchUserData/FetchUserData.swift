@@ -9,8 +9,8 @@ import Foundation
 import FirebaseFirestore
 import Firebase
 
-class FetchUserInfo {
-    static let shared = FetchUserInfo()
+class FetchUserData {
+    static let shared = FetchUserData()
     private init() {
         
     }
@@ -48,7 +48,7 @@ class FetchUserInfo {
     // MARK: - Fetch Unique Users From Firebase
     
     func fetchUniqueUsersFromFirebase(completionHandler: @escaping (Result<[UserModel], Error>) -> Void) {
-        if let currentUid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid){
+        if let currentUid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid){
             let db = Firestore.firestore()
             db.collection("users")
                 .getDocuments { (querySnapshot, error) in
@@ -94,7 +94,7 @@ class FetchUserInfo {
     // MARK: - Fetch CurrentUser From Firebase
     
     func fetchCurrentUserFromFirebase(completionHandler: @escaping (Result<UserModel?, Error>) -> Void) {
-        if let currentUid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid){
+        if let currentUid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid){
             let db = Firestore.firestore()
             db.collection("users").document(currentUid).getDocument { (document, error) in
                 if let error = error {

@@ -105,7 +105,7 @@ class PostViewModel {
                         let likesCount = data["likesCount"] as? Int ?? 0
                         let comments = data["comments"] as? [[String: Any]] ?? []
                         if let timestamp = data["timestamp"] as? Timestamp {
-                            FetchUserInfo.shared.fetchUserDataByUid(uid: uid) { result in
+                            FetchUserData.shared.fetchUserDataByUid(uid: uid) { result in
                                 switch result {
                                 case.success(let user):
                                     if let user = user , let name = user.name , let userName = user.username , let profilrImgUrl = user.imageUrl{
@@ -148,7 +148,7 @@ class PostViewModel {
                         let likesCount = data["likesCount"] as? Int ?? 0
                         let comments = data["comments"] as? [[String: Any]] ?? []
                         if let timestamp = data["timestamp"] as? Timestamp {
-                            FetchUserInfo.shared.fetchUserDataByUid(uid: uid) { result in
+                            FetchUserData.shared.fetchUserDataByUid(uid: uid) { result in
                                 switch result {
                                 case .success(let user):
                                     guard let user = user, let name = user.name, let userName = user.username, let profileImgUrl = user.imageUrl else {
@@ -202,7 +202,7 @@ class PostViewModel {
                     let likesCount = data["likesCount"] as? Int ?? 0
                     let comments = data["comments"] as? [[String: Any]] ?? []
                     if let timestamp = data["timestamp"] as? Timestamp {
-                        FetchUserInfo.shared.fetchUserDataByUid(uid: uid) { result in
+                        FetchUserData.shared.fetchUserDataByUid(uid: uid) { result in
                             switch result {
                             case.success(let user):
                                 if let user = user , let name = user.name , let userName = user.username , let profilrImgUrl = user.imageUrl{

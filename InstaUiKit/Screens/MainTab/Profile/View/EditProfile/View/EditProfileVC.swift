@@ -125,19 +125,19 @@ extension EditProfileVC {
     
     
     func updateUI() {
-        if let name = FetchUserInfo.fetchUserInfoFromUserdefault(type: .name){
+        if let name = FetchUserData.fetchUserInfoFromUserdefault(type: .name){
             self.nameTxtFld.text = name
         }
         
-        if let userName = FetchUserInfo.fetchUserInfoFromUserdefault(type: .userName){
+        if let userName = FetchUserData.fetchUserInfoFromUserdefault(type: .userName){
             self.userNameTxtFld.text = userName
         }
         
-        if let bio = FetchUserInfo.fetchUserInfoFromUserdefault(type: .bio){
+        if let bio = FetchUserData.fetchUserInfoFromUserdefault(type: .bio){
             self.bioTxtFld.text = bio
         }
         
-        if let gender = FetchUserInfo.fetchUserInfoFromUserdefault(type: .gender){
+        if let gender = FetchUserData.fetchUserInfoFromUserdefault(type: .gender){
             self.gender  = gender
             if self.gender == "Male"{
                 self.btn1.setImage(UIImage(systemName: "circle.fill"), for: .normal)
@@ -149,7 +149,7 @@ extension EditProfileVC {
             }
         }
         
-        if let isPrivate = FetchUserInfo.fetchUserInfoFromUserdefault(type: .isPrivate){
+        if let isPrivate = FetchUserData.fetchUserInfoFromUserdefault(type: .isPrivate){
             self.isPrivate = isPrivate
             if self.isPrivate == "false" {
                 self.publicBtn.setImage(UIImage(systemName: "circle.fill"), for: .normal)
@@ -161,16 +161,16 @@ extension EditProfileVC {
             }
         }
         
-        if let countryCode = FetchUserInfo.fetchUserInfoFromUserdefault(type: .countryCode){
+        if let countryCode = FetchUserData.fetchUserInfoFromUserdefault(type: .countryCode){
             self.countryCode = "\(countryCode)"
             self.countryPickerBtn.setTitle(countryCode, for: .normal)
         }
         
-        if let phoneNumber = FetchUserInfo.fetchUserInfoFromUserdefault(type: .phoneNumber){
+        if let phoneNumber = FetchUserData.fetchUserInfoFromUserdefault(type: .phoneNumber){
             self.phoneNumberTxtFld.text  = phoneNumber
         }
         
-        if let url = FetchUserInfo.fetchUserInfoFromUserdefault(type: .profileUrl) {
+        if let url = FetchUserData.fetchUserInfoFromUserdefault(type: .profileUrl) {
             if let imageURL = URL(string: url) {
                 ImageLoader.loadImage(for: imageURL, into: self.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
             } else {
@@ -197,7 +197,7 @@ extension EditProfileVC: ImagePickerDelegate , UIViewControllerTransitioningDele
                 // Convert the URL to a string before saving
                 let urlString = url.absoluteString
                 Data.shared.saveData(urlString, key: "ProfileUrl") { _ in
-                    if let uid = FetchUserInfo.fetchUserInfoFromUserdefault(type: .uid) {
+                    if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid) {
                         self.viewModel.saveUserProfileImageToFirebaseDatabase(uid: uid, imageUrl: urlString) { result in
                             switch result {
                             case .success(let data):
