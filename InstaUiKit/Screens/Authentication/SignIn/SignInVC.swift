@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol SignInVCProtocol : class {
+    
+}
+
 class SignInVC: UIViewController, passUserBack {
     
     @IBOutlet weak var emailTxtFld: UITextField!
@@ -15,9 +19,13 @@ class SignInVC: UIViewController, passUserBack {
     var isPasswordShow = false
     var viewModel: SignInVCViewModel!
     var coreDataUsers = [CDUsersModel]()
+    
+    var presenter : SignInVCPresenterProtocol?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.setNavigationBarHidden(true, animated: true)
+        presenter?.viewDidload()
         viewModel = SignInVCViewModel(presentingViewController: self)
         updateTxtFlds()
         Task{
@@ -155,5 +163,9 @@ class SignInVC: UIViewController, passUserBack {
             await fetchCoreDataUsers()
         }
     }
+    
+}
+
+extension SignInVC : SignInVCProtocol {
     
 }

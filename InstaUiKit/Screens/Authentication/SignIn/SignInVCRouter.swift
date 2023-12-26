@@ -6,3 +6,19 @@
 //
 
 import Foundation
+import UIKit
+
+protocol SignInVCRouterProtocol {
+    
+}
+
+class SignInVCRouter {
+    var viewController: UIViewController
+    init(view: UIViewController) {
+        self.viewController = view
+    }
+}
+
+extension SignInVCRouter : SignInVCRouterProtocol {
+    
+}

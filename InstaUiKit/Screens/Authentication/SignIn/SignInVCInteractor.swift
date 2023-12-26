@@ -6,3 +6,15 @@
 //
 
 import Foundation
+
+protocol SignInVCInteractorProtocol {
+    
+}
+
+class SignInVCInteractor {
+    
+}
+
+extension SignInVCInteractor : SignInVCInteractorProtocol {
+    
+}
