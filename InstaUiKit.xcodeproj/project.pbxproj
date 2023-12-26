@@ -332,8 +332,8 @@
 			children = (
 				13FC207B2AF2449900D7EEFD /* InstaUiKit.entitlements */,
 				131166542A70FEE200CD0373 /* AppDelegate */,
-				1368D1542B1713E800B42AC4 /* Repository */,
 				13DBE7732AEB933E0006F3B9 /* Utilities */,
+				1368D1542B1713E800B42AC4 /* Repository */,
 				13FC207C2AF267E100D7EEFD /* Database */,
 				1311665C2A7100E600CD0373 /* Extensions */,
 				13DBE77B2AEB986A0006F3B9 /* Common */,
@@ -537,6 +537,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		134C72DE2B3ACB28000B0D46 /* CoreDataRepository */ = {
+			isa = PBXGroup;
+			children = (
+				1368D1552B17141900B42AC4 /* PersistantStorage.swift */,
+				1368D1572B17190800B42AC4 /* CDUsersRepository */,
+			);
+			path = CoreDataRepository;
+			sourceTree = "<group>";
+		};
 		1355B8D02B0CCB630027A2AF /* SendNotification */ = {
 			isa = PBXGroup;
 			children = (
@@ -548,8 +557,7 @@
 		1368D1542B1713E800B42AC4 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				1368D1552B17141900B42AC4 /* PersistantStorage.swift */,
-				1368D1572B17190800B42AC4 /* CDUsersRepository */,
+				134C72DE2B3ACB28000B0D46 /* CoreDataRepository */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
