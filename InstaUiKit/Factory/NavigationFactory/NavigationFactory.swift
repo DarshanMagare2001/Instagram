@@ -14,7 +14,6 @@ class NavigationFactory {
     static func build(rootView : UIViewController) -> UINavigationController {
         let navigationController = UINavigationController(rootViewController: rootView)
         navigationController.navigationBar.isTranslucent = true
-        navigationController.navigationBar.prefersLargeTitles = true
         return navigationController
     }
 }

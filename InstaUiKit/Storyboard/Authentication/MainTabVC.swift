@@ -39,15 +39,6 @@ class MainTabVC: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        navigationController?.setNavigationBarHidden(false, animated: true)
-//        navigationItem.hidesBackButton = true
-//        if let viewControllers = viewControllers {
-//            viewControllers[0].title = "Home"
-//            viewControllers[1].title = "Search"
-//            viewControllers[2].title = "Post"
-//            viewControllers[3].title = "Likes"
-//            viewControllers[4].title = "Profile"
-//        }
     }
     
     func setBarItemsForHomeVC(isdirectMsgHaveNotification: Bool, isNotificationBtnHaveNotification: Bool, notificationCountForDirectMsg: Int, notificationCountForNotificationBtn: Int, action: @escaping BarButtonAction) {

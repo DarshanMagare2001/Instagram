@@ -454,7 +454,6 @@
 			children = (
 				139110182A86516200CABCD5 /* View */,
 				139110172A86514F00CABCD5 /* ViewModel */,
-				134C73132B3AE374000B0D46 /* HomeVCBuilder.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -903,6 +902,7 @@
 		139110182A86516200CABCD5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				134C73132B3AE374000B0D46 /* HomeVCBuilder.swift */,
 				1392D0232A80B522004B6654 /* HomeVC.swift */,
 				13C61F352B26FC1400011E1B /* HomeVCCell.swift */,
 				137E679D2B18A2C400525169 /* Notification */,
