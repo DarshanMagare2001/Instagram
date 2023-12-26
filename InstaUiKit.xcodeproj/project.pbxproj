@@ -15,7 +15,7 @@
 		130C235C2B20928A0033B763 /* DirectMsgViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C235B2B20928A0033B763 /* DirectMsgViewModel.swift */; };
 		131166382A70FB9900CD0373 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131166372A70FB9900CD0373 /* AppDelegate.swift */; };
 		1311663A2A70FB9900CD0373 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131166392A70FB9900CD0373 /* SceneDelegate.swift */; };
-		1311663F2A70FB9900CD0373 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1311663D2A70FB9900CD0373 /* Main.storyboard */; };
+		1311663F2A70FB9900CD0373 /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1311663D2A70FB9900CD0373 /* Authentication.storyboard */; };
 		131166412A70FB9A00CD0373 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 131166402A70FB9A00CD0373 /* Assets.xcassets */; };
 		131166442A70FB9A00CD0373 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 131166422A70FB9A00CD0373 /* LaunchScreen.storyboard */; };
 		131166732A712A0700CD0373 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 131166722A712A0700CD0373 /* GoogleService-Info.plist */; };
@@ -125,7 +125,7 @@
 		131166342A70FB9900CD0373 /* InstaUiKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstaUiKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		131166372A70FB9900CD0373 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		131166392A70FB9900CD0373 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1311663E2A70FB9900CD0373 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1311663E2A70FB9900CD0373 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Authentication.storyboard; sourceTree = "<group>"; };
 		131166402A70FB9A00CD0373 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		131166432A70FB9A00CD0373 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		131166452A70FB9A00CD0373 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -394,7 +394,7 @@
 		1311665A2A70FF5700CD0373 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				1311663D2A70FB9900CD0373 /* Main.storyboard */,
+				1311663D2A70FB9900CD0373 /* Authentication.storyboard */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -1212,7 +1212,7 @@
 				131166412A70FB9A00CD0373 /* Assets.xcassets in Resources */,
 				1392D0192A80B48D004B6654 /* MainTab.storyboard in Resources */,
 				138BC5E62A73A4B300020297 /* LikesCell.xib in Resources */,
-				1311663F2A70FB9900CD0373 /* Main.storyboard in Resources */,
+				1311663F2A70FB9900CD0373 /* Authentication.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1351,12 +1351,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		1311663D2A70FB9900CD0373 /* Main.storyboard */ = {
+		1311663D2A70FB9900CD0373 /* Authentication.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				1311663E2A70FB9900CD0373 /* Base */,
 			);
-			name = Main.storyboard;
+			name = Authentication.storyboard;
 			sourceTree = "<group>";
 		};
 		131166422A70FB9A00CD0373 /* LaunchScreen.storyboard */ = {
@@ -1498,11 +1498,11 @@
 				DEVELOPMENT_TEAM = M36758779V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = InstaUiKit/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "We need your permission";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need your permission to open camera";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need your permission to access mic";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need your permission";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1530,11 +1530,11 @@
 				DEVELOPMENT_TEAM = M36758779V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = InstaUiKit/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "We need your permission";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need your permission to open camera";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need your permission to access mic";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need your permission";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

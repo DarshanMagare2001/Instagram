@@ -156,7 +156,7 @@ class ProfileVC: UIViewController {
             self.viewModel1.logout()
             DispatchQueue.main.asyncAfter(deadline: .now()+1){
                 MessageLoader.shared.hideLoader()
-                Navigator.shared.navigate(storyboard: UIStoryboard.Main, destinationVCIdentifier: "SignInVC"){ destinationVC in
+                Navigator.shared.navigate(storyboard: UIStoryboard.Authentication, destinationVCIdentifier: "SignInVC"){ destinationVC in
                     if let destinationVC = destinationVC {
                         self.navigationController?.pushViewController(destinationVC, animated: true)
                     }

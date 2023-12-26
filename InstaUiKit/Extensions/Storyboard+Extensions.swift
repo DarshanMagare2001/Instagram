@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 extension UIStoryboard {
-    static let Main = UIStoryboard(name: "Main", bundle: nil)
+    static let Authentication = UIStoryboard(name: "Authentication", bundle: nil)
     static let MainTab = UIStoryboard(name: "MainTab", bundle: nil)
     static let Common = UIStoryboard(name: "Common", bundle: nil)
 }

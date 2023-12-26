@@ -66,7 +66,7 @@ class SignInVC: UIViewController, passUserBack {
     }
     
     @IBAction func switchAccountsBtnPressed(_ sender: UIButton) {
-        let storyboard = UIStoryboard.Main
+        let storyboard = UIStoryboard.Authentication
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "SwitchAccountVC") as! SwitchAccountVC
         destinationVC.cdUser = coreDataUsers
         destinationVC.delegate = self
@@ -75,7 +75,7 @@ class SignInVC: UIViewController, passUserBack {
     
     
     @IBAction func signUpBtnPressed(_ sender: UIButton) {
-        Navigator.shared.navigate(storyboard: UIStoryboard.Main, destinationVCIdentifier: "SignUpVC") { destinationVC in
+        Navigator.shared.navigate(storyboard: UIStoryboard.Authentication, destinationVCIdentifier: "SignUpVC") { destinationVC in
             if let destinationVC = destinationVC {
                 self.navigationController?.pushViewController(destinationVC, animated: true)
             }
