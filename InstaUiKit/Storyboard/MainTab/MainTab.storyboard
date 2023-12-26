@@ -805,10 +805,10 @@
                                     <constraint firstItem="gy6-Gg-g0z" firstAttribute="top" secondItem="hyY-cu-P0b" secondAttribute="top" id="So7-I2-O1H"/>
                                     <constraint firstAttribute="trailing" secondItem="gy6-Gg-g0z" secondAttribute="trailing" id="VtV-Hf-xtn"/>
                                     <constraint firstAttribute="trailing" secondItem="OXc-Iy-5sl" secondAttribute="trailing" id="Zby-us-O0H"/>
+                                    <constraint firstItem="gy6-Gg-g0z" firstAttribute="centerY" secondItem="hyY-cu-P0b" secondAttribute="centerY" id="eOy-pm-GCJ"/>
                                     <constraint firstItem="OXc-Iy-5sl" firstAttribute="top" secondItem="hyY-cu-P0b" secondAttribute="top" id="kcF-HH-fmf"/>
-                                    <constraint firstAttribute="bottom" secondItem="gy6-Gg-g0z" secondAttribute="bottom" id="lwy-tL-NhW"/>
                                     <constraint firstItem="gy6-Gg-g0z" firstAttribute="leading" secondItem="hyY-cu-P0b" secondAttribute="leading" id="oQ2-Gb-TYq"/>
-                                    <constraint firstAttribute="bottom" secondItem="OXc-Iy-5sl" secondAttribute="bottom" id="r9Y-Kr-9tY"/>
+                                    <constraint firstItem="gy6-Gg-g0z" firstAttribute="bottom" secondItem="OXc-Iy-5sl" secondAttribute="bottom" id="v5u-v7-zNF"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -818,10 +818,10 @@
                             <constraint firstItem="fzn-7x-KWL" firstAttribute="leading" secondItem="S91-E3-5Kk" secondAttribute="leading" id="176-A6-yMh"/>
                             <constraint firstItem="S91-E3-5Kk" firstAttribute="trailing" secondItem="hyY-cu-P0b" secondAttribute="trailing" id="2Ch-Ra-P68"/>
                             <constraint firstItem="S91-E3-5Kk" firstAttribute="trailing" secondItem="fzn-7x-KWL" secondAttribute="trailing" id="8eB-3X-RKj"/>
-                            <constraint firstItem="S91-E3-5Kk" firstAttribute="bottom" secondItem="hyY-cu-P0b" secondAttribute="bottom" id="FM9-zQ-uaD"/>
                             <constraint firstItem="hyY-cu-P0b" firstAttribute="leading" secondItem="S91-E3-5Kk" secondAttribute="leading" id="L3h-sb-ZSQ"/>
                             <constraint firstItem="fzn-7x-KWL" firstAttribute="top" secondItem="S91-E3-5Kk" secondAttribute="top" constant="10" id="Zsn-eR-Cyp"/>
                             <constraint firstItem="hyY-cu-P0b" firstAttribute="top" secondItem="fzn-7x-KWL" secondAttribute="bottom" id="axs-G7-bdA"/>
+                            <constraint firstAttribute="bottom" secondItem="hyY-cu-P0b" secondAttribute="bottom" id="nRi-xl-5Bx"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="InstaMagnifyGlass" id="h4J-kq-sjr">
@@ -1292,8 +1292,8 @@
                         <constraints>
                             <constraint firstItem="sty-F4-tCr" firstAttribute="trailing" secondItem="v3z-MB-YkM" secondAttribute="trailing" id="3SY-Fj-6Tz"/>
                             <constraint firstItem="sty-F4-tCr" firstAttribute="leading" secondItem="v3z-MB-YkM" secondAttribute="leading" id="9ai-Cr-j85"/>
-                            <constraint firstItem="sty-F4-tCr" firstAttribute="top" secondItem="v3z-MB-YkM" secondAttribute="top" id="Bv2-Jz-5Gm"/>
-                            <constraint firstItem="v3z-MB-YkM" firstAttribute="bottom" secondItem="sty-F4-tCr" secondAttribute="bottom" id="ghR-q4-Z8q"/>
+                            <constraint firstAttribute="bottom" secondItem="sty-F4-tCr" secondAttribute="bottom" id="IjZ-kZ-c8b"/>
+                            <constraint firstItem="sty-F4-tCr" firstAttribute="top" secondItem="JG7-PP-xlq" secondAttribute="top" id="WmP-zb-DiZ"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Instaheart" id="F1W-cV-ghm">

@@ -463,7 +463,6 @@
 			children = (
 				139110112A8650C700CABCD5 /* View */,
 				139110102A8650BD00CABCD5 /* ViewModel */,
-				134C73152B3AE476000B0D46 /* SearchVCBuilder.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -474,7 +473,6 @@
 				139110022A864F9700CABCD5 /* Model */,
 				139110032A864FE600CABCD5 /* View */,
 				139110042A864FED00CABCD5 /* ViewModel */,
-				134C73172B3AE4A6000B0D46 /* PostVCBuilder.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -484,7 +482,6 @@
 			children = (
 				1391100A2A86507500CABCD5 /* View */,
 				139110092A86506A00CABCD5 /* ViewModel */,
-				134C73192B3AE4CE000B0D46 /* LikesVCBuilder.swift */,
 			);
 			path = Likes;
 			sourceTree = "<group>";
@@ -495,7 +492,6 @@
 				1392D03B2A80B744004B6654 /* Model */,
 				1392D03A2A80B73E004B6654 /* View */,
 				1392D0392A80B733004B6654 /* ViewModel */,
-				134C731B2B3AE505000B0D46 /* ProfileVCBuilder.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -841,6 +837,7 @@
 		139110032A864FE600CABCD5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				134C73172B3AE4A6000B0D46 /* PostVCBuilder.swift */,
 				1392D0272A80B538004B6654 /* PostVC.swift */,
 				134F7F412AEF7C6800B6C31E /* UploadVC.swift */,
 				138BC5EB2A73B7B400020297 /* CollectionView */,
@@ -867,6 +864,7 @@
 		1391100A2A86507500CABCD5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				134C73192B3AE4CE000B0D46 /* LikesVCBuilder.swift */,
 				1392D0292A80B541004B6654 /* LikesVC.swift */,
 				138BC5E22A73A46400020297 /* TableView */,
 			);
@@ -884,6 +882,7 @@
 		139110112A8650C700CABCD5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				134C73152B3AE476000B0D46 /* SearchVCBuilder.swift */,
 				1392D0252A80B52E004B6654 /* SearchVC.swift */,
 				138BC5DD2A739CBD00020297 /* CollectionView */,
 				1385F38A2AF5200D006C8363 /* UsersProfile */,
@@ -950,6 +949,7 @@
 		1392D03A2A80B73E004B6654 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				134C731B2B3AE505000B0D46 /* ProfileVCBuilder.swift */,
 				1392D02B2A80B54A004B6654 /* ProfileVC.swift */,
 				13FB7D632A724BD200D8FC5C /* PhotosCell.swift */,
 				1392D03C2A80B79D004B6654 /* EditProfile */,

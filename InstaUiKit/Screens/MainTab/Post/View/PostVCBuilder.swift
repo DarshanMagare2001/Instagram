@@ -1,5 +1,5 @@
 //
-//  SearchVCBuilder.swift
+//  PostVCBuilder.swift
 //  InstaUiKit
 //
 //  Created by IPS-161 on 26/12/23.
@@ -8,10 +8,12 @@
 import Foundation
 import UIKit
 
-final class SearchVCBuilder {
+final class PostVCBuilder {
     static func build(factory:NavigationFactoryClosure) -> UIViewController {
         let storyboard = UIStoryboard.MainTab
-        let searchVC = storyboard.instantiateViewController(withIdentifier: "SearchVC") as!SearchVC
-        return factory(searchVC)
+        let postVC = storyboard.instantiateViewController(withIdentifier: "PostVC") as!PostVC
+        postVC.title = "Post"
+        return factory(postVC)
     }
 }
+

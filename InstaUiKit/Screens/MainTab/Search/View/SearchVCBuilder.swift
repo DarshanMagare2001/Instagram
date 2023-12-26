@@ -1,5 +1,5 @@
 //
-//  ProfileVCBuilder.swift
+//  SearchVCBuilder.swift
 //  InstaUiKit
 //
 //  Created by IPS-161 on 26/12/23.
@@ -8,10 +8,11 @@
 import Foundation
 import UIKit
 
-final class ProfileVCBuilder {
+final class SearchVCBuilder {
     static func build(factory:NavigationFactoryClosure) -> UIViewController {
         let storyboard = UIStoryboard.MainTab
-        let profileVC = storyboard.instantiateViewController(withIdentifier: "ProfileVC") as!ProfileVC
-        return factory(profileVC)
+        let searchVC = storyboard.instantiateViewController(withIdentifier: "SearchVC") as!SearchVC
+        searchVC.title = "Search"
+        return factory(searchVC)
     }
 }
