@@ -193,23 +193,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QSD-0l-WkF">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="Dgi-TH-eQx"/>
-                                    <constraint firstAttribute="height" constant="50" id="hhl-w2-rM6"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="BackArrow" title=" "/>
-                                <connections>
-                                    <action selector="backBtnPressed:" destination="EDV-Js-du4" eventType="touchUpInside" id="C0K-0c-B9N"/>
-                                </connections>
-                            </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D9b-Ui-qok">
-                                <rect key="frame" x="0.0" y="55" width="320" height="513"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pry-8F-qH0">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="513"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InstaLogo" translatesAutoresizingMaskIntoConstraints="NO" id="7gG-jQ-5x4">
                                                 <rect key="frame" x="60" y="20" width="200" height="50"/>
@@ -348,7 +336,7 @@
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9gP-Po-Oly">
-                                                <rect key="frame" x="0.0" y="463" width="320" height="50"/>
+                                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TLY-qU-IxT">
                                                         <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
@@ -441,11 +429,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Zto-p6-lkU" firstAttribute="trailing" secondItem="D9b-Ui-qok" secondAttribute="trailing" id="3gE-oV-zoW"/>
+                            <constraint firstItem="D9b-Ui-qok" firstAttribute="top" secondItem="Zto-p6-lkU" secondAttribute="top" id="4fN-TZ-qoy"/>
                             <constraint firstItem="Pry-8F-qH0" firstAttribute="width" secondItem="5Ks-u7-dE5" secondAttribute="width" id="LOy-km-gTR"/>
-                            <constraint firstItem="D9b-Ui-qok" firstAttribute="top" secondItem="QSD-0l-WkF" secondAttribute="bottom" constant="5" id="Nd0-me-bNf"/>
                             <constraint firstItem="Zto-p6-lkU" firstAttribute="bottom" secondItem="D9b-Ui-qok" secondAttribute="bottom" id="XDG-vV-OXW"/>
-                            <constraint firstItem="QSD-0l-WkF" firstAttribute="leading" secondItem="Zto-p6-lkU" secondAttribute="leading" id="cFO-Dx-56X"/>
-                            <constraint firstItem="QSD-0l-WkF" firstAttribute="top" secondItem="Zto-p6-lkU" secondAttribute="top" id="kYJ-H7-f4b"/>
                             <constraint firstItem="D9b-Ui-qok" firstAttribute="leading" secondItem="Zto-p6-lkU" secondAttribute="leading" id="kdA-TM-k8g"/>
                         </constraints>
                     </view>
@@ -613,7 +599,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="BackArrow" width="10" height="18"/>
         <image name="FbIcon" width="17" height="17"/>
         <image name="InstaLogo" width="182" height="49"/>
         <image name="eye.slash" catalog="system" width="128" height="86"/>
