@@ -9,15 +9,24 @@ import UIKit
 import SwiftUI
 import FirebaseAuth
 
+
+protocol SignUpVCProtocol : class {
+    
+}
+
 class SignUpVC: UIViewController {
     @IBOutlet weak var emailTxtFld: UITextField!
     @IBOutlet weak var passwordTxtFld: UITextField!
     @IBOutlet weak var passwordHideShowBtn: UIButton!
+    
     var isPasswordShow = false
     var viewModel : SignUpVCViewModel!
+    var presenter : SignUpVCPresenterProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = SignUpVCViewModel(presentingViewController: self)
+        presenter?.viewDidload()
         updateTxtFlds()
     }
     
@@ -101,5 +110,9 @@ class SignUpVC: UIViewController {
             }
         }
     }
+    
+}
+
+extension SignUpVC : SignUpVCProtocol {
     
 }
