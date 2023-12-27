@@ -10,12 +10,14 @@ import UIKit
 
 protocol SignInVCPresenterProtocol {
     func viewDidload()
+    func viewWillAppear()
     func showSwitchAccountVC()
     func goToSignUpVC()
     func signIn(emailTxtFld:String? , passwordTxtFld:String? , view : UIViewController)
 }
 
 class SignInVCPresenter {
+    
     weak var view : SignInVCProtocol?
     var interactor : SignInVCInteractor
     var router : SignInVCRouter
@@ -25,6 +27,7 @@ class SignInVCPresenter {
         self.interactor = interactor
         self.router = router
     }
+    
 }
 
 extension SignInVCPresenter : SignInVCPresenterProtocol {
@@ -76,7 +79,9 @@ extension SignInVCPresenter : SignInVCPresenterProtocol {
         router.showSwitchAccountVC(coreDataUsers: coreDataUsers)
     }
     
-    func viewDidload() {
+    func viewDidload(){}
+    
+    func viewWillAppear() {
         Task{
             let coreDataUsers = await interactor.fetchCoreDataUsers()
             self.coreDataUsers = coreDataUsers

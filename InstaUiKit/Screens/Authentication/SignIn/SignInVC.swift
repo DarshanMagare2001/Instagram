@@ -11,20 +11,19 @@ protocol SignInVCProtocol : class {
     
 }
 
-class SignInVC: UIViewController, passUserBack {
+class SignInVC: UIViewController {
     
     @IBOutlet weak var emailTxtFld: UITextField!
     @IBOutlet weak var passwordTxtFld: UITextField!
     @IBOutlet weak var passwordHideShowBtn: UIButton!
-    var isPasswordShow = false
-    var viewModel: SignInVCViewModel!
-    var presenter : SignInVCPresenterProtocol?
     
+    var isPasswordShow = false
+    var presenter : SignInVCPresenterProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.viewDidload()
-        viewModel = SignInVCViewModel(presentingViewController: self)
+        presenter?.viewWillAppear()
         updateTxtFlds()
     }
     
@@ -35,11 +34,6 @@ class SignInVC: UIViewController, passUserBack {
     
     @IBAction func switchAccountsBtnPressed(_ sender: UIButton) {
         presenter?.showSwitchAccountVC()
-//        let storyboard = UIStoryboard.Authentication
-//        let destinationVC = storyboard.instantiateViewController(withIdentifier: "SwitchAccountVC") as! SwitchAccountVC
-//        destinationVC.cdUser = coreDataUsers
-//        destinationVC.delegate = self
-//        self.present(destinationVC, animated: true, completion: nil)
     }
     
     
@@ -63,43 +57,6 @@ class SignInVC: UIViewController, passUserBack {
     func updateTxtFlds(){
         emailTxtFld.placeholder = "Enter email"
         passwordTxtFld.placeholder = "Enter password"
-    }
-    
-   
-    
-    func passUserBack(user: CDUsersModel) {
-//        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-//            self.viewModel.login(emailTxtFld: user.email, passwordTxtFld: user.password) { value in
-//                if value {
-//                    if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid) {
-//                        FetchUserData.shared.getFCMToken { fcmToken in
-//                            if let fcmToken = fcmToken {
-//                                StoreUserData.shared.saveUsersFMCTokenAndUidToFirebase(uid: uid, fcmToken: fcmToken) { result in
-//                                    switch result {
-//                                    case .success(let success):
-//                                        print(success)
-//                                        MessageLoader.shared.hideLoader()
-//                                        self.gotoMainTab()
-//                                    case .failure(let failure):
-//                                        print(failure)
-//                                        MessageLoader.shared.hideLoader()
-//                                        self.gotoMainTab()
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }else{
-//                    MessageLoader.shared.hideLoader()
-//                }
-//            }
-//        }
-    }
-    
-    func isUserDelete(delete: Bool) {
-//        Task{
-//            await fetchCoreDataUsers()
-//        }
     }
     
 }

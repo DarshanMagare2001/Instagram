@@ -8,16 +8,18 @@
 import Foundation
 import UIKit
 
-protocol SignInVCRouterProtocol {
-    func showSwitchAccountVC(coreDataUsers:[CDUsersModel])
+protocol SignInVCRouterProtocol : passUserBack{
+    func showSwitchAccountVC(coreDataUsers: [CDUsersModel])
     func goToMainTabVC()
     func goToSignUpVC()
 }
 
 class SignInVCRouter {
     var viewController: UIViewController
-    init(view: UIViewController) {
+    var interactor : SignInVCInteractor
+    init(view: UIViewController , interactor : SignInVCInteractor ) {
         self.viewController = view
+        self.interactor = interactor
     }
 }
 
@@ -39,19 +41,50 @@ extension SignInVCRouter : SignInVCRouterProtocol {
         let mainTabVC = MainTabVCBuilder.build(subModules: subModules)
         // Access the window from the SceneDelegate
         if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate,
-            let window = sceneDelegate.window {
+           let window = sceneDelegate.window {
             window.rootViewController = mainTabVC
             window.makeKeyAndVisible()
         }
     }
-
     
-    func showSwitchAccountVC(coreDataUsers:[CDUsersModel]){
+    
+    func showSwitchAccountVC(coreDataUsers: [CDUsersModel]){
         let storyboard = UIStoryboard.Authentication
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "SwitchAccountVC") as! SwitchAccountVC
-        destinationVC.cdUser = coreDataUsers
-        //        destinationVC.delegate = self
-        viewController.present(destinationVC, animated: true, completion: nil)
+        let switchAccountVC = storyboard.instantiateViewController(withIdentifier: "SwitchAccountVC") as! SwitchAccountVC
+        switchAccountVC.cdUser = coreDataUsers
+        switchAccountVC.delegate = self
+        viewController.present(switchAccountVC, animated: true, completion: nil)
+    }
+    
+    func passUserBack(user: CDUsersModel) {
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+            self.interactor.login(emailTxtFld: user.email, passwordTxtFld: user.password) { result in
+                switch result {
+                case .success(let bool):
+                    print(bool)
+                    self.interactor.saveFCMTokenOfCurrentUser { _ in
+                        MessageLoader.shared.hideLoader()
+                        self.goToMainTabVC()
+                    }
+                case .failure(let error):
+                    switch error {
+                    case .emailAndPasswordEmpty(let errorMessage):
+                        print("Email and/or Password is empty: \(errorMessage)")
+                        MessageLoader.shared.hideLoader()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            Alert.shared.alertOk(title: "Warning!", message: "Please fill in all the required fields before proceeding.", presentingViewController: self.viewController){ _ in}
+                        }
+                    case .signInError(let signInError):
+                        print("Sign In error: \(signInError.localizedDescription)")
+                        MessageLoader.shared.hideLoader()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            Alert.shared.alertOk(title: "Error!", message: error.localizedDescription, presentingViewController: self.viewController){ _ in}
+                        }
+                    }
+                }
+            }
+        }
     }
     
 }
+

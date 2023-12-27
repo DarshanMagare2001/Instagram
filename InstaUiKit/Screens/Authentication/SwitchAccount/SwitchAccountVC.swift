@@ -10,7 +10,6 @@ import SkeletonView
 
 protocol passUserBack {
     func passUserBack(user:CDUsersModel)
-    func isUserDelete(delete:Bool)
 }
 
 class SwitchAccountVC: UIViewController {
@@ -99,9 +98,7 @@ extension SwitchAccountVC : SkeletonTableViewDataSource, SkeletonTableViewDelega
             if let deletedCdUserIndex = cdUser?.firstIndex(where: { $0.uid == deletedUser.uid }) {
                 let deletedCdUser = cdUser?.remove(at: deletedCdUserIndex)
                 if let id = deletedCdUser?.id {
-                    CDUserManager.shared.deleteUser(withId: id) { _ in
-                        self.delegate?.isUserDelete(delete: true)
-                    }
+                    CDUserManager.shared.deleteUser(withId: id) { _ in}
                 }
             }
             tableView.deleteRows(at: [indexPath], with: .automatic)
