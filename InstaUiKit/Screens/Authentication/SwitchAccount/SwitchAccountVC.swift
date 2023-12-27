@@ -8,8 +8,13 @@
 import UIKit
 import SkeletonView
 
+
 protocol passUserBack {
     func passUserBack(user:CDUsersModel)
+}
+
+protocol SwitchAccountVCProtocol : class {
+ 
 }
 
 class SwitchAccountVC: UIViewController {
@@ -19,10 +24,12 @@ class SwitchAccountVC: UIViewController {
     var cdUser : [CDUsersModel]?
     var user = [UserModel]()
     var delegate : passUserBack?
+    var presenter : SwitchAccountVCPresenterProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
+        presenter?.viewDidload()
     }
     
     func configureTableView(){
@@ -106,4 +113,8 @@ extension SwitchAccountVC : SkeletonTableViewDataSource, SkeletonTableViewDelega
     }
 
     
+}
+
+extension SwitchAccountVC : SwitchAccountVCProtocol {
+   
 }

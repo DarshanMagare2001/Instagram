@@ -124,6 +124,9 @@
 		13FB7D642A724BD200D8FC5C /* PhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FB7D632A724BD200D8FC5C /* PhotosCell.swift */; };
 		13FC207F2AF2687D00D7EEFD /* StoreUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FC207E2AF2687D00D7EEFD /* StoreUserData.swift */; };
 		13FE5BDF2B3C028C001FFA08 /* SignUpVCBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE5BDE2B3C028C001FFA08 /* SignUpVCBuilder.swift */; };
+		13FE5BE12B3C1F88001FFA08 /* SwitchAccountVCBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE5BE02B3C1F88001FFA08 /* SwitchAccountVCBuilder.swift */; };
+		13FE5BE32B3C21FE001FFA08 /* SwitchAccountVCInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE5BE22B3C21FE001FFA08 /* SwitchAccountVCInteractor.swift */; };
+		13FE5BE52B3C220E001FFA08 /* SwitchAccountVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE5BE42B3C220E001FFA08 /* SwitchAccountVCPresenter.swift */; };
 		5FC7C3CDA91FEFEC6E4E489F /* Pods_InstaUiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEBF60A2EEA38CC296EFB81 /* Pods_InstaUiKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -232,6 +235,9 @@
 		13FC207B2AF2449900D7EEFD /* InstaUiKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InstaUiKit.entitlements; sourceTree = "<group>"; };
 		13FC207E2AF2687D00D7EEFD /* StoreUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreUserData.swift; sourceTree = "<group>"; };
 		13FE5BDE2B3C028C001FFA08 /* SignUpVCBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVCBuilder.swift; sourceTree = "<group>"; };
+		13FE5BE02B3C1F88001FFA08 /* SwitchAccountVCBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchAccountVCBuilder.swift; sourceTree = "<group>"; };
+		13FE5BE22B3C21FE001FFA08 /* SwitchAccountVCInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchAccountVCInteractor.swift; sourceTree = "<group>"; };
+		13FE5BE42B3C220E001FFA08 /* SwitchAccountVCPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchAccountVCPresenter.swift; sourceTree = "<group>"; };
 		3A55025370778E801932B594 /* Pods-InstaUiKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaUiKit.debug.xcconfig"; path = "Target Support Files/Pods-InstaUiKit/Pods-InstaUiKit.debug.xcconfig"; sourceTree = "<group>"; };
 		5FEBF60A2EEA38CC296EFB81 /* Pods_InstaUiKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaUiKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		750337433BA13E892417DBEB /* Pods-InstaUiKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaUiKit.release.xcconfig"; path = "Target Support Files/Pods-InstaUiKit/Pods-InstaUiKit.release.xcconfig"; sourceTree = "<group>"; };
@@ -622,8 +628,11 @@
 		134C72F02B3AD81F000B0D46 /* SwitchAccount */ = {
 			isa = PBXGroup;
 			children = (
-				134C72FF2B3AD89C000B0D46 /* SwitchAccountVC.swift */,
 				134C72FD2B3AD895000B0D46 /* SwitchAccountCell.swift */,
+				134C72FF2B3AD89C000B0D46 /* SwitchAccountVC.swift */,
+				13FE5BE02B3C1F88001FFA08 /* SwitchAccountVCBuilder.swift */,
+				13FE5BE22B3C21FE001FFA08 /* SwitchAccountVCInteractor.swift */,
+				13FE5BE42B3C220E001FFA08 /* SwitchAccountVCPresenter.swift */,
 			);
 			path = SwitchAccount;
 			sourceTree = "<group>";
@@ -1329,12 +1338,14 @@
 				139627602AFBA57D0034F139 /* CommentsViewModel.swift in Sources */,
 				13FE5BDF2B3C028C001FFA08 /* SignUpVCBuilder.swift in Sources */,
 				132847232AFCEB4600A2397F /* UsersProfileViewCell.swift in Sources */,
+				13FE5BE52B3C220E001FFA08 /* SwitchAccountVCPresenter.swift in Sources */,
 				13127A942AF3BED1008C7927 /* ChatVCViewModel.swift in Sources */,
 				1396275E2AFBA5050034F139 /* CommentsVC.swift in Sources */,
 				1392D0102A80B3BE004B6654 /* RoundedCorner.swift in Sources */,
 				136B84A22A83B8E700C102F1 /* ProfileViewModel.swift in Sources */,
 				1303EC702B29778D004EC523 /* ProfilePresentedView.swift in Sources */,
 				138BC5E92A73A4D300020297 /* FollowingCell.swift in Sources */,
+				13FE5BE12B3C1F88001FFA08 /* SwitchAccountVCBuilder.swift in Sources */,
 				13DBE78E2AEBC1F60006F3B9 /* SignUpVCViewModel.swift in Sources */,
 				134C730A2B3ADCDF000B0D46 /* SignInVCRouter.swift in Sources */,
 				13C508CC2B109F650013C52D /* UsersProfileViewModel.swift in Sources */,
@@ -1381,6 +1392,7 @@
 				1385F38F2AF5205F006C8363 /* UsersProfileView.swift in Sources */,
 				130C23582B20469F0033B763 /* MessageLoader.swift in Sources */,
 				13C508C82B108B3B0013C52D /* AddStoryVC.swift in Sources */,
+				13FE5BE32B3C21FE001FFA08 /* SwitchAccountVCInteractor.swift in Sources */,
 				1392D02A2A80B541004B6654 /* LikesVC.swift in Sources */,
 				134C73102B3ADF5A000B0D46 /* MainTabVCBuilder.swift in Sources */,
 				138BC5E52A73A4B300020297 /* LikesCell.swift in Sources */,

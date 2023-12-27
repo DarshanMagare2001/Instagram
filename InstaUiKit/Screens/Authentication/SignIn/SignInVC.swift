@@ -23,7 +23,6 @@ class SignInVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.viewDidload()
-        presenter?.viewWillAppear()
         updateTxtFlds()
     }
     
