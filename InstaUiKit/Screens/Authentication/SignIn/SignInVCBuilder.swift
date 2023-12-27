@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 final class SignInVCBuilder {
-    static func build(factory : NavigationFactoryClosure ) -> UIViewController {
+    static func build(factory: NavigationFactoryClosure) -> UIViewController {
         let storyboard = UIStoryboard.Authentication
         let signInVC = storyboard.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
         let router = SignInVCRouter(view: signInVC)
@@ -19,3 +19,4 @@ final class SignInVCBuilder {
         return factory(signInVC)
     }
 }
+

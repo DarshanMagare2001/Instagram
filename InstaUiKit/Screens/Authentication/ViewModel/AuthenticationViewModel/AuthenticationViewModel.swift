@@ -37,28 +37,7 @@ class AuthenticationViewModel {
         }
     }
 
-    // MARK: - Sign In
-    
-    func signIn(email: String, password: String, completion: @escaping (Error?) -> Void) {
-        Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
-            if let error = error {
-                // Handle sign-in error
-                print("Sign-in error: \(error.localizedDescription)")
-                completion(error)
-                return
-            }
-            
-            // Sign-in successful
-            // You can access the user's unique identifier with authResult?.user.uid
-            
-            print("Sign-in successful with email: \(email)")
-            // Perform any additional operations after successful sign-in
-            
-            completion(nil)
-        }
-    }
-    
-    
+   
     // MARK: - Get Current User Email
     
     func getCurrentUserEmail() -> String? {
