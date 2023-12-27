@@ -458,9 +458,9 @@
 		131166832A7146D800CD0373 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				13FE5BF52B3C4110001FFA08 /* HomeVCCell */,
 				13FE5BF32B3C40E7001FFA08 /* HomeVC.swift */,
 				134C73132B3AE374000B0D46 /* HomeVCBuilder.swift */,
-				13C61F352B26FC1400011E1B /* HomeVCCell.swift */,
 				139110172A86514F00CABCD5 /* ViewModel */,
 			);
 			path = Home;
@@ -1120,6 +1120,14 @@
 				138BC5D72A7391FC00020297 /* DirectMsg */,
 			);
 			path = HomeComponents;
+			sourceTree = "<group>";
+		};
+		13FE5BF52B3C4110001FFA08 /* HomeVCCell */ = {
+			isa = PBXGroup;
+			children = (
+				13C61F352B26FC1400011E1B /* HomeVCCell.swift */,
+			);
+			path = HomeVCCell;
 			sourceTree = "<group>";
 		};
 		7A1121D9D6F2ECE7E142AC39 /* Frameworks */ = {
