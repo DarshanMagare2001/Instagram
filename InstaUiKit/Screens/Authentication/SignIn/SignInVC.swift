@@ -44,11 +44,7 @@ class SignInVC: UIViewController, passUserBack {
     
     
     @IBAction func signUpBtnPressed(_ sender: UIButton) {
-        Navigator.shared.navigate(storyboard: UIStoryboard.Authentication, destinationVCIdentifier: "SignUpVC") { destinationVC in
-            if let destinationVC = destinationVC {
-                self.navigationController?.pushViewController(destinationVC, animated: true)
-            }
-        }
+        presenter?.goToSignUpVC()
     }
     
     

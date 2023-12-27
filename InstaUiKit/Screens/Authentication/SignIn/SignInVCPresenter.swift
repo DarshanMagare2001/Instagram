@@ -11,6 +11,7 @@ import UIKit
 protocol SignInVCPresenterProtocol {
     func viewDidload()
     func showSwitchAccountVC()
+    func goToSignUpVC()
     func signIn(emailTxtFld:String? , passwordTxtFld:String? , view : UIViewController)
 }
 
@@ -27,6 +28,10 @@ class SignInVCPresenter {
 }
 
 extension SignInVCPresenter : SignInVCPresenterProtocol {
+    
+    func goToSignUpVC() {
+        router.goToSignUpVC()
+    }
     
     func signIn(emailTxtFld: String?, passwordTxtFld: String?, view : UIViewController) {
         guard let emailTxtFld = emailTxtFld, let passwordTxtFld = passwordTxtFld else {

@@ -11,6 +11,7 @@ import UIKit
 protocol SignInVCRouterProtocol {
     func showSwitchAccountVC(coreDataUsers:[CDUsersModel])
     func goToMainTabVC()
+    func goToSignUpVC()
 }
 
 class SignInVCRouter {
@@ -21,6 +22,11 @@ class SignInVCRouter {
 }
 
 extension SignInVCRouter : SignInVCRouterProtocol {
+    
+    func goToSignUpVC() {
+        let signUpVC = SignUpVCBuilder.build()
+        self.viewController.navigationController?.pushViewController(signUpVC, animated: true)
+    }
     
     func goToMainTabVC(){
         let subModules = (
