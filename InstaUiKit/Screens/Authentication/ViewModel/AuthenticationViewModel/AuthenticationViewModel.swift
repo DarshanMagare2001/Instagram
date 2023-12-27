@@ -18,24 +18,7 @@ class AuthenticationViewModel {
     
     // MARK: - Sign Up
     
-    func signUp(email: String, password: String, completion: @escaping (Error?) -> Void) {
-        Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
-            if let error = error {
-                // Handle sign-up error
-                print("Sign-up error: \(error.localizedDescription)")
-                completion(error)
-                return
-            }
-            
-            // Sign-up successful
-            // You can access the user's unique identifier with authResult?.user.uid
-            
-            print("Sign-up successful with email: \(email)")
-            // Perform any additional operations after successful sign-up
-            
-            completion(nil)
-        }
-    }
+   
 
    
     // MARK: - Get Current User Email

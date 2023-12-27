@@ -20,12 +20,10 @@ class SignUpVC: UIViewController {
     @IBOutlet weak var passwordHideShowBtn: UIButton!
     
     var isPasswordShow = false
-    var viewModel : SignUpVCViewModel!
     var presenter : SignUpVCPresenterProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = SignUpVCViewModel(presentingViewController: self)
         presenter?.viewDidload()
         updateTxtFlds()
     }
@@ -35,29 +33,7 @@ class SignUpVC: UIViewController {
     }
     
     @IBAction func signUpBtnPressed(_ sender: UIButton) {
-        viewModel.signUp(emailTxtFld: emailTxtFld.text, passwordTxtFld: passwordTxtFld.text) { value in
-            if value {
-                if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid) {
-                    FetchUserData.shared.getFCMToken { fcmToken in
-                        print(fcmToken)
-                        if let fcmToken = fcmToken {
-                            StoreUserData.shared.saveUsersFMCTokenAndUidToFirebase(uid: uid, fcmToken: fcmToken) { result in
-                                switch result {
-                                case .success(let success):
-                                    print(success)
-                                    self.saveUserToCoreData(uid:uid)
-                                case .failure(let failure):
-                                    print(failure)
-                                    self.saveUserToCoreData(uid:uid)
-                                }
-                            }
-                        }
-                    }
-                }
-            }else{
-                MessageLoader.shared.hideLoader()
-            }
-        }
+        presenter?.signUp(emailTxtFld: emailTxtFld.text, passwordTxtFld: passwordTxtFld.text, view: self)
     }
     
     
@@ -84,31 +60,6 @@ class SignUpVC: UIViewController {
     func updateTxtFlds(){
         emailTxtFld.placeholder = "Enter email"
         passwordTxtFld.placeholder = "Enter password"
-    }
-    
-    func saveUserToCoreData(uid:String){
-        DispatchQueue.main.async {
-            MessageLoader.shared.hideLoader()
-            Alert.shared.alertYesNo(title: "Save User!", message: "Do you want to save user?.", presentingViewController: self) { _ in
-                print("Yes")
-                if let email = self.emailTxtFld.text , let password = self.passwordTxtFld.text {
-                    CDUserManager.shared.createUser(user: CDUsersModel(id: UUID(), email: email, password: password, uid: uid)) { _ in
-                        self.gotoMainTab()
-                    }
-                }
-            } noHandler: { _ in
-                print("No")
-                self.gotoMainTab()
-            }
-        }
-    }
-    
-    func gotoMainTab(){
-        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "MainTabVC") { destinationVC in
-            if let destinationVC = destinationVC {
-                self.navigationController?.pushViewController(destinationVC, animated: true)
-            }
-        }
     }
     
 }
