@@ -159,7 +159,7 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate  {
         if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
             DispatchQueue.main.async { [weak self] in
-                cell.configureCellData(post:self.allPost[indexPath.row], view: self)
+                cell.configureCellData(post:self?.allPost[indexPath.row], view: self!)
             }
             return cell
         }
