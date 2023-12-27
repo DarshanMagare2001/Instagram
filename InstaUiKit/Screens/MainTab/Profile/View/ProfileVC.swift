@@ -8,6 +8,7 @@
 import UIKit
 import Kingfisher
 import SkeletonView
+import FirebaseAuth
 
 class ProfileVC: UIViewController {
     @IBOutlet weak var photosCollectionView: UICollectionView!
@@ -21,7 +22,6 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var followingsTxtLbl: UILabel!
     @IBOutlet weak var followersTxtLbl: UILabel!
     @IBOutlet weak var postTxtLbl: UILabel!
-    var viewModel1 = AuthenticationViewModel()
     var viewModel2 = ProfileViewModel()
     var allPost = [PostAllDataModel]()
     var currentUser : UserModel?
@@ -144,7 +144,12 @@ class ProfileVC: UIViewController {
     @IBAction func logOutBtnPressed(_ sender: UIButton) {
         Alert.shared.alertYesNo(title: "Log Out!", message: "Do you want to logOut?.", presentingViewController: self) { _ in
             MessageLoader.shared.showLoader(withText: "Logging out..")
-            self.viewModel1.logout()
+            do {
+                try Auth.auth().signOut()
+                print("Logout successful")
+            } catch {
+                print("Logout error: \(error.localizedDescription)")
+            }
             DispatchQueue.main.asyncAfter(deadline: .now()+1){
                 MessageLoader.shared.hideLoader()
                 Navigator.shared.navigate(storyboard: UIStoryboard.Authentication, destinationVCIdentifier: "SignInVC"){ destinationVC in
