@@ -91,7 +91,6 @@
 		1392D0102A80B3BE004B6654 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392D00F2A80B3BE004B6654 /* RoundedCorner.swift */; };
 		1392D0192A80B48D004B6654 /* MainTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1392D0182A80B48D004B6654 /* MainTab.storyboard */; };
 		1392D0222A80B50C004B6654 /* MainTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392D0212A80B50B004B6654 /* MainTabVC.swift */; };
-		1392D0242A80B522004B6654 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392D0232A80B522004B6654 /* HomeVC.swift */; };
 		1392D0262A80B52E004B6654 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392D0252A80B52E004B6654 /* SearchVC.swift */; };
 		1392D0282A80B538004B6654 /* PostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392D0272A80B538004B6654 /* PostVC.swift */; };
 		1392D02A2A80B541004B6654 /* LikesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392D0292A80B541004B6654 /* LikesVC.swift */; };
@@ -127,6 +126,7 @@
 		13FE5BE72B3C31E4001FFA08 /* SignUpVCInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE5BE62B3C31E4001FFA08 /* SignUpVCInteractor.swift */; };
 		13FE5BE92B3C31F1001FFA08 /* SignUpVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE5BE82B3C31F1001FFA08 /* SignUpVCPresenter.swift */; };
 		13FE5BEB2B3C31FF001FFA08 /* SignUpVCRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE5BEA2B3C31FF001FFA08 /* SignUpVCRouter.swift */; };
+		13FE5BF02B3C3F83001FFA08 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE5BEF2B3C3F83001FFA08 /* HomeVC.swift */; };
 		5FC7C3CDA91FEFEC6E4E489F /* Pods_InstaUiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEBF60A2EEA38CC296EFB81 /* Pods_InstaUiKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -203,7 +203,6 @@
 		1392D00F2A80B3BE004B6654 /* RoundedCorner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundedCorner.swift; path = InstaUiKit/Utilities/RoundedCorner.swift; sourceTree = SOURCE_ROOT; };
 		1392D0182A80B48D004B6654 /* MainTab.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = MainTab.storyboard; path = InstaUiKit/Storyboard/MainTab/MainTab.storyboard; sourceTree = SOURCE_ROOT; };
 		1392D0212A80B50B004B6654 /* MainTabVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainTabVC.swift; path = InstaUiKit/Storyboard/Authentication/MainTabVC.swift; sourceTree = SOURCE_ROOT; };
-		1392D0232A80B522004B6654 /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeVC.swift; path = InstaUiKit/Screens/MainTab/Home/View/HomeVC.swift; sourceTree = SOURCE_ROOT; };
 		1392D0252A80B52E004B6654 /* SearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchVC.swift; path = InstaUiKit/Screens/MainTab/Search/View/SearchVC.swift; sourceTree = SOURCE_ROOT; };
 		1392D0272A80B538004B6654 /* PostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostVC.swift; path = InstaUiKit/Screens/MainTab/Post/View/PostVC.swift; sourceTree = SOURCE_ROOT; };
 		1392D0292A80B541004B6654 /* LikesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikesVC.swift; path = InstaUiKit/Screens/MainTab/Likes/View/LikesVC.swift; sourceTree = SOURCE_ROOT; };
@@ -238,6 +237,7 @@
 		13FE5BE62B3C31E4001FFA08 /* SignUpVCInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVCInteractor.swift; sourceTree = "<group>"; };
 		13FE5BE82B3C31F1001FFA08 /* SignUpVCPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVCPresenter.swift; sourceTree = "<group>"; };
 		13FE5BEA2B3C31FF001FFA08 /* SignUpVCRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVCRouter.swift; sourceTree = "<group>"; };
+		13FE5BEF2B3C3F83001FFA08 /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeVC.swift; path = View/HomeVC.swift; sourceTree = "<group>"; };
 		3A55025370778E801932B594 /* Pods-InstaUiKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaUiKit.debug.xcconfig"; path = "Target Support Files/Pods-InstaUiKit/Pods-InstaUiKit.debug.xcconfig"; sourceTree = "<group>"; };
 		5FEBF60A2EEA38CC296EFB81 /* Pods_InstaUiKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaUiKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		750337433BA13E892417DBEB /* Pods-InstaUiKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaUiKit.release.xcconfig"; path = "Target Support Files/Pods-InstaUiKit/Pods-InstaUiKit.release.xcconfig"; sourceTree = "<group>"; };
@@ -446,7 +446,7 @@
 				1392D0212A80B50B004B6654 /* MainTabVC.swift */,
 				134C730F2B3ADF5A000B0D46 /* MainTabVCBuilder.swift */,
 				134C73112B3ADFB6000B0D46 /* MainTabVCRouter.swift */,
-				131166832A7146D800CD0373 /* Home */,
+				13FE5BEE2B3C3F32001FFA08 /* HomeComponents */,
 				131166842A7146E200CD0373 /* Search */,
 				131166852A7146EF00CD0373 /* Post */,
 				131166862A7146F600CD0373 /* Likes */,
@@ -458,7 +458,9 @@
 		131166832A7146D800CD0373 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				139110182A86516200CABCD5 /* View */,
+				13FE5BEF2B3C3F83001FFA08 /* HomeVC.swift */,
+				134C73132B3AE374000B0D46 /* HomeVCBuilder.swift */,
+				13C61F352B26FC1400011E1B /* HomeVCCell.swift */,
 				139110172A86514F00CABCD5 /* ViewModel */,
 			);
 			path = Home;
@@ -911,19 +913,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		139110182A86516200CABCD5 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				134C73132B3AE374000B0D46 /* HomeVCBuilder.swift */,
-				1392D0232A80B522004B6654 /* HomeVC.swift */,
-				13C61F352B26FC1400011E1B /* HomeVCCell.swift */,
-				137E679D2B18A2C400525169 /* Notification */,
-				138BC5D62A7391ED00020297 /* Stories */,
-				138BC5D72A7391FC00020297 /* DirectMsg */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		1392D0322A80B664004B6654 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
@@ -1122,6 +1111,17 @@
 			path = Alert;
 			sourceTree = "<group>";
 		};
+		13FE5BEE2B3C3F32001FFA08 /* HomeComponents */ = {
+			isa = PBXGroup;
+			children = (
+				131166832A7146D800CD0373 /* Home */,
+				137E679D2B18A2C400525169 /* Notification */,
+				138BC5D62A7391ED00020297 /* Stories */,
+				138BC5D72A7391FC00020297 /* DirectMsg */,
+			);
+			path = HomeComponents;
+			sourceTree = "<group>";
+		};
 		7A1121D9D6F2ECE7E142AC39 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1295,6 +1295,7 @@
 				1368D18A2B174F1E00B42AC4 /* CDUsers+CoreDataProperties.swift in Sources */,
 				138BC5ED2A73B7E400020297 /* PostVCCollectionCell.swift in Sources */,
 				13DBE7752AEB938C0006F3B9 /* Storyboard+Extensions.swift in Sources */,
+				13FE5BF02B3C3F83001FFA08 /* HomeVC.swift in Sources */,
 				134C73002B3AD89C000B0D46 /* SwitchAccountVC.swift in Sources */,
 				13A21CDF2B1995A9000ED554 /* NotificationViewModel.swift in Sources */,
 				13FB7D5F2A722DE000D8FC5C /* FeedCell.swift in Sources */,
@@ -1355,7 +1356,6 @@
 				1391100F2A8650AF00CABCD5 /* LikesViewModel.swift in Sources */,
 				13FB7D642A724BD200D8FC5C /* PhotosCell.swift in Sources */,
 				134C731C2B3AE505000B0D46 /* ProfileVCBuilder.swift in Sources */,
-				1392D0242A80B522004B6654 /* HomeVC.swift in Sources */,
 				138BC5D92A73922100020297 /* DirectMsgVC.swift in Sources */,
 				1385F38F2AF5205F006C8363 /* UsersProfileView.swift in Sources */,
 				130C23582B20469F0033B763 /* MessageLoader.swift in Sources */,
