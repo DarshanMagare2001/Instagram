@@ -126,7 +126,7 @@
 		13FE5BE72B3C31E4001FFA08 /* SignUpVCInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE5BE62B3C31E4001FFA08 /* SignUpVCInteractor.swift */; };
 		13FE5BE92B3C31F1001FFA08 /* SignUpVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE5BE82B3C31F1001FFA08 /* SignUpVCPresenter.swift */; };
 		13FE5BEB2B3C31FF001FFA08 /* SignUpVCRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE5BEA2B3C31FF001FFA08 /* SignUpVCRouter.swift */; };
-		13FE5BF02B3C3F83001FFA08 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE5BEF2B3C3F83001FFA08 /* HomeVC.swift */; };
+		13FE5BF42B3C40E7001FFA08 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE5BF32B3C40E7001FFA08 /* HomeVC.swift */; };
 		5FC7C3CDA91FEFEC6E4E489F /* Pods_InstaUiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEBF60A2EEA38CC296EFB81 /* Pods_InstaUiKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -237,7 +237,7 @@
 		13FE5BE62B3C31E4001FFA08 /* SignUpVCInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVCInteractor.swift; sourceTree = "<group>"; };
 		13FE5BE82B3C31F1001FFA08 /* SignUpVCPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVCPresenter.swift; sourceTree = "<group>"; };
 		13FE5BEA2B3C31FF001FFA08 /* SignUpVCRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVCRouter.swift; sourceTree = "<group>"; };
-		13FE5BEF2B3C3F83001FFA08 /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeVC.swift; path = View/HomeVC.swift; sourceTree = "<group>"; };
+		13FE5BF32B3C40E7001FFA08 /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		3A55025370778E801932B594 /* Pods-InstaUiKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaUiKit.debug.xcconfig"; path = "Target Support Files/Pods-InstaUiKit/Pods-InstaUiKit.debug.xcconfig"; sourceTree = "<group>"; };
 		5FEBF60A2EEA38CC296EFB81 /* Pods_InstaUiKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaUiKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		750337433BA13E892417DBEB /* Pods-InstaUiKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaUiKit.release.xcconfig"; path = "Target Support Files/Pods-InstaUiKit/Pods-InstaUiKit.release.xcconfig"; sourceTree = "<group>"; };
@@ -458,7 +458,7 @@
 		131166832A7146D800CD0373 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				13FE5BEF2B3C3F83001FFA08 /* HomeVC.swift */,
+				13FE5BF32B3C40E7001FFA08 /* HomeVC.swift */,
 				134C73132B3AE374000B0D46 /* HomeVCBuilder.swift */,
 				13C61F352B26FC1400011E1B /* HomeVCCell.swift */,
 				139110172A86514F00CABCD5 /* ViewModel */,
@@ -1295,7 +1295,6 @@
 				1368D18A2B174F1E00B42AC4 /* CDUsers+CoreDataProperties.swift in Sources */,
 				138BC5ED2A73B7E400020297 /* PostVCCollectionCell.swift in Sources */,
 				13DBE7752AEB938C0006F3B9 /* Storyboard+Extensions.swift in Sources */,
-				13FE5BF02B3C3F83001FFA08 /* HomeVC.swift in Sources */,
 				134C73002B3AD89C000B0D46 /* SwitchAccountVC.swift in Sources */,
 				13A21CDF2B1995A9000ED554 /* NotificationViewModel.swift in Sources */,
 				13FB7D5F2A722DE000D8FC5C /* FeedCell.swift in Sources */,
@@ -1323,6 +1322,7 @@
 				1392D02C2A80B54A004B6654 /* ProfileVC.swift in Sources */,
 				130C23422B2031EA0033B763 /* AddChatVC.swift in Sources */,
 				137E54A02B1476BD00186558 /* FollowersAndFollowingViewModel.swift in Sources */,
+				13FE5BF42B3C40E7001FFA08 /* HomeVC.swift in Sources */,
 				130C23462B20363E0033B763 /* AddChatVCCell.swift in Sources */,
 				13DBE7852AEBB85C0006F3B9 /* LoaderVCViewModel.swift in Sources */,
 				13127A8A2AF3702F008C7927 /* UserModel.swift in Sources */,
