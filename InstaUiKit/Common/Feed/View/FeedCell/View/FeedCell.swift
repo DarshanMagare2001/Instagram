@@ -29,6 +29,8 @@ class FeedCell: UITableViewCell {
     var commentsBtnTapped: (() -> Void)?
     var doubleTapAction: (() -> Void)?
     var steperControlPressed: ((Int) -> Void)?
+    var viewModel = FeedCellViewModel()
+    let disPatchGroup = DispatchGroup()
     var isLiked: Bool = false
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -112,8 +114,143 @@ class FeedCell: UITableViewCell {
     }
     
     
-    func configureCellData(allPost:PostAllDataModel?){
-      
+    func configureCellData(post:PostAllDataModel?,view:UIViewController) {
+        
+        userImg1.image = nil
+        userImg2.image = nil
+        userImg3.image = nil
+        userImg4.image = nil
+        userName.text = nil
+        postImg.image = nil
+        postLocationLbl.text = nil
+        postCaption.text = nil
+        totalLikesCount.text = nil
+        likedByLbl.text = nil
+        
+        guard let postUid = post?.uid ,
+              let postName = post?.name ,
+              let profileImgUrl = post?.profileImageUrl ,
+              let postImageURLs = post?.postImageURLs,
+              let postLocation = post?.location,
+              let postCaption = post?.caption ,
+              let postComments = post?.comments,
+              let postUserName = post?.username,
+              let postLikesCounts = post?.likesCount,
+              let postLikedBy = post?.likedBy,
+              let postPostDocumentID = post?.postDocumentID else { return }
+        
+        steperControl.numberOfPages = post?.postImageURLs?.count ?? 0
+        steperControl.currentPage = 0
+        
+        DispatchQueue.main.async { [weak self] in
+            ImageLoader.loadImage(for: URL(string: postImageURLs[0]), into: (self?.postImg)! , withPlaceholder: UIImage(systemName: "person.fill"))
+        }
+        
+        steperControlPressed = { [weak self] pageIndex in
+            DispatchQueue.main.async { [weak self] in
+                ImageLoader.loadImage(for: URL(string: postImageURLs[pageIndex]), into: (self?.postImg)! , withPlaceholder: UIImage(systemName: "person.fill"))
+            }
+        }
+        
+        
+        DispatchQueue.main.async { [weak self] in
+            ImageLoader.loadImage(for: URL(string:profileImgUrl), into: (self?.userImg1)!, withPlaceholder: UIImage(systemName: "person.fill"))
+            self?.userName.text = postName
+            self?.postLocationLbl.text = postLocation
+            self?.postCaption.text = postCaption
+            self?.totalLikesCount.text = "\(postLikesCounts) Likes"
+        }
+        
+        disPatchGroup.enter()
+        DispatchQueue.main.async { [weak self] in
+            if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid) {
+                
+                if (postLikedBy.contains(uid)){
+                    self?.isLiked = true
+                    let imageName = self!.isLiked ? "heart.fill" : "heart"
+                    self?.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+                    self?.likeBtn.tintColor = self!.isLiked ? .red : .black
+                }else{
+                    self?.isLiked = false
+                    let imageName = self!.isLiked ? "heart.fill" : "heart"
+                    self?.likeBtn.setImage(UIImage(systemName: imageName), for: .normal)
+                    self?.likeBtn.tintColor = self!.isLiked ? .red : .black
+                }
+                
+                self?.doubleTapAction = { [weak self] in
+                    guard let self = self else { return }
+                    self.viewModel.likePost(postPostDocumentID: postPostDocumentID, uid: uid, postUid: postUid, cell: self)
+                }
+                
+                self?.likeBtnTapped = { [weak self] in
+                    if ((self?.isLiked) != nil) {
+                        self?.viewModel.unLikePost(postPostDocumentID: postPostDocumentID, uid: uid, cell: self!)
+                    } else {
+                        self?.viewModel.likePost(postPostDocumentID: postPostDocumentID, uid: uid, postUid: postUid, cell: self!)
+                    }
+                }
+                
+            }
+            self?.disPatchGroup.leave()
+        }
+        
+        
+        disPatchGroup.enter()
+        DispatchQueue.main.async { [weak self] in
+            self?.commentsBtnTapped = { [weak self] in
+                let storyboard = UIStoryboard.Common
+                let destinationVC = storyboard.instantiateViewController(withIdentifier: "CommentsVC") as! CommentsVC
+                destinationVC.allPost = post
+                view.navigationController?.pushViewController(destinationVC, animated: true)
+            }
+            self?.disPatchGroup.leave()
+        }
+        
+        disPatchGroup.enter()
+        DispatchQueue.main.async { [weak self] in
+            guard !postLikedBy.isEmpty else {
+                self?.disPatchGroup.leave()
+                return
+            }
+            
+            let maxUsersToShow = min(3, postLikedBy.count)
+            for i in 0..<maxUsersToShow {
+                let likedUser = postLikedBy[i]
+                FetchUserData.shared.fetchUserDataByUid(uid: likedUser) { [weak self] result in
+                    switch result {
+                    case .success(let data):
+                        if let data = data, let profileImgUrl = data.imageUrl , let name = data.name  {
+                            let imageView: UIImageView
+                            switch i {
+                            case 0:
+                                self?.likedBysectionView.isHidden = false
+                                self?.userImg2View.isHidden = false
+                                imageView = (self?.userImg2)!
+                                self?.likedByLbl.text = "Liked by \(name) and \(Int(postLikedBy.count - 1)) others."
+                            case 1:
+                                self?.userImg3View.isHidden = false
+                                imageView = self?.userImg3 as! UIImageView
+                            case 2:
+                                self?.userImg4View.isHidden = false
+                                imageView = self?.userImg4 as! UIImageView
+                            default:
+                                return
+                            }
+                            ImageLoader.loadImage(for: URL(string: profileImgUrl), into: imageView, withPlaceholder: UIImage(systemName: "person.fill"))
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
+                    
+                    if i == maxUsersToShow - 1 {
+                        self?.disPatchGroup.leave()
+                    }
+                }
+            }
+        }
+        
+        disPatchGroup.notify(queue: .main){}
+        
     }
     
     
