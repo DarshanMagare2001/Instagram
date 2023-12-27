@@ -30,7 +30,6 @@ class FeedCell: UITableViewCell {
     var doubleTapAction: (() -> Void)?
     var steperControlPressed: ((Int) -> Void)?
     var isLiked: Bool = false
-    var allPost : [PostAllDataModel]?
     override func awakeFromNib() {
         super.awakeFromNib()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didDoubleTap))
@@ -111,6 +110,12 @@ class FeedCell: UITableViewCell {
     func updatePageControl(with count: Int) {
         steperControl.numberOfPages = count
     }
+    
+    
+    func configureCellData(allPost:PostAllDataModel?){
+      
+    }
+    
     
 }
 

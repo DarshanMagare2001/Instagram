@@ -161,6 +161,8 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate  {
             
             let post = allPost[indexPath.row]
             
+            cell.configureCellData(allPost: allPost[indexPath.row])
+            
             cell.userImg1.image = nil
             cell.userImg2.image = nil
             cell.userImg3.image = nil

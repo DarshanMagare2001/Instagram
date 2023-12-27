@@ -127,6 +127,7 @@
 		13FE5BE92B3C31F1001FFA08 /* SignUpVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE5BE82B3C31F1001FFA08 /* SignUpVCPresenter.swift */; };
 		13FE5BEB2B3C31FF001FFA08 /* SignUpVCRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE5BEA2B3C31FF001FFA08 /* SignUpVCRouter.swift */; };
 		13FE5BF42B3C40E7001FFA08 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE5BF32B3C40E7001FFA08 /* HomeVC.swift */; };
+		13FE5BF92B3C42F0001FFA08 /* FeedCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE5BF82B3C42F0001FFA08 /* FeedCellViewModel.swift */; };
 		5FC7C3CDA91FEFEC6E4E489F /* Pods_InstaUiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEBF60A2EEA38CC296EFB81 /* Pods_InstaUiKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -238,6 +239,7 @@
 		13FE5BE82B3C31F1001FFA08 /* SignUpVCPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVCPresenter.swift; sourceTree = "<group>"; };
 		13FE5BEA2B3C31FF001FFA08 /* SignUpVCRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVCRouter.swift; sourceTree = "<group>"; };
 		13FE5BF32B3C40E7001FFA08 /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		13FE5BF82B3C42F0001FFA08 /* FeedCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCellViewModel.swift; sourceTree = "<group>"; };
 		3A55025370778E801932B594 /* Pods-InstaUiKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaUiKit.debug.xcconfig"; path = "Target Support Files/Pods-InstaUiKit/Pods-InstaUiKit.debug.xcconfig"; sourceTree = "<group>"; };
 		5FEBF60A2EEA38CC296EFB81 /* Pods_InstaUiKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaUiKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		750337433BA13E892417DBEB /* Pods-InstaUiKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaUiKit.release.xcconfig"; path = "Target Support Files/Pods-InstaUiKit/Pods-InstaUiKit.release.xcconfig"; sourceTree = "<group>"; };
@@ -1014,8 +1016,8 @@
 		13B4B3EA2AFA396C00EB13EE /* FeedCell */ = {
 			isa = PBXGroup;
 			children = (
-				13FB7D5E2A722DE000D8FC5C /* FeedCell.xib */,
-				13FB7D5D2A722DE000D8FC5C /* FeedCell.swift */,
+				13FE5BF62B3C42CC001FFA08 /* View */,
+				13FE5BF72B3C42DA001FFA08 /* ViewModel */,
 			);
 			path = FeedCell;
 			sourceTree = "<group>";
@@ -1128,6 +1130,23 @@
 				13C61F352B26FC1400011E1B /* HomeVCCell.swift */,
 			);
 			path = HomeVCCell;
+			sourceTree = "<group>";
+		};
+		13FE5BF62B3C42CC001FFA08 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				13FB7D5E2A722DE000D8FC5C /* FeedCell.xib */,
+				13FB7D5D2A722DE000D8FC5C /* FeedCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		13FE5BF72B3C42DA001FFA08 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				13FE5BF82B3C42F0001FFA08 /* FeedCellViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		7A1121D9D6F2ECE7E142AC39 /* Frameworks */ = {
@@ -1344,6 +1363,7 @@
 				13FE5BE72B3C31E4001FFA08 /* SignUpVCInteractor.swift in Sources */,
 				134C73162B3AE476000B0D46 /* SearchVCBuilder.swift in Sources */,
 				139110162A8650FF00CABCD5 /* SearchViewModel.swift in Sources */,
+				13FE5BF92B3C42F0001FFA08 /* FeedCellViewModel.swift in Sources */,
 				139110062A86502400CABCD5 /* PostModel.swift in Sources */,
 				137E67A12B18A2FD00525169 /* NotificationVC.swift in Sources */,
 				137E549C2B14768800186558 /* FollowersAndFollowingVC.swift in Sources */,
