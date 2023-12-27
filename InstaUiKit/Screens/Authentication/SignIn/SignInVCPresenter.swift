@@ -20,8 +20,9 @@ class SignInVCPresenter {
     
     weak var view : SignInVCProtocol?
     var interactor : SignInVCInteractor
-    var router : SignInVCRouter
+    var router : SignInVCRouterProtocol
     var coreDataUsers = [CDUsersModel]()
+    
     init(view:SignInVCProtocol,interactor:SignInVCInteractor,router:SignInVCRouter){
         self.view = view
         self.interactor = interactor

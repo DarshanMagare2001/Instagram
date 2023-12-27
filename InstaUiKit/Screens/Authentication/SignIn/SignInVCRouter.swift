@@ -16,7 +16,7 @@ protocol SignInVCRouterProtocol : passUserBack{
 
 class SignInVCRouter {
     var viewController: UIViewController
-    var interactor : SignInVCInteractor
+    var interactor : SignInVCInteractorProtocol
     init(view: UIViewController , interactor : SignInVCInteractor ) {
         self.viewController = view
         self.interactor = interactor
