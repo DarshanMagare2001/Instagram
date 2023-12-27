@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol SignInVCRouterProtocol : passUserBack {
-    func showSwitchAccountVC(coreDataUsers: [CDUsersModel])
+    func showSwitchAccountVC()
     func goToMainTabVC()
     func goToSignUpVC()
 }
@@ -48,7 +48,7 @@ extension SignInVCRouter : SignInVCRouterProtocol {
     }
     
     
-    func showSwitchAccountVC(coreDataUsers: [CDUsersModel]){
+    func showSwitchAccountVC(){
         let switchAccountVC = SwitchAccountVCBuilder.build(delegate: self)
         viewController.present(switchAccountVC, animated: true, completion: nil)
     }

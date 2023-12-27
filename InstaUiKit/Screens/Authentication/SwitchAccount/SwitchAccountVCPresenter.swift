@@ -9,6 +9,7 @@ import Foundation
 
 protocol SwitchAccountVCPresenterProtocol {
     func viewDidload()
+    func fetchCDUsers()
 }
 
 class SwitchAccountVCPresenter {
@@ -19,11 +20,21 @@ class SwitchAccountVCPresenter {
         self.interactor = interactor
     }
 }
- 
+
 extension SwitchAccountVCPresenter : SwitchAccountVCPresenterProtocol {
     
     func viewDidload() {
-       print("SwitchAccount")
+        view?.makeTableViewSkeletonable()
+        fetchCDUsers()
+    }
+    
+    func fetchCDUsers() {
+        Task{
+            let coreDataUsers = await interactor.fetchCoreDataUsers()
+            interactor.getUsers(cdUsers: coreDataUsers) { user in
+                self.view?.fetchUsers(cdUser: coreDataUsers, user: user)
+            }
+        }
     }
     
 }

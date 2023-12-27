@@ -14,40 +14,52 @@ protocol passUserBack {
 }
 
 protocol SwitchAccountVCProtocol : class {
- 
+    func fetchUsers(cdUser:[CDUsersModel]?,user:[UserModel]?)
+    func makeTableViewSkeletonable()
 }
 
 class SwitchAccountVC: UIViewController {
     
     @IBOutlet weak var tableViewOutlet: UITableView!
-    var viewModel = SwitchAccountViewModel()
-    var cdUser : [CDUsersModel]?
+    
+    var cdUser = [CDUsersModel]()
     var user = [UserModel]()
     var delegate : passUserBack?
     var presenter : SwitchAccountVCPresenterProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTableView()
         presenter?.viewDidload()
     }
     
-    func configureTableView(){
+    
+}
+
+extension SwitchAccountVC : SwitchAccountVCProtocol {
+    
+    func fetchUsers(cdUser:[CDUsersModel]?,user:[UserModel]?) {
+        guard let cdUser = cdUser , let user = user else {
+            return
+        }
+        self.cdUser = cdUser
+        self.user = user
+        configureTableView()
+    }
+    
+    func makeTableViewSkeletonable() {
         tableViewOutlet.isSkeletonable = true
         tableViewOutlet.showAnimatedGradientSkeleton()
-        if let cdUser = cdUser {
-            viewModel.getUsers(cdUsers: cdUser) { data in
-                DispatchQueue.main.async {
-                    self.user = data
-                    print(data)
-                    self.tableViewOutlet.stopSkeletonAnimation()
-                    self.view.stopSkeletonAnimation()
-                    self.tableViewOutlet.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
-                    self.tableViewOutlet.reloadData()
-                }
-            }
+    }
+    
+    func configureTableView(){
+        DispatchQueue.main.async {
+            self.tableViewOutlet.stopSkeletonAnimation()
+            self.view.stopSkeletonAnimation()
+            self.tableViewOutlet.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+            self.tableViewOutlet.reloadData()
         }
     }
+    
 }
 
 extension SwitchAccountVC : SkeletonTableViewDataSource, SkeletonTableViewDelegate {
@@ -80,14 +92,9 @@ extension SwitchAccountVC : SkeletonTableViewDataSource, SkeletonTableViewDelega
         cell.selectButtonAction = { [weak self] in
             guard let self = self else { return }
             cell.selectBtn.setImage(UIImage(systemName: "smallcircle.circle.fill"), for: .normal)
-            
             let selectedUser = data
-            
-            if let cdUser = self.cdUser,
-               let passBackUser = cdUser.first(where: { $0.uid == selectedUser.uid }) {
-                self.delegate?.passUserBack(user: passBackUser)
-            }
-            
+            let passBackUser = self.cdUser.first(where: { $0.uid == selectedUser.uid })
+            self.delegate?.passUserBack(user: passBackUser! )
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.dismiss(animated: true, completion: nil)
             }
@@ -102,19 +109,15 @@ extension SwitchAccountVC : SkeletonTableViewDataSource, SkeletonTableViewDelega
                 return
             }
             let deletedUser = user.remove(at: indexPath.row)
-            if let deletedCdUserIndex = cdUser?.firstIndex(where: { $0.uid == deletedUser.uid }) {
-                let deletedCdUser = cdUser?.remove(at: deletedCdUserIndex)
-                if let id = deletedCdUser?.id {
-                    CDUserManager.shared.deleteUser(withId: id) { _ in}
-                }
+            if let deletedCdUserIndex = cdUser.firstIndex(where: { $0.uid == deletedUser.uid }) {
+                let deletedCdUser = cdUser.remove(at: deletedCdUserIndex)
+                CDUserManager.shared.deleteUser(withId: deletedCdUser.id) { _ in}
             }
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
-
+    
     
 }
 
-extension SwitchAccountVC : SwitchAccountVCProtocol {
-   
-}
+

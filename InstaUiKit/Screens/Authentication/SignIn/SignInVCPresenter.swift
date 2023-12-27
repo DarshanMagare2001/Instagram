@@ -77,7 +77,7 @@ extension SignInVCPresenter : SignInVCPresenterProtocol {
     
     
     func showSwitchAccountVC() {
-        router.showSwitchAccountVC(coreDataUsers: coreDataUsers)
+        router.showSwitchAccountVC()
     }
     
     func viewDidload(){
