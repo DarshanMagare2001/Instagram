@@ -56,16 +56,9 @@ class SignUpVC: UIViewController {
         
     }
     
-    
     @IBAction func signInBtnPressed(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }
-    
-    
-    @IBAction func backBtnPressed(_ sender: UIButton) {
-        navigationController?.popViewController(animated: true)
-    }
-    
     
     @IBAction func passwordHideShowBtnPressed(_ sender: UIButton) {
         isPasswordShow.toggle()
