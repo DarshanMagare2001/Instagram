@@ -237,6 +237,9 @@
                                                             <constraint firstItem="GNn-9f-iqv" firstAttribute="leading" secondItem="4Ll-88-mIa" secondAttribute="leading" id="px5-kN-ZOS"/>
                                                             <constraint firstItem="GNn-9f-iqv" firstAttribute="top" secondItem="4Ll-88-mIa" secondAttribute="top" id="v5j-1m-jKP"/>
                                                         </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                        </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ksg-07-PmZ">
                                                         <rect key="frame" x="30" y="0.0" width="30" height="30"/>
@@ -261,6 +264,9 @@
                                                             <constraint firstAttribute="height" constant="30" id="mpV-1C-gSA"/>
                                                             <constraint firstItem="1eq-wb-Qhj" firstAttribute="top" secondItem="Ksg-07-PmZ" secondAttribute="top" id="zL5-7z-kPp"/>
                                                         </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                        </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XQq-m9-dJP">
                                                         <rect key="frame" x="60" y="0.0" width="0.0" height="30"/>
@@ -285,8 +291,14 @@
                                                             <constraint firstAttribute="height" constant="30" id="p3S-s2-I0X"/>
                                                             <constraint firstAttribute="width" id="uMy-f8-L6G"/>
                                                         </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                        </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="62D-D4-fLa">
                                                 <rect key="frame" x="65" y="0.0" width="531" height="30"/>
@@ -311,6 +323,9 @@
                                     <constraint firstAttribute="height" constant="50" id="bEv-De-6vV"/>
                                     <constraint firstItem="WBp-Qc-C6o" firstAttribute="top" secondItem="8MX-ho-W0z" secondAttribute="top" constant="10" id="hoI-dh-zDf"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Hb-1Y-Tfi">
                                 <rect key="frame" x="0.0" y="535" width="616" height="45"/>
