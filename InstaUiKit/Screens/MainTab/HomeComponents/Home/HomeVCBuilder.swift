@@ -22,6 +22,10 @@ final class HomeVCBuilder {
     static func build(factory: NavigationFactoryClosure) -> UIViewController {
         let storyboard = UIStoryboard.MainTab
         let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeVC") as! HomeVC
+        let interactor = HomeVCInteractor()
+        let router = HomeVCRouter(viewController: homeVC)
+        let presenter = HomeVCPresenter(view: homeVC, interactor: interactor, router: router)
+        homeVC.presenter = presenter
         fetchAllKindNotifications()
         homeVC.navigationItem.leftBarButtonItems = [configureInstaLogo()]
         homeVC.navigationItem.rightBarButtonItems = configureBarButtons(isdirectMsgHaveNotification: isnotificationShowForDirectMsg, isNotificationBtnHaveNotification: isnotificationShowForNotificationBtn, notificationCountForDirectMsg: notificationCountForDirectMsg, notificationCountForNotificationBtn: notificationCountForNotificationBtn)

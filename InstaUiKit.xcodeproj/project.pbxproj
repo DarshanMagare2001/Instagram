@@ -82,6 +82,9 @@
 		138BC5FC2A73BED600020297 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BC5FB2A73BED600020297 /* ImagePicker.swift */; };
 		138BC5FF2A73CABE00020297 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BC5FE2A73CABE00020297 /* ProfileModel.swift */; };
 		138BC6022A73D8CB00020297 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 138BC6012A73D8CB00020297 /* Kingfisher */; };
+		138BC65E2B3D416D00B04FC6 /* HomeVCInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BC65D2B3D416D00B04FC6 /* HomeVCInteractor.swift */; };
+		138BC6602B3D418B00B04FC6 /* HomeVCRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BC65F2B3D418B00B04FC6 /* HomeVCRouter.swift */; };
+		138BC6622B3D41A800B04FC6 /* HomeVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BC6612B3D41A800B04FC6 /* HomeVCPresenter.swift */; };
 		139110012A864CBD00CABCD5 /* ImageLoader+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139110002A864CBD00CABCD5 /* ImageLoader+Extensions.swift */; };
 		139110062A86502400CABCD5 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139110052A86502400CABCD5 /* PostModel.swift */; };
 		139110082A86503700CABCD5 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139110072A86503700CABCD5 /* PostViewModel.swift */; };
@@ -194,6 +197,9 @@
 		138BC5EC2A73B7E400020297 /* PostVCCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVCCollectionCell.swift; sourceTree = "<group>"; };
 		138BC5FB2A73BED600020297 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		138BC5FE2A73CABE00020297 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		138BC65D2B3D416D00B04FC6 /* HomeVCInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVCInteractor.swift; sourceTree = "<group>"; };
+		138BC65F2B3D418B00B04FC6 /* HomeVCRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVCRouter.swift; sourceTree = "<group>"; };
+		138BC6612B3D41A800B04FC6 /* HomeVCPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVCPresenter.swift; sourceTree = "<group>"; };
 		139110002A864CBD00CABCD5 /* ImageLoader+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageLoader+Extensions.swift"; sourceTree = "<group>"; };
 		139110052A86502400CABCD5 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		139110072A86503700CABCD5 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
@@ -460,6 +466,9 @@
 			children = (
 				13FE5BF52B3C4110001FFA08 /* HomeVCCell */,
 				13FE5BF32B3C40E7001FFA08 /* HomeVC.swift */,
+				138BC65D2B3D416D00B04FC6 /* HomeVCInteractor.swift */,
+				138BC6612B3D41A800B04FC6 /* HomeVCPresenter.swift */,
+				138BC65F2B3D418B00B04FC6 /* HomeVCRouter.swift */,
 				134C73132B3AE374000B0D46 /* HomeVCBuilder.swift */,
 				139110172A86514F00CABCD5 /* ViewModel */,
 			);
@@ -1338,6 +1347,7 @@
 				1303EC702B29778D004EC523 /* ProfilePresentedView.swift in Sources */,
 				138BC5E92A73A4D300020297 /* FollowingCell.swift in Sources */,
 				13FE5BE12B3C1F88001FFA08 /* SwitchAccountVCBuilder.swift in Sources */,
+				138BC6622B3D41A800B04FC6 /* HomeVCPresenter.swift in Sources */,
 				134C730A2B3ADCDF000B0D46 /* SignInVCRouter.swift in Sources */,
 				13C508CC2B109F650013C52D /* UsersProfileViewModel.swift in Sources */,
 				1368D18B2B174F1E00B42AC4 /* CDUsers+CoreDataClass.swift in Sources */,
@@ -1388,6 +1398,7 @@
 				13FE5BE32B3C21FE001FFA08 /* SwitchAccountVCInteractor.swift in Sources */,
 				13FE5BEB2B3C31FF001FFA08 /* SignUpVCRouter.swift in Sources */,
 				1392D02A2A80B541004B6654 /* LikesVC.swift in Sources */,
+				138BC65E2B3D416D00B04FC6 /* HomeVCInteractor.swift in Sources */,
 				134C73102B3ADF5A000B0D46 /* MainTabVCBuilder.swift in Sources */,
 				138BC5E52A73A4B300020297 /* LikesCell.swift in Sources */,
 				13FB7D622A723F0900D8FC5C /* StoriesCell.swift in Sources */,
@@ -1396,6 +1407,7 @@
 				13844A4E2B2B10A500ABB9F0 /* UIApplication+Extensions.swift in Sources */,
 				134C730C2B3ADCF8000B0D46 /* SignInVCBuilder.swift in Sources */,
 				134C73062B3ADCAB000B0D46 /* SignInVCInteractor.swift in Sources */,
+				138BC6602B3D418B00B04FC6 /* HomeVCRouter.swift in Sources */,
 				1392D0222A80B50C004B6654 /* MainTabVC.swift in Sources */,
 				1355B8D22B0CCB840027A2AF /* Notification.swift in Sources */,
 				1368D1602B1719C800B42AC4 /* CDUsersModel.swift in Sources */,

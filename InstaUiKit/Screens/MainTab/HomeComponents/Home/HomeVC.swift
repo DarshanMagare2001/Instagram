@@ -9,20 +9,24 @@ import UIKit
 import SkeletonView
 import RxSwift
 
+protocol HomeVCProtocol : class {
+    func configureTableView()
+    func makeSkeletonable()
+    func confugureCell()
+    func setupRefreshControl()
+}
+
+
 class HomeVC: UIViewController {
     
     @IBOutlet weak var feedTableView: UITableView!
-    var allPost = [PostAllDataModel]()
-    var allUniqueUsersArray = [UserModel]()
+    var presenter : HomeVCPresenterProtocol?
     var refreshControl = UIRefreshControl()
-    var viewModel = HomeVCViewModel()
-    let disPatchGroup = DispatchGroup()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTableView()
-        setupRefreshControl()
-        configureUI()
+        presenter?.viewDidload()
     }
     
     func directMsgBtnTapped(){
@@ -41,81 +45,43 @@ class HomeVC: UIViewController {
         }
     }
     
-    private func configureTableView(){
+    
+}
+
+
+extension HomeVC : HomeVCProtocol {
+    
+    func confugureCell() {
         let nib = UINib(nibName: "FeedCell", bundle: nil)
         feedTableView.register(nib, forCellReuseIdentifier: "FeedCell")
-        makeSkeletonable()
     }
     
-    private func makeSkeletonable(){
+    func makeSkeletonable(){
         feedTableView.isSkeletonable = true
         feedTableView.showAnimatedGradientSkeleton()
     }
     
-    private func setupRefreshControl() {
+    func configureTableView(){
+        DispatchQueue.main.async { [weak self] in
+            self?.feedTableView.stopSkeletonAnimation()
+            self?.view.stopSkeletonAnimation()
+            self?.feedTableView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+            self?.feedTableView.reloadData()
+        }
+    }
+    
+    func setupRefreshControl() {
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         feedTableView.addSubview(refreshControl)
     }
     
     @objc private func refresh() {
         self.makeSkeletonable()
-        disPatchGroup.enter()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            self?.updateUI()
-            self?.disPatchGroup.leave()
-        }
-        disPatchGroup.notify(queue: .main) { [weak self] in
-            self?.refreshControl.endRefreshing()
-        }
-    }
-    
-    private func configureUI() {
-        updateUI()
-    }
-}
-
-// MARK: - Update UI
-
-extension HomeVC {
-    func updateUI() {
-        
-        disPatchGroup.enter()
-        DispatchQueue.main.async { [weak self] in
-            self?.fetchData()
-            self?.disPatchGroup.leave()
-        }
-        disPatchGroup.notify(queue: .main){}
-    }
-    
-    private func fetchData() {
-        viewModel.fetchAllPostsOfFollowings { result in
-            if case .success(let posts) = result {
-                if let posts = posts {
-                    self.allPost = posts
-                }
-                DispatchQueue.main.async { [weak self] in
-                    self?.feedTableView.stopSkeletonAnimation()
-                    self?.view.stopSkeletonAnimation()
-                    self?.feedTableView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
-                    self?.feedTableView.reloadData()
-                }
-            }
-        }
-        fetchUniqueUsers()
-    }
-    
-    
-    private func fetchUniqueUsers() {
-        viewModel.fetchFollowingUsers { result in
-            if case .success(let data) = result {
-                if let data = data {
-                    self.allUniqueUsersArray = data
-                }
-            }
-        }
+        self.refreshControl.endRefreshing()
     }
     
 }
+
 
 extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate  {
     
@@ -128,7 +94,7 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate  {
             return 1
         }
         if section == 1 {
-            return allPost.count
+            return presenter?.allPost.count ?? 0
         }
         return 0
     }
@@ -145,7 +111,7 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate  {
         
         if indexPath.section == 0 {
             let cell2 = tableView.dequeueReusableCell(withIdentifier: "HomeVCCell", for: indexPath) as! HomeVCCell
-            cell2.allUniqueUsersArray = allUniqueUsersArray
+            cell2.allUniqueUsersArray = presenter?.allUniqueUsersArray
             cell2.addStoryBtnPressed = { [weak self] in
                 Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "AddStoryVC") { [weak self] destinationVC in
                     if let destinationVC = destinationVC {
@@ -159,7 +125,7 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate  {
         if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
             DispatchQueue.main.async { [weak self] in
-                cell.configureCellData(post:self?.allPost[indexPath.row], view: self!)
+                cell.configureCellData(post:self?.presenter?.allPost[indexPath.row], view: self!)
             }
             return cell
         }

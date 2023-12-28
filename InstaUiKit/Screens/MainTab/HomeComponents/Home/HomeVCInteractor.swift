@@ -1,14 +1,22 @@
 //
-//  HomeViewModel.swift
+//  HomeVCInteractor.swift
 //  InstaUiKit
 //
-//  Created by IPS-161 on 11/08/23.
+//  Created by IPS-161 on 28/12/23.
 //
 
 import Foundation
-import UIKit
 
-class HomeVCViewModel {
+protocol HomeVCInteractorProtocol {
+    func fetchAllPostsOfFollowings(completion: @escaping (Result<[PostAllDataModel]?, Error>) -> Void)
+    func fetchFollowingUsers(completion:@escaping (Result<[UserModel]?,Error>) -> Void)
+}
+
+class HomeVCInteractor {
+    
+}
+
+extension HomeVCInteractor : HomeVCInteractorProtocol {
     
     func fetchAllPostsOfFollowings(completion: @escaping (Result<[PostAllDataModel]?, Error>) -> Void) {
         FetchUserData.shared.fetchCurrentUserFromFirebase { result in
@@ -69,34 +77,4 @@ class HomeVCViewModel {
         }
     }
     
-    func fetchAllNotifications(completion:@escaping (Result<Int , Error>) -> Void){
-        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
-            switch result {
-            case.success(let user):
-                if let user = user {
-                    completion(.success(user.followersRequest?.count ?? 0))
-                }
-            case.failure(let error):
-                print(error)
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    func fetchUserChatNotificationCount(completion:@escaping (Result<Int?,Error>) -> Void){
-        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
-            switch result {
-            case.success(let user):
-                if let user = user , let notification = user.usersChatNotification {
-                    completion(.success(notification.count))
-                }
-            case.failure(let error):
-                print(error)
-                completion(.failure(error))
-            }
-        }
-    }
-   
 }
-
-
