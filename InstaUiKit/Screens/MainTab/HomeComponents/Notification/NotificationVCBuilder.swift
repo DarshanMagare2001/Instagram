@@ -15,6 +15,9 @@ final class NotificationVCBuilder {
     static func build() -> UIViewController {
         let storyboard = UIStoryboard.MainTab
         let notificationVC = storyboard.instantiateViewController(withIdentifier: "NotificationVC") as! NotificationVC
+        let interactor = NotificationVCInteractor()
+        let presenter = NotificationVCPresenter(view: notificationVC, interactor: interactor)
+        notificationVC.presenter = presenter
         notificationVC.navigationItem.hidesBackButton = true
         notificationVC.navigationItem.title = "Notification"
         let backButton = UIBarButtonItem(image: UIImage(named: "BackArrow"), style: .plain, target: self, action: #selector(backButtonPressed))

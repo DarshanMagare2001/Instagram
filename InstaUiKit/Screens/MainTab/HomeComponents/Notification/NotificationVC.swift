@@ -7,16 +7,25 @@
 
 import UIKit
 
+
+protocol NotificationVCProtocol : class {
+    
+}
+
+
 class NotificationVC: UIViewController {
     
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var noNotificationView: UIView!
+    
+    var presenter : NotificationVCPresenterProtocol?
     
     var currentUser : UserModel?
     var viewModel = NotificationViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         noNotificationView.isHidden = true
+        presenter?.viewDidload()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -141,5 +150,9 @@ extension NotificationVC : UITableViewDelegate , UITableViewDataSource {
             }
         }
     }
+    
+}
+
+extension NotificationVC : NotificationVCProtocol {
     
 }
