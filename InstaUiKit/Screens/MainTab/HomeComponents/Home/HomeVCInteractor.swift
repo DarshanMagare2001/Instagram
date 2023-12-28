@@ -10,6 +10,8 @@ import Foundation
 protocol HomeVCInteractorProtocol {
     func fetchAllPostsOfFollowings(completion: @escaping (Result<[PostAllDataModel]?, Error>) -> Void)
     func fetchFollowingUsers(completion:@escaping (Result<[UserModel]?,Error>) -> Void)
+    func fetchAllNotifications(completion:@escaping (Result<Int , Error>) -> Void)
+    func fetchUserChatNotificationCount(completion:@escaping (Result<Int?,Error>) -> Void)
 }
 
 class HomeVCInteractor {
@@ -73,6 +75,34 @@ extension HomeVCInteractor : HomeVCInteractorProtocol {
                 }
             case.failure(let error):
                 print(error)
+            }
+        }
+    }
+    
+    func fetchAllNotifications(completion:@escaping (Result<Int , Error>) -> Void){
+        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
+            switch result {
+            case.success(let user):
+                if let user = user {
+                    completion(.success(user.followersRequest?.count ?? 0))
+                }
+            case.failure(let error):
+                print(error)
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func fetchUserChatNotificationCount(completion:@escaping (Result<Int?,Error>) -> Void){
+        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
+            switch result {
+            case.success(let user):
+                if let user = user , let notification = user.usersChatNotification {
+                    completion(.success(notification.count))
+                }
+            case.failure(let error):
+                print(error)
+                completion(.failure(error))
             }
         }
     }

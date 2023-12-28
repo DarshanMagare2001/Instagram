@@ -14,7 +14,7 @@ final class HomeVCBuilder {
     private static var notificationCountForNotificationBtn: Int = 0
     private static var isnotificationShowForDirectMsg = false
     private static var isnotificationShowForNotificationBtn = false
-    private static var viewModel = HomeVCViewModel()
+    private static var viewModel = HomeVCInteractor()
     private static let dispatchGroup = DispatchGroup()
     static var directMsgBtnTappedClosure: (() -> Void)?
     static var notificationBtnTappedClosure: (() -> Void)?
