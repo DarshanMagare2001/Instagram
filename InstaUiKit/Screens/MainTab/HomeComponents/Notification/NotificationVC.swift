@@ -23,13 +23,7 @@ class NotificationVC: UIViewController {
         fetchCurrentUser()
     }
     
-    func fetchCurrentUser(){
-        navigationItem.hidesBackButton = true
-        navigationItem.title = "Notification"
-        let backButton = UIBarButtonItem(image: UIImage(named: "BackArrow"), style: .plain, target: self, action: #selector(backButtonPressed))
-        backButton.tintColor = .black
-        navigationItem.leftBarButtonItem = backButton
-        
+    func fetchCurrentUser(){        
         FetchUserData.shared.fetchCurrentUserFromFirebase { result in
             switch result {
             case.success(let user):
@@ -48,7 +42,7 @@ class NotificationVC: UIViewController {
         
     }
     
-    @objc func backButtonPressed() {
+    func backButtonPressed() {
         navigationController?.popViewController(animated: true)
     }
     
