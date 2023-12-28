@@ -10,23 +10,26 @@ import Foundation
 protocol NotificationVCPresenterProtocol {
     func viewDidload()
     func fetchCurrentUser()
+    func goToUsersProfileView(user:UserModel , isFollowAndMsgBtnShow : Bool)
     var currentUser : UserModel? { get set }
 }
 
 class NotificationVCPresenter {
     weak var view : NotificationVCProtocol?
     var interactor : NotificationVCInteractorProtocol
+    var router : NotificationVCRouterProtocol
     var currentUser : UserModel?
-    init(view:NotificationVCProtocol,interactor:NotificationVCInteractorProtocol){
+    init(view:NotificationVCProtocol,interactor:NotificationVCInteractorProtocol , router :NotificationVCRouterProtocol ){
         self.view = view
         self.interactor = interactor
+        self.router = router
     }
 }
 
 extension NotificationVCPresenter : NotificationVCPresenterProtocol {
     
     func viewDidload(){
-     
+        
     }
     
     func fetchCurrentUser() {
@@ -45,6 +48,10 @@ extension NotificationVCPresenter : NotificationVCPresenterProtocol {
                 }
             }
         }
+    }
+    
+    func goToUsersProfileView(user: UserModel, isFollowAndMsgBtnShow: Bool) {
+        router.goToUsersProfileView(user: user, isFollowAndMsgBtnShow: isFollowAndMsgBtnShow)
     }
     
 }

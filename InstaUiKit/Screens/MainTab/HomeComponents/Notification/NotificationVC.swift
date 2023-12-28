@@ -61,24 +61,29 @@ extension NotificationVC : UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationCell", for: indexPath) as! NotificationCell
-        cell.configureCell(currentUser: presenter?.currentUser, indexPath: (indexPath.row))
+        DispatchQueue.main.async {
+            cell.configureCell(currentUser: self.presenter?.currentUser, indexPath: (indexPath.row))
+        }
+        cell.fetchCurrentUseClosure = { [weak self] in
+            self?.presenter?.fetchCurrentUser()
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard.MainTab
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "UsersProfileView") as! UsersProfileView
         if let cellData = presenter?.currentUser , let uid = cellData.followersRequest?[indexPath.row] {
-            FetchUserData.shared.fetchUserDataByUid(uid:uid) { result in
-                switch result {
-                case.success(let user):
-                    if let user = user {
-                        destinationVC.user = user
-                        destinationVC.isFollowAndMsgBtnShow = true
-                        self.navigationController?.pushViewController(destinationVC, animated: true)
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                FetchUserData.shared.fetchUserDataByUid(uid:uid) { result in
+                    switch result {
+                    case.success(let user):
+                        if let user = user {
+                            DispatchQueue.main.async {
+                                self?.presenter?.goToUsersProfileView(user: user, isFollowAndMsgBtnShow: true)
+                            }
+                        }
+                    case.failure(let error):
+                        print(error)
                     }
-                case.failure(let error):
-                    print(error)
                 }
             }
         }

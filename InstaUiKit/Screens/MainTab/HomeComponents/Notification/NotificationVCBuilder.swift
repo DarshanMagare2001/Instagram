@@ -16,7 +16,8 @@ final class NotificationVCBuilder {
         let storyboard = UIStoryboard.MainTab
         let notificationVC = storyboard.instantiateViewController(withIdentifier: "NotificationVC") as! NotificationVC
         let interactor = NotificationVCInteractor()
-        let presenter = NotificationVCPresenter(view: notificationVC, interactor: interactor)
+        let router = NotificationVCRouter(viewController: notificationVC)
+        let presenter = NotificationVCPresenter(view: notificationVC, interactor: interactor, router : router)
         notificationVC.presenter = presenter
         notificationVC.navigationItem.hidesBackButton = true
         notificationVC.navigationItem.title = "Notification"

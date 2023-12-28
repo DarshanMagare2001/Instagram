@@ -14,7 +14,8 @@ class NotificationCell: UITableViewCell {
     @IBOutlet weak var rejectBtn: RoundedButton!
     var acceptBtnBtnTapped: (() -> Void)?
     var rejectBtnBtnBtnTapped: (() -> Void)?
-    var viewModel = NotificationViewModel()
+    var fetchCurrentUseClosure : (()->())?
+    var viewModel = NotificationVCInteractor()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,11 +48,11 @@ class NotificationCell: UITableViewCell {
                             self?.viewModel.acceptFollowRequest(toFollowsUid: cellData.uid, whoFollowingsUid: uid){ bool in
                                 if let toFollowsUid = cellData.uid {
                                     StoreUserData.shared.saveFollowingsToFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: uid) { _ in
-                                        self?.removeFollowRequest(toFollowsUid: toFollowsUid, whoFollowingsUid: uid) { bool in
+                                        self?.viewModel.removeFollowRequest(toFollowsUid: toFollowsUid, whoFollowingsUid: uid) { bool in
                                             if let fmcToken = user.fcmToken , let name = cellData.name {
                                                 PushNotification.shared.sendPushNotification(to: fmcToken, title: "Request Accepted" , body: "\(name) Accepted your follow request.")
                                             }
-//                                            self?.fetchCurrentUser()
+                                            self?.fetchCurrentUseClosure?()
                                             MessageLoader.shared.hideLoader()
                                         }
                                     }
@@ -62,32 +63,15 @@ class NotificationCell: UITableViewCell {
                         self.rejectBtnBtnBtnTapped = { [weak self] in
                             MessageLoader.shared.showLoader(withText: "Rejecting..")
                             if let toFollowsUid = cellData.uid {
-                                self?.removeFollowRequest(toFollowsUid: toFollowsUid, whoFollowingsUid: uid) { bool in
-//                                    self?.fetchCurrentUser()
+                                self?.viewModel.removeFollowRequest(toFollowsUid: toFollowsUid, whoFollowingsUid: uid) { bool in
+                                    self?.fetchCurrentUseClosure?()
                                     MessageLoader.shared.hideLoader()
                                 }
                             }
                         }
-                        
                     }
                 case.failure(let error):
                     print(error)
-                }
-            }
-        }
-    }
-    
-    func removeFollowRequest(toFollowsUid:String?,whoFollowingsUid:String?,completion:@escaping (Bool) -> Void){
-        if let toFollowsUid = toFollowsUid , let whoFollowingsUid = whoFollowingsUid {
-            StoreUserData.shared.removeFollowerRequestFromFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { result in
-                switch result {
-                case.success(let success):
-                    StoreUserData.shared.removeFollowingRequestFromFirebaseOfUser(toFollowsUid: toFollowsUid, whoFollowingsUid: whoFollowingsUid) { _ in
-                        completion(true)
-                    }
-                case.failure(let error):
-                    print(error)
-                    completion(false)
                 }
             }
         }
