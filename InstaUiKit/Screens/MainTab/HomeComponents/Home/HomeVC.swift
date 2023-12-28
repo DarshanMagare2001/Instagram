@@ -63,6 +63,7 @@ extension HomeVC : HomeVCProtocol {
     
     func configureTableView(){
         DispatchQueue.main.async { [weak self] in
+            self?.refreshControl.endRefreshing()
             self?.feedTableView.stopSkeletonAnimation()
             self?.view.stopSkeletonAnimation()
             self?.feedTableView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
@@ -77,7 +78,7 @@ extension HomeVC : HomeVCProtocol {
     
     @objc private func refresh() {
         self.makeSkeletonable()
-        self.refreshControl.endRefreshing()
+        presenter?.configureTableView()
     }
     
 }
