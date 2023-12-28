@@ -9,10 +9,17 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+protocol DirectMsgVCProtocol :class {
+    
+}
+
 
 class DirectMsgVC: UIViewController {
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    
+    var presenter : DirectMsgVCPresenterProtocol?
+    
     var chatUsers = [UserModel]()
     var allUniqueUsersArray = [UserModel]()
     var currentUser : UserModel?
@@ -21,6 +28,7 @@ class DirectMsgVC: UIViewController {
     let dispatchGroup = DispatchGroup()
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter?.viewDidload()
         addDoneButtonToSearchBarKeyboard()
         fetchUsers(){ _ in
             self.updateTableView()
@@ -269,4 +277,8 @@ extension DirectMsgVC {
             navigationController?.pushViewController(destinationVC, animated: true)
         }
     }
+}
+
+extension DirectMsgVC : DirectMsgVCProtocol {
+    
 }

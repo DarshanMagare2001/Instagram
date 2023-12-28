@@ -14,8 +14,14 @@ final class DirectMsgVCBuilder {
     static var addChatBtnPressedClosure : (()->())?
     
     static func build() -> UIViewController {
+        
         let storyboard = UIStoryboard.MainTab
         let directMsgVC = storyboard.instantiateViewController(withIdentifier: "DirectMsgVC") as! DirectMsgVC
+        let interactor = DirectMsgVCInteractor()
+        let router = DirectMsgVCRouter(viewController: directMsgVC)
+        let presenter = DirectMsgVCPresenter(view: directMsgVC, interactor: interactor, router: router)
+        directMsgVC.presenter = presenter
+        
         directMsgVC.navigationItem.hidesBackButton = true
         directMsgVC.navigationItem.title = "Chats"
         let backButton = UIBarButtonItem(image: UIImage(named: "BackArrow"), style: .plain, target: self, action: #selector(backButtonPressed))
