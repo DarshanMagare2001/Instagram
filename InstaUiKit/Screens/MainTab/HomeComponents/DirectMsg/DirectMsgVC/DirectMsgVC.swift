@@ -26,18 +26,10 @@ class DirectMsgVC: UIViewController {
     var viewModel = DirectMsgViewModel()
     let disposeBag = DisposeBag()
     let dispatchGroup = DispatchGroup()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.viewDidload()
-//        fetchUsers(){ _ in
-//            //            self.configureTableView()
-//            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-//                MessageLoader.shared.hideLoader()
-//            }
-//            //            if self.chatUsers.isEmpty {
-//            //                self.goToAddChatVC()
-//            //            }
-//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,7 +61,6 @@ class DirectMsgVC: UIViewController {
     
     
     func fetchUsers(completion: @escaping (Bool) -> Void){
-        MessageLoader.shared.showLoader(withText: "Fetching Users")
         
         dispatchGroup.enter()
         viewModel.fetchUniqueUsers { result in

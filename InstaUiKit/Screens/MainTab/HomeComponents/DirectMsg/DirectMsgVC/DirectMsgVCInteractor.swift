@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import Firebase
 
 protocol DirectMsgVCInteractorProtocol {
-    func fetchChatUsers(completion:@escaping (Result<[UserModel]?,Error>) -> Void ) 
+    func fetchChatUsers(completion:@escaping (Result<[UserModel]?,Error>) -> Void )
+    func observeLastTextMessage(currentUserId: String?, receiverUserId: String?, completion: @escaping (String?, String?) -> Void)
 }
 
 class DirectMsgVCInteractor {
@@ -47,5 +49,32 @@ extension DirectMsgVCInteractor : DirectMsgVCInteractorProtocol {
             }
         }
     }
+    
+    func observeLastTextMessage(currentUserId: String?, receiverUserId: String?, completion: @escaping (String?, String?) -> Void) {
+        guard let currentUserId = currentUserId, let receiverUserId = receiverUserId else {
+            print("Error: currentUserId or receiverUserId is nil")
+            return
+        }
+        
+        let chatPath = currentUserId < receiverUserId ? "\(currentUserId)_\(receiverUserId)" : "\(receiverUserId)_\(currentUserId)"
+        
+        let textMessagesRef = Database.database().reference().child("messages").child(chatPath)
+        
+        textMessagesRef.queryLimited(toLast: 1).observe(.childAdded) { snapshot in
+            guard let messageData = snapshot.value as? [String: Any],
+                  let senderId = messageData["senderId"] as? String,
+                  let kindString = messageData["kind"] as? String,
+                  kindString == "text",
+                  let text = messageData["text"] as? String else {
+                      // Skip if not a valid text message
+                      return
+                  }
+            
+            DispatchQueue.main.async {
+                completion(text, senderId)
+            }
+        }
+    }
+    
     
 }

@@ -18,6 +18,7 @@ class DirectMsgVCPresenter {
     var router : DirectMsgVCRouterProtocol
     var chatUsers = [UserModel]()
     var currentUser : UserModel?
+    var observeChat = [[String:String]]()
     let dispatchGroup = DispatchGroup()
     init(view:DirectMsgVCProtocol,interactor:DirectMsgVCInteractorProtocol,router:DirectMsgVCRouterProtocol){
         self.view = view
@@ -34,6 +35,8 @@ extension DirectMsgVCPresenter : DirectMsgVCPresenterProtocol {
     }
     
     func fetchAllChatUsersAndCurrentUser() {
+        
+        MessageLoader.shared.showLoader(withText: "Fetching Users")
         
         dispatchGroup.enter()
         self.interactor.fetchChatUsers { result in
@@ -62,10 +65,12 @@ extension DirectMsgVCPresenter : DirectMsgVCPresenterProtocol {
             self.dispatchGroup.leave()
         }
         
-        
         dispatchGroup.notify(queue: .main) { [weak self] in
             if let currentUser = self?.currentUser {
                 self?.view?.configureTableView(chatUsers: self?.chatUsers ?? [] , currentUser : currentUser)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now()+2){
+                MessageLoader.shared.hideLoader()
             }
         }
         
