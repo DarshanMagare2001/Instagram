@@ -29,30 +29,20 @@ class DirectMsgVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.viewDidload()
-        fetchUsers(){ _ in
-            //            self.configureTableView()
-            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-                MessageLoader.shared.hideLoader()
-            }
-            //            if self.chatUsers.isEmpty {
-            //                self.goToAddChatVC()
-            //            }
-        }
+//        fetchUsers(){ _ in
+//            //            self.configureTableView()
+//            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+//                MessageLoader.shared.hideLoader()
+//            }
+//            //            if self.chatUsers.isEmpty {
+//            //                self.goToAddChatVC()
+//            //            }
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
-            switch result {
-            case.success(let user):
-                if let user = user {
-                    self.currentUser = user
-                    //                    self.configureTableView()
-                }
-            case.failure(let error):
-                print(error)
-            }
-        }
+        
     }
     
     func backButtonPressed() {

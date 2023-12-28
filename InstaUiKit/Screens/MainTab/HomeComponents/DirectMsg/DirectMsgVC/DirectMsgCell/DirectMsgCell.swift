@@ -26,7 +26,6 @@ class DirectMsgCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
-        
     }
     
     func configureCell(currentUser:UserModel?,element:UserModel?){
@@ -40,15 +39,19 @@ class DirectMsgCell: UITableViewCell {
            let imgUrl = element?.imageUrl,
            let receiverUserId = element?.uid{
             
-            ImageLoader.loadImage(for: URL(string: imgUrl), into: userImg, withPlaceholder: UIImage(systemName: "person.fill"))
-            nameLbl.text = name
-            
             DispatchQueue.main.async {
+                ImageLoader.loadImage(for: URL(string: imgUrl), into: self.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                self.nameLbl.text = name
+            }
+            
+            DispatchQueue.global(qos: .background).async { [weak self] in
                 if let currentUser = currentUser , let currentUid = currentUser.uid , let notification = currentUser.usersChatNotification {
-                    self.viewModel.observeLastTextMessage(currentUserId: currentUid, receiverUserId: receiverUserId) { textMsg, senderUid in
+                    self?.viewModel.observeLastTextMessage(currentUserId: currentUid, receiverUserId: receiverUserId) { textMsg, senderUid in
                         print(textMsg)
-                        if let textMsg = textMsg, let senderUid = senderUid {
-                            self.userNameLbl.text = "\(senderUid == currentUid ? "You: " : "\(notification.contains(receiverUserId) ? "🔵":"") ")\(textMsg)"
+                        DispatchQueue.main.async {
+                            if let textMsg = textMsg, let senderUid = senderUid {
+                                self?.userNameLbl.text = "\(senderUid == currentUid ? "You: " : "\(notification.contains(receiverUserId) ? "🔵":"") ")\(textMsg)"
+                            }
                         }
                     }
                 }
