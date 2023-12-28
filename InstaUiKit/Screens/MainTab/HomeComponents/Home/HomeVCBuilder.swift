@@ -15,6 +15,7 @@ final class HomeVCBuilder {
     private static var isnotificationShowForDirectMsg = false
     private static var isnotificationShowForNotificationBtn = false
     private static var viewModel = HomeVCViewModel()
+    private static let dispatchGroup = DispatchGroup()
     static var directMsgBtnTappedClosure: (() -> Void)?
     static var notificationBtnTappedClosure: (() -> Void)?
     
@@ -26,7 +27,7 @@ final class HomeVCBuilder {
         let router = HomeVCRouter(viewController: homeVC)
         let presenter = HomeVCPresenter(view: homeVC, interactor: interactor, router: router)
         homeVC.presenter = presenter
-        fetchAllKindNotifications()
+        fetchAllKindNotifications(view: homeVC)
         homeVC.navigationItem.leftBarButtonItems = [configureInstaLogo()]
         homeVC.navigationItem.rightBarButtonItems = configureBarButtons(isdirectMsgHaveNotification: isnotificationShowForDirectMsg, isNotificationBtnHaveNotification: isnotificationShowForNotificationBtn, notificationCountForDirectMsg: notificationCountForDirectMsg, notificationCountForNotificationBtn: notificationCountForNotificationBtn)
         HomeVCBuilder.directMsgBtnTappedClosure = { [weak homeVC] in
@@ -51,38 +52,49 @@ final class HomeVCBuilder {
         return userProfileItem
     }
     
-    private static func fetchAllKindNotifications(){
+    private static func fetchAllKindNotifications(view:UIViewController){
         
-        viewModel.fetchAllNotifications {  result in
+        dispatchGroup.enter()
+        viewModel.fetchAllNotifications { result in
+            defer { dispatchGroup.leave() }
             switch result {
-            case.success(let notificationCount):
+            case .success(let notificationCount):
                 print(notificationCount)
                 if notificationCount != 0 {
                     self.isnotificationShowForNotificationBtn = true
                     self.notificationCountForNotificationBtn = notificationCount
-                }else{
+                } else {
                     self.isnotificationShowForNotificationBtn = false
                 }
-            case.failure(let error):
+            case .failure(let error):
                 print(error)
             }
         }
         
+        dispatchGroup.enter()
         viewModel.fetchUserChatNotificationCount { result in
+            defer { dispatchGroup.leave() }
             switch result {
-            case.success(let notificationCount):
+            case .success(let notificationCount):
                 print(notificationCount)
-                if let notificationCount = notificationCount {
-                    if notificationCount != 0 {
-                        self.isnotificationShowForDirectMsg = true
-                        self.notificationCountForDirectMsg = notificationCount
-                    }else{
-                        self.isnotificationShowForDirectMsg = false
-                    }
+                if let notificationCount = notificationCount, notificationCount != 0 {
+                    self.isnotificationShowForDirectMsg = true
+                    self.notificationCountForDirectMsg = notificationCount
+                } else {
+                    self.isnotificationShowForDirectMsg = false
                 }
-            case.failure(let error):
+            case .failure(let error):
                 print(error)
             }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            view.navigationItem.rightBarButtonItems = configureBarButtons(
+                isdirectMsgHaveNotification: self.isnotificationShowForDirectMsg,
+                isNotificationBtnHaveNotification: self.isnotificationShowForNotificationBtn,
+                notificationCountForDirectMsg: self.notificationCountForDirectMsg,
+                notificationCountForNotificationBtn: self.notificationCountForNotificationBtn
+            )
         }
         
     }
