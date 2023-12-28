@@ -30,6 +30,10 @@ class HomeVC: UIViewController {
         presenter?.viewDidload()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        presenter?.fetchAllNotifications(view: self)
+    }
+    
 }
 
 
@@ -62,6 +66,7 @@ extension HomeVC : HomeVCProtocol {
     
     @objc private func refresh() {
         self.makeSkeletonable()
+        presenter?.fetchAllNotifications(view: self)
         presenter?.configureTableView()
     }
     

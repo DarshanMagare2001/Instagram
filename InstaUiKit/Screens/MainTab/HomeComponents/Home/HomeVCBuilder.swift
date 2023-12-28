@@ -27,7 +27,6 @@ final class HomeVCBuilder {
         let router = HomeVCRouter(viewController: homeVC)
         let presenter = HomeVCPresenter(view: homeVC, interactor: interactor, router: router)
         homeVC.presenter = presenter
-        fetchAllKindNotifications(view: homeVC)
         homeVC.navigationItem.leftBarButtonItems = [configureInstaLogo()]
         homeVC.navigationItem.rightBarButtonItems = configureBarButtons(isdirectMsgHaveNotification: isnotificationShowForDirectMsg, isNotificationBtnHaveNotification: isnotificationShowForNotificationBtn, notificationCountForDirectMsg: notificationCountForDirectMsg, notificationCountForNotificationBtn: notificationCountForNotificationBtn)
         HomeVCBuilder.directMsgBtnTappedClosure = { [weak homeVC] in
@@ -52,7 +51,7 @@ final class HomeVCBuilder {
         return userProfileItem
     }
     
-    private static func fetchAllKindNotifications(view:UIViewController){
+    static func fetchAllKindNotifications(view:UIViewController){
         
         dispatchGroup.enter()
         viewModel.fetchAllNotifications { result in

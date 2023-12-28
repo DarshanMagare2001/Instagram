@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 protocol HomeVCPresenterProtocol {
@@ -15,6 +16,7 @@ protocol HomeVCPresenterProtocol {
     func configureTableView()
     func goToDirectMsgVC()
     func goToNotificationVC()
+    func fetchAllNotifications(view:UIViewController)
     var allPost : [PostAllDataModel] {get set}
     var allUniqueUsersArray : [UserModel] {get set}
 }
@@ -36,6 +38,10 @@ class HomeVCPresenter {
 
 extension HomeVCPresenter : HomeVCPresenterProtocol {
     
+    func fetchAllNotifications(view: UIViewController) {
+        HomeVCBuilder.fetchAllKindNotifications(view: view)
+    }
+   
     func viewDidload() {
         view?.confugureCell()
         view?.makeSkeletonable()
