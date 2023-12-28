@@ -11,6 +11,8 @@ import Firebase
 protocol DirectMsgVCInteractorProtocol {
     func fetchChatUsers(completion:@escaping (Result<[UserModel]?,Error>) -> Void )
     func observeLastTextMessage(currentUserId: String?, receiverUserId: String?, completion: @escaping (String?, String?) -> Void)
+    func removeUserFromChatlistOfSender(receiverId : String? , completion : @escaping (Bool) -> Void)
+    func fetchUniqueUsers(completion:@escaping (Result<[UserModel]?,Error>) -> Void)
 }
 
 class DirectMsgVCInteractor {
@@ -50,6 +52,58 @@ extension DirectMsgVCInteractor : DirectMsgVCInteractorProtocol {
         }
     }
     
+    func fetchUniqueUsers(completion:@escaping (Result<[UserModel]?,Error>) -> Void){
+        var allUniqueUsersArray = [UserModel]()
+        FetchUserData.shared.fetchCurrentUserFromFirebase { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let user):
+                guard let user = user, let following = user.followings else {return}
+                FetchUserData.shared.fetchUniqueUsersFromFirebase { result in
+                    switch result {
+                    case .success(let data):
+                        let uniqueUserUids = Set(following)
+                        let newUsers = data.filter { user in
+                            guard let userUid = user.uid else { return false }
+                            return uniqueUserUids.contains(userUid) && !allUniqueUsersArray.contains(where: { $0.uid == user.uid })
+                        }
+                        allUniqueUsersArray.append(contentsOf: newUsers)
+                        completion(.success(allUniqueUsersArray))
+                    case .failure(let error):
+                        print(error)
+                        completion(.failure(error))
+                    }
+                }
+                
+            case .failure(let error):
+                print(error)
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    
+    func removeUserFromChatlistOfSender(receiverId : String? , completion : @escaping (Bool) -> Void ){
+        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
+            switch result {
+            case.success(let data):
+                if let data = data , let senderId = data.uid , let receiverId = receiverId {
+                    StoreUserData.shared.removeUserFromChatUserListOfSender(senderId: senderId, receiverId: receiverId) { result in
+                        switch result {
+                        case.success():
+                            completion(true)
+                        case.failure(let error):
+                            completion(false)
+                        }
+                    }
+                }
+            case.failure(let error):
+                print(error)
+                completion(false)
+            }
+        }
+    }
+    
     func observeLastTextMessage(currentUserId: String?, receiverUserId: String?, completion: @escaping (String?, String?) -> Void) {
         guard let currentUserId = currentUserId, let receiverUserId = receiverUserId else {
             print("Error: currentUserId or receiverUserId is nil")
@@ -74,6 +128,11 @@ extension DirectMsgVCInteractor : DirectMsgVCInteractorProtocol {
                 completion(text, senderId)
             }
         }
+    }
+    
+    
+    func chatPath(senderId: String, receiverId: String) -> String {
+        return senderId < receiverId ? "\(senderId)_\(receiverId)" : "\(receiverId)_\(senderId)"
     }
     
     

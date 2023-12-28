@@ -12,7 +12,6 @@
 		130C23422B2031EA0033B763 /* AddChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C23412B2031EA0033B763 /* AddChatVC.swift */; };
 		130C23462B20363E0033B763 /* AddChatVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C23452B20363E0033B763 /* AddChatVCCell.swift */; };
 		130C23582B20469F0033B763 /* MessageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C23572B20469F0033B763 /* MessageLoader.swift */; };
-		130C235C2B20928A0033B763 /* DirectMsgViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C235B2B20928A0033B763 /* DirectMsgViewModel.swift */; };
 		131166382A70FB9900CD0373 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131166372A70FB9900CD0373 /* AppDelegate.swift */; };
 		1311663A2A70FB9900CD0373 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131166392A70FB9900CD0373 /* SceneDelegate.swift */; };
 		1311663F2A70FB9900CD0373 /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1311663D2A70FB9900CD0373 /* Authentication.storyboard */; };
@@ -146,7 +145,6 @@
 		130C23412B2031EA0033B763 /* AddChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChatVC.swift; sourceTree = "<group>"; };
 		130C23452B20363E0033B763 /* AddChatVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChatVCCell.swift; sourceTree = "<group>"; };
 		130C23572B20469F0033B763 /* MessageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageLoader.swift; sourceTree = "<group>"; };
-		130C235B2B20928A0033B763 /* DirectMsgViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectMsgViewModel.swift; sourceTree = "<group>"; };
 		131166342A70FB9900CD0373 /* InstaUiKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstaUiKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		131166372A70FB9900CD0373 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		131166392A70FB9900CD0373 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -316,7 +314,6 @@
 				138BC6732B3D864E00B04FC6 /* DirectMsgVCPresenter.swift */,
 				138BC6752B3D865D00B04FC6 /* DirectMsgVCRouter.swift */,
 				138BC6672B3D547B00B04FC6 /* DirectMsgVCBuilder.swift */,
-				130C235B2B20928A0033B763 /* DirectMsgViewModel.swift */,
 			);
 			path = DirectMsgVC;
 			sourceTree = "<group>";
@@ -1410,7 +1407,6 @@
 				134C72FA2B3AD877000B0D46 /* SignInVC.swift in Sources */,
 				138BC5D42A73806E00020297 /* EditProfileVC.swift in Sources */,
 				134F7F422AEF7C6800B6C31E /* UploadVC.swift in Sources */,
-				130C235C2B20928A0033B763 /* DirectMsgViewModel.swift in Sources */,
 				13A21CE12B199D46000ED554 /* NotificationCell.swift in Sources */,
 				1311663A2A70FB9900CD0373 /* SceneDelegate.swift in Sources */,
 			);

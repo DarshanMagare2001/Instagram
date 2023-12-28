@@ -16,16 +16,14 @@ protocol DirectMsgVCProtocol :class {
 
 
 class DirectMsgVC: UIViewController {
+    
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
     var presenter : DirectMsgVCPresenterProtocol?
-    
-    var allUniqueUsersArray = [UserModel]()
-    var currentUser : UserModel?
-    var viewModel = DirectMsgViewModel()
+    var viewModel = DirectMsgVCInteractor()
     let disposeBag = DisposeBag()
-    let dispatchGroup = DispatchGroup()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,38 +45,17 @@ class DirectMsgVC: UIViewController {
     
     func goToAddChatVC() {
         let storyboard = UIStoryboard.MainTab
-        // Filter users whose uid is not in chatUsers
-        //        let filteredUsers = allUniqueUsersArray.filter { newUser in
-        //            return !chatUsers.contains { existingUser in
-        //                return existingUser.uid == newUser.uid
-        //            }
-        //        }
+        let filteredUsers = presenter?.allUniqueUsersArray.filter { newUser in
+            return !(presenter?.chatUsers.contains { existingUser in
+                return existingUser.uid == newUser.uid
+            })!
+        }
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "AddChatVC") as! AddChatVC
         destinationVC.delegate = self
-        //        destinationVC.allUniqueUsersArray = filteredUsers
+        destinationVC.allUniqueUsersArray = filteredUsers
         navigationController?.present(destinationVC, animated: true, completion: nil)
     }
     
-    
-    func fetchUsers(completion: @escaping (Bool) -> Void){
-        
-        dispatchGroup.enter()
-        viewModel.fetchUniqueUsers { result in
-            self.dispatchGroup.leave()
-            switch result {
-            case.success(let data):
-                if let data = data {
-                    self.allUniqueUsersArray = data
-                }
-            case.failure(let error):
-                print(error)
-            }
-        }
-        
-        dispatchGroup.notify(queue: .main){
-            completion(true)
-        }
-    }
     
     @objc func doneButtonTapped() {
         searchBar.resignFirstResponder()
@@ -147,18 +124,18 @@ extension DirectMsgVC {
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         alertController.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
-            //            self?.deleteUser(at: index)
+            self?.deleteUser(at: index)
         })
         
         present(alertController, animated: true, completion: nil)
     }
     
-    private func deleteUser(at index: Int , chatUsers : [UserModel] ) {
-        guard index < chatUsers.count else {
+    func deleteUser(at index: Int ) {
+        guard index < presenter?.chatUsers.count ?? 0 else {
             return
         }
         
-        let userToDelete = chatUsers[index].uid
+        let userToDelete =  presenter?.chatUsers[index].uid
         MessageLoader.shared.showLoader(withText: "Removing User")
         
         viewModel.removeUserFromChatlistOfSender(receiverId: userToDelete) { [weak self] _ in
@@ -166,8 +143,8 @@ extension DirectMsgVC {
                 switch result {
                 case .success(let data):
                     if let data = data {
-                        //                        self?.chatUsers = data
-                        //                        self?.configureTableView()
+                        self?.presenter?.chatUsers = data
+                        self?.presenter?.fetchAllChatUsersAndCurrentUser()
                         MessageLoader.shared.hideLoader()
                     }
                 case .failure(let error):
@@ -177,7 +154,7 @@ extension DirectMsgVC {
             }
         }
         
-        if let currentUser = currentUser , let  senderId = currentUser.uid , let receiverId = userToDelete {
+        if let currentUser = presenter?.currentUser , let  senderId = presenter?.currentUser?.uid , let receiverId = userToDelete {
             StoreUserData.shared.removeUsersChatNotifications(senderId: senderId, receiverId: receiverId) { _ in}
         }
         
@@ -198,23 +175,11 @@ extension DirectMsgVC : passChatUserBack {
         if let user = user {
             if let userUid = user.uid {
                 MessageLoader.shared.showLoader(withText: "Adding Users")
-                if let currentUser = currentUser , let  senderId = currentUser.uid , let receiverId = user.uid {
+                if let currentUser = presenter?.currentUser , let  senderId = currentUser.uid , let receiverId = user.uid {
                     StoreUserData.shared.saveUsersChatList(senderId: senderId, receiverId: receiverId) { result in
                         switch result {
                         case.success():
-                            self.viewModel.fetchChatUsers { result in
-                                switch result {
-                                case.success(let data):
-                                    if let data = data {
-                                        //                                        self.chatUsers = data
-                                        //                                        self.configureTableView()
-                                        MessageLoader.shared.hideLoader()
-                                    }
-                                case.failure(let error):
-                                    print(error)
-                                    MessageLoader.shared.hideLoader()
-                                }
-                            }
+                            self.presenter?.fetchAllChatUsersAndCurrentUser()
                         case.failure(let error):
                             print(error)
                             MessageLoader.shared.hideLoader()

@@ -10,6 +10,10 @@ import Foundation
 protocol DirectMsgVCPresenterProtocol {
     func viewDidload()
     func fetchAllChatUsersAndCurrentUser()
+    func fetchAllUniqueUsers()
+    var chatUsers : [UserModel] { get set }
+    var allUniqueUsersArray: [UserModel] { get set }
+    var currentUser : UserModel? { get set }
 }
 
 class DirectMsgVCPresenter {
@@ -17,6 +21,7 @@ class DirectMsgVCPresenter {
     var interactor : DirectMsgVCInteractorProtocol
     var router : DirectMsgVCRouterProtocol
     var chatUsers = [UserModel]()
+    var allUniqueUsersArray = [UserModel]()
     var currentUser : UserModel?
     var observeChat = [[String:String]]()
     let dispatchGroup = DispatchGroup()
@@ -31,7 +36,21 @@ extension DirectMsgVCPresenter : DirectMsgVCPresenterProtocol {
     
     func viewDidload() {
         view?.addDoneButtonToSearchBarKeyboard()
+        fetchAllUniqueUsers()
         fetchAllChatUsersAndCurrentUser()
+    }
+    
+    func fetchAllUniqueUsers() {
+        interactor.fetchUniqueUsers{ result in
+            switch result {
+            case.success(let data):
+                if let data = data {
+                    self.allUniqueUsersArray = data
+                }
+            case.failure(let error):
+                print(error)
+            }
+        }
     }
     
     func fetchAllChatUsersAndCurrentUser() {

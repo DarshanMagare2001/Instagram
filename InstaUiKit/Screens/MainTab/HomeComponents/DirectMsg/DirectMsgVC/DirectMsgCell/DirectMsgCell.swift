@@ -13,7 +13,7 @@ class DirectMsgCell: UITableViewCell {
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var directMsgBtn: UIButton!
     var directMsgButtonTapped: (() -> Void)?
-    var viewModel = DirectMsgViewModel()
+    var viewModel = DirectMsgVCInteractor()
     @IBAction func directMsgBtnPressed(_ sender: UIButton) {
         directMsgButtonTapped?()
     }
