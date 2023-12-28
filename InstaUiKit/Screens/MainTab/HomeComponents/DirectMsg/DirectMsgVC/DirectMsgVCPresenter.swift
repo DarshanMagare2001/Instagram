@@ -8,7 +8,8 @@
 import Foundation
 
 protocol DirectMsgVCPresenterProtocol {
-   func viewDidload()
+    func viewDidload()
+    func fetchAllChatUsers()
 }
 
 class DirectMsgVCPresenter {
@@ -25,6 +26,26 @@ class DirectMsgVCPresenter {
 extension DirectMsgVCPresenter : DirectMsgVCPresenterProtocol {
     
     func viewDidload() {
-        
+        view?.addDoneButtonToSearchBarKeyboard()
+        fetchAllChatUsers()
     }
+    
+    func fetchAllChatUsers(){
+        DispatchQueue.global(qos: .background).async{ [weak self] in
+            self?.interactor.fetchChatUsers { result in
+                switch result {
+                case.success(let data):
+                    if let data = data {
+                        print(data)
+                        DispatchQueue.main.async { [weak self] in
+                            self?.view?.configureTableView(chatUsers: data)
+                        }
+                    }
+                case.failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
 }

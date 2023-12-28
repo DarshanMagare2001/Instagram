@@ -10,7 +10,8 @@ import RxSwift
 import RxCocoa
 
 protocol DirectMsgVCProtocol :class {
-    
+    func addDoneButtonToSearchBarKeyboard()
+    func configureTableView(chatUsers:[UserModel])
 }
 
 
@@ -20,7 +21,6 @@ class DirectMsgVC: UIViewController {
     
     var presenter : DirectMsgVCPresenterProtocol?
     
-    var chatUsers = [UserModel]()
     var allUniqueUsersArray = [UserModel]()
     var currentUser : UserModel?
     var viewModel = DirectMsgViewModel()
@@ -29,15 +29,14 @@ class DirectMsgVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.viewDidload()
-        addDoneButtonToSearchBarKeyboard()
         fetchUsers(){ _ in
-            self.updateTableView()
+            //            self.configureTableView()
             DispatchQueue.main.asyncAfter(deadline: .now()+2) {
                 MessageLoader.shared.hideLoader()
             }
-            if self.chatUsers.isEmpty {
-                self.goToAddChatVC()
-            }
+            //            if self.chatUsers.isEmpty {
+            //                self.goToAddChatVC()
+            //            }
         }
     }
     
@@ -48,7 +47,7 @@ class DirectMsgVC: UIViewController {
             case.success(let user):
                 if let user = user {
                     self.currentUser = user
-                    self.updateTableView()
+                    //                    self.configureTableView()
                 }
             case.failure(let error):
                 print(error)
@@ -67,14 +66,14 @@ class DirectMsgVC: UIViewController {
     func goToAddChatVC() {
         let storyboard = UIStoryboard.MainTab
         // Filter users whose uid is not in chatUsers
-        let filteredUsers = allUniqueUsersArray.filter { newUser in
-            return !chatUsers.contains { existingUser in
-                return existingUser.uid == newUser.uid
-            }
-        }
+        //        let filteredUsers = allUniqueUsersArray.filter { newUser in
+        //            return !chatUsers.contains { existingUser in
+        //                return existingUser.uid == newUser.uid
+        //            }
+        //        }
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "AddChatVC") as! AddChatVC
         destinationVC.delegate = self
-        destinationVC.allUniqueUsersArray = filteredUsers
+        //        destinationVC.allUniqueUsersArray = filteredUsers
         navigationController?.present(destinationVC, animated: true, completion: nil)
     }
     
@@ -88,7 +87,7 @@ class DirectMsgVC: UIViewController {
             switch result {
             case.success(let data):
                 if let data = data {
-                    self.chatUsers = data
+                    //                    self.chatUsers = data
                 }
             case.failure(let error):
                 print(error)
@@ -113,6 +112,13 @@ class DirectMsgVC: UIViewController {
         }
     }
     
+    @objc func doneButtonTapped() {
+        searchBar.resignFirstResponder()
+    }
+    
+}
+
+extension DirectMsgVC : DirectMsgVCProtocol {
     func addDoneButtonToSearchBarKeyboard() {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
@@ -122,47 +128,7 @@ class DirectMsgVC: UIViewController {
         searchBar.inputAccessoryView = toolbar
     }
     
-    @objc func doneButtonTapped() {
-        searchBar.resignFirstResponder()
-    }
-    
-}
-
-extension DirectMsgVC : passChatUserBack {
-    func passChatUserBack(user: UserModel?) {
-        if let user = user {
-            if let userUid = user.uid {
-                MessageLoader.shared.showLoader(withText: "Adding Users")
-                if let currentUser = currentUser , let  senderId = currentUser.uid , let receiverId = user.uid {
-                    StoreUserData.shared.saveUsersChatList(senderId: senderId, receiverId: receiverId) { result in
-                        switch result {
-                        case.success():
-                            self.viewModel.fetchChatUsers { result in
-                                switch result {
-                                case.success(let data):
-                                    if let data = data {
-                                        self.chatUsers = data
-                                        self.updateTableView()
-                                        MessageLoader.shared.hideLoader()
-                                    }
-                                case.failure(let error):
-                                    print(error)
-                                    MessageLoader.shared.hideLoader()
-                                }
-                            }
-                        case.failure(let error):
-                            print(error)
-                            MessageLoader.shared.hideLoader()
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-extension DirectMsgVC {
-    func updateTableView() {
+    func configureTableView(chatUsers:[UserModel]) {
         tableViewOutlet.dataSource = nil
         tableViewOutlet.delegate = nil
         
@@ -216,13 +182,18 @@ extension DirectMsgVC {
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] query in
-                let filteredData = self?.chatUsers.filter { user in
+                let filteredData = chatUsers.filter { user in
                     return query.isEmpty || (user.name?.lowercased().contains(query.lowercased()) == true)
                 }
                 filteredUsers.accept(filteredData ?? [])
             })
             .disposed(by: disposeBag)
     }
+    
+}
+
+
+extension DirectMsgVC {
     
     func removeItem(at index: Int) {
         let alertController = UIAlertController(
@@ -234,13 +205,13 @@ extension DirectMsgVC {
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         alertController.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
-            self?.deleteUser(at: index)
+            //            self?.deleteUser(at: index)
         })
         
         present(alertController, animated: true, completion: nil)
     }
     
-    private func deleteUser(at index: Int) {
+    private func deleteUser(at index: Int , chatUsers : [UserModel] ) {
         guard index < chatUsers.count else {
             return
         }
@@ -253,8 +224,8 @@ extension DirectMsgVC {
                 switch result {
                 case .success(let data):
                     if let data = data {
-                        self?.chatUsers = data
-                        self?.updateTableView()
+                        //                        self?.chatUsers = data
+                        //                        self?.configureTableView()
                         MessageLoader.shared.hideLoader()
                     }
                 case .failure(let error):
@@ -279,6 +250,38 @@ extension DirectMsgVC {
     }
 }
 
-extension DirectMsgVC : DirectMsgVCProtocol {
-    
+
+extension DirectMsgVC : passChatUserBack {
+    func passChatUserBack(user: UserModel?) {
+        if let user = user {
+            if let userUid = user.uid {
+                MessageLoader.shared.showLoader(withText: "Adding Users")
+                if let currentUser = currentUser , let  senderId = currentUser.uid , let receiverId = user.uid {
+                    StoreUserData.shared.saveUsersChatList(senderId: senderId, receiverId: receiverId) { result in
+                        switch result {
+                        case.success():
+                            self.viewModel.fetchChatUsers { result in
+                                switch result {
+                                case.success(let data):
+                                    if let data = data {
+                                        //                                        self.chatUsers = data
+                                        //                                        self.configureTableView()
+                                        MessageLoader.shared.hideLoader()
+                                    }
+                                case.failure(let error):
+                                    print(error)
+                                    MessageLoader.shared.hideLoader()
+                                }
+                            }
+                        case.failure(let error):
+                            print(error)
+                            MessageLoader.shared.hideLoader()
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
+
+
