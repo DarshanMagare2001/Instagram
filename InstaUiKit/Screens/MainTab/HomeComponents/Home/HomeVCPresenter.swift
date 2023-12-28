@@ -13,6 +13,8 @@ protocol HomeVCPresenterProtocol {
     func fetchAllPostsOfFollowings(completion:@escaping()->())
     func fetchFollowingUsers(completion:@escaping()->())
     func configureTableView()
+    func goToDirectMsgVC()
+    func goToNotificationVC()
     var allPost : [PostAllDataModel] {get set}
     var allUniqueUsersArray : [UserModel] {get set}
 }
@@ -33,7 +35,7 @@ class HomeVCPresenter {
 }
 
 extension HomeVCPresenter : HomeVCPresenterProtocol {
-   
+    
     func viewDidload() {
         view?.confugureCell()
         view?.makeSkeletonable()
@@ -91,5 +93,12 @@ extension HomeVCPresenter : HomeVCPresenterProtocol {
         }
     }
     
+    func goToDirectMsgVC(){
+        router.goToDirectMsgVC()
+    }
+    
+    func goToNotificationVC(){
+        router.goToNotificationVC()
+    }
     
 }

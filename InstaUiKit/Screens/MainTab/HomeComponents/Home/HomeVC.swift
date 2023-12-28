@@ -14,6 +14,8 @@ protocol HomeVCProtocol : class {
     func makeSkeletonable()
     func confugureCell()
     func setupRefreshControl()
+    func directMsgBtnTapped()
+    func notificationBtnTapped()
 }
 
 
@@ -23,28 +25,10 @@ class HomeVC: UIViewController {
     var presenter : HomeVCPresenterProtocol?
     var refreshControl = UIRefreshControl()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.viewDidload()
     }
-    
-    func directMsgBtnTapped(){
-        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "DirectMsgVC") {  destinationVC in
-            if let destinationVC = destinationVC {
-                self.navigationController?.pushViewController(destinationVC, animated: true)
-            }
-        }
-    }
-    
-    func notificationBtnTapped(){
-        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "NotificationVC") {  destinationVC in
-            if let destinationVC = destinationVC {
-                self.navigationController?.pushViewController(destinationVC, animated: true)
-            }
-        }
-    }
-    
     
 }
 
@@ -79,6 +63,14 @@ extension HomeVC : HomeVCProtocol {
     @objc private func refresh() {
         self.makeSkeletonable()
         presenter?.configureTableView()
+    }
+    
+    func directMsgBtnTapped(){
+        presenter?.goToDirectMsgVC()
+    }
+    
+    func notificationBtnTapped(){
+        presenter?.goToNotificationVC()
     }
     
 }

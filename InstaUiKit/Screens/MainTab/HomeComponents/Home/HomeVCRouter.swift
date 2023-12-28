@@ -10,7 +10,8 @@ import UIKit
 
 
 protocol HomeVCRouterProtocol {
-    
+    func goToDirectMsgVC()
+    func goToNotificationVC()
 }
 
 class HomeVCRouter {
@@ -21,6 +22,16 @@ class HomeVCRouter {
 }
 
 extension HomeVCRouter : HomeVCRouterProtocol {
+    
+    func goToDirectMsgVC(){
+        let directMsgVC = DirectMsgVCBuilder.build()
+        viewController.navigationController?.pushViewController(directMsgVC, animated: true)
+    }
+    
+    func goToNotificationVC(){
+        let notificationVC = NotificationVCBuilder.build()
+        viewController.navigationController?.pushViewController(notificationVC, animated: true)
+    }
     
 }
 
