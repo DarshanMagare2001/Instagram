@@ -11,7 +11,7 @@ import RxCocoa
 
 protocol DirectMsgVCProtocol :class {
     func addDoneButtonToSearchBarKeyboard()
-    func configureTableView(chatUsers:[UserModel])
+    func configureTableView(chatUsers:[UserModel] , currentUser : UserModel )
 }
 
 
@@ -82,19 +82,6 @@ class DirectMsgVC: UIViewController {
         MessageLoader.shared.showLoader(withText: "Fetching Users")
         
         dispatchGroup.enter()
-        viewModel.fetchChatUsers { result in
-            self.dispatchGroup.leave()
-            switch result {
-            case.success(let data):
-                if let data = data {
-                    //                    self.chatUsers = data
-                }
-            case.failure(let error):
-                print(error)
-            }
-        }
-        
-        dispatchGroup.enter()
         viewModel.fetchUniqueUsers { result in
             self.dispatchGroup.leave()
             switch result {
@@ -128,7 +115,7 @@ extension DirectMsgVC : DirectMsgVCProtocol {
         searchBar.inputAccessoryView = toolbar
     }
     
-    func configureTableView(chatUsers:[UserModel]) {
+    func configureTableView(chatUsers:[UserModel] , currentUser : UserModel ) {
         tableViewOutlet.dataSource = nil
         tableViewOutlet.delegate = nil
         
@@ -138,38 +125,12 @@ extension DirectMsgVC : DirectMsgVCProtocol {
                     .rx
                     .items(cellIdentifier: "DirectMsgCell", cellType: DirectMsgCell.self)) { [weak self] (row, element, cell) in
                 guard let self = self else { return }
-                
-                // Reset cell content to avoid reuse issues
-                cell.userImg.image = nil
-                cell.nameLbl.text = nil
-                cell.userNameLbl.text = nil
-                
-                if let name = element.name,
-                   let userName = element.username,
-                   let imgUrl = element.imageUrl,
-                   let receiverUserId = element.uid {
-                    
-                    ImageLoader.loadImage(for: URL(string: imgUrl), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
-                    cell.nameLbl.text = name
-                    
-                    cell.directMsgButtonTapped = { [weak self] in
-                        self?.navigateToChatVC(with: element)
-                    }
-                    
-                    DispatchQueue.main.async {
-                        if let currentUser = self.currentUser , let currentUid = currentUser.uid , let notification = currentUser.usersChatNotification {
-                            self.viewModel.observeLastTextMessage(currentUserId: currentUid, receiverUserId: receiverUserId) { textMsg, senderUid in
-                                print(textMsg)
-                                if let textMsg = textMsg, let senderUid = senderUid {
-                                    cell.userNameLbl.text = "\(senderUid == currentUid ? "You: " : "\(notification.contains(receiverUserId) ? "🔵":"") ")\(textMsg)"
-                                }
-                            }
-                        }
-                    }
-                    
+                cell.configureCell(currentUser: currentUser , element: element)
+                cell.directMsgButtonTapped = { [weak self] in
+                    self?.navigateToChatVC(with: element)
                 }
-            }
-                    .disposed(by: disposeBag)
+                
+            }.disposed(by: disposeBag)
         
         tableViewOutlet.rx.itemDeleted
             .subscribe(onNext: { [weak self] indexPath in

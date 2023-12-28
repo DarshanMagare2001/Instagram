@@ -12,10 +12,9 @@ class DirectMsgCell: UITableViewCell {
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var directMsgBtn: UIButton!
-    // Define a closure to handle button tap action
     var directMsgButtonTapped: (() -> Void)?
+    var viewModel = DirectMsgViewModel()
     @IBAction func directMsgBtnPressed(_ sender: UIButton) {
-        // Call the closure when the button is tapped
         directMsgButtonTapped?()
     }
     
@@ -28,6 +27,34 @@ class DirectMsgCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         
         
+    }
+    
+    func configureCell(currentUser:UserModel?,element:UserModel?){
+        // Reset cell content to avoid reuse issues
+        userImg.image = nil
+        nameLbl.text = nil
+        userNameLbl.text = nil
+        
+        if let name = element?.name,
+           let userName = element?.username,
+           let imgUrl = element?.imageUrl,
+           let receiverUserId = element?.uid{
+            
+            ImageLoader.loadImage(for: URL(string: imgUrl), into: userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+            nameLbl.text = name
+            
+            DispatchQueue.main.async {
+                if let currentUser = currentUser , let currentUid = currentUser.uid , let notification = currentUser.usersChatNotification {
+                    self.viewModel.observeLastTextMessage(currentUserId: currentUid, receiverUserId: receiverUserId) { textMsg, senderUid in
+                        print(textMsg)
+                        if let textMsg = textMsg, let senderUid = senderUid {
+                            self.userNameLbl.text = "\(senderUid == currentUid ? "You: " : "\(notification.contains(receiverUserId) ? "🔵":"") ")\(textMsg)"
+                        }
+                    }
+                }
+            }
+            
+        }
     }
     
 }
