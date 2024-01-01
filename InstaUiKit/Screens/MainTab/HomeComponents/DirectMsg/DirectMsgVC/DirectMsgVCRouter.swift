@@ -13,11 +13,13 @@ protocol DirectMsgVCRouterProtocol {
 }
 
 class DirectMsgVCRouter: passChatUserBack {
-    
-    
+   
     var viewController : UIViewController
-    init(viewController:UIViewController){
+    var interactor : DirectMsgVCInteractorProtocol
+    
+    init(viewController:UIViewController , interactor : DirectMsgVCInteractorProtocol ){
         self.viewController = viewController
+        self.interactor = interactor
     }
     
 }
@@ -30,22 +32,23 @@ extension DirectMsgVCRouter : DirectMsgVCRouterProtocol {
     }
     
     func passChatUserBack(user: UserModel?) {
-//        if let user = user {
-//            if let userUid = user.uid {
-//                MessageLoader.shared.showLoader(withText: "Adding Users")
-//                if let currentUser = presenter?.currentUser , let  senderId = currentUser.uid , let receiverId = user.uid {
-//                    StoreUserData.shared.saveUsersChatList(senderId: senderId, receiverId: receiverId) { result in
-//                        switch result {
-//                        case.success():
-//                            self.presenter?.fetchAllChatUsersAndCurrentUser()
-//                        case.failure(let error):
-//                            print(error)
-//                            MessageLoader.shared.hideLoader()
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        if let user = user {
+            if let userUid = user.uid {
+                MessageLoader.shared.showLoader(withText: "Adding Users")
+                if let currentUser = interactor.currentUser , let  senderId = currentUser.uid , let receiverId = user.uid {
+                    StoreUserData.shared.saveUsersChatList(senderId: senderId, receiverId: receiverId) { result in
+                        switch result {
+                        case.success():
+                            print("")
+                            NotificationCenterInternal.shared.postNotification(name: .notification)
+                        case.failure(let error):
+                            print(error)
+                            MessageLoader.shared.hideLoader()
+                        }
+                    }
+                }
+            }
+        }
     }
     
 }

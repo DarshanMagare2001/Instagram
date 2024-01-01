@@ -18,7 +18,7 @@ final class DirectMsgVCBuilder {
         let storyboard = UIStoryboard.MainTab
         let directMsgVC = storyboard.instantiateViewController(withIdentifier: "DirectMsgVC") as! DirectMsgVC
         let interactor = DirectMsgVCInteractor()
-        let router = DirectMsgVCRouter(viewController: directMsgVC)
+        let router = DirectMsgVCRouter(viewController: directMsgVC, interactor: interactor)
         let presenter = DirectMsgVCPresenter(view: directMsgVC, interactor: interactor, router: router)
         directMsgVC.presenter = presenter
         

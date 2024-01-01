@@ -22,11 +22,23 @@ class DirectMsgVCPresenter {
         self.view = view
         self.interactor = interactor
         self.router = router
+        NotificationCenterInternal.shared.addObserver(self, selector: #selector(handleNotification), name: .notification)
+    }
+    @objc func handleNotification() {
+        DispatchQueue.global(qos: .background).async {
+            self.interactor.fetchAllChatUsersAndCurrentUser { chatUsers, currentUser in
+                print(chatUsers)
+                DispatchQueue.main.async {
+                    self.view?.configureTableView(chatUsers: chatUsers , currentUser : currentUser)
+                    MessageLoader.shared.hideLoader()
+                }
+            }
+        }
     }
 }
 
 extension DirectMsgVCPresenter : DirectMsgVCPresenterProtocol {
-   
+    
     func viewDidload() {
         view?.addDoneButtonToSearchBarKeyboard()
         fetchAllUniqueUsers()
