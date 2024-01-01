@@ -10,6 +10,7 @@ import UIKit
 
 protocol DirectMsgVCRouterProtocol {
     func goToAddChatVC(allUniqueUsersArray:[UserModel])
+    func goToChatVC(user:UserModel)
 }
 
 class DirectMsgVCRouter: passChatUserBack {
@@ -25,6 +26,11 @@ class DirectMsgVCRouter: passChatUserBack {
 }
 
 extension DirectMsgVCRouter : DirectMsgVCRouterProtocol {
+    
+    func goToChatVC(user: UserModel) {
+        let chatVC = ChatVCBuilder.build(user: user)
+        viewController.navigationController?.pushViewController(chatVC, animated: true)
+    }
     
     func goToAddChatVC(allUniqueUsersArray: [UserModel]) {
         let addChatVC = AddChatVCBuilder.build(allUniqueUsersArray: allUniqueUsersArray, delegate: self)

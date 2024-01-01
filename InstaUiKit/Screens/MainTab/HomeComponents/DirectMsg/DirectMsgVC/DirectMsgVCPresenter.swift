@@ -13,6 +13,7 @@ protocol DirectMsgVCPresenterProtocol {
     func fetchAllChatUsersAndCurrentUser()
     func fetchAllUniqueUsers()
     func goToAddChatVC()
+    func goToChatVC(user: UserModel)
     func removeItem(at index: Int , viewController : UIViewController )
 }
 
@@ -42,6 +43,10 @@ class DirectMsgVCPresenter {
 }
 
 extension DirectMsgVCPresenter : DirectMsgVCPresenterProtocol {
+    
+    func goToChatVC(user: UserModel) {
+        router.goToChatVC(user: user)
+    }
     
     func viewDidload() {
         view?.addDoneButtonToSearchBarKeyboard()

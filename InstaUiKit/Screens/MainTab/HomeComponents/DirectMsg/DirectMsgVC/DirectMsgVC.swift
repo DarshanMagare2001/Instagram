@@ -23,15 +23,9 @@ class DirectMsgVC: UIViewController {
     var presenter : DirectMsgVCPresenterProtocol?
     let disposeBag = DisposeBag()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.viewDidload()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
     }
     
     func backButtonPressed() {
@@ -74,7 +68,7 @@ extension DirectMsgVC : DirectMsgVCProtocol {
                 }
                 
                 cell.directMsgButtonTapped = { [weak self] in
-                    self?.navigateToChatVC(with: element)
+                    self?.presenter?.goToChatVC(user: element)
                 }
                 
             }.disposed(by: disposeBag)
@@ -98,17 +92,6 @@ extension DirectMsgVC : DirectMsgVCProtocol {
             .disposed(by: disposeBag)
     }
     
-}
-
-
-extension DirectMsgVC {
-    private func navigateToChatVC(with user: UserModel) {
-        let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
-        if let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChatVC") as? ChatVC {
-            destinationVC.receiverUser = user
-            navigationController?.pushViewController(destinationVC, animated: true)
-        }
-    }
 }
 
 

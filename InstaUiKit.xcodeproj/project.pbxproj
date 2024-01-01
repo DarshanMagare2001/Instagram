@@ -112,6 +112,7 @@
 		13B4B3F02AFA3FB200EB13EE /* FeedViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B4B3EF2AFA3FB200EB13EE /* FeedViewVC.swift */; };
 		13C100402B42869200B8A286 /* AddChatVCBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C1003F2B42869200B8A286 /* AddChatVCBuilder.swift */; };
 		13C100432B42C5E000B8A286 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C100422B42C5E000B8A286 /* NotificationCenter.swift */; };
+		13C100452B42CD8700B8A286 /* ChatVCBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C100442B42CD8700B8A286 /* ChatVCBuilder.swift */; };
 		13C508C82B108B3B0013C52D /* AddStoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C508C72B108B3B0013C52D /* AddStoryVC.swift */; };
 		13C508CC2B109F650013C52D /* UsersProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C508CB2B109F650013C52D /* UsersProfileViewModel.swift */; };
 		13C61F362B26FC1400011E1B /* HomeVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C61F352B26FC1400011E1B /* HomeVCCell.swift */; };
@@ -235,6 +236,7 @@
 		13B4B3EF2AFA3FB200EB13EE /* FeedViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewVC.swift; sourceTree = "<group>"; };
 		13C1003F2B42869200B8A286 /* AddChatVCBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChatVCBuilder.swift; sourceTree = "<group>"; };
 		13C100422B42C5E000B8A286 /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
+		13C100442B42CD8700B8A286 /* ChatVCBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVCBuilder.swift; sourceTree = "<group>"; };
 		13C508C72B108B3B0013C52D /* AddStoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStoryVC.swift; sourceTree = "<group>"; };
 		13C508CB2B109F650013C52D /* UsersProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersProfileViewModel.swift; sourceTree = "<group>"; };
 		13C61F352B26FC1400011E1B /* HomeVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVCCell.swift; sourceTree = "<group>"; };
@@ -553,35 +555,12 @@
 		13127A8B2AF3AA01008C7927 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				13127A8E2AF3AA21008C7927 /* Model */,
-				13127A8D2AF3AA1B008C7927 /* View */,
-				13127A8C2AF3AA13008C7927 /* ViewModel */,
+				13127A952AF3CC67008C7927 /* ChatVCModel.swift */,
+				13127A8F2AF3AA35008C7927 /* ChatVC.swift */,
+				13127A932AF3BED1008C7927 /* ChatVCViewModel.swift */,
+				13C100442B42CD8700B8A286 /* ChatVCBuilder.swift */,
 			);
 			path = Chat;
-			sourceTree = "<group>";
-		};
-		13127A8C2AF3AA13008C7927 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				13127A932AF3BED1008C7927 /* ChatVCViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		13127A8D2AF3AA1B008C7927 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				13127A8F2AF3AA35008C7927 /* ChatVC.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		13127A8E2AF3AA21008C7927 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				13127A952AF3CC67008C7927 /* ChatVCModel.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		134C72DE2B3ACB28000B0D46 /* CoreDataRepository */ = {
@@ -1341,6 +1320,7 @@
 				132847232AFCEB4600A2397F /* UsersProfileViewCell.swift in Sources */,
 				13FE5BE52B3C220E001FFA08 /* SwitchAccountVCPresenter.swift in Sources */,
 				138BC6682B3D547B00B04FC6 /* DirectMsgVCBuilder.swift in Sources */,
+				13C100452B42CD8700B8A286 /* ChatVCBuilder.swift in Sources */,
 				13127A942AF3BED1008C7927 /* ChatVCViewModel.swift in Sources */,
 				1396275E2AFBA5050034F139 /* CommentsVC.swift in Sources */,
 				1392D0102A80B3BE004B6654 /* RoundedCorner.swift in Sources */,
