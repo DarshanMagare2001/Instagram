@@ -13,13 +13,49 @@ protocol DirectMsgVCInteractorProtocol {
     func observeLastTextMessage(currentUserId: String?, receiverUserId: String?, completion: @escaping (String?, String?) -> Void)
     func removeUserFromChatlistOfSender(receiverId : String? , completion : @escaping (Bool) -> Void)
     func fetchUniqueUsers(completion:@escaping (Result<[UserModel]?,Error>) -> Void)
+    func fetchAllChatUsersAndCurrentUser(completion:@escaping(_ chatUsers:[UserModel] , _ currentUser : UserModel) -> ())
+    var chatUsers : [UserModel]? { get set }
+    var allUniqueUsersArray: [UserModel] { get set }
+    var currentUser : UserModel? { get set }
 }
 
 class DirectMsgVCInteractor {
+    var chatUsers : [UserModel]?
+    var allUniqueUsersArray = [UserModel]()
+    var currentUser : UserModel?
+    var observeChat = [[String:String]]()
     let dispatchGroup = DispatchGroup()
 }
 
 extension DirectMsgVCInteractor : DirectMsgVCInteractorProtocol {
+    
+    func fetchAllChatUsersAndCurrentUser(completion:@escaping(_ chatUsers:[UserModel] , _ currentUser : UserModel) -> ()) {
+        self.fetchChatUsers { result in
+            switch result {
+            case .success(let data):
+                if let data = data {
+                    print(data)
+                    self.chatUsers = data
+                    FetchUserData.shared.fetchCurrentUserFromFirebase { result in
+                        switch result {
+                        case .success(let user):
+                            if let user = user {
+                                self.currentUser = user
+                                if let currentUser = self.currentUser, let chatUsers = self.chatUsers {
+                                    completion(chatUsers, currentUser)
+                                }
+                            }
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     
     func fetchChatUsers(completion:@escaping (Result<[UserModel]?,Error>) -> Void ) {
         var chatUsers = [UserModel]()
@@ -120,7 +156,6 @@ extension DirectMsgVCInteractor : DirectMsgVCInteractorProtocol {
                   let kindString = messageData["kind"] as? String,
                   kindString == "text",
                   let text = messageData["text"] as? String else {
-                      // Skip if not a valid text message
                       return
                   }
             

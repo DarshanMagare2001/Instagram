@@ -42,6 +42,7 @@ class DirectMsgCell: UITableViewCell {
             DispatchQueue.main.async {
                 ImageLoader.loadImage(for: URL(string: imgUrl), into: self.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
                 self.nameLbl.text = name
+                self.userNameLbl.text = "Loading..."
             }
             
             DispatchQueue.global(qos: .background).async { [weak self] in
