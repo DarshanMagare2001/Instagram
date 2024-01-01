@@ -34,16 +34,7 @@ extension DirectMsgVCPresenter : DirectMsgVCPresenterProtocol {
     }
     
     func fetchAllUniqueUsers() {
-//        interactor.fetchUniqueUsers{ result in
-//            switch result {
-//            case.success(let data):
-//                if let data = data {
-//                    self.allUniqueUsersArray = data
-//                }
-//            case.failure(let error):
-//                print(error)
-//            }
-//        }
+        interactor.fetchAllUniqueUsers()
     }
     
     func fetchAllChatUsersAndCurrentUser() {
@@ -63,12 +54,12 @@ extension DirectMsgVCPresenter : DirectMsgVCPresenterProtocol {
     
     
     func goToAddChatVC(){
-//        let filteredUsers = self.allUniqueUsersArray.filter { newUser in
-//            return !(self.chatUsers.contains { existingUser in
-//                return existingUser.uid == newUser.uid
-//            })
-//        }
-//        router.goToAddChatVC(allUniqueUsersArray: filteredUsers)
+        let filteredUsers = interactor.allUniqueUsersArray.filter { newUser in
+            return !(interactor.chatUsers?.contains { existingUser in
+                return existingUser.uid == newUser.uid
+            })!
+        }
+        router.goToAddChatVC(allUniqueUsersArray: filteredUsers)
     }
     
     

@@ -14,6 +14,7 @@ protocol DirectMsgVCInteractorProtocol {
     func removeUserFromChatlistOfSender(receiverId : String? , completion : @escaping (Bool) -> Void)
     func fetchUniqueUsers(completion:@escaping (Result<[UserModel]?,Error>) -> Void)
     func fetchAllChatUsersAndCurrentUser(completion:@escaping(_ chatUsers:[UserModel] , _ currentUser : UserModel) -> ())
+    func fetchAllUniqueUsers()
     var chatUsers : [UserModel]? { get set }
     var allUniqueUsersArray: [UserModel] { get set }
     var currentUser : UserModel? { get set }
@@ -28,6 +29,19 @@ class DirectMsgVCInteractor {
 }
 
 extension DirectMsgVCInteractor : DirectMsgVCInteractorProtocol {
+    
+    func fetchAllUniqueUsers() {
+        self.fetchUniqueUsers{ result in
+            switch result {
+            case.success(let data):
+                if let data = data {
+                    self.allUniqueUsersArray = data
+                }
+            case.failure(let error):
+                print(error)
+            }
+        }
+    }
     
     func fetchAllChatUsersAndCurrentUser(completion:@escaping(_ chatUsers:[UserModel] , _ currentUser : UserModel) -> ()) {
         self.fetchChatUsers { result in
