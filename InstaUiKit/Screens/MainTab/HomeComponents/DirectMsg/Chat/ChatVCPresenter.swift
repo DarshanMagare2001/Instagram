@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ChatVCPresenterProtocol {
-    
+    func viewDidload()
 }
 
 class ChatVCPresenter {
@@ -23,5 +23,9 @@ class ChatVCPresenter {
 }
 
 extension ChatVCPresenter : ChatVCPresenterProtocol {
+    
+    func viewDidload() {
+        
+    }
     
 }
