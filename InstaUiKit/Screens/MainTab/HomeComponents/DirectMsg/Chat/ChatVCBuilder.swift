@@ -12,6 +12,10 @@ final class ChatVCBuilder {
     static func build(user:UserModel) -> UIViewController {
         let storyboard = UIStoryboard.MainTab
         let chatVC = storyboard.instantiateViewController(withIdentifier: "ChatVC") as! ChatVC
+        let interactor = ChatVCInteractor()
+        let router = ChatVCRouter(viewController: chatVC)
+        let presenter = ChatVCPresenter(view: chatVC, interactor: interactor, router: router)
+        chatVC.presenter = presenter
         chatVC.receiverUser = user
         return chatVC
     }

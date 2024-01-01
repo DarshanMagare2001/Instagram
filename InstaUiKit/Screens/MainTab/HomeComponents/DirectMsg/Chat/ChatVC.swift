@@ -3,7 +3,14 @@ import MessageKit
 import InputBarAccessoryView
 import SDWebImage
 
+protocol ChatVCProtocol : class {
+    
+}
+
 class ChatVC: MessagesViewController {
+    
+    var presenter : ChatVCPresenterProtocol?
+    
     var currentUser: SenderType?
     var currentUserModel: UserModel?
     var receiverUser: UserModel?
@@ -227,3 +234,6 @@ struct Formatter {
     }()
 }
 
+extension ChatVC : ChatVCProtocol {
+    
+}
