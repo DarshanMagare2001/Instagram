@@ -1,30 +1,9 @@
-//
-//  ChatVCInteractor.swift
-//  InstaUiKit
-//
-//  Created by IPS-161 on 01/01/24.
-//
-
 import Foundation
 import MessageKit
 import Firebase
 
-protocol ChatVCInteractorProtocol {
-    func observeMessages(currentUserId: String?, receiverUserId: String? , completion: @escaping (Message?) -> Void)
-    func sendMessage(text: String,receiverUser:UserModel?,completion:@escaping (String?) -> Void)
-    var currentUser: SenderType? { get set }
-    var currentUserModel: UserModel? { get set }
-    var messages: [Message] { get set }
-}
-
-class ChatVCInteractor {
+class ChatVCModel {
     var messagesRef: DatabaseReference!
-    var currentUser: SenderType?
-    var currentUserModel: UserModel?
-    var messages: [Message] = []
-}
-
-extension ChatVCInteractor : ChatVCInteractorProtocol {
     
     func observeMessages(currentUserId: String?, receiverUserId: String? , completion: @escaping (Message?) -> Void) {
         if let currentUserId = currentUserId, let receiverUserId = receiverUserId {
@@ -67,21 +46,5 @@ extension ChatVCInteractor : ChatVCInteractorProtocol {
         return senderId < receiverId ? "\(senderId)_\(receiverId)" : "\(receiverId)_\(senderId)"
     }
     
-    func sendMessage(text: String,receiverUser:UserModel?,completion:@escaping (String?) -> Void){
-        guard let currentUser = self.currentUser, let receiverUserId = receiverUser?.uid else {
-            return
-        }
-        let messageRef = self.messagesRef.childByAutoId()
-        let message = [
-            "senderId": currentUser.senderId,
-            "displayName": currentUser.displayName,
-            "messageId": messageRef.key ?? "",
-            "sentDate": Formatter.iso8601.string(from: Date()),
-            "kind": "text",
-            "text": text
-        ]
-        messageRef.setValue(message)
-        completion(text)
-    }
-    
 }
+
