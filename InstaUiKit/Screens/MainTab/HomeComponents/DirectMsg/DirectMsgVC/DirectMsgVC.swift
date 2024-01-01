@@ -21,7 +21,6 @@ class DirectMsgVC: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     var presenter : DirectMsgVCPresenterProtocol?
-    var viewModel = DirectMsgVCInteractor()
     let disposeBag = DisposeBag()
     
     
@@ -82,7 +81,7 @@ extension DirectMsgVC : DirectMsgVCProtocol {
         
         tableViewOutlet.rx.itemDeleted
             .subscribe(onNext: { [weak self] indexPath in
-//                self?.removeItem(at: indexPath.row)
+                self?.presenter?.removeItem(at: indexPath.row, viewController: self!)
             })
             .disposed(by: disposeBag)
         
@@ -103,53 +102,6 @@ extension DirectMsgVC : DirectMsgVCProtocol {
 
 
 extension DirectMsgVC {
-    
-//    func removeItem(at index: Int) {
-//        let alertController = UIAlertController(
-//            title: "Delete User",
-//            message: "Are you sure you want to delete this user?",
-//            preferredStyle: .alert
-//        )
-//
-//        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-//
-//        alertController.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
-//            self?.deleteUser(at: index)
-//        })
-//
-//        present(alertController, animated: true, completion: nil)
-//    }
-//
-//    func deleteUser(at index: Int ) {
-//        guard index < presenter?.chatUsers.count ?? 0 else {
-//            return
-//        }
-//
-//        let userToDelete =  presenter?.chatUsers[index].uid
-//        MessageLoader.shared.showLoader(withText: "Removing User")
-//
-//        viewModel.removeUserFromChatlistOfSender(receiverId: userToDelete) { [weak self] _ in
-//            self?.viewModel.fetchChatUsers { result in
-//                switch result {
-//                case .success(let data):
-//                    if let data = data {
-//                        self?.presenter?.chatUsers = data
-//                        self?.presenter?.fetchAllChatUsersAndCurrentUser()
-//                        MessageLoader.shared.hideLoader()
-//                    }
-//                case .failure(let error):
-//                    print(error)
-//                    MessageLoader.shared.hideLoader()
-//                }
-//            }
-//        }
-//
-//        if let currentUser = presenter?.currentUser , let  senderId = presenter?.currentUser?.uid , let receiverId = userToDelete {
-//            StoreUserData.shared.removeUsersChatNotifications(senderId: senderId, receiverId: receiverId) { _ in}
-//        }
-//
-//    }
-    
     private func navigateToChatVC(with user: UserModel) {
         let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
         if let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChatVC") as? ChatVC {
@@ -157,7 +109,6 @@ extension DirectMsgVC {
             navigationController?.pushViewController(destinationVC, animated: true)
         }
     }
-    
 }
 
 

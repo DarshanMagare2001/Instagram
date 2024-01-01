@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import UIKit
 
 protocol DirectMsgVCPresenterProtocol {
     func viewDidload()
     func fetchAllChatUsersAndCurrentUser()
     func fetchAllUniqueUsers()
     func goToAddChatVC()
+    func removeItem(at index: Int , viewController : UIViewController )
 }
 
 class DirectMsgVCPresenter {
@@ -24,6 +26,7 @@ class DirectMsgVCPresenter {
         self.router = router
         NotificationCenterInternal.shared.addObserver(self, selector: #selector(handleNotification), name: .notification)
     }
+    
     @objc func handleNotification() {
         DispatchQueue.global(qos: .background).async {
             self.interactor.fetchAllChatUsersAndCurrentUser { chatUsers, currentUser in
@@ -35,6 +38,7 @@ class DirectMsgVCPresenter {
             }
         }
     }
+    
 }
 
 extension DirectMsgVCPresenter : DirectMsgVCPresenterProtocol {
@@ -64,7 +68,6 @@ extension DirectMsgVCPresenter : DirectMsgVCPresenterProtocol {
         }
     }
     
-    
     func goToAddChatVC(){
         let filteredUsers = interactor.allUniqueUsersArray.filter { newUser in
             return !(interactor.chatUsers?.contains { existingUser in
@@ -74,6 +77,56 @@ extension DirectMsgVCPresenter : DirectMsgVCPresenterProtocol {
         router.goToAddChatVC(allUniqueUsersArray: filteredUsers)
     }
     
+    func removeItem(at index: Int , viewController : UIViewController ) {
+        let alertController = UIAlertController(
+            title: "Delete User",
+            message: "Are you sure you want to delete this user?",
+            preferredStyle: .alert
+        )
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        alertController.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+            self?.deleteUser(at: index)
+        })
+        
+        viewController.present(alertController, animated: true, completion: nil)
+    }
+    
+    func deleteUser(at index: Int ) {
+        guard index < interactor.chatUsers?.count ?? 0 else {
+            return
+        }
+        
+        let userToDelete =  interactor.chatUsers?[index].uid
+        MessageLoader.shared.showLoader(withText: "Removing User")
+        
+        interactor.removeUserFromChatlistOfSender(receiverId: userToDelete) { [weak self] _ in
+            self?.interactor.fetchChatUsers { result in
+                switch result {
+                case .success(let data):
+                    if let data = data {
+                        self?.interactor.chatUsers = data
+                        self?.interactor.fetchAllChatUsersAndCurrentUser { chatUsers, currentUser in
+                            print(chatUsers)
+                            DispatchQueue.main.async {
+                                self?.view?.configureTableView(chatUsers: chatUsers , currentUser : currentUser)
+                                MessageLoader.shared.hideLoader()
+                            }
+                        }
+                    }
+                case .failure(let error):
+                    print(error)
+                    MessageLoader.shared.hideLoader()
+                }
+            }
+        }
+        
+        if let currentUser = interactor.currentUser , let  senderId = interactor.currentUser?.uid , let receiverId = userToDelete {
+            StoreUserData.shared.removeUsersChatNotifications(senderId: senderId, receiverId: receiverId) { _ in}
+        }
+        
+    }
     
 }
 
