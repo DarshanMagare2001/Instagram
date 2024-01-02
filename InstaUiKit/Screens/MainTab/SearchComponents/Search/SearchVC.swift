@@ -13,7 +13,7 @@ protocol SearchVCProtocol : class {
     func setupCell()
     func setupRefreshcontrol()
     func setupUI(layout:UICollectionViewLayout)
-    func addDoneButtonToSearchBarKeyboard() 
+    func addDoneButtonToSearchBarKeyboard()
 }
 
 
@@ -37,7 +37,7 @@ class SearchVC: UIViewController {
 }
 
 extension SearchVC : SearchVCProtocol {
-   
+    
     func setupCell() {
         let nib = UINib(nibName: "FollowingCell", bundle: nil)
         tableViewOutlet.register(nib, forCellReuseIdentifier: "FollowingCell")
@@ -113,19 +113,14 @@ extension SearchVC {
                         }
                     }
                 }
-            }
-                    .disposed(by: disposeBag)
-        
-        // Observe changes in the search bar text
+            }.disposed(by: disposeBag)
         searchBar.rx.text
             .orEmpty
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] query in
-                // Filter the user data based on the search query
                 let filteredData =  self?.interactor?.allUniqueUsersArray.filter { user in
                     if query.isEmpty {
-                        // Show all users if the query is empty
                         self?.tableView.isHidden = true
                         self?.collectionView.isHidden = false
                         return true
@@ -136,14 +131,11 @@ extension SearchVC {
                         return (user.name?.lowercased().contains(query.lowercased()) == true)
                     }
                 }
-                // Update the filteredUsers BehaviorRelay with the filtered data
                 filteredUsers.accept(filteredData ?? [])
             })
             .disposed(by: disposeBag)
     }
 }
-
-
 
 extension SearchVC {
     func updateCollectionView(layout:UICollectionViewLayout) {
@@ -155,28 +147,20 @@ extension SearchVC {
             .do(onNext: { [weak self] _ in
                 self?.collectionViewOutlet.reloadData()
             })
-                .bind(to: collectionViewOutlet
-                        .rx
-                        .items(cellIdentifier: "SearchVCCollectionViewCell", cellType: SearchVCCollectionViewCell.self)) { (row, element, cell) in
-                    if let element = element {
-                        cell.configureCell(post: element)
+            .bind(to: collectionViewOutlet
+                    .rx
+                    .items(cellIdentifier: "SearchVCCollectionViewCell", cellType: SearchVCCollectionViewCell.self)) { (row, element, cell) in
+                if let element = element {
+                    cell.configureCell(post: element)
+                }
+                cell.tapAction = { [weak self] in
+                    if let data = element {
+                        var tempData = [PostAllDataModel]()
+                        tempData.append(data)
+                        self?.presenter?.goToFeedViewVC(allPost:tempData)
                     }
-                    cell.tapAction = { [weak self] in
-                        if let data = element {
-                            var tempData = [PostAllDataModel]()
-                            tempData.append(data)
-                            self?.handleCellTap(at: row, data: tempData)
-                        }
-                    }
-                } .disposed(by: disposeBag)
-    }
-    
-    func handleCellTap(at index: Int , data : [PostAllDataModel] ) {
-        print(data)
-        let storyboard = UIStoryboard.Common
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedViewVC") as! FeedViewVC
-        destinationVC.allPost = data
-        navigationController?.pushViewController(destinationVC, animated: true)
+                }
+            } .disposed(by: disposeBag)
     }
 }
 

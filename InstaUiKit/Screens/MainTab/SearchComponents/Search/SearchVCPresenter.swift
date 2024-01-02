@@ -14,6 +14,7 @@ protocol SearchVCPresenterProtocol {
     func fetchAllPostURL(completion:@escaping()->())
     func fetchCurrentUserFromFirebase(completion:@escaping()->())
     func getCollectionViewLayout(completion:@escaping(UICollectionViewLayout)->())
+    func goToFeedViewVC(allPost: [PostAllDataModel])
 }
 
 class SearchVCPresenter {
@@ -99,6 +100,10 @@ extension SearchVCPresenter : SearchVCPresenterProtocol {
         interactor.getComposnalLayout { layout in
             completion(layout)
         }
+    }
+    
+    func goToFeedViewVC(allPost: [PostAllDataModel]) {
+        router.goToFeedViewVC(allPost:allPost)
     }
     
 }
