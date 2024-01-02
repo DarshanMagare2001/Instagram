@@ -13,6 +13,8 @@ protocol UsersProfileViewProtocol : class {
     func updateCell(flowLayout:UICollectionViewLayout)
     func setUpTapGestures()
     func setUpUI()
+    func makeLblsUserInteractable()
+    func makeLblsUserUnInteractable()
 }
 
 class UsersProfileView: UIViewController {
@@ -61,18 +63,6 @@ class UsersProfileView: UIViewController {
         destinationVC.user = interactor?.user
         destinationVC.modalPresentationStyle = .overFullScreen
         present(destinationVC, animated: true, completion: nil)
-    }
-    
-    func makeLblsUserInteractable(){
-        followingsTextLbl.isUserInteractionEnabled = true
-        followersTextLbl.isUserInteractionEnabled = true
-        postTextLbl.isUserInteractionEnabled = true
-    }
-    
-    func makeLblsUserUnInteractable(){
-        followingsTextLbl.isUserInteractionEnabled = false
-        followersTextLbl.isUserInteractionEnabled = false
-        postTextLbl.isUserInteractionEnabled = false
     }
     
     func goToFollowerAndFollowing(){
@@ -282,6 +272,18 @@ extension UsersProfileView  : UsersProfileViewProtocol {
             }
             
         }
+    }
+    
+    func makeLblsUserInteractable(){
+        followingsTextLbl.isUserInteractionEnabled = true
+        followersTextLbl.isUserInteractionEnabled = true
+        postTextLbl.isUserInteractionEnabled = true
+    }
+    
+    func makeLblsUserUnInteractable(){
+        followingsTextLbl.isUserInteractionEnabled = false
+        followersTextLbl.isUserInteractionEnabled = false
+        postTextLbl.isUserInteractionEnabled = false
     }
     
 }
