@@ -158,17 +158,9 @@ extension SearchVC {
                 .bind(to: collectionViewOutlet
                         .rx
                         .items(cellIdentifier: "SearchVCCollectionViewCell", cellType: SearchVCCollectionViewCell.self)) { (row, element, cell) in
-                    DispatchQueue.main.async {
-                        if let url = element?.postImageURLs?[0] {
-                            ImageLoader.loadImage(for: URL(string: url), into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
-                        }
-                        
-                        if let postCount = element?.postImageURLs?.count {
-                            cell.multiplePostIcon.isHidden = (postCount > 1 ? false : true)
-                        }
-                        
+                    if let element = element {
+                        cell.configureCell(post: element)
                     }
-                    // Handle tap action
                     cell.tapAction = { [weak self] in
                         if let data = element {
                             var tempData = [PostAllDataModel]()
@@ -176,8 +168,7 @@ extension SearchVC {
                             self?.handleCellTap(at: row, data: tempData)
                         }
                     }
-                }
-                        .disposed(by: disposeBag)
+                } .disposed(by: disposeBag)
     }
     
     func handleCellTap(at index: Int , data : [PostAllDataModel] ) {

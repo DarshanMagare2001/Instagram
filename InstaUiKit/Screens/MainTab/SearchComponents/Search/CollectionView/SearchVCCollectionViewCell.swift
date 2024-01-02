@@ -28,4 +28,15 @@ class SearchVCCollectionViewCell: UICollectionViewCell {
         tapAction?()
     }
     
+    func configureCell(post:PostAllDataModel){
+        DispatchQueue.main.async {
+            if let url = post.postImageURLs?[0] {
+                ImageLoader.loadImage(for: URL(string: url), into: self.img, withPlaceholder: UIImage(systemName: "person.fill"))
+            }
+            if let postCount = post.postImageURLs?.count {
+                self.multiplePostIcon.isHidden = (postCount > 1 ? false : true)
+            }
+        }
+    }
+    
 }
