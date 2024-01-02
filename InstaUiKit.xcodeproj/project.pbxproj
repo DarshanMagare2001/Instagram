@@ -115,6 +115,9 @@
 		13BAAD8E2B43E94E0069CC82 /* SearchVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BAAD8D2B43E94E0069CC82 /* SearchVCPresenter.swift */; };
 		13BAAD902B43E95E0069CC82 /* SearchVCRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BAAD8F2B43E95E0069CC82 /* SearchVCRouter.swift */; };
 		13BAAD922B44032D0069CC82 /* FeedViewVCBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BAAD912B44032D0069CC82 /* FeedViewVCBuilder.swift */; };
+		13BAAD942B441F9D0069CC82 /* UsersProfileViewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BAAD932B441F9D0069CC82 /* UsersProfileViewInteractor.swift */; };
+		13BAAD962B441FAF0069CC82 /* UsersProfileViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BAAD952B441FAF0069CC82 /* UsersProfileViewPresenter.swift */; };
+		13BAAD982B441FC90069CC82 /* UsersProfileViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BAAD972B441FC90069CC82 /* UsersProfileViewRouter.swift */; };
 		13C100402B42869200B8A286 /* AddChatVCBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C1003F2B42869200B8A286 /* AddChatVCBuilder.swift */; };
 		13C100432B42C5E000B8A286 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C100422B42C5E000B8A286 /* NotificationCenter.swift */; };
 		13C100452B42CD8700B8A286 /* ChatVCBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C100442B42CD8700B8A286 /* ChatVCBuilder.swift */; };
@@ -244,6 +247,9 @@
 		13BAAD8D2B43E94E0069CC82 /* SearchVCPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVCPresenter.swift; sourceTree = "<group>"; };
 		13BAAD8F2B43E95E0069CC82 /* SearchVCRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVCRouter.swift; sourceTree = "<group>"; };
 		13BAAD912B44032D0069CC82 /* FeedViewVCBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewVCBuilder.swift; sourceTree = "<group>"; };
+		13BAAD932B441F9D0069CC82 /* UsersProfileViewInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersProfileViewInteractor.swift; sourceTree = "<group>"; };
+		13BAAD952B441FAF0069CC82 /* UsersProfileViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersProfileViewPresenter.swift; sourceTree = "<group>"; };
+		13BAAD972B441FC90069CC82 /* UsersProfileViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersProfileViewRouter.swift; sourceTree = "<group>"; };
 		13C1003F2B42869200B8A286 /* AddChatVCBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChatVCBuilder.swift; sourceTree = "<group>"; };
 		13C100422B42C5E000B8A286 /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
 		13C100442B42CD8700B8A286 /* ChatVCBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVCBuilder.swift; sourceTree = "<group>"; };
@@ -764,8 +770,11 @@
 		1385F38A2AF5200D006C8363 /* UsersProfile */ = {
 			isa = PBXGroup;
 			children = (
+				13BAAD992B4420290069CC82 /* UserProfileViewCell */,
 				1385F38E2AF5205F006C8363 /* UsersProfileView.swift */,
-				132847222AFCEB4600A2397F /* UsersProfileViewCell.swift */,
+				13BAAD932B441F9D0069CC82 /* UsersProfileViewInteractor.swift */,
+				13BAAD952B441FAF0069CC82 /* UsersProfileViewPresenter.swift */,
+				13BAAD972B441FC90069CC82 /* UsersProfileViewRouter.swift */,
 				138BC66F2B3D7E5200B04FC6 /* UsersProfileViewBuilder.swift */,
 				13C508CB2B109F650013C52D /* UsersProfileViewModel.swift */,
 			);
@@ -1010,6 +1019,14 @@
 				1385F38A2AF5200D006C8363 /* UsersProfile */,
 			);
 			path = SearchComponents;
+			sourceTree = "<group>";
+		};
+		13BAAD992B4420290069CC82 /* UserProfileViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				132847222AFCEB4600A2397F /* UsersProfileViewCell.swift */,
+			);
+			path = UserProfileViewCell;
 			sourceTree = "<group>";
 		};
 		13C100412B42C5BF00B8A286 /* NotificationCenter */ = {
@@ -1346,6 +1363,7 @@
 				13FE5BE72B3C31E4001FFA08 /* SignUpVCInteractor.swift in Sources */,
 				134C73162B3AE476000B0D46 /* SearchVCBuilder.swift in Sources */,
 				13FE5BF92B3C42F0001FFA08 /* FeedCellViewModel.swift in Sources */,
+				13BAAD942B441F9D0069CC82 /* UsersProfileViewInteractor.swift in Sources */,
 				13BAAD8A2B43E8280069CC82 /* SearchVC.swift in Sources */,
 				139110062A86502400CABCD5 /* PostModel.swift in Sources */,
 				137E67A12B18A2FD00525169 /* NotificationVC.swift in Sources */,
@@ -1358,6 +1376,7 @@
 				13FE5BE92B3C31F1001FFA08 /* SignUpVCPresenter.swift in Sources */,
 				138BC66E2B3D7CA200B04FC6 /* NotificationVCRouter.swift in Sources */,
 				13DBE77A2AEB95290006F3B9 /* Navigator.swift in Sources */,
+				13BAAD982B441FC90069CC82 /* UsersProfileViewRouter.swift in Sources */,
 				138BC5DB2A7395C800020297 /* DirectMsgCell.swift in Sources */,
 				138BC5E12A739D7800020297 /* SearchVCCollectionViewCell.swift in Sources */,
 				134C73042B3ADBBE000B0D46 /* NavigationFactory.swift in Sources */,
@@ -1384,6 +1403,7 @@
 				134C73102B3ADF5A000B0D46 /* MainTabVCBuilder.swift in Sources */,
 				138BC5E52A73A4B300020297 /* LikesCell.swift in Sources */,
 				13FB7D622A723F0900D8FC5C /* StoriesCell.swift in Sources */,
+				13BAAD962B441FAF0069CC82 /* UsersProfileViewPresenter.swift in Sources */,
 				138BC5FC2A73BED600020297 /* ImagePicker.swift in Sources */,
 				13DBE7932AEBC32A0006F3B9 /* Alert.swift in Sources */,
 				13844A4E2B2B10A500ABB9F0 /* UIApplication+Extensions.swift in Sources */,

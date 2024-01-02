@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol UsersProfileViewProtocol : class {
+    
+}
+
 class UsersProfileView: UIViewController {
     @IBOutlet weak var collectionViewOutlet: UICollectionView!
     @IBOutlet weak var userImg: UIImageView!
@@ -21,6 +25,10 @@ class UsersProfileView: UIViewController {
     @IBOutlet weak var followersTextLbl: UILabel!
     @IBOutlet weak var followingsTextLbl: UILabel!
     @IBOutlet weak var isPrivateAccountBoard: UIView!
+    
+    var presenter : UsersProfileViewPresenterProtocol?
+    var interactor : UsersProfileViewInteractorProtocol?
+    
     var allPost = [PostAllDataModel]()
     var user : UserModel?
     var currentUser : UserModel?
@@ -29,6 +37,9 @@ class UsersProfileView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        presenter?.viewDidload()
+        
         
         self.msgBtn.isHidden = true
         if !isFollowAndMsgBtnShow!{
@@ -337,5 +348,9 @@ extension UsersProfileView: UICollectionViewDelegate, UICollectionViewDataSource
         
         return cell
     }
+    
+}
+
+extension UsersProfileView  : UsersProfileViewProtocol {
     
 }
