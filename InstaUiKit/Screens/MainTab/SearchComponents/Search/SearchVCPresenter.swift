@@ -15,6 +15,7 @@ protocol SearchVCPresenterProtocol {
     func fetchCurrentUserFromFirebase(completion:@escaping()->())
     func getCollectionViewLayout(completion:@escaping(UICollectionViewLayout)->())
     func goToFeedViewVC(allPost: [PostAllDataModel])
+    func goToUsersProfileView(user: UserModel, isFollowAndMsgBtnShow: Bool)
 }
 
 class SearchVCPresenter {
@@ -30,7 +31,7 @@ class SearchVCPresenter {
 }
 
 extension SearchVCPresenter : SearchVCPresenterProtocol {
-    
+   
     func viewDidload() {
         view?.setupCell()
         view?.setupRefreshcontrol()
@@ -104,6 +105,10 @@ extension SearchVCPresenter : SearchVCPresenterProtocol {
     
     func goToFeedViewVC(allPost: [PostAllDataModel]) {
         router.goToFeedViewVC(allPost:allPost)
+    }
+    
+    func goToUsersProfileView(user: UserModel, isFollowAndMsgBtnShow: Bool) {
+        router.goToUsersProfileView(user: user, isFollowAndMsgBtnShow: isFollowAndMsgBtnShow)
     }
     
 }

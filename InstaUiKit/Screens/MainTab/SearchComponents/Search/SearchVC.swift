@@ -105,11 +105,7 @@ extension SearchVC {
                         }
                         
                         cell.followBtnTapped = { [weak self] in
-                            let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
-                            let destinationVC = storyboard.instantiateViewController(withIdentifier: "UsersProfileView") as! UsersProfileView
-                            destinationVC.user = element
-                            destinationVC.isFollowAndMsgBtnShow = true
-                            self?.navigationController?.pushViewController(destinationVC, animated: true)
+                            self?.presenter?.goToUsersProfileView(user: element, isFollowAndMsgBtnShow: true)
                         }
                     }
                 }

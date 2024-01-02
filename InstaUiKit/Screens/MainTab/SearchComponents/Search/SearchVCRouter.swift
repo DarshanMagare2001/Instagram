@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol SearchVCRouterProtocol {
-    func goToUsersProfileView()
+    func goToUsersProfileView(user: UserModel, isFollowAndMsgBtnShow: Bool)
     func goToFeedViewVC(allPost: [PostAllDataModel])
 }
 
@@ -23,8 +23,9 @@ class SearchVCRouter {
 
 extension SearchVCRouter : SearchVCRouterProtocol {
     
-    func goToUsersProfileView() {
-        
+    func goToUsersProfileView(user: UserModel, isFollowAndMsgBtnShow: Bool){
+        let usersProfileView = UsersProfileViewBuilder.build(user: user, isFollowAndMsgBtnShow: isFollowAndMsgBtnShow)
+        viewController.navigationController?.pushViewController(usersProfileView, animated: true)
     }
     
     func goToFeedViewVC(allPost: [PostAllDataModel]){
