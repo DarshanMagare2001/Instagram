@@ -143,12 +143,12 @@ class FeedCell: UITableViewCell {
         steperControl.currentPage = 0
         
         DispatchQueue.main.async { [weak self] in
-            ImageLoader.loadImage(for: URL(string: postImageURLs[0]), into: (self?.postImg)! , withPlaceholder: UIImage(systemName: "person.fill"))
+            ImageLoader.loadImage(for: URL(string: postImageURLs[0]), into: (self?.postImg)! , withPlaceholder: UIImage(systemName: "photo.artframe"))
         }
         
         steperControlPressed = { [weak self] pageIndex in
             DispatchQueue.main.async { [weak self] in
-                ImageLoader.loadImage(for: URL(string: postImageURLs[pageIndex]), into: (self?.postImg)! , withPlaceholder: UIImage(systemName: "person.fill"))
+                ImageLoader.loadImage(for: URL(string: postImageURLs[pageIndex]), into: (self?.postImg)! , withPlaceholder: UIImage(systemName: "photo.artframe"))
             }
         }
         
