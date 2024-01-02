@@ -8,7 +8,9 @@
 import UIKit
 
 protocol UsersProfileViewProtocol : class {
-    
+    func setUpMsgBtnAndFollowBtn()
+    func verifyIsPrivateOrNot()
+    func updateCell(flowLayout:UICollectionViewLayout)
 }
 
 class UsersProfileView: UIViewController {
@@ -35,14 +37,7 @@ class UsersProfileView: UIViewController {
         
         presenter?.viewDidload()
         
-        
-        self.msgBtn.isHidden = true
-        if !(interactor?.isFollowAndMsgBtnShow!)!{
-            folloBtn.isHidden = true
-            msgBtn.isHidden = true
-        }
-        
-        updateCell()
+       
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapUserImg))
         userImg.isUserInteractionEnabled = true
@@ -58,15 +53,7 @@ class UsersProfileView: UIViewController {
         postTextLbl.addGestureRecognizer(postTextLblTapGesture)
         
         
-        if let user = interactor?.user , let isPrivate = interactor?.user?.isPrivate {
-            if (isPrivate == "true") {
-                isPrivateAccountBoard.isHidden = false
-                makeLblsUserUnInteractable()
-            }else{
-                isPrivateAccountBoard.isHidden = true
-                makeLblsUserInteractable()
-            }
-        }
+        
         
         
     }
@@ -192,15 +179,7 @@ class UsersProfileView: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    func updateCell() {
-        // Configure the collection view flow layout
-        let flowLayout = UICollectionViewFlowLayout()
-        let cellWidth = UIScreen.main.bounds.width / 3 - 2
-        flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
-        flowLayout.minimumInteritemSpacing = 2 // Adjust the spacing between cells horizontally
-        flowLayout.minimumLineSpacing = 2 // Adjust the spacing between cells vertically
-        collectionViewOutlet.collectionViewLayout = flowLayout
-    }
+    
     
     
     @IBAction func folloBtnPressed(_ sender: UIButton) {
@@ -313,6 +292,35 @@ class UsersProfileView: UIViewController {
     
 }
 
+extension UsersProfileView  : UsersProfileViewProtocol {
+    
+    func setUpMsgBtnAndFollowBtn() {
+        self.msgBtn.isHidden = true
+        if !(interactor?.isFollowAndMsgBtnShow!)!{
+            folloBtn.isHidden = true
+            msgBtn.isHidden = true
+        }
+    }
+    
+    func verifyIsPrivateOrNot() {
+        if let user = interactor?.user , let isPrivate = interactor?.user?.isPrivate {
+            if (isPrivate == "true") {
+                isPrivateAccountBoard.isHidden = false
+                makeLblsUserUnInteractable()
+            }else{
+                isPrivateAccountBoard.isHidden = true
+                makeLblsUserInteractable()
+            }
+        }
+    }
+    
+    func updateCell(flowLayout:UICollectionViewLayout){
+        collectionViewOutlet.collectionViewLayout = flowLayout
+    }
+   
+}
+
+
 extension UsersProfileView: UICollectionViewDelegate, UICollectionViewDataSource , UIGestureRecognizerDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return interactor?.allPost.count ?? 0
@@ -342,6 +350,4 @@ extension UsersProfileView: UICollectionViewDelegate, UICollectionViewDataSource
     
 }
 
-extension UsersProfileView  : UsersProfileViewProtocol {
-    
-}
+

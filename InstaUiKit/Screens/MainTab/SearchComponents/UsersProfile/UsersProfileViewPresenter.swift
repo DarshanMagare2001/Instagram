@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import UIKit
 
 protocol UsersProfileViewPresenterProtocol {
     func viewDidload()
+    func setUpLayout()-> UICollectionViewLayout
 }
 
 class UsersProfileViewPresenter {
@@ -23,7 +25,19 @@ class UsersProfileViewPresenter {
 }
 
 extension UsersProfileViewPresenter : UsersProfileViewPresenterProtocol {
+    
     func viewDidload() {
-        print("viewDidload")
+        view?.setUpMsgBtnAndFollowBtn()
+        view?.verifyIsPrivateOrNot()
+        view?.updateCell(flowLayout: setUpLayout())
+    }
+    
+    func setUpLayout() -> UICollectionViewLayout {
+        let flowLayout = UICollectionViewFlowLayout()
+        let cellWidth = UIScreen.main.bounds.width / 3 - 2
+        flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
+        flowLayout.minimumInteritemSpacing = 2
+        flowLayout.minimumLineSpacing = 2
+        return flowLayout
     }
 }
