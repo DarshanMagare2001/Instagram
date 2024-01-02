@@ -114,10 +114,7 @@ extension LikesVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                             }
                             
                             likesCell.userImgPressed = { [weak self] in
-                                let stroryboard = UIStoryboard.MainTab
-                                let destinationVC = stroryboard.instantiateViewController(withIdentifier: "UsersProfileView") as! UsersProfileView
-                                destinationVC.user = user
-                                destinationVC.isFollowAndMsgBtnShow = true
+                                let destinationVC = UsersProfileViewBuilder.build(user: user, isFollowAndMsgBtnShow: true)
                                 self?.navigationController?.pushViewController(destinationVC, animated: true)
                             }
                             

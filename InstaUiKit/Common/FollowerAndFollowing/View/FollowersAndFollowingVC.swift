@@ -135,17 +135,13 @@ extension FollowersAndFollowingVC : UITableViewDelegate , UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard.MainTab
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "UsersProfileView") as! UsersProfileView
         if segmentIndex == 0 {
             let data = filterdFollowers[indexPath.row]
-            destinationVC.user = data
-            destinationVC.isFollowAndMsgBtnShow = true
+            let destinationVC = UsersProfileViewBuilder.build(user: data, isFollowAndMsgBtnShow: true)
             self.navigationController?.pushViewController(destinationVC, animated: true)
         }else{
             let data = filterdFollowings[indexPath.row]
-            destinationVC.user = data
-            destinationVC.isFollowAndMsgBtnShow = true
+            let destinationVC = UsersProfileViewBuilder.build(user: data, isFollowAndMsgBtnShow: true)
             self.navigationController?.pushViewController(destinationVC, animated: true)
         }
     }

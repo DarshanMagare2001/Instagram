@@ -130,10 +130,7 @@ class ChatVC: MessagesViewController {
     }
     
     @objc func didTapUserView(){
-        let storyboard = UIStoryboard.MainTab
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "UsersProfileView") as! UsersProfileView
-        destinationVC.user = receiverUser
-        destinationVC.isFollowAndMsgBtnShow = false
+        let destinationVC = UsersProfileViewBuilder.build(user: receiverUser! , isFollowAndMsgBtnShow: true)
         navigationController?.pushViewController(destinationVC, animated: true)
     }
     

@@ -28,11 +28,6 @@ class UsersProfileView: UIViewController {
     
     var presenter : UsersProfileViewPresenterProtocol?
     var interactor : UsersProfileViewInteractorProtocol?
-    
-    var allPost = [PostAllDataModel]()
-    var user : UserModel?
-    var currentUser : UserModel?
-    var isFollowAndMsgBtnShow : Bool?
     var viewModel = UsersProfileViewModel()
     
     override func viewDidLoad() {
@@ -42,7 +37,7 @@ class UsersProfileView: UIViewController {
         
         
         self.msgBtn.isHidden = true
-        if !isFollowAndMsgBtnShow!{
+        if !(interactor?.isFollowAndMsgBtnShow!)!{
             folloBtn.isHidden = true
             msgBtn.isHidden = true
         }
@@ -63,7 +58,7 @@ class UsersProfileView: UIViewController {
         postTextLbl.addGestureRecognizer(postTextLblTapGesture)
         
         
-        if let user = user , let isPrivate = user.isPrivate {
+        if let user = interactor?.user , let isPrivate = interactor?.user?.isPrivate {
             if (isPrivate == "true") {
                 isPrivateAccountBoard.isHidden = false
                 makeLblsUserUnInteractable()
@@ -81,7 +76,7 @@ class UsersProfileView: UIViewController {
     @objc func postTextLblTapped(){
         let storyboard = UIStoryboard.Common
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedViewVC") as! FeedViewVC
-        destinationVC.allPost = allPost
+        destinationVC.allPost = interactor?.allPost
         navigationController?.pushViewController(destinationVC, animated: true)
     }
     
@@ -97,7 +92,7 @@ class UsersProfileView: UIViewController {
     @objc func didTapUserImg() {
         let storyboard = UIStoryboard.Common
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "ProfilePresentedView") as! ProfilePresentedView
-        destinationVC.user = user
+        destinationVC.user = interactor?.user
         destinationVC.modalPresentationStyle = .overFullScreen
         present(destinationVC, animated: true, completion: nil)
     }
@@ -115,7 +110,7 @@ class UsersProfileView: UIViewController {
     }
     
     func goToFollowerAndFollowing(){
-        if let user = user {
+        if let user = interactor?.user {
             let storyboard = UIStoryboard.Common
             let destinationVC = storyboard.instantiateViewController(withIdentifier: "FollowersAndFollowingVC") as! FollowersAndFollowingVC
             destinationVC.user = user
@@ -135,7 +130,7 @@ class UsersProfileView: UIViewController {
             switch result {
             case.success(let user):
                 if let user = user {
-                    self.currentUser = user
+                    self.interactor?.currentUser = user
                 }
             case.failure(let error):
                 print(error)
@@ -143,10 +138,10 @@ class UsersProfileView: UIViewController {
         }
         
         
-        if let user = user {
+        if let user = interactor?.user {
             if let uid = user.uid , let followers = user.followers?.count , let followings = user.followings?.count , let followersRequest = user.followersRequest {
                 
-                if isFollowAndMsgBtnShow!{
+                if (interactor?.isFollowAndMsgBtnShow!)!{
                     FetchUserData.shared.fetchCurrentUserFromFirebase { result in
                         switch result {
                         case.success(let userData):
@@ -177,7 +172,7 @@ class UsersProfileView: UIViewController {
                 PostViewModel.shared.fetchPostDataOfPerticularUser(forUID: uid) { result in
                     switch result {
                     case.success(let data):
-                        self.allPost = data
+                        self.interactor?.allPost = data
                         self.totalPostCount.text = "\(data.count)"
                         self.collectionViewOutlet.reloadData()
                     case.failure(let error):
@@ -213,7 +208,7 @@ class UsersProfileView: UIViewController {
     
     
     @IBAction func folloBtnPressed(_ sender: UIButton) {
-        if let user = user {
+        if let user = interactor?.user {
             if let uid = user.uid , let isPrivate = user.isPrivate  {
                 FetchUserData.shared.fetchCurrentUserFromFirebase { result in
                     switch result {
@@ -257,10 +252,10 @@ class UsersProfileView: UIViewController {
     }
     
     @IBAction func messageBtnPressed(_ sender: UIButton) {
-        if let currentUser = currentUser , let  senderId = currentUser.uid , let receiverId = user?.uid {
+        if let currentUser = interactor?.currentUser , let  senderId = currentUser.uid , let receiverId = interactor?.user?.uid {
             StoreUserData.shared.saveUsersChatList(senderId: senderId, receiverId: receiverId) { _ in}
         }
-        if let user = user {
+        if let user = interactor?.user {
             let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
             let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChatVC") as! ChatVC
             destinationVC.receiverUser = user
@@ -269,11 +264,11 @@ class UsersProfileView: UIViewController {
     }
     
     func follow(){
-        viewModel.saveFollower(uid: user?.uid) { result  in
+        viewModel.saveFollower(uid: interactor?.user?.uid) { result  in
             switch result {
             case.success(let value):
                 if let name = FetchUserData.fetchUserInfoFromUserdefault(type: .name) {
-                    if let fmcToken = self.user?.fcmToken {
+                    if let fmcToken = self.interactor?.user?.fcmToken {
                         PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Started following you.")
                     }
                 }
@@ -284,7 +279,7 @@ class UsersProfileView: UIViewController {
     }
     
     func unFollow(){
-        viewModel.removeFollower(uid: user?.uid) { result in
+        viewModel.removeFollower(uid: interactor?.user?.uid) { result in
             switch result {
             case.success(let value):
                 print(value)
@@ -295,11 +290,11 @@ class UsersProfileView: UIViewController {
     }
     
     func followRequest(){
-        viewModel.requestFollower(uid: user?.uid) { result  in
+        viewModel.requestFollower(uid: interactor?.user?.uid) { result  in
             switch result {
             case.success(let value):
                 if let name = FetchUserData.fetchUserInfoFromUserdefault(type: .name) {
-                    if let fmcToken = self.user?.fcmToken {
+                    if let fmcToken = self.interactor?.user?.fcmToken {
                         PushNotification.shared.sendPushNotification(to: fmcToken, title: "Follow Request" , body: "\(name) requested to follow you.")
                     }
                 }
@@ -310,7 +305,7 @@ class UsersProfileView: UIViewController {
     }
     
     func removeFollowRequest(){
-        viewModel.removeFollowRequest(uid: user?.uid) { result  in
+        viewModel.removeFollowRequest(uid: interactor?.user?.uid) { result  in
             switch result {
             case.success(let value):
                 print(value)
@@ -324,17 +319,17 @@ class UsersProfileView: UIViewController {
 
 extension UsersProfileView: UICollectionViewDelegate, UICollectionViewDataSource , UIGestureRecognizerDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allPost.count
+        return interactor?.allPost.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UsersProfileViewCell", for: indexPath) as! UsersProfileViewCell
-        let cellData = allPost[indexPath.row]
-        if let imageURL = URL(string: cellData.postImageURLs?[0] ?? "") {
+        let cellData = interactor?.allPost[indexPath.row]
+        if let imageURL = URL(string: cellData?.postImageURLs?[0] ?? "") {
             ImageLoader.loadImage(for: imageURL, into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
         }
         
-        if let postCount = cellData.postImageURLs?.count {
+        if let postCount = cellData?.postImageURLs?.count {
             cell.multiplePostIcon.isHidden = ( postCount > 1 ?  false : true )
         }
         

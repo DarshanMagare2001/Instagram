@@ -17,8 +17,8 @@ final class UsersProfileViewBuilder {
         let presenter = UsersProfileViewPresenter(view: usersProfileView, interactor: interactor, router: router)
         usersProfileView.presenter = presenter
         usersProfileView.interactor = interactor
-        usersProfileView.user = user
-        usersProfileView.isFollowAndMsgBtnShow = isFollowAndMsgBtnShow
+        usersProfileView.interactor?.user = user
+        usersProfileView.interactor?.isFollowAndMsgBtnShow = isFollowAndMsgBtnShow
         return usersProfileView
     }
 }
