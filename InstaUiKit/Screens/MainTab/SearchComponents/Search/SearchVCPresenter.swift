@@ -23,9 +23,8 @@ class SearchVCPresenter {
 }
 
 extension SearchVCPresenter : SearchVCPresenterProtocol {
-    
     func viewDidload() {
-        
+        view?.setupCell()
+        view?.setupRefreshcontrol()
     }
-    
 }

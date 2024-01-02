@@ -10,7 +10,8 @@ import RxSwift
 import RxCocoa
 
 protocol SearchVCProtocol : class {
-    
+    func setupCell()
+    func setupRefreshcontrol()
 }
 
 
@@ -22,24 +23,13 @@ class SearchVC: UIViewController {
     @IBOutlet weak var collectionView: UIView!
     
     var presenter : SearchVCPresenterProtocol?
-    
-    
-    var allUniqueUsersArray = [UserModel]()
-    var allPost = [PostAllDataModel?]()
+    var interactor : SearchVCInteractorProtocol?
     let disposeBag = DisposeBag()
-    var currentUser : UserModel?
-    var tableViewRefreshControl = UIRefreshControl()
     var collectionViewRefreshControl = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
-        let nib = UINib(nibName: "FollowingCell", bundle: nil)
-        tableViewOutlet.register(nib, forCellReuseIdentifier: "FollowingCell")
-        addDoneButtonToSearchBarKeyboard()
-        collectionViewOutlet.addSubview(collectionViewRefreshControl)
-        collectionViewRefreshControl.addTarget(self, action: #selector(refreshCollectionView), for: .valueChanged)
+        presenter?.viewDidload()
         fetchData()
     }
     
@@ -66,7 +56,7 @@ class SearchVC: UIViewController {
             switch result {
             case.success(let data):
                 print(data)
-                self.allPost = data
+                self.interactor?.allPost = data
                 self.updateCollectionView()
             case.failure(let error):
                 print(error)
@@ -78,14 +68,14 @@ class SearchVC: UIViewController {
             switch result {
             case .success(let user):
                 if let user = user {
-                    self.currentUser = user
+                    self.interactor?.currentUser = user
                 }
                 FetchUserData.shared.fetchUniqueUsersFromFirebase { result in
                     switch result {
                     case .success(let data):
                         DispatchQueue.main.async {
                             print(data)
-                            self.allUniqueUsersArray = data
+                            self.interactor?.allUniqueUsersArray = data
                             self.updateTableView()
                         }
                     case .failure(let error):
@@ -115,13 +105,25 @@ class SearchVC: UIViewController {
     
 }
 
+extension SearchVC : SearchVCProtocol {
+    func setupCell() {
+        let nib = UINib(nibName: "FollowingCell", bundle: nil)
+        tableViewOutlet.register(nib, forCellReuseIdentifier: "FollowingCell")
+    }
+    func setupRefreshcontrol() {
+        addDoneButtonToSearchBarKeyboard()
+        collectionViewOutlet.addSubview(collectionViewRefreshControl)
+        collectionViewRefreshControl.addTarget(self, action: #selector(refreshCollectionView), for: .valueChanged)
+    }
+}
+
 
 extension SearchVC {
     func updateTableView() {
         tableViewOutlet.dataSource = nil
         tableViewOutlet.delegate = nil
         // Create a BehaviorRelay to hold the filtered user data
-        let filteredUsers = BehaviorRelay<[UserModel]>(value: allUniqueUsersArray)
+        let filteredUsers = BehaviorRelay<[UserModel]>(value:  self.interactor?.allUniqueUsersArray ?? [])
         // Bind the filtered user data to the table view
         filteredUsers
             .bind(to: tableViewOutlet
@@ -133,7 +135,7 @@ extension SearchVC {
                         cell.nameLbl.text = name
                         cell.userNameLbl.text = userName
                         
-                        if let user = self.currentUser, let followings = user.followings {
+                        if let user =  self.interactor?.currentUser, let followings = user.followings {
                             if followings.contains(uid) {
                                 cell.followBtn.setTitle("Following", for: .normal)
                                 cell.followBtn.setTitleColor(.black, for: .normal)
@@ -164,7 +166,7 @@ extension SearchVC {
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] query in
                 // Filter the user data based on the search query
-                let filteredData = self?.allUniqueUsersArray.filter { user in
+                let filteredData =  self?.interactor?.allUniqueUsersArray.filter { user in
                     if query.isEmpty {
                         // Show all users if the query is empty
                         self?.tableView.isHidden = true
@@ -194,7 +196,7 @@ extension SearchVC {
             self.collectionViewOutlet.collectionViewLayout = layout
         }
         
-        Observable.just(allPost)
+        Observable.just( self.interactor!.allPost)
             .do(onNext: { [weak self] _ in
                 self?.collectionViewOutlet.reloadData()
             })
@@ -232,6 +234,4 @@ extension SearchVC {
     }
 }
 
-extension SearchVC : SearchVCProtocol {
-    
-}
+

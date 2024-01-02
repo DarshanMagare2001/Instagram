@@ -16,6 +16,7 @@ final class SearchVCBuilder {
         let router = SearchVCRouter(viewController: searchVC)
         let presenter = SearchVCPresenter(view: searchVC, interactor: interactor, router: router)
         searchVC.presenter = presenter
+        searchVC.interactor = interactor
         searchVC.title = "Search"
         return factory(searchVC)
     }
