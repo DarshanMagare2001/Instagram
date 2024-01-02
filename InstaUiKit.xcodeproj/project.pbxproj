@@ -111,6 +111,7 @@
 		13A21CE12B199D46000ED554 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A21CE02B199D46000ED554 /* NotificationCell.swift */; };
 		13B4B3F02AFA3FB200EB13EE /* FeedViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B4B3EF2AFA3FB200EB13EE /* FeedViewVC.swift */; };
 		13BAAD832B43D5FF0069CC82 /* AddStoryVCBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BAAD822B43D5FF0069CC82 /* AddStoryVCBuilder.swift */; };
+		13BAAD872B43E1440069CC82 /* AddStoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BAAD862B43E1440069CC82 /* AddStoryCell.swift */; };
 		13C100402B42869200B8A286 /* AddChatVCBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C1003F2B42869200B8A286 /* AddChatVCBuilder.swift */; };
 		13C100432B42C5E000B8A286 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C100422B42C5E000B8A286 /* NotificationCenter.swift */; };
 		13C100452B42CD8700B8A286 /* ChatVCBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C100442B42CD8700B8A286 /* ChatVCBuilder.swift */; };
@@ -236,6 +237,7 @@
 		13A21CE02B199D46000ED554 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		13B4B3EF2AFA3FB200EB13EE /* FeedViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewVC.swift; sourceTree = "<group>"; };
 		13BAAD822B43D5FF0069CC82 /* AddStoryVCBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStoryVCBuilder.swift; sourceTree = "<group>"; };
+		13BAAD862B43E1440069CC82 /* AddStoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStoryCell.swift; sourceTree = "<group>"; };
 		13C1003F2B42869200B8A286 /* AddChatVCBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChatVCBuilder.swift; sourceTree = "<group>"; };
 		13C100422B42C5E000B8A286 /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
 		13C100442B42CD8700B8A286 /* ChatVCBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVCBuilder.swift; sourceTree = "<group>"; };
@@ -1108,6 +1110,7 @@
 			isa = PBXGroup;
 			children = (
 				13C61F352B26FC1400011E1B /* HomeVCCell.swift */,
+				13BAAD862B43E1440069CC82 /* AddStoryCell.swift */,
 			);
 			path = HomeVCCell;
 			sourceTree = "<group>";
@@ -1400,6 +1403,7 @@
 				138BC5D42A73806E00020297 /* EditProfileVC.swift in Sources */,
 				134F7F422AEF7C6800B6C31E /* UploadVC.swift in Sources */,
 				13A21CE12B199D46000ED554 /* NotificationCell.swift in Sources */,
+				13BAAD872B43E1440069CC82 /* AddStoryCell.swift in Sources */,
 				1311663A2A70FB9900CD0373 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
