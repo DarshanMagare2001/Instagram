@@ -212,47 +212,60 @@ class FeedCell: UITableViewCell {
                 self?.disPatchGroup.leave()
                 return
             }
-            
+
             let maxUsersToShow = min(3, postLikedBy.count)
+            var imageView: UIImageView?  // Declare imageView as an optional variable
+
             for i in 0..<maxUsersToShow {
                 let likedUser = postLikedBy[i]
-                FetchUserData.shared.fetchUserDataByUid(uid: likedUser) { [weak self] result in
-                    switch result {
-                    case .success(let data):
-                        if let data = data, let profileImgUrl = data.imageUrl , let name = data.name  {
-                            let imageView: UIImageView
-                            switch i {
-                            case 0:
-                                self?.likedBysectionView.isHidden = false
-                                self?.userImg2View.isHidden = false
-                                imageView = (self?.userImg2)!
-                                self?.likedByLbl.text = "Liked by \(name) and \(Int(postLikedBy.count - 1)) others."
-                            case 1:
-                                self?.userImg3View.isHidden = false
-                                imageView = self?.userImg3 as! UIImageView
-                            case 2:
-                                self?.userImg4View.isHidden = false
-                                imageView = self?.userImg4 as! UIImageView
-                            default:
-                                return
+
+                DispatchQueue.global(qos: .background).async { [weak self] in
+                    FetchUserData.shared.fetchUserDataByUid(uid: likedUser) { result in
+                        switch result {
+                        case .success(let data):
+                            if let data = data, let profileImgUrl = data.imageUrl, let name = data.name {
+                                switch i {
+                                case 0:
+                                    DispatchQueue.main.async { [weak self] in
+                                        self?.likedBysectionView.isHidden = false
+                                        self?.userImg2View.isHidden = false
+                                        imageView = (self?.userImg2)!
+                                        self?.likedByLbl.text = "Liked by \(name) and \(Int(postLikedBy.count - 1)) others."
+                                    }
+                                case 1:
+                                    DispatchQueue.main.async { [weak self] in
+                                        self?.userImg3View.isHidden = false
+                                        imageView = self?.userImg3 as? UIImageView
+                                    }
+                                case 2:
+                                    DispatchQueue.main.async { [weak self] in
+                                        self?.userImg4View.isHidden = false
+                                        imageView = self?.userImg4 as? UIImageView
+                                    }
+                                default:
+                                    return
+                                }
+
+                                DispatchQueue.main.async { [weak self] in
+                                    if let imageView = imageView {
+                                        ImageLoader.loadImage(for: URL(string: profileImgUrl), into: imageView, withPlaceholder: UIImage(systemName: "person.fill"))
+                                    }
+                                }
                             }
-                            ImageLoader.loadImage(for: URL(string: profileImgUrl), into: imageView, withPlaceholder: UIImage(systemName: "person.fill"))
+                        case .failure(let error):
+                            print(error)
                         }
-                    case .failure(let error):
-                        print(error)
-                    }
-                    
-                    if i == maxUsersToShow - 1 {
-                        self?.disPatchGroup.leave()
+
+                        if i == maxUsersToShow - 1 {
+                            self?.disPatchGroup.leave()
+                        }
                     }
                 }
             }
         }
-        
+   
         disPatchGroup.notify(queue: .main){}
-        
     }
-    
     
 }
 
