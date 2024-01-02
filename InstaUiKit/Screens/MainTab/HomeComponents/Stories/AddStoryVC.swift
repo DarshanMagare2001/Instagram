@@ -7,10 +7,12 @@
 import UIKit
 import YPImagePicker
 
+
 class AddStoryVC: UIViewController {
+    @IBOutlet weak var mainView: UIView!
     var config = YPImagePickerConfiguration()
     var imgPicker = YPImagePicker()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         config.library.maxNumberOfItems = 4
@@ -19,8 +21,7 @@ class AddStoryVC: UIViewController {
         imgPicker = YPImagePicker(configuration: config)
         presentImagePicker()
     }
-    
-    
+
     func presentImagePicker() {
         // Check if the image picker is already presented
         if let topViewController = UIApplication.topViewController() {
@@ -28,7 +29,8 @@ class AddStoryVC: UIViewController {
                 return
             }
         }
-        // Present the image picker on the main view
+
+        // Present the image picker on the mainView
         imgPicker.didFinishPicking { [weak self] items, cancelled in
             for item in items {
                 switch item {
@@ -40,8 +42,12 @@ class AddStoryVC: UIViewController {
             }
             self?.navigationController?.popViewController(animated: true)
         }
+
+        // Add YPImagePicker as a subview to mainView
+        imgPicker.view.frame = mainView.bounds
+        mainView.addSubview(imgPicker.view)
+
         self.addChild(imgPicker)
-        self.view.addSubview(imgPicker.view)
         imgPicker.didMove(toParent: self)
     }
 }

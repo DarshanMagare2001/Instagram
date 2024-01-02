@@ -13,7 +13,12 @@ final class AddStoryVCBuilder {
         let storyboard = UIStoryboard.MainTab
         let addStoryVC = storyboard.instantiateViewController(withIdentifier: "AddStoryVC") as! AddStoryVC
         addStoryVC.navigationItem.hidesBackButton = true
-        addStoryVC.title = "Story"
+        let label = UILabel()
+        label.text = "Story"
+        label.font = UIFont.boldSystemFont(ofSize: 35)
+        label.sizeToFit()
+        addStoryVC.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: label)
         return addStoryVC
     }
 }
+
