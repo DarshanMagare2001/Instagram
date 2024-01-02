@@ -111,11 +111,7 @@ extension HomeVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate  {
             let cell2 = tableView.dequeueReusableCell(withIdentifier: "HomeVCCell", for: indexPath) as! HomeVCCell
             cell2.allUniqueUsersArray = presenter?.allUniqueUsersArray
             cell2.addStoryBtnPressed = { [weak self] in
-                Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "AddStoryVC") { [weak self] destinationVC in
-                    if let destinationVC = destinationVC {
-                        self?.navigationController?.pushViewController(destinationVC, animated: true)
-                    }
-                }
+                self?.presenter?.goToAddStoryVC()
             }
             return cell2
         }

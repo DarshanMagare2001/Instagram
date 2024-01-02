@@ -20,9 +20,6 @@ class AddStoryVC: UIViewController {
         presentImagePicker()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: true)
-    }
     
     func presentImagePicker() {
         // Check if the image picker is already presented

@@ -16,6 +16,7 @@ protocol HomeVCPresenterProtocol {
     func configureTableView()
     func goToDirectMsgVC()
     func goToNotificationVC()
+    func goToAddStoryVC()
     func fetchAllNotifications(view:UIViewController)
     var allPost : [PostAllDataModel] {get set}
     var allUniqueUsersArray : [UserModel] {get set}
@@ -105,6 +106,10 @@ extension HomeVCPresenter : HomeVCPresenterProtocol {
     
     func goToNotificationVC(){
         router.goToNotificationVC()
+    }
+    
+    func goToAddStoryVC() {
+        router.goToAddStoryVC()
     }
     
 }
