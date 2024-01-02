@@ -9,12 +9,21 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+protocol SearchVCProtocol : class {
+    
+}
+
+
 class SearchVC: UIViewController {
     @IBOutlet weak var collectionViewOutlet: UICollectionView!
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UIView!
     @IBOutlet weak var collectionView: UIView!
+    
+    var presenter : SearchVCPresenterProtocol?
+    
+    
     var allUniqueUsersArray = [UserModel]()
     var allPost = [PostAllDataModel?]()
     let disposeBag = DisposeBag()
@@ -23,6 +32,9 @@ class SearchVC: UIViewController {
     var collectionViewRefreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
         let nib = UINib(nibName: "FollowingCell", bundle: nil)
         tableViewOutlet.register(nib, forCellReuseIdentifier: "FollowingCell")
         addDoneButtonToSearchBarKeyboard()
@@ -218,4 +230,8 @@ extension SearchVC {
         destinationVC.allPost = data
         navigationController?.pushViewController(destinationVC, animated: true)
     }
+}
+
+extension SearchVC : SearchVCProtocol {
+    
 }

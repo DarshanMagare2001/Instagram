@@ -12,6 +12,10 @@ final class SearchVCBuilder {
     static func build(factory:NavigationFactoryClosure) -> UIViewController {
         let storyboard = UIStoryboard.MainTab
         let searchVC = storyboard.instantiateViewController(withIdentifier: "SearchVC") as!SearchVC
+        let interactor = SearchVCInteractor()
+        let router = SearchVCRouter(viewController: searchVC)
+        let presenter = SearchVCPresenter(view: searchVC, interactor: interactor, router: router)
+        searchVC.presenter = presenter
         searchVC.title = "Search"
         return factory(searchVC)
     }
