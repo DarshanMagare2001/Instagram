@@ -11,6 +11,7 @@ protocol UsersProfileViewProtocol : class {
     func setUpMsgBtnAndFollowBtn()
     func verifyIsPrivateOrNot()
     func updateCell(flowLayout:UICollectionViewLayout)
+    func setUpTapGestures()
 }
 
 class UsersProfileView: UIViewController {
@@ -34,31 +35,8 @@ class UsersProfileView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         presenter?.viewDidload()
-        
-       
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapUserImg))
-        userImg.isUserInteractionEnabled = true
-        userImg.addGestureRecognizer(tapGesture)
-        
-        let followingsTextLblTapGesture = UITapGestureRecognizer(target: self, action: #selector(followingsTextLblTapped))
-        followingsTextLbl.addGestureRecognizer(followingsTextLblTapGesture)
-        
-        let followersTextLblTapGesture = UITapGestureRecognizer(target: self, action: #selector(followersTextLblTapped))
-        followersTextLbl.addGestureRecognizer(followersTextLblTapGesture)
-        
-        let postTextLblTapGesture = UITapGestureRecognizer(target: self, action: #selector(postTextLblTapped))
-        postTextLbl.addGestureRecognizer(postTextLblTapGesture)
-        
-        
-        
-        
-        
     }
-    
-    
     
     @objc func postTextLblTapped(){
         let storyboard = UIStoryboard.Common
@@ -317,7 +295,22 @@ extension UsersProfileView  : UsersProfileViewProtocol {
     func updateCell(flowLayout:UICollectionViewLayout){
         collectionViewOutlet.collectionViewLayout = flowLayout
     }
-   
+    
+    func setUpTapGestures() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapUserImg))
+        userImg.isUserInteractionEnabled = true
+        userImg.addGestureRecognizer(tapGesture)
+        
+        let followingsTextLblTapGesture = UITapGestureRecognizer(target: self, action: #selector(followingsTextLblTapped))
+        followingsTextLbl.addGestureRecognizer(followingsTextLblTapGesture)
+        
+        let followersTextLblTapGesture = UITapGestureRecognizer(target: self, action: #selector(followersTextLblTapped))
+        followersTextLbl.addGestureRecognizer(followersTextLblTapGesture)
+        
+        let postTextLblTapGesture = UITapGestureRecognizer(target: self, action: #selector(postTextLblTapped))
+        postTextLbl.addGestureRecognizer(postTextLblTapGesture)
+    }
+    
 }
 
 

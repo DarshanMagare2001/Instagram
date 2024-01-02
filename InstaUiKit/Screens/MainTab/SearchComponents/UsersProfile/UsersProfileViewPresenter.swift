@@ -30,6 +30,7 @@ extension UsersProfileViewPresenter : UsersProfileViewPresenterProtocol {
         view?.setUpMsgBtnAndFollowBtn()
         view?.verifyIsPrivateOrNot()
         view?.updateCell(flowLayout: setUpLayout())
+        view?.setUpTapGestures()
     }
     
     func setUpLayout() -> UICollectionViewLayout {
