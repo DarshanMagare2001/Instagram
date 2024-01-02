@@ -12,6 +12,7 @@ protocol UsersProfileViewProtocol : class {
     func verifyIsPrivateOrNot()
     func updateCell(flowLayout:UICollectionViewLayout)
     func setUpTapGestures()
+    func setUpUI()
 }
 
 class UsersProfileView: UIViewController {
@@ -84,80 +85,9 @@ class UsersProfileView: UIViewController {
     }
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        
-        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
-            switch result {
-            case.success(let user):
-                if let user = user {
-                    self.interactor?.currentUser = user
-                }
-            case.failure(let error):
-                print(error)
-            }
-        }
-        
-        
-        if let user = interactor?.user {
-            if let uid = user.uid , let followers = user.followers?.count , let followings = user.followings?.count , let followersRequest = user.followersRequest {
-                
-                if (interactor?.isFollowAndMsgBtnShow!)!{
-                    FetchUserData.shared.fetchCurrentUserFromFirebase { result in
-                        switch result {
-                        case.success(let userData):
-                            if let userData = userData , let currentUid = userData.uid {
-                                if followersRequest.contains(currentUid){
-                                    self.folloBtn.setTitle("Requested", for: .normal)
-                                    self.msgBtn.isHidden = true
-                                    self.isPrivateAccountBoard.isHidden = false
-                                    self.makeLblsUserUnInteractable()
-                                }else if let userFollowings = user.followers{
-                                    if (userFollowings.contains(currentUid)){
-                                        self.folloBtn.setTitle("UnFollow", for: .normal)
-                                        self.msgBtn.isHidden = false
-                                        self.isPrivateAccountBoard.isHidden = true
-                                        self.makeLblsUserInteractable()
-                                    }else{
-                                        self.folloBtn.setTitle("Follow", for: .normal)
-                                        self.msgBtn.isHidden = true
-                                    }
-                                }
-                            }
-                        case .failure(let error):
-                            print(error)
-                        }
-                    }
-                }
-                
-                PostViewModel.shared.fetchPostDataOfPerticularUser(forUID: uid) { result in
-                    switch result {
-                    case.success(let data):
-                        self.interactor?.allPost = data
-                        self.totalPostCount.text = "\(data.count)"
-                        self.collectionViewOutlet.reloadData()
-                    case.failure(let error):
-                        print(error)
-                    }
-                }
-                totalFollowersCount.text = "\(followers)"
-                totalFollowingCount.text = "\(followings)"
-                
-            }
-            if let imgUrl = user.imageUrl, let bio = user.bio  , let username = user.username {
-                ImageLoader.loadImage(for: URL(string: imgUrl), into: self.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
-                name.text = username
-                userBio.text = bio
-            }
-        }
-    }
-    
     func backButtonPressed() {
         navigationController?.popViewController(animated: true)
     }
-    
-    
     
     
     @IBAction func folloBtnPressed(_ sender: UIButton) {
@@ -309,6 +239,49 @@ extension UsersProfileView  : UsersProfileViewProtocol {
         
         let postTextLblTapGesture = UITapGestureRecognizer(target: self, action: #selector(postTextLblTapped))
         postTextLbl.addGestureRecognizer(postTextLblTapGesture)
+    }
+    
+    func setUpUI() {
+        if let user = interactor?.user {
+            if let uid = user.uid , let followers = user.followers?.count , let followings = user.followings?.count , let followersRequest = user.followersRequest {
+                if (interactor?.isFollowAndMsgBtnShow!)!{
+                    print(interactor?.currentUser)
+                    if let userData = self.interactor?.currentUser , let currentUid = userData.uid {
+                        if followersRequest.contains(currentUid){
+                            self.folloBtn.setTitle("Requested", for: .normal)
+                            self.msgBtn.isHidden = true
+                            self.isPrivateAccountBoard.isHidden = false
+                            self.makeLblsUserUnInteractable()
+                        }else if let userFollowings = user.followers{
+                            if (userFollowings.contains(currentUid)){
+                                self.folloBtn.setTitle("UnFollow", for: .normal)
+                                self.msgBtn.isHidden = false
+                                self.isPrivateAccountBoard.isHidden = true
+                                self.makeLblsUserInteractable()
+                            }else{
+                                self.folloBtn.setTitle("Follow", for: .normal)
+                                self.msgBtn.isHidden = true
+                            }
+                        }
+                    }
+                }
+                
+                if let count = self.interactor?.allPost.count{
+                    self.totalPostCount.text = "\(count)"
+                }
+                totalFollowersCount.text = "\(followers)"
+                totalFollowingCount.text = "\(followings)"
+                self.collectionViewOutlet.reloadData()
+                
+            }
+            
+            if let imgUrl = user.imageUrl, let bio = user.bio  , let username = user.username {
+                ImageLoader.loadImage(for: URL(string: imgUrl), into: self.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                name.text = username
+                userBio.text = bio
+            }
+            
+        }
     }
     
 }

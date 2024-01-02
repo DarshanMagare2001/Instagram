@@ -11,6 +11,8 @@ import UIKit
 protocol UsersProfileViewPresenterProtocol {
     func viewDidload()
     func setUpLayout()-> UICollectionViewLayout
+    func fetchCurrentUserFromFirebase(completion:@escaping()->())
+    func fetchPostDataOfPerticularUser(completion:@escaping()->())
 }
 
 class UsersProfileViewPresenter {
@@ -31,6 +33,15 @@ extension UsersProfileViewPresenter : UsersProfileViewPresenterProtocol {
         view?.verifyIsPrivateOrNot()
         view?.updateCell(flowLayout: setUpLayout())
         view?.setUpTapGestures()
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.fetchCurrentUserFromFirebase{
+                self?.fetchPostDataOfPerticularUser{
+                    DispatchQueue.main.async { [weak self] in
+                        self?.view?.setUpUI()
+                    }
+                }
+            }
+        }
     }
     
     func setUpLayout() -> UICollectionViewLayout {
@@ -41,4 +52,17 @@ extension UsersProfileViewPresenter : UsersProfileViewPresenterProtocol {
         flowLayout.minimumLineSpacing = 2
         return flowLayout
     }
+    
+    func fetchCurrentUserFromFirebase(completion: @escaping () -> ()) {
+        interactor.fetchCurrentUserFromFirebase {
+            completion()
+        }
+    }
+    
+    func fetchPostDataOfPerticularUser(completion: @escaping () -> ()) {
+        interactor.fetchPostDataOfPerticularUser {
+            completion()
+        }
+    }
+    
 }
