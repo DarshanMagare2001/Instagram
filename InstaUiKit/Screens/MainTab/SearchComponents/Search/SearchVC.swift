@@ -86,28 +86,9 @@ extension SearchVC {
             .bind(to: tableViewOutlet
                     .rx
                     .items(cellIdentifier: "FollowingCell", cellType: FollowingCell.self)) { (row, element, cell) in
-                if let name = element.name , let userName = element.username , let imgUrl = element.imageUrl ,let uid = element.uid {
-                    DispatchQueue.main.async {
-                        ImageLoader.loadImage(for: URL(string: imgUrl), into: cell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
-                        cell.nameLbl.text = name
-                        cell.userNameLbl.text = userName
-                        
-                        if let user =  self.interactor?.currentUser, let followings = user.followings {
-                            if followings.contains(uid) {
-                                cell.followBtn.setTitle("Following", for: .normal)
-                                cell.followBtn.setTitleColor(.black, for: .normal)
-                                cell.followBtn.backgroundColor = .white
-                            } else {
-                                cell.followBtn.setTitle("Follow", for: .normal)
-                                cell.followBtn.setTitleColor(.white, for: .normal)
-                                cell.followBtn.backgroundColor = UIColor(named:"GlobalBlue")
-                            }
-                        }
-                        
-                        cell.followBtnTapped = { [weak self] in
-                            self?.presenter?.goToUsersProfileView(user: element, isFollowAndMsgBtnShow: true)
-                        }
-                    }
+                cell.configureCell(user: element, currentUser: self.interactor?.currentUser)
+                cell.followBtnTapped = { [weak self] in
+                    self?.presenter?.goToUsersProfileView(user: element, isFollowAndMsgBtnShow: true)
                 }
             }.disposed(by: disposeBag)
         searchBar.rx.text

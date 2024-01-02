@@ -18,13 +18,31 @@ class FollowingCell: UITableViewCell {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        
+    }
+    
+    func configureCell(user:UserModel?,currentUser:UserModel?){
+        if let name = user?.name , let userName = user?.username , let imgUrl = user?.imageUrl ,let uid = user?.uid {
+            DispatchQueue.main.async {
+                ImageLoader.loadImage(for: URL(string: imgUrl), into: self.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                self.nameLbl.text = name
+                self.userNameLbl.text = userName
+                if let user = currentUser, let followings = user.followings {
+                    if followings.contains(uid) {
+                        self.followBtn.setTitle("Following", for: .normal)
+                        self.followBtn.setTitleColor(.black, for: .normal)
+                        self.followBtn.backgroundColor = .white
+                    } else {
+                        self.followBtn.setTitle("Follow", for: .normal)
+                        self.followBtn.setTitleColor(.white, for: .normal)
+                        self.followBtn.backgroundColor = UIColor(named:"GlobalBlue")
+                    }
+                }
+            }
+        }
     }
     
 }
