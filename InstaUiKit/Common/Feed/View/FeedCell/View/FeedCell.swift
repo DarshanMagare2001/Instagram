@@ -47,10 +47,10 @@ class FeedCell: UITableViewCell {
         // Make sure user interaction is enabled
         postImg.isUserInteractionEnabled = true
         
-        userImg2View.isHidden = true
-        userImg3View.isHidden = true
-        userImg4View.isHidden = true
-        likedBysectionView.isHidden = true
+        userImg2View.isHidden = false
+        userImg3View.isHidden = false
+        userImg4View.isHidden = false
+        likedBysectionView.isHidden = false
         postImg.addGestureRecognizer(tapGesture)
         postImg.isUserInteractionEnabled = true
         postImg.clipsToBounds = true
