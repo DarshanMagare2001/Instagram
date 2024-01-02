@@ -31,7 +31,7 @@ class SearchVCPresenter {
 }
 
 extension SearchVCPresenter : SearchVCPresenterProtocol {
-   
+    
     func viewDidload() {
         view?.setupCell()
         view?.setupRefreshcontrol()
@@ -39,6 +39,7 @@ extension SearchVCPresenter : SearchVCPresenterProtocol {
     }
     
     func setupUI(){
+        MessageLoader.shared.showLoader(withText: "Fetching Posts..")
         dispatchGroup.enter()
         fetchAllPostURL {
             self.dispatchGroup.leave()
@@ -49,6 +50,7 @@ extension SearchVCPresenter : SearchVCPresenterProtocol {
         }
         dispatchGroup.notify(queue: .main) {
             DispatchQueue.main.async { [weak self] in
+                MessageLoader.shared.hideLoader()
                 self?.getCollectionViewLayout { layout in
                     self?.view?.setupUI(layout: layout)
                 }
