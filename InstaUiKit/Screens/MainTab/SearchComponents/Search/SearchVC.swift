@@ -12,6 +12,8 @@ import RxCocoa
 protocol SearchVCProtocol : class {
     func setupCell()
     func setupRefreshcontrol()
+    func setupUI(layout:UICollectionViewLayout)
+    func addDoneButtonToSearchBarKeyboard() 
 }
 
 
@@ -30,64 +32,33 @@ class SearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.viewDidload()
-        fetchData()
     }
     
-    
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        setBarItemsForSearchVC()
+}
+
+extension SearchVC : SearchVCProtocol {
+   
+    func setupCell() {
+        let nib = UINib(nibName: "FollowingCell", bundle: nil)
+        tableViewOutlet.register(nib, forCellReuseIdentifier: "FollowingCell")
     }
     
+    func setupRefreshcontrol() {
+        addDoneButtonToSearchBarKeyboard()
+        collectionViewOutlet.addSubview(collectionViewRefreshControl)
+        collectionViewRefreshControl.addTarget(self, action: #selector(refreshCollectionView), for: .valueChanged)
+    }
     
-    private func setBarItemsForSearchVC() {
-       
+    func setupUI(layout:UICollectionViewLayout) {
+        updateTableView()
+        updateCollectionView(layout: layout)
+        self.collectionViewRefreshControl.endRefreshing()
     }
     
     @objc func refreshCollectionView() {
-        DispatchQueue.main.asyncAfter(deadline: .now()+2){
-            self.fetchData()
-            self.collectionViewRefreshControl.endRefreshing()
-        }
+        self.presenter?.setupUI()
     }
     
-    func fetchData(){
-        SearchVCViewModel.shared.fetchAllPostURL { result in
-            switch result {
-            case.success(let data):
-                print(data)
-                self.interactor?.allPost = data
-                self.updateCollectionView()
-            case.failure(let error):
-                print(error)
-            }
-        }
-        
-        
-        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
-            switch result {
-            case .success(let user):
-                if let user = user {
-                    self.interactor?.currentUser = user
-                }
-                FetchUserData.shared.fetchUniqueUsersFromFirebase { result in
-                    switch result {
-                    case .success(let data):
-                        DispatchQueue.main.async {
-                            print(data)
-                            self.interactor?.allUniqueUsersArray = data
-                            self.updateTableView()
-                        }
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
-        
-    }
     
     func addDoneButtonToSearchBarKeyboard() {
         let toolbar = UIToolbar()
@@ -99,21 +70,7 @@ class SearchVC: UIViewController {
     }
     
     @objc func doneButtonTapped() {
-        searchBar.resignFirstResponder() // Dismiss the keyboard
-    }
-    
-    
-}
-
-extension SearchVC : SearchVCProtocol {
-    func setupCell() {
-        let nib = UINib(nibName: "FollowingCell", bundle: nil)
-        tableViewOutlet.register(nib, forCellReuseIdentifier: "FollowingCell")
-    }
-    func setupRefreshcontrol() {
-        addDoneButtonToSearchBarKeyboard()
-        collectionViewOutlet.addSubview(collectionViewRefreshControl)
-        collectionViewRefreshControl.addTarget(self, action: #selector(refreshCollectionView), for: .valueChanged)
+        searchBar.resignFirstResponder()
     }
 }
 
@@ -189,12 +146,10 @@ extension SearchVC {
 
 
 extension SearchVC {
-    func updateCollectionView() {
+    func updateCollectionView(layout:UICollectionViewLayout) {
         collectionViewOutlet.dataSource = nil
         collectionViewOutlet.delegate = nil
-        SearchVCViewModel.shared.getComposnalLayout { layout in
-            self.collectionViewOutlet.collectionViewLayout = layout
-        }
+        self.collectionViewOutlet.collectionViewLayout = layout
         
         Observable.just( self.interactor!.allPost)
             .do(onNext: { [weak self] _ in
