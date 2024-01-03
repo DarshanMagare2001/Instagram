@@ -16,7 +16,11 @@ final class UploadVCBuilder {
     static func build(img:[UIImage]) -> UIViewController {
         let storyboard = UIStoryboard.MainTab
         let uploadVC = storyboard.instantiateViewController(withIdentifier: "UploadVC") as! UploadVC
-        uploadVC.img = img
+        let interactor = UploadVCInteractor()
+        let presenter = UploadVCPresenter(view: uploadVC, interactor: interactor)
+        uploadVC.presenter = presenter
+        uploadVC.interactor = interactor
+        uploadVC.interactor?.img = img
         uploadVC.navigationItem.hidesBackButton = true
         uploadVC.navigationItem.title = "Upload"
         let backButton = UIBarButtonItem(image: UIImage(named: "BackArrow"), style: .plain, target: self, action: #selector(backButtonPressed))

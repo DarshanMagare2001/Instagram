@@ -39,6 +39,8 @@
 		133AD3C82B4536C600F21E57 /* PostVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3C72B4536C600F21E57 /* PostVCPresenter.swift */; };
 		133AD3CB2B45371D00F21E57 /* PostVCRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3CA2B45371D00F21E57 /* PostVCRouter.swift */; };
 		133AD3D02B453F9A00F21E57 /* UploadVCBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3CF2B453F9A00F21E57 /* UploadVCBuilder.swift */; };
+		133AD3D22B454A4400F21E57 /* UploadVCInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3D12B454A4400F21E57 /* UploadVCInteractor.swift */; };
+		133AD3D42B454A5100F21E57 /* UploadVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3D32B454A5100F21E57 /* UploadVCPresenter.swift */; };
 		134C72FA2B3AD877000B0D46 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C72F92B3AD877000B0D46 /* SignInVC.swift */; };
 		134C72FC2B3AD88A000B0D46 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C72FB2B3AD889000B0D46 /* SignUpVC.swift */; };
 		134C72FE2B3AD895000B0D46 /* SwitchAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C72FD2B3AD895000B0D46 /* SwitchAccountCell.swift */; };
@@ -176,6 +178,8 @@
 		133AD3C72B4536C600F21E57 /* PostVCPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVCPresenter.swift; sourceTree = "<group>"; };
 		133AD3CA2B45371D00F21E57 /* PostVCRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVCRouter.swift; sourceTree = "<group>"; };
 		133AD3CF2B453F9A00F21E57 /* UploadVCBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVCBuilder.swift; sourceTree = "<group>"; };
+		133AD3D12B454A4400F21E57 /* UploadVCInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVCInteractor.swift; sourceTree = "<group>"; };
+		133AD3D32B454A5100F21E57 /* UploadVCPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVCPresenter.swift; sourceTree = "<group>"; };
 		134C72F92B3AD877000B0D46 /* SignInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		134C72FB2B3AD889000B0D46 /* SignUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		134C72FD2B3AD895000B0D46 /* SwitchAccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchAccountCell.swift; sourceTree = "<group>"; };
@@ -594,6 +598,8 @@
 			isa = PBXGroup;
 			children = (
 				134F7F412AEF7C6800B6C31E /* UploadVC.swift */,
+				133AD3D12B454A4400F21E57 /* UploadVCInteractor.swift */,
+				133AD3D32B454A5100F21E57 /* UploadVCPresenter.swift */,
 				133AD3CF2B453F9A00F21E57 /* UploadVCBuilder.swift */,
 			);
 			path = Upload;
@@ -1344,6 +1350,7 @@
 				132847232AFCEB4600A2397F /* UsersProfileViewCell.swift in Sources */,
 				13FE5BE52B3C220E001FFA08 /* SwitchAccountVCPresenter.swift in Sources */,
 				138BC6682B3D547B00B04FC6 /* DirectMsgVCBuilder.swift in Sources */,
+				133AD3D22B454A4400F21E57 /* UploadVCInteractor.swift in Sources */,
 				13C100452B42CD8700B8A286 /* ChatVCBuilder.swift in Sources */,
 				13127A942AF3BED1008C7927 /* ChatVCViewModel.swift in Sources */,
 				1396275E2AFBA5050034F139 /* CommentsVC.swift in Sources */,
@@ -1358,6 +1365,7 @@
 				134C730A2B3ADCDF000B0D46 /* SignInVCRouter.swift in Sources */,
 				1368D18B2B174F1E00B42AC4 /* CDUsers+CoreDataClass.swift in Sources */,
 				1303EC732B29AB63004EC523 /* PostPresentedView.swift in Sources */,
+				133AD3D42B454A5100F21E57 /* UploadVCPresenter.swift in Sources */,
 				13DBE7952AEBD0CA0006F3B9 /* SaveData.swift in Sources */,
 				1392D02C2A80B54A004B6654 /* ProfileVC.swift in Sources */,
 				130C23422B2031EA0033B763 /* AddChatVC.swift in Sources */,
