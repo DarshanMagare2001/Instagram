@@ -14,10 +14,7 @@ import UIKit
 class EditProfileViewModel {
     static let shared = EditProfileViewModel()
     var eventHandler: ((_ event : Event) -> Void)?
-    var userModel: ProfileModel?
-    
-    // Function which save Userinfo to firebase
-    
+   
     func saveDataToFirebase(name:String?,username:String?,bio:String?,countryCode:String?,phoneNumber:String?,gender:String? , isPrivate : String?, completionHandler:@escaping(Bool) -> Void){
         guard let name = name , let username = username , let bio = bio, let countryCode = countryCode , let phoneNumber = phoneNumber , let gender = gender , let isPrivate = isPrivate else { return }
         if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid){

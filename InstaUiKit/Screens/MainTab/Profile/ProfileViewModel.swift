@@ -14,10 +14,6 @@ import FirebaseAuth
 
 class ProfileViewModel {
     static let shared = ProfileViewModel()
-    var userModel : ProfileModel?
-    init() {
-        
-    }
     
     func saveUserToFirebase(uid: String, name: String?, username: String?, bio: String?, phoneNumber: String?, gender: String?,countryCode : String?,isPrivate:String?,completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()
