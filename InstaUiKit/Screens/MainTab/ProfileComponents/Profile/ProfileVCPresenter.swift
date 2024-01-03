@@ -96,7 +96,7 @@ extension ProfileVCPresenter : ProfileVCPresenterProtocol {
             } catch {
                 print("Logout error: \(error.localizedDescription)")
             }
-            DispatchQueue.main.asyncAfter(deadline:.now()+1){
+            DispatchQueue.main.asyncAfter(deadline:.now()+2){
                 MessageLoader.shared.hideLoader()
                 self.router.goToSignInVC()
             }
