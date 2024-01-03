@@ -194,7 +194,7 @@ extension ProfileVC:  SkeletonCollectionViewDataSource  , SkeletonCollectionView
         if let cellData = interactor?.allPost[indexPath.row] {
             cell.configureCell(post: cellData)
             cell.imagePressed = { [weak self] in
-                presenter?.goToPostPresentedView(post: cellData)
+                self?.presenter?.goToPostPresentedView(post: cellData)
             }
         }
         return cell
