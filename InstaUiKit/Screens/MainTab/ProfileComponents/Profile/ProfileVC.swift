@@ -10,6 +10,12 @@ import Kingfisher
 import SkeletonView
 import FirebaseAuth
 
+protocol ProfileVCProtocol : class {
+    func setUpTapgestures()
+    func setUpSideMenu()
+    func startSkeleton()
+}
+
 class ProfileVC: UIViewController {
     @IBOutlet weak var photosCollectionView: UICollectionView!
     @IBOutlet weak var sideMenuView: UIView!
@@ -22,29 +28,17 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var followingsTxtLbl: UILabel!
     @IBOutlet weak var followersTxtLbl: UILabel!
     @IBOutlet weak var postTxtLbl: UILabel!
+    
+    var presenter : ProfileVCPresenterProtocol?
+    var interactor : ProfileVCInteractorProtocol?
+    
     var viewModel2 = ProfileViewModel()
     var allPost = [PostAllDataModel]()
     var currentUser : UserModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.showAnimatedGradientSkeleton()
-        let followingTapGesture = UITapGestureRecognizer(target: self, action: #selector(followingCountLabelTapped))
-        followingsTxtLbl.isUserInteractionEnabled = true
-        followingsTxtLbl.addGestureRecognizer(followingTapGesture)
-        
-        let followersTapGesture = UITapGestureRecognizer(target: self, action: #selector(followersCountLabelTapped))
-        followersTxtLbl.isUserInteractionEnabled = true
-        followersTxtLbl.addGestureRecognizer(followersTapGesture)
-        
-        let userImgTapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapUserImg))
-        userImg.isUserInteractionEnabled = true
-        userImg.addGestureRecognizer(userImgTapGesture)
-        
-        let postTxtLblTapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapPostTxtLbl))
-        postTxtLbl.isUserInteractionEnabled = true
-        postTxtLbl.addGestureRecognizer(postTxtLblTapGesture)
-        
+        presenter?.viewDidload()
         configuration()
         updateUI()
     }
@@ -85,7 +79,6 @@ class ProfileVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: true)
         
         FetchUserData.shared.fetchCurrentUserFromFirebase { result in
             switch result {
@@ -166,23 +159,46 @@ class ProfileVC: UIViewController {
     
 }
 
+
+extension ProfileVC : ProfileVCProtocol {
+   
+    func setUpTapgestures() {
+        let followingTapGesture = UITapGestureRecognizer(target: self, action: #selector(followingCountLabelTapped))
+        followingsTxtLbl.isUserInteractionEnabled = true
+        followingsTxtLbl.addGestureRecognizer(followingTapGesture)
+        
+        let followersTapGesture = UITapGestureRecognizer(target: self, action: #selector(followersCountLabelTapped))
+        followersTxtLbl.isUserInteractionEnabled = true
+        followersTxtLbl.addGestureRecognizer(followersTapGesture)
+        
+        let userImgTapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapUserImg))
+        userImg.isUserInteractionEnabled = true
+        userImg.addGestureRecognizer(userImgTapGesture)
+        
+        let postTxtLblTapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapPostTxtLbl))
+        postTxtLbl.isUserInteractionEnabled = true
+        postTxtLbl.addGestureRecognizer(postTxtLblTapGesture)
+    }
+    
+    func setUpSideMenu(){
+        self.sideMenuView.alpha = 0.0
+        self.sideMenuView.transform = CGAffineTransform(translationX: +self.sideMenuView.bounds.width, y: 0)
+    }
+    
+    func startSkeleton() {
+        self.view.showAnimatedGradientSkeleton()
+    }
+    
+}
+
+
 extension ProfileVC {
     
     func configuration(){
         updateCell()
-        updateSideMenu()
-        initViewModel()
-        eventObserver()
-    }
-    
-    func initViewModel(){
         
     }
-    
-    func eventObserver(){
-        
-    }
-    
+   
     func updateCell() {
         // Configure the collection view flow layout
         let flowLayout = UICollectionViewFlowLayout()
@@ -193,10 +209,7 @@ extension ProfileVC {
         photosCollectionView.collectionViewLayout = flowLayout
     }
     
-    func updateSideMenu(){
-        self.sideMenuView.alpha = 0.0
-        self.sideMenuView.transform = CGAffineTransform(translationX: +self.sideMenuView.bounds.width, y: 0)
-    }
+    
     
     func updateUI(){
         if let url = FetchUserData.fetchUserInfoFromUserdefault(type: .profileUrl) {
@@ -290,3 +303,5 @@ extension ProfileVC:  SkeletonCollectionViewDataSource  , SkeletonCollectionView
     }
     
 }
+
+

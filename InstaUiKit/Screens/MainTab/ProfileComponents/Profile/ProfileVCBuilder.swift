@@ -15,6 +15,11 @@ final class ProfileVCBuilder {
     static func build(factory:NavigationFactoryClosure) -> UIViewController {
         let storyboard = UIStoryboard.MainTab
         let profileVC = storyboard.instantiateViewController(withIdentifier: "ProfileVC") as!ProfileVC
+        let interactor = ProfileVCInteractor()
+        let router = ProfileVCRouter(viewController: profileVC)
+        let presenter = ProfileVCPresenter(view: profileVC, interactor: interactor, router: router)
+        profileVC.presenter = presenter
+        profileVC.interactor = interactor
         profileVC.title = "Profile"
         profileVC.navigationItem.rightBarButtonItem = setBarButton()
         ProfileVCBuilder.sideBtnTappedClosure = { [weak profileVC] in
