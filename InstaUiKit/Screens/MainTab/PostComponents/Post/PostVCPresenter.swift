@@ -13,17 +13,15 @@ protocol PostVCPresenterProtocol {
 
 class PostVCPresenter {
     weak var view : PostVCProtocol?
-    var interactor : PostVCInteractorProtocol
     var router : PostVCRouterProtocol
-    init(view : PostVCProtocol?,interactor : PostVCInteractorProtocol,router : PostVCRouterProtocol){
+    init(view : PostVCProtocol?,router : PostVCRouterProtocol){
         self.view = view
-        self.interactor = interactor
         self.router = router
     }
 }
 
 extension PostVCPresenter : PostVCPresenterProtocol {
     func viewDidload() {
-        print("viewDidload")
+        view?.presentImagePicker()
     }
 }

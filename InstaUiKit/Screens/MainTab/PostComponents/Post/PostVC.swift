@@ -9,14 +9,14 @@ import UIKit
 import YPImagePicker
 
 protocol PostVCProtocol : class {
-    
+    func presentImagePicker()
 }
 
 class PostVC: UIViewController {
     @IBOutlet weak var imgForPost: UIImageView!
     @IBOutlet weak var collectionView:UICollectionView!
     @IBOutlet weak var imageView: UIView!
-    
+    @IBOutlet weak var mainView: UIView!
     var presenter : PostVCPresenterProtocol?
     var config = YPImagePickerConfiguration()
     var imgPicker = YPImagePicker()
@@ -24,26 +24,32 @@ class PostVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         presenter?.viewDidload()
-        
         config.library.maxNumberOfItems = 4
         config.screens = [.library,.photo]
         config.library.mediaType = .photoAndVideo
         imgPicker = YPImagePicker(configuration: config)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: true)
-        presentImagePicker()
+    private func gotoUploadVC(images:[UIImage]){
+        let storyboard = UIStoryboard.MainTab
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "UploadVC") as! UploadVC
+        destinationVC.img = images
+        self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
-    func presentImagePicker() {
+}
+
+extension PostVC : PostVCProtocol {
+    
+    func presentImagePicker(){
+        // Check if the image picker is already presented
         if let topViewController = UIApplication.topViewController() {
             if topViewController.presentedViewController is YPImagePicker {
                 return
             }
         }
+        
         imgPicker.didFinishPicking { [weak self] items , _ in
             var images = [UIImage]()
             for item in items {
@@ -64,20 +70,15 @@ class PostVC: UIViewController {
             }
             
         }
+        
+        // Add YPImagePicker as a subview to mainView
+        imgPicker.view.frame = mainView.bounds
+        mainView.addSubview(imgPicker.view)
+        
         self.addChild(imgPicker)
-        self.view.addSubview(imgPicker.view)
         imgPicker.didMove(toParent: self)
-    }
-    
-    private func gotoUploadVC(images:[UIImage]){
-        let storyboard = UIStoryboard.MainTab
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "UploadVC") as! UploadVC
-        destinationVC.img = images
-        self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
 }
 
-extension PostVC : PostVCProtocol {
-    
-}
+

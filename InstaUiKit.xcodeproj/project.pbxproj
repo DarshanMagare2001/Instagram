@@ -36,7 +36,6 @@
 		1329391C2B1F2D0F003E9B92 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 1329391B2B1F2D0F003E9B92 /* SDWebImage */; };
 		1329391E2B1F2D0F003E9B92 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1329391D2B1F2D0F003E9B92 /* SDWebImageMapKit */; };
 		133AD3C32B45356E00F21E57 /* PostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3C22B45356E00F21E57 /* PostVC.swift */; };
-		133AD3C62B4536B500F21E57 /* PostVCInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3C52B4536B500F21E57 /* PostVCInteractor.swift */; };
 		133AD3C82B4536C600F21E57 /* PostVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3C72B4536C600F21E57 /* PostVCPresenter.swift */; };
 		133AD3CB2B45371D00F21E57 /* PostVCRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3CA2B45371D00F21E57 /* PostVCRouter.swift */; };
 		134C72FA2B3AD877000B0D46 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C72F92B3AD877000B0D46 /* SignInVC.swift */; };
@@ -173,7 +172,6 @@
 		13127A952AF3CC67008C7927 /* ChatVCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVCModel.swift; sourceTree = "<group>"; };
 		132847222AFCEB4600A2397F /* UsersProfileViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersProfileViewCell.swift; sourceTree = "<group>"; };
 		133AD3C22B45356E00F21E57 /* PostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostVC.swift; sourceTree = "<group>"; };
-		133AD3C52B4536B500F21E57 /* PostVCInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVCInteractor.swift; sourceTree = "<group>"; };
 		133AD3C72B4536C600F21E57 /* PostVCPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVCPresenter.swift; sourceTree = "<group>"; };
 		133AD3CA2B45371D00F21E57 /* PostVCRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVCRouter.swift; sourceTree = "<group>"; };
 		134C72F92B3AD877000B0D46 /* SignInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
@@ -518,7 +516,6 @@
 			children = (
 				138BC5EB2A73B7B400020297 /* CollectionView */,
 				133AD3C22B45356E00F21E57 /* PostVC.swift */,
-				133AD3C52B4536B500F21E57 /* PostVCInteractor.swift */,
 				133AD3C72B4536C600F21E57 /* PostVCPresenter.swift */,
 				133AD3CA2B45371D00F21E57 /* PostVCRouter.swift */,
 				134C73172B3AE4A6000B0D46 /* PostVCBuilder.swift */,
@@ -557,7 +554,7 @@
 		13127A862AF36FF6008C7927 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				13127A882AF37015008C7927 /* UserModel */,
+				13127A892AF3702F008C7927 /* UserModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -569,14 +566,6 @@
 				134C72E12B3AD0BC000B0D46 /* FetchUserData */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		13127A882AF37015008C7927 /* UserModel */ = {
-			isa = PBXGroup;
-			children = (
-				13127A892AF3702F008C7927 /* UserModel.swift */,
-			);
-			path = UserModel;
 			sourceTree = "<group>";
 		};
 		13127A8B2AF3AA01008C7927 /* Chat */ = {
@@ -1366,7 +1355,6 @@
 				134C730A2B3ADCDF000B0D46 /* SignInVCRouter.swift in Sources */,
 				1368D18B2B174F1E00B42AC4 /* CDUsers+CoreDataClass.swift in Sources */,
 				1303EC732B29AB63004EC523 /* PostPresentedView.swift in Sources */,
-				133AD3C62B4536B500F21E57 /* PostVCInteractor.swift in Sources */,
 				13DBE7952AEBD0CA0006F3B9 /* SaveData.swift in Sources */,
 				1392D02C2A80B54A004B6654 /* ProfileVC.swift in Sources */,
 				130C23422B2031EA0033B763 /* AddChatVC.swift in Sources */,

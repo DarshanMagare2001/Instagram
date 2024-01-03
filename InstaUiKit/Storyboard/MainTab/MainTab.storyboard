@@ -891,12 +891,46 @@
                     <view key="view" contentMode="scaleToFill" id="tdh-9f-Kf5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="h0M-Wq-QIY">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Un9-ZL-yB8">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="KR6-NW-rhU"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xh6-fB-QEk">
+                                        <rect key="frame" x="0.0" y="1" width="320" height="566"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2C-2U-4J6">
+                                        <rect key="frame" x="0.0" y="567" width="320" height="1"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="Fo7-PA-RGa"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Mpp-61-chs"/>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="h0M-Wq-QIY" firstAttribute="top" secondItem="Mpp-61-chs" secondAttribute="top" id="4ni-Wp-dvu"/>
+                            <constraint firstItem="Mpp-61-chs" firstAttribute="bottom" secondItem="h0M-Wq-QIY" secondAttribute="bottom" id="ZPy-9k-blw"/>
+                            <constraint firstItem="Mpp-61-chs" firstAttribute="trailing" secondItem="h0M-Wq-QIY" secondAttribute="trailing" id="gdb-xw-jS1"/>
+                            <constraint firstItem="h0M-Wq-QIY" firstAttribute="leading" secondItem="Mpp-61-chs" secondAttribute="leading" id="hQo-bH-Oww"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="InstaPlusBtn" id="6C1-pk-ZDX">
                         <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="mainView" destination="xh6-fB-QEk" id="gOu-MO-AgW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O1H-SZ-WlO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -12,11 +12,15 @@ final class PostVCBuilder {
     static func build(factory:NavigationFactoryClosure) -> UIViewController {
         let storyboard = UIStoryboard.MainTab
         let postVC = storyboard.instantiateViewController(withIdentifier: "PostVC") as!PostVC
-        let interactor = PostVCInteractor()
         let router = PostVCRouter(viewController: postVC)
-        let presenter = PostVCPresenter(view: postVC, interactor: interactor, router: router)
+        let presenter = PostVCPresenter(view: postVC, router: router)
         postVC.presenter = presenter
-        postVC.title = "Post"
+        postVC.navigationItem.hidesBackButton = true
+        let label = UILabel()
+        label.text = "Post"
+        label.font = UIFont.boldSystemFont(ofSize: 35)
+        label.sizeToFit()
+        postVC.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: label)
         return factory(postVC)
     }
 }
