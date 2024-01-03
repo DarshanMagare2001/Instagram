@@ -37,7 +37,6 @@ class EditProfileVC: UIViewController {
         config.screens = [.library, .photo, .video]
         config.library.mediaType = .photoAndVideo
         imgPicker = YPImagePicker(configuration: config)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -92,17 +91,41 @@ class EditProfileVC: UIViewController {
             for item in items {
                 switch item {
                 case .photo(let photo):
-                    print("Photo Selected")
-                    // Handle the selected photo if needed
-                case .video(let video):
-                    print("Video Selected")
-                    // Handle the selected video if needed
+                    MessageLoader.shared.showLoader(withText: "Profile Photo Uploading..")
+                    self?.viewModel.saveUserImageToFirebase(image: photo.image) { result in
+                        switch result {
+                        case .success(let url):
+                            print(url)
+                            // Convert the URL to a string before saving
+                            let urlString = url.absoluteString
+                            Data.shared.saveData(urlString, key: "ProfileUrl") { _ in
+                                if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid) {
+                                    self?.viewModel.saveUserProfileImageToFirebaseDatabase(uid: uid, imageUrl: urlString) { result in
+                                        switch result {
+                                        case .success(let data):
+                                            print(data)
+                                            MessageLoader.shared.hideLoader()
+                                        case .failure(let error):
+                                            print(error)
+                                            MessageLoader.shared.hideLoader()
+                                        }
+                                    }
+                                }
+                            }
+                        case .failure(let error):
+                            print(error)
+                            MessageLoader.shared.hideLoader()
+                        }
+                    }
+                case .video(let video): break
+                    
                 }
             }
             self?.dismiss(animated: true, completion: nil)
         }
         present(imgPicker, animated: true, completion: nil)
     }
+
     
     
     @IBAction func genderSelectionBtnPressed(_ sender: UIButton) {
@@ -212,48 +235,8 @@ extension EditProfileVC {
     }
 }
 
-extension EditProfileVC: UIViewControllerTransitioningDelegate {
-    
-    func imagePicker(_ imagePicker: ImagePicker, didSelect image: UIImage) {
-        userImg.image = image
-        selectedImg = image
-        imagePicker.dismiss()
-        MessageLoader.shared.showLoader(withText: "Profile Photo Uploading..")
-        viewModel.saveUserImageToFirebase(image: image) { result in
-            switch result {
-            case .success(let url):
-                print(url)
-                // Convert the URL to a string before saving
-                let urlString = url.absoluteString
-                Data.shared.saveData(urlString, key: "ProfileUrl") { _ in
-                    if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid) {
-                        self.viewModel.saveUserProfileImageToFirebaseDatabase(uid: uid, imageUrl: urlString) { result in
-                            switch result {
-                            case .success(let data):
-                                print(data)
-                                MessageLoader.shared.hideLoader()
-                            case .failure(let error):
-                                print(error)
-                                MessageLoader.shared.hideLoader()
-                            }
-                        }
-                    }
-                }
-            case .failure(let error):
-                print(error)
-                MessageLoader.shared.hideLoader()
-            }
-        }
-    }
-    
-    
-    func cancelButtonDidClick(on imageView: ImagePicker) {
-        
-    }
-    
-}
 
-extension EditProfileVC : ADCountryPickerDelegate {
+extension EditProfileVC : ADCountryPickerDelegate , UIViewControllerTransitioningDelegate {
     
     @objc func countryPickerLabelTapped() {
         let picker = ADCountryPicker(style: .grouped)
