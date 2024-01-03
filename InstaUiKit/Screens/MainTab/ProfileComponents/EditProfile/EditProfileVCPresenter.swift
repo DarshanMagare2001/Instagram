@@ -22,7 +22,10 @@ class EditProfileVCPresenter {
 
 extension EditProfileVCPresenter : EditProfileVCPresenterProtocol {
     func viewDidload() {
-        view?.setUpImagePicker()
+        DispatchQueue.main.async {
+            self.view?.setUpImagePicker()
+            self.view?.setUpUserInfo()
+        }
     }
 }
 

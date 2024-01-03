@@ -11,6 +11,7 @@ import YPImagePicker
 
 protocol EditProfileVCProtocol : class {
     func setUpImagePicker()
+    func setUpUserInfo()
 }
 
 class EditProfileVC: UIViewController {
@@ -35,7 +36,6 @@ class EditProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.viewDidload()
-        configuration()
     }
     
     func cancleBtnPressed() {
@@ -107,7 +107,7 @@ class EditProfileVC: UIViewController {
         }
         present(imgPicker, animated: true, completion: nil)
     }
-
+    
     
     
     @IBAction func genderSelectionBtnPressed(_ sender: UIButton) {
@@ -148,23 +148,15 @@ class EditProfileVC: UIViewController {
 }
 
 extension EditProfileVC : EditProfileVCProtocol {
+    
     func setUpImagePicker() {
         config.library.maxNumberOfItems = 1
         config.screens = [.library,.photo]
         config.library.mediaType = .photoAndVideo
         imgPicker = YPImagePicker(configuration: config)
     }
-}
-
-
-extension EditProfileVC {
     
-    func configuration(){
-        updateUI()
-    }
-    
-    
-    func updateUI() {
+    func setUpUserInfo() {
         if let name = FetchUserData.fetchUserInfoFromUserdefault(type: .name){
             self.nameTxtFld.text = name
         }
@@ -219,10 +211,9 @@ extension EditProfileVC {
         } else {
             print("URL is nil or empty")
         }
-        
     }
+    
 }
-
 
 extension EditProfileVC : ADCountryPickerDelegate , UIViewControllerTransitioningDelegate {
     
