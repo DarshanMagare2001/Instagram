@@ -564,7 +564,6 @@
 				133AD3E92B4561A200F21E57 /* ProfileVCRouter.swift */,
 				133AD3DF2B45609100F21E57 /* ProfileVCEntity.swift */,
 				134C731B2B3AE505000B0D46 /* ProfileVCBuilder.swift */,
-				136B84A12A83B8E700C102F1 /* ProfileViewModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -968,6 +967,7 @@
 			children = (
 				138BC5D32A73806E00020297 /* EditProfileVC.swift */,
 				136B84A32A83B8FC00C102F1 /* EditProfileViewModel.swift */,
+				136B84A12A83B8E700C102F1 /* ProfileViewModel.swift */,
 				133AD3EB2B45790B00F21E57 /* EditProfileVCBuilder.swift */,
 			);
 			path = EditProfile;

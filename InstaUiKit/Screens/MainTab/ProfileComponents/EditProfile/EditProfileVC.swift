@@ -27,6 +27,7 @@ class EditProfileVC: UIViewController {
         imagePicker.delegate = self
         return imagePicker
     }()
+    
     var gender : String = ""
     var countryCode: String = "+91"
     var selectedImg : UIImage?
