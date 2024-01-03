@@ -21,24 +21,11 @@ class UploadVC: UIViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationItem.hidesBackButton = true
-        navigationItem.title = "Upload"
-        let backButton = UIBarButtonItem(image: UIImage(named: "BackArrow"), style: .plain, target: self, action: #selector(backButtonPressed))
-        backButton.tintColor = .black
-        navigationItem.leftBarButtonItem = backButton
-        
-        let shareBtn = UIBarButtonItem(title:"Share", style: .plain, target: self, action: #selector(shareBtnPressed))
-        shareBtn.tintColor = UIColor(named: "GlobalBlue")
-        navigationItem.rightBarButtonItem = shareBtn
-    }
-    
-    @objc func backButtonPressed() {
+    func backButtonPressed() {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func shareBtnPressed() {
+    func shareBtnPressed() {
         Alert.shared.alertYesNo(title: "Confirmation", message: "Are you sure you want to Upload Photo?", presentingViewController: self,
                                 yesHandler: { _ in
             
