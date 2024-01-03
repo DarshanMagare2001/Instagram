@@ -6,9 +6,8 @@
 //
 
 import UIKit
-import FirebaseAuth
-import Kingfisher
 import ADCountryPicker
+import YPImagePicker
 
 class EditProfileVC: UIViewController {
     @IBOutlet weak var nameTxtFld: UITextField!
@@ -22,20 +21,22 @@ class EditProfileVC: UIViewController {
     @IBOutlet weak var privateBtn: UIButton!
     @IBOutlet weak var publicBtn: UIButton!
     
-    private lazy var imagePicker: ImagePicker = {
-        let imagePicker = ImagePicker()
-        imagePicker.delegate = self
-        return imagePicker
-    }()
-    
     var gender : String = ""
     var countryCode: String = "+91"
     var selectedImg : UIImage?
     var isPrivate : String = ""
     var viewModel = EditProfileViewModel()
+    
+    var config = YPImagePickerConfiguration()
+    var imgPicker = YPImagePicker()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configuration()
+        config.library.maxNumberOfItems = 4
+        config.screens = [.library, .photo, .video]
+        config.library.mediaType = .photoAndVideo
+        imgPicker = YPImagePicker(configuration: config)
         
     }
     
@@ -74,8 +75,35 @@ class EditProfileVC: UIViewController {
     }
     
     @IBAction func changeProfileBtnPressed(_ sender: UIButton) {
-        imagePicker.present(parent: self, sourceType: .photoLibrary)
+        presentImagePicker()
     }
+    
+    func presentImagePicker() {
+        if let topViewController = UIApplication.topViewController() {
+            if topViewController.presentedViewController is YPImagePicker {
+                return
+            }
+        }
+        config.library.maxNumberOfItems = 4
+        config.screens = [.library, .photo]
+        config.library.mediaType = .photoAndVideo
+        imgPicker = YPImagePicker(configuration: config)
+        imgPicker.didFinishPicking { [weak self] items, cancelled in
+            for item in items {
+                switch item {
+                case .photo(let photo):
+                    print("Photo Selected")
+                    // Handle the selected photo if needed
+                case .video(let video):
+                    print("Video Selected")
+                    // Handle the selected video if needed
+                }
+            }
+            self?.dismiss(animated: true, completion: nil)
+        }
+        present(imgPicker, animated: true, completion: nil)
+    }
+    
     
     @IBAction func genderSelectionBtnPressed(_ sender: UIButton) {
         if sender.tag == 1 {
@@ -184,7 +212,7 @@ extension EditProfileVC {
     }
 }
 
-extension EditProfileVC: ImagePickerDelegate , UIViewControllerTransitioningDelegate {
+extension EditProfileVC: UIViewControllerTransitioningDelegate {
     
     func imagePicker(_ imagePicker: ImagePicker, didSelect image: UIImage) {
         userImg.image = image
@@ -219,12 +247,10 @@ extension EditProfileVC: ImagePickerDelegate , UIViewControllerTransitioningDele
     }
     
     
-    func cancelButtonDidClick(on imageView: ImagePicker) { imagePicker.dismiss() }
-    func imagePicker(_ imagePicker: ImagePicker, grantedAccess: Bool,
-                     to sourceType: UIImagePickerController.SourceType) {
-        guard grantedAccess else { return }
-        imagePicker.present(parent: self, sourceType: sourceType)
+    func cancelButtonDidClick(on imageView: ImagePicker) {
+        
     }
+    
 }
 
 extension EditProfileVC : ADCountryPickerDelegate {
