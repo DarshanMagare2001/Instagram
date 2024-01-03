@@ -8,74 +8,77 @@
 import UIKit
 import SkeletonView
 
-class LikesVC: UIViewController {
+protocol LikesVCProtocol : class {
+    func setUpCells()
+    func setUpRefreshControl()
+    func startSkeleton()
+    func stopSkeleton()
+    func reloadTableView()
+}
+
+class LikesVC : UIViewController {
+    
     @IBOutlet weak var tableViewOutlet: UITableView!
-    var allPost = [PostAllDataModel]()
-    var currentUserUid: String?
-    var currentUser: UserModel?
+    
+    var presenter : LikesVCPresenterProtocol?
+    var interactor : LikesVCInteractorProtocol?
     var refreshControll = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter?.viewDidload()
+    }
+    
+}
+
+extension LikesVC : LikesVCProtocol {
+   
+    func setUpCells(){
         let nibLikes = UINib(nibName: "LikesCell", bundle: nil)
         let nibFollowing = UINib(nibName: "FollowingCell", bundle: nil)
         tableViewOutlet.register(nibLikes, forCellReuseIdentifier: "LikesCell")
         tableViewOutlet.register(nibFollowing, forCellReuseIdentifier: "FollowingCell")
+    }
+    
+    func setUpRefreshControl(){
         refreshControll.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         tableViewOutlet.addSubview(refreshControll)
-        fetchData()
+    }
+    
+    func startSkeleton(){
         self.view.showAnimatedGradientSkeleton()
         self.tableViewOutlet.isSkeletonable = true
         self.tableViewOutlet.showAnimatedGradientSkeleton()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        setBarItemsForLikesVC()
+    func stopSkeleton(){
+        self.tableViewOutlet.stopSkeletonAnimation()
+        self.view.stopSkeletonAnimation()
+        self.tableViewOutlet.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
     }
     
-    private func setBarItemsForLikesVC() {
-        
+    func reloadTableView() {
+        stopSkeleton()
+        tableViewOutlet.reloadData()
     }
     
     @objc func refresh(send: UIRefreshControl) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.fetchData()
-            self.view.showAnimatedGradientSkeleton()
-            self.tableViewOutlet.isSkeletonable = true
-            self.tableViewOutlet.showAnimatedGradientSkeleton()
-            self.refreshControll.endRefreshing()
+        self.startSkeleton()
+        DispatchQueue.main.asyncAfter(deadline:.now()+1) {
+            self.presenter?.fetchPostDataOfPerticularUser(completion: {
+                self.stopSkeleton()
+                self.refreshControll.endRefreshing()
+            })
         }
     }
     
-    func fetchData() {
-        if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid) {
-            self.currentUserUid = uid
-            PostViewModel.shared.fetchPostDataOfPerticularUser(forUID: uid) { result in
-                switch result {
-                case .success(let images):
-                    // Handle the images
-                    print("Fetched images: \(images)")
-                    DispatchQueue.main.async {
-                        self.allPost = images
-                        self.tableViewOutlet.stopSkeletonAnimation()
-                        self.view.stopSkeletonAnimation()
-                        self.tableViewOutlet.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
-                        self.tableViewOutlet.reloadData()
-                    }
-                case .failure(let error):
-                    // Handle the error
-                    print("Error fetching images: \(error)")
-                }
-            }
-        }
-    }
 }
+
 
 extension LikesVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return allPost.count
+        return interactor?.allPost.count ?? 0
     }
     
     func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -87,9 +90,9 @@ extension LikesVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section < allPost.count {
-            if let likedBy = allPost[section].likedBy {
-                let filteredLikes = likedBy.filter { $0 != currentUserUid }
+        if section < interactor?.allPost.count ?? 0 {
+            if let likedBy = interactor?.allPost[section].likedBy {
+                let filteredLikes = likedBy.filter { $0 != interactor?.currentUserUid }
                 return filteredLikes.count
             }
         }
@@ -100,9 +103,9 @@ extension LikesVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         let likesCell = tableView.dequeueReusableCell(withIdentifier: "LikesCell", for: indexPath) as! LikesCell
         let section = indexPath.section
         let row = indexPath.row
-        guard let postLikedBy = allPost[section].likedBy else {return UITableViewCell()}
-        if section < allPost.count && row < postLikedBy.count {
-            let uid = postLikedBy.filter { $0 != currentUserUid }
+        guard let postLikedBy = interactor?.allPost[section].likedBy else {return UITableViewCell()}
+        if section < interactor?.allPost.count ?? 0 && row < postLikedBy.count {
+            let uid = postLikedBy.filter { $0 != interactor?.currentUserUid }
             DispatchQueue.main.async {
                 FetchUserData.shared.fetchUserDataByUid(uid: uid[indexPath.row]) { result in
                     switch result {
@@ -124,7 +127,7 @@ extension LikesVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
                     }
                 }
                 
-                if let imageURL = URL(string: self.allPost[section].postImageURLs?[0] ?? "") {
+                if let imageURL = URL(string:self.interactor?.allPost[section].postImageURLs?[0] ?? "") {
                     ImageLoader.loadImage(for: imageURL, into: likesCell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
                 }
                 
@@ -133,4 +136,5 @@ extension LikesVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         return likesCell
     }
 }
+
 
