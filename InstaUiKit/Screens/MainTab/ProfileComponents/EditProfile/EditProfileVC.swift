@@ -13,8 +13,8 @@ protocol EditProfileVCProtocol : class {
     func setUpImagePicker()
 }
 
-
 class EditProfileVC: UIViewController {
+    
     @IBOutlet weak var nameTxtFld: UITextField!
     @IBOutlet weak var userNameTxtFld: UITextField!
     @IBOutlet weak var bioTxtFld: UITextField!
@@ -26,28 +26,16 @@ class EditProfileVC: UIViewController {
     @IBOutlet weak var privateBtn: UIButton!
     @IBOutlet weak var publicBtn: UIButton!
     
-    
     var presenter : EditProfileVCPresenterProtocol?
     var interactor : EditProfileVCInteractorProtocol?
-    
-    
-    var gender : String = ""
-    var countryCode: String = "+91"
-    var selectedImg : UIImage?
-    var isPrivate : String = ""
-    
-    var viewModel = EditProfileViewModel()
-    
     var config = YPImagePickerConfiguration()
     var imgPicker = YPImagePicker()
+    var viewModel = EditProfileViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         presenter?.viewDidload()
-        
         configuration()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,7 +57,7 @@ class EditProfileVC: UIViewController {
     
     @objc func doneBtnPressed() {
         MessageLoader.shared.showLoader(withText: "Please wait saving User data..")
-        viewModel.saveDataToFirebase(name: nameTxtFld.text, username: userNameTxtFld.text, bio: bioTxtFld.text, countryCode: countryCode, phoneNumber: phoneNumberTxtFld.text, gender: gender, isPrivate: isPrivate){ value in
+        viewModel.saveDataToFirebase(name: nameTxtFld.text, username: userNameTxtFld.text, bio: bioTxtFld.text, countryCode: interactor?.countryCode, phoneNumber: phoneNumberTxtFld.text, gender: interactor?.gender, isPrivate: interactor?.isPrivate){ value in
             if value{
                 MessageLoader.shared.hideLoader()
                 if let navigationController = self.navigationController {
@@ -137,36 +125,33 @@ class EditProfileVC: UIViewController {
     
     @IBAction func genderSelectionBtnPressed(_ sender: UIButton) {
         if sender.tag == 1 {
-            gender = "Male"
+            interactor?.gender = "Male"
             btn1.setImage(UIImage(systemName: "circle.fill"), for: .normal)
             btn2.setImage(UIImage(systemName: "circle"), for: .normal)
         }
         
         if sender.tag == 2 {
-            gender = "Female"
+            interactor?.gender = "Female"
             btn1.setImage(UIImage(systemName: "circle"), for: .normal)
             btn2.setImage(UIImage(systemName: "circle.fill"), for: .normal)
         }
         
-        print(gender)
     }
     
     
     @IBAction func isAccountPublicOrPrivateBtnPressed(_ sender: UIButton) {
         
         if sender.tag == 1 {
-            isPrivate = "false"
+            interactor?.isPrivate = "false"
             publicBtn.setImage(UIImage(systemName: "circle.fill"), for: .normal)
             privateBtn.setImage(UIImage(systemName: "circle"), for: .normal)
         }
         
         if sender.tag == 2 {
-            isPrivate = "true"
+            interactor?.isPrivate = "true"
             publicBtn.setImage(UIImage(systemName: "circle"), for: .normal)
             privateBtn.setImage(UIImage(systemName: "circle.fill"), for: .normal)
         }
-        
-        print(isPrivate)
         
     }
     
@@ -206,31 +191,31 @@ extension EditProfileVC {
         }
         
         if let gender = FetchUserData.fetchUserInfoFromUserdefault(type: .gender){
-            self.gender  = gender
-            if self.gender == "Male"{
+            self.interactor?.gender  = gender
+            if self.interactor?.gender == "Male"{
                 self.btn1.setImage(UIImage(systemName: "circle.fill"), for: .normal)
                 self.btn2.setImage(UIImage(systemName: "circle"), for: .normal)
             }
-            if self.gender == "Female"{
+            if self.interactor?.gender == "Female"{
                 self.btn1.setImage(UIImage(systemName: "circle"), for: .normal)
                 self.btn2.setImage(UIImage(systemName: "circle.fill"), for: .normal)
             }
         }
         
         if let isPrivate = FetchUserData.fetchUserInfoFromUserdefault(type: .isPrivate){
-            self.isPrivate = isPrivate
-            if self.isPrivate == "false" {
+            self.interactor?.isPrivate = isPrivate
+            if self.interactor?.isPrivate == "false" {
                 self.publicBtn.setImage(UIImage(systemName: "circle.fill"), for: .normal)
                 self.privateBtn.setImage(UIImage(systemName: "circle"), for: .normal)
             }
-            if self.isPrivate == "true"{
+            if self.interactor?.isPrivate == "true"{
                 self.publicBtn.setImage(UIImage(systemName: "circle"), for: .normal)
                 self.privateBtn.setImage(UIImage(systemName: "circle.fill"), for: .normal)
             }
         }
         
         if let countryCode = FetchUserData.fetchUserInfoFromUserdefault(type: .countryCode){
-            self.countryCode = "\(countryCode)"
+            self.interactor?.countryCode = "\(countryCode)"
             self.countryPickerBtn.setTitle(countryCode, for: .normal)
         }
         
@@ -284,7 +269,7 @@ extension EditProfileVC : ADCountryPickerDelegate , UIViewControllerTransitionin
     
     func countryPicker(_ picker: ADCountryPicker, didSelectCountryWithName name: String, code: String, dialCode: String) {
         countryPickerBtn.setTitle(dialCode, for: .normal)
-        countryCode = dialCode
+        interactor?.countryCode = dialCode
     }
 }
 
