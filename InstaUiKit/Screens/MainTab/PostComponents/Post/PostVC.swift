@@ -8,15 +8,25 @@
 import UIKit
 import YPImagePicker
 
+protocol PostVCProtocol : class {
+    
+}
+
 class PostVC: UIViewController {
     @IBOutlet weak var imgForPost: UIImageView!
     @IBOutlet weak var collectionView:UICollectionView!
     @IBOutlet weak var imageView: UIView!
+    
+    var presenter : PostVCPresenterProtocol?
     var config = YPImagePickerConfiguration()
     var imgPicker = YPImagePicker()
     let disPatchGroup = DispatchGroup()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        presenter?.viewDidload()
+        
         config.library.maxNumberOfItems = 4
         config.screens = [.library,.photo]
         config.library.mediaType = .photoAndVideo
@@ -65,5 +75,9 @@ class PostVC: UIViewController {
         destinationVC.img = images
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
+    
+}
+
+extension PostVC : PostVCProtocol {
     
 }

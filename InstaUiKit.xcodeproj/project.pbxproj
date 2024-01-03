@@ -36,6 +36,9 @@
 		1329391C2B1F2D0F003E9B92 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 1329391B2B1F2D0F003E9B92 /* SDWebImage */; };
 		1329391E2B1F2D0F003E9B92 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1329391D2B1F2D0F003E9B92 /* SDWebImageMapKit */; };
 		133AD3C32B45356E00F21E57 /* PostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3C22B45356E00F21E57 /* PostVC.swift */; };
+		133AD3C62B4536B500F21E57 /* PostVCInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3C52B4536B500F21E57 /* PostVCInteractor.swift */; };
+		133AD3C82B4536C600F21E57 /* PostVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3C72B4536C600F21E57 /* PostVCPresenter.swift */; };
+		133AD3CB2B45371D00F21E57 /* PostVCRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3CA2B45371D00F21E57 /* PostVCRouter.swift */; };
 		134C72FA2B3AD877000B0D46 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C72F92B3AD877000B0D46 /* SignInVC.swift */; };
 		134C72FC2B3AD88A000B0D46 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C72FB2B3AD889000B0D46 /* SignUpVC.swift */; };
 		134C72FE2B3AD895000B0D46 /* SwitchAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C72FD2B3AD895000B0D46 /* SwitchAccountCell.swift */; };
@@ -170,6 +173,9 @@
 		13127A952AF3CC67008C7927 /* ChatVCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVCModel.swift; sourceTree = "<group>"; };
 		132847222AFCEB4600A2397F /* UsersProfileViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersProfileViewCell.swift; sourceTree = "<group>"; };
 		133AD3C22B45356E00F21E57 /* PostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostVC.swift; sourceTree = "<group>"; };
+		133AD3C52B4536B500F21E57 /* PostVCInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVCInteractor.swift; sourceTree = "<group>"; };
+		133AD3C72B4536C600F21E57 /* PostVCPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVCPresenter.swift; sourceTree = "<group>"; };
+		133AD3CA2B45371D00F21E57 /* PostVCRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVCRouter.swift; sourceTree = "<group>"; };
 		134C72F92B3AD877000B0D46 /* SignInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		134C72FB2B3AD889000B0D46 /* SignUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		134C72FD2B3AD895000B0D46 /* SwitchAccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchAccountCell.swift; sourceTree = "<group>"; };
@@ -511,10 +517,12 @@
 			isa = PBXGroup;
 			children = (
 				138BC5EB2A73B7B400020297 /* CollectionView */,
-				139110052A86502400CABCD5 /* PostModel.swift */,
-				13779BBE2B233A5C0056D5D8 /* PostAllDataModel.swift */,
-				134C73172B3AE4A6000B0D46 /* PostVCBuilder.swift */,
 				133AD3C22B45356E00F21E57 /* PostVC.swift */,
+				133AD3C52B4536B500F21E57 /* PostVCInteractor.swift */,
+				133AD3C72B4536C600F21E57 /* PostVCPresenter.swift */,
+				133AD3C92B4536F100F21E57 /* PostVCEntity */,
+				133AD3CA2B45371D00F21E57 /* PostVCRouter.swift */,
+				134C73172B3AE4A6000B0D46 /* PostVCBuilder.swift */,
 				139110072A86503700CABCD5 /* PostViewModel.swift */,
 			);
 			path = Post;
@@ -599,6 +607,15 @@
 				134F7F412AEF7C6800B6C31E /* UploadVC.swift */,
 			);
 			path = Upload;
+			sourceTree = "<group>";
+		};
+		133AD3C92B4536F100F21E57 /* PostVCEntity */ = {
+			isa = PBXGroup;
+			children = (
+				139110052A86502400CABCD5 /* PostModel.swift */,
+				13779BBE2B233A5C0056D5D8 /* PostAllDataModel.swift */,
+			);
+			path = PostVCEntity;
 			sourceTree = "<group>";
 		};
 		134C72DE2B3ACB28000B0D46 /* CoreDataRepository */ = {
@@ -1298,6 +1315,7 @@
 				13B4B3F02AFA3FB200EB13EE /* FeedViewVC.swift in Sources */,
 				13127A902AF3AA35008C7927 /* ChatVC.swift in Sources */,
 				139110082A86503700CABCD5 /* PostViewModel.swift in Sources */,
+				133AD3CB2B45371D00F21E57 /* PostVCRouter.swift in Sources */,
 				134C73082B3ADCC7000B0D46 /* SignInVCPresenter.swift in Sources */,
 				138BC6762B3D865D00B04FC6 /* DirectMsgVCRouter.swift in Sources */,
 				13127A852AF36CA0008C7927 /* FetchUserData.swift in Sources */,
@@ -1306,6 +1324,7 @@
 				13DBE7752AEB938C0006F3B9 /* Storyboard+Extensions.swift in Sources */,
 				134C73002B3AD89C000B0D46 /* SwitchAccountVC.swift in Sources */,
 				13FB7D5F2A722DE000D8FC5C /* FeedCell.swift in Sources */,
+				133AD3C82B4536C600F21E57 /* PostVCPresenter.swift in Sources */,
 				134C73182B3AE4A6000B0D46 /* PostVCBuilder.swift in Sources */,
 				134C72FC2B3AD88A000B0D46 /* SignUpVC.swift in Sources */,
 				13FC207F2AF2687D00D7EEFD /* StoreUserData.swift in Sources */,
@@ -1331,6 +1350,7 @@
 				134C730A2B3ADCDF000B0D46 /* SignInVCRouter.swift in Sources */,
 				1368D18B2B174F1E00B42AC4 /* CDUsers+CoreDataClass.swift in Sources */,
 				1303EC732B29AB63004EC523 /* PostPresentedView.swift in Sources */,
+				133AD3C62B4536B500F21E57 /* PostVCInteractor.swift in Sources */,
 				13DBE7952AEBD0CA0006F3B9 /* SaveData.swift in Sources */,
 				1392D02C2A80B54A004B6654 /* ProfileVC.swift in Sources */,
 				130C23422B2031EA0033B763 /* AddChatVC.swift in Sources */,
