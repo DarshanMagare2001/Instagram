@@ -51,6 +51,8 @@
 		133AD3E82B45619400F21E57 /* ProfileVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3E72B45619400F21E57 /* ProfileVCPresenter.swift */; };
 		133AD3EA2B4561A200F21E57 /* ProfileVCRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3E92B4561A200F21E57 /* ProfileVCRouter.swift */; };
 		133AD3EC2B45790B00F21E57 /* EditProfileVCBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3EB2B45790B00F21E57 /* EditProfileVCBuilder.swift */; };
+		133AD3EE2B45925600F21E57 /* EditProfileVCInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3ED2B45925600F21E57 /* EditProfileVCInteractor.swift */; };
+		133AD3F02B45926200F21E57 /* EditProfileVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3EF2B45926200F21E57 /* EditProfileVCPresenter.swift */; };
 		134C72FA2B3AD877000B0D46 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C72F92B3AD877000B0D46 /* SignInVC.swift */; };
 		134C72FC2B3AD88A000B0D46 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C72FB2B3AD889000B0D46 /* SignUpVC.swift */; };
 		134C72FE2B3AD895000B0D46 /* SwitchAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C72FD2B3AD895000B0D46 /* SwitchAccountCell.swift */; };
@@ -196,6 +198,8 @@
 		133AD3E72B45619400F21E57 /* ProfileVCPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVCPresenter.swift; sourceTree = "<group>"; };
 		133AD3E92B4561A200F21E57 /* ProfileVCRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVCRouter.swift; sourceTree = "<group>"; };
 		133AD3EB2B45790B00F21E57 /* EditProfileVCBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVCBuilder.swift; sourceTree = "<group>"; };
+		133AD3ED2B45925600F21E57 /* EditProfileVCInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVCInteractor.swift; sourceTree = "<group>"; };
+		133AD3EF2B45926200F21E57 /* EditProfileVCPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVCPresenter.swift; sourceTree = "<group>"; };
 		134C72F92B3AD877000B0D46 /* SignInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		134C72FB2B3AD889000B0D46 /* SignUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		134C72FD2B3AD895000B0D46 /* SwitchAccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchAccountCell.swift; sourceTree = "<group>"; };
@@ -966,6 +970,8 @@
 			isa = PBXGroup;
 			children = (
 				138BC5D32A73806E00020297 /* EditProfileVC.swift */,
+				133AD3ED2B45925600F21E57 /* EditProfileVCInteractor.swift */,
+				133AD3EF2B45926200F21E57 /* EditProfileVCPresenter.swift */,
 				136B84A32A83B8FC00C102F1 /* EditProfileViewModel.swift */,
 				136B84A12A83B8E700C102F1 /* ProfileViewModel.swift */,
 				133AD3EB2B45790B00F21E57 /* EditProfileVCBuilder.swift */,
@@ -1337,6 +1343,7 @@
 				132847232AFCEB4600A2397F /* UsersProfileViewCell.swift in Sources */,
 				13FE5BE52B3C220E001FFA08 /* SwitchAccountVCPresenter.swift in Sources */,
 				138BC6682B3D547B00B04FC6 /* DirectMsgVCBuilder.swift in Sources */,
+				133AD3F02B45926200F21E57 /* EditProfileVCPresenter.swift in Sources */,
 				133AD3D22B454A4400F21E57 /* UploadVCInteractor.swift in Sources */,
 				13C100452B42CD8700B8A286 /* ChatVCBuilder.swift in Sources */,
 				13127A942AF3BED1008C7927 /* ChatVCViewModel.swift in Sources */,
@@ -1369,6 +1376,7 @@
 				1368D1562B17141900B42AC4 /* PersistantStorage.swift in Sources */,
 				13C61F362B26FC1400011E1B /* HomeVCCell.swift in Sources */,
 				1368D1842B1740DF00B42AC4 /* CDUserManager.swift in Sources */,
+				133AD3EE2B45925600F21E57 /* EditProfileVCInteractor.swift in Sources */,
 				133AD3D02B453F9A00F21E57 /* UploadVCBuilder.swift in Sources */,
 				134C72FE2B3AD895000B0D46 /* SwitchAccountCell.swift in Sources */,
 				13FE5BE72B3C31E4001FFA08 /* SignUpVCInteractor.swift in Sources */,

@@ -9,6 +9,11 @@ import UIKit
 import ADCountryPicker
 import YPImagePicker
 
+protocol EditProfileVCProtocol : class {
+    
+}
+
+
 class EditProfileVC: UIViewController {
     @IBOutlet weak var nameTxtFld: UITextField!
     @IBOutlet weak var userNameTxtFld: UITextField!
@@ -21,10 +26,16 @@ class EditProfileVC: UIViewController {
     @IBOutlet weak var privateBtn: UIButton!
     @IBOutlet weak var publicBtn: UIButton!
     
+    
+    var presenter : EditProfileVCPresenterProtocol?
+    var interactor : EditProfileVCInteractorProtocol?
+    
+    
     var gender : String = ""
     var countryCode: String = "+91"
     var selectedImg : UIImage?
     var isPrivate : String = ""
+    
     var viewModel = EditProfileViewModel()
     
     var config = YPImagePickerConfiguration()
@@ -32,6 +43,9 @@ class EditProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        presenter?.viewDidload()
+        
         configuration()
         config.library.maxNumberOfItems = 4
         config.screens = [.library, .photo, .video]
@@ -270,4 +284,8 @@ extension EditProfileVC : ADCountryPickerDelegate , UIViewControllerTransitionin
         countryPickerBtn.setTitle(dialCode, for: .normal)
         countryCode = dialCode
     }
+}
+
+extension EditProfileVC : EditProfileVCProtocol {
+    
 }
