@@ -520,10 +520,8 @@
 				133AD3C22B45356E00F21E57 /* PostVC.swift */,
 				133AD3C52B4536B500F21E57 /* PostVCInteractor.swift */,
 				133AD3C72B4536C600F21E57 /* PostVCPresenter.swift */,
-				133AD3C92B4536F100F21E57 /* PostVCEntity */,
 				133AD3CA2B45371D00F21E57 /* PostVCRouter.swift */,
 				134C73172B3AE4A6000B0D46 /* PostVCBuilder.swift */,
-				139110072A86503700CABCD5 /* PostViewModel.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -609,13 +607,30 @@
 			path = Upload;
 			sourceTree = "<group>";
 		};
-		133AD3C92B4536F100F21E57 /* PostVCEntity */ = {
+		133AD3CC2B45399700F21E57 /* PostDataRepository */ = {
+			isa = PBXGroup;
+			children = (
+				133AD3CD2B4539B500F21E57 /* Model */,
+				133AD3CE2B4539BE00F21E57 /* ViewModel */,
+			);
+			path = PostDataRepository;
+			sourceTree = "<group>";
+		};
+		133AD3CD2B4539B500F21E57 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				139110052A86502400CABCD5 /* PostModel.swift */,
 				13779BBE2B233A5C0056D5D8 /* PostAllDataModel.swift */,
 			);
-			path = PostVCEntity;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		133AD3CE2B4539BE00F21E57 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				139110072A86503700CABCD5 /* PostViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		134C72DE2B3ACB28000B0D46 /* CoreDataRepository */ = {
@@ -717,6 +732,7 @@
 			children = (
 				134C72DE2B3ACB28000B0D46 /* CoreDataRepository */,
 				134C72DF2B3ACFE6000B0D46 /* UserDataRepository */,
+				133AD3CC2B45399700F21E57 /* PostDataRepository */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
