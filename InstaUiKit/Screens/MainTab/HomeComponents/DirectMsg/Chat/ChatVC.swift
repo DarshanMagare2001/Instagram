@@ -85,9 +85,7 @@ class ChatVC: MessagesViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
         navigationItem.hidesBackButton = true
-        
         // Back button
         let backButton = UIBarButtonItem(image: UIImage(named: "BackArrow"), style: .plain, target: self, action: #selector(backButtonPressed))
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapUserView))
