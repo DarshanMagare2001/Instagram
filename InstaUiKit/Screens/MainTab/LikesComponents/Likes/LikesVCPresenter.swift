@@ -10,6 +10,7 @@ import Foundation
 protocol LikesVCPresenterProtocol {
     func viewDidload()
     func fetchPostDataOfPerticularUser(completion:@escaping()->())
+    func goToUsersProfileView(user:UserModel,isFollowAndMsgBtnShow:Bool)
 }
 
 class LikesVCPresenter {
@@ -25,7 +26,7 @@ class LikesVCPresenter {
 
 extension LikesVCPresenter : LikesVCPresenterProtocol {
     
-    func viewDidload() {
+   func viewDidload() {
         view?.setUpCells()
         view?.setUpRefreshControl()
         view?.startSkeleton()
@@ -42,6 +43,10 @@ extension LikesVCPresenter : LikesVCPresenterProtocol {
         interactor.fetchPostDataOfPerticularUser {
             completion()
         }
+    }
+  
+    func goToUsersProfileView(user: UserModel, isFollowAndMsgBtnShow: Bool) {
+        router.goToUsersProfileView(user: user, isFollowAndMsgBtnShow: isFollowAndMsgBtnShow)
     }
     
 }

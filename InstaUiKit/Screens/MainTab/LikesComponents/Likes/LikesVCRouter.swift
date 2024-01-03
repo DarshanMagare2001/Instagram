@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol LikesVCRouterProtocol {
-    
+   func goToUsersProfileView(user:UserModel,isFollowAndMsgBtnShow:Bool)
 }
 
 class LikesVCRouter {
@@ -20,5 +20,8 @@ class LikesVCRouter {
 }
 
 extension LikesVCRouter : LikesVCRouterProtocol {
-    
+    func goToUsersProfileView(user: UserModel, isFollowAndMsgBtnShow: Bool) {
+        let usersProfileView = UsersProfileViewBuilder.build(user: user, isFollowAndMsgBtnShow: isFollowAndMsgBtnShow)
+        viewController.navigationController?.pushViewController(usersProfileView, animated: true)
+    }
 }

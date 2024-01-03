@@ -32,7 +32,7 @@ class LikesVC : UIViewController {
 }
 
 extension LikesVC : LikesVCProtocol {
-   
+    
     func setUpCells(){
         let nibLikes = UINib(nibName: "LikesCell", bundle: nil)
         let nibFollowing = UINib(nibName: "FollowingCell", bundle: nil)
@@ -106,32 +106,35 @@ extension LikesVC: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
         guard let postLikedBy = interactor?.allPost[section].likedBy else {return UITableViewCell()}
         if section < interactor?.allPost.count ?? 0 && row < postLikedBy.count {
             let uid = postLikedBy.filter { $0 != interactor?.currentUserUid }
-            DispatchQueue.main.async {
+            
+            DispatchQueue.global(qos: .background).async{ [weak self] in
                 FetchUserData.shared.fetchUserDataByUid(uid: uid[indexPath.row]) { result in
                     switch result {
                     case.success(let user):
                         if let user = user {
-                            if let imgUrl = user.imageUrl, let name = user.name {
-                                ImageLoader.loadImage(for: URL(string: imgUrl), into: likesCell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
-                                likesCell.likeByLbl.text = "\(name) liked your post"
+                            DispatchQueue.main.async {
+                                if let imgUrl = user.imageUrl, let name = user.name {
+                                    ImageLoader.loadImage(for: URL(string: imgUrl), into: likesCell.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
+                                    likesCell.likeByLbl.text = "\(name) liked your post"
+                                }
+                                
+                                likesCell.userImgPressed = { [weak self] in
+                                    self?.presenter?.goToUsersProfileView(user: user, isFollowAndMsgBtnShow: true)
+                                }
                             }
-                            
-                            likesCell.userImgPressed = { [weak self] in
-                                let destinationVC = UsersProfileViewBuilder.build(user: user, isFollowAndMsgBtnShow: true)
-                                self?.navigationController?.pushViewController(destinationVC, animated: true)
-                            }
-                            
                         }
                     case.failure(let error):
                         print(error)
                     }
                 }
-                
+            }
+            
+            DispatchQueue.main.async {
                 if let imageURL = URL(string:self.interactor?.allPost[section].postImageURLs?[0] ?? "") {
                     ImageLoader.loadImage(for: imageURL, into: likesCell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
                 }
-                
             }
+            
         }
         return likesCell
     }
