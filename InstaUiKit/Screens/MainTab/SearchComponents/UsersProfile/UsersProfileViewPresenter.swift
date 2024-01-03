@@ -13,6 +13,9 @@ protocol UsersProfileViewPresenterProtocol {
     func setUpLayout()-> UICollectionViewLayout
     func fetchCurrentUserFromFirebase(completion:@escaping()->())
     func fetchPostDataOfPerticularUser(completion:@escaping()->())
+    func goToFeedViewVC(allPost: [PostAllDataModel])
+    func goToProfilePresentedView(user:UserModel)
+    func goToFollowersAndFollowingVC(user:UserModel)
 }
 
 class UsersProfileViewPresenter {
@@ -27,7 +30,7 @@ class UsersProfileViewPresenter {
 }
 
 extension UsersProfileViewPresenter : UsersProfileViewPresenterProtocol {
-    
+  
     func viewDidload() {
         view?.setUpMsgBtnAndFollowBtn()
         view?.verifyIsPrivateOrNot()
@@ -63,6 +66,18 @@ extension UsersProfileViewPresenter : UsersProfileViewPresenterProtocol {
         interactor.fetchPostDataOfPerticularUser {
             completion()
         }
+    }
+    
+    func goToFeedViewVC(allPost: [PostAllDataModel]) {
+        router.goToFeedViewVC(allPost: allPost)
+    }
+    
+    func goToProfilePresentedView(user: UserModel) {
+        router.goToProfilePresentedView(user: user)
+    }
+    
+    func goToFollowersAndFollowingVC(user: UserModel) {
+        router.goToFollowersAndFollowingVC(user: user)
     }
     
 }

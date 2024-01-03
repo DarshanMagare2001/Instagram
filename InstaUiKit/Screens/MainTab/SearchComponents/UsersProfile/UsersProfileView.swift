@@ -40,45 +40,7 @@ class UsersProfileView: UIViewController {
         super.viewDidLoad()
         presenter?.viewDidload()
     }
-    
-    @objc func postTextLblTapped(){
-        let storyboard = UIStoryboard.Common
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedViewVC") as! FeedViewVC
-        destinationVC.allPost = interactor?.allPost
-        navigationController?.pushViewController(destinationVC, animated: true)
-    }
-    
-    @objc func followingsTextLblTapped() {
-        goToFollowerAndFollowing()
-    }
-    
-    @objc func followersTextLblTapped() {
-        goToFollowerAndFollowing()
-    }
-    
-    
-    @objc func didTapUserImg() {
-        let storyboard = UIStoryboard.Common
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "ProfilePresentedView") as! ProfilePresentedView
-        destinationVC.user = interactor?.user
-        destinationVC.modalPresentationStyle = .overFullScreen
-        present(destinationVC, animated: true, completion: nil)
-    }
-    
-    func goToFollowerAndFollowing(){
-        if let user = interactor?.user {
-            let storyboard = UIStoryboard.Common
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "FollowersAndFollowingVC") as! FollowersAndFollowingVC
-            destinationVC.user = user
-            self.navigationController?.pushViewController(destinationVC, animated: true)
-        }
-    }
-    
-    
-    func backButtonPressed() {
-        navigationController?.popViewController(animated: true)
-    }
-    
+   
     
     @IBAction func folloBtnPressed(_ sender: UIButton) {
         if let user = interactor?.user {
@@ -284,6 +246,37 @@ extension UsersProfileView  : UsersProfileViewProtocol {
         followingsTextLbl.isUserInteractionEnabled = false
         followersTextLbl.isUserInteractionEnabled = false
         postTextLbl.isUserInteractionEnabled = false
+    }
+    
+    @objc func postTextLblTapped(){
+        if let allPost = interactor?.allPost {
+            presenter?.goToFeedViewVC(allPost: allPost)
+        }
+    }
+    
+    @objc func followingsTextLblTapped() {
+        goToFollowerAndFollowing()
+    }
+    
+    @objc func followersTextLblTapped() {
+        goToFollowerAndFollowing()
+    }
+    
+    
+    @objc func didTapUserImg() {
+        if let user = interactor?.user {
+            presenter?.goToProfilePresentedView(user: user)
+        }
+    }
+    
+    func goToFollowerAndFollowing(){
+        if let user = interactor?.user {
+            presenter?.goToFollowersAndFollowingVC(user: user)
+        }
+    }
+    
+    func backButtonPressed() {
+        navigationController?.popViewController(animated: true)
     }
     
 }
