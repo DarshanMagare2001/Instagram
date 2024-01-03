@@ -12,7 +12,9 @@ protocol ProfileVCRouterProtocol {
     func goToFeedViewVC(allPost:[PostAllDataModel])
     func goToProfilePresentedView(user:UserModel)
     func goToFollowersAndFollowingVC(user:UserModel)
+    func goToPostPresentedView(post:PostAllDataModel)
     func goToEditProfileVC()
+    func goToSignInVC()
 }
 
 class ProfileVCRouter {
@@ -47,6 +49,23 @@ extension ProfileVCRouter : ProfileVCRouterProtocol {
     func goToEditProfileVC(){
         let editProfileVC = EditProfileVCBuilder.build()
         viewController.navigationController?.pushViewController(editProfileVC, animated: true)
+    }
+    
+    func goToSignInVC(){
+        let signInVC = SignInVCBuilder.build(factory: NavigationFactory.build(rootView:))
+        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate,
+           let window = sceneDelegate.window {
+            window.rootViewController = signInVC
+            window.makeKeyAndVisible()
+        }
+    }
+    
+    func goToPostPresentedView(post:PostAllDataModel){
+        let storyboard = UIStoryboard.Common
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "PostPresentedView") as! PostPresentedView
+        destinationVC.post = post
+        destinationVC.modalPresentationStyle = .overFullScreen
+        viewController.present(destinationVC, animated: true, completion: nil)
     }
     
 }

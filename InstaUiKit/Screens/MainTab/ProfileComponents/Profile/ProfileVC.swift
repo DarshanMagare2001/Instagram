@@ -8,7 +8,6 @@
 import UIKit
 import Kingfisher
 import SkeletonView
-import FirebaseAuth
 
 protocol ProfileVCProtocol : class {
     func setUpTapgestures()
@@ -37,7 +36,6 @@ class ProfileVC: UIViewController {
     
     var presenter : ProfileVCPresenterProtocol?
     var interactor : ProfileVCInteractorProtocol?
-    var viewModel2 = ProfileViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,34 +53,13 @@ class ProfileVC: UIViewController {
         }
     }
     
-    
     @IBAction func editProfileBtnPressed(_ sender: UIButton) {
         presenter?.goToEditProfileVC()
     }
     
-    
     @IBAction func logOutBtnPressed(_ sender: UIButton) {
-        Alert.shared.alertYesNo(title: "Log Out!", message: "Do you want to logOut?.", presentingViewController: self) { _ in
-            MessageLoader.shared.showLoader(withText: "Logging out..")
-            do {
-                try Auth.auth().signOut()
-                print("Logout successful")
-            } catch {
-                print("Logout error: \(error.localizedDescription)")
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now()+1){
-                MessageLoader.shared.hideLoader()
-                Navigator.shared.navigate(storyboard: UIStoryboard.Authentication, destinationVCIdentifier: "SignInVC"){ destinationVC in
-                    if let destinationVC = destinationVC {
-                        self.navigationController?.pushViewController(destinationVC, animated: true)
-                    }
-                }
-            }
-        } noHandler: { _ in
-            print("No")
-        }
+        presenter?.logOut(view: self)
     }
-    
     
 }
 
@@ -214,21 +191,11 @@ extension ProfileVC:  SkeletonCollectionViewDataSource  , SkeletonCollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosCell", for: indexPath) as! PhotosCell
-        let cellData = interactor?.allPost[indexPath.row]
-        if let imageURL = URL(string: cellData?.postImageURLs?[0] ?? "") {
-            ImageLoader.loadImage(for: imageURL, into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
-        }
-        
-        if let postCount = cellData?.postImageURLs?.count {
-            cell.multiplePostIcon.isHidden = ( postCount > 1 ?  false : true )
-        }
-        
-        cell.imagePressed = { [weak self] in
-            let storyboard = UIStoryboard.Common
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "PostPresentedView") as! PostPresentedView
-            destinationVC.post = cellData
-            destinationVC.modalPresentationStyle = .overFullScreen
-            self?.present(destinationVC, animated: true, completion: nil)
+        if let cellData = interactor?.allPost[indexPath.row] {
+            cell.configureCell(post: cellData)
+            cell.imagePressed = { [weak self] in
+                presenter?.goToPostPresentedView(post: cellData)
+            }
         }
         return cell
     }

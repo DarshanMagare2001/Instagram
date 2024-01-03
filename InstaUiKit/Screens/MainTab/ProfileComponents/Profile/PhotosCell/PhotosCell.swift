@@ -23,4 +23,15 @@ class PhotosCell: UICollectionViewCell {
     @objc func imageTapped(_ sender: UITapGestureRecognizer) {
         imagePressed?()
     }
+    
+    func configureCell(post:PostAllDataModel){
+        if let imageURL = URL(string: post.postImageURLs?[0] ?? "") {
+            ImageLoader.loadImage(for: imageURL, into:img, withPlaceholder: UIImage(systemName: "person.fill"))
+        }
+        
+        if let postCount = post.postImageURLs?.count {
+            multiplePostIcon.isHidden = ( postCount > 1 ?  false : true )
+        }
+    }
+    
 }

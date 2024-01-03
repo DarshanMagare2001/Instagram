@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 protocol ProfileVCPresenterProtocol {
     func viewDidload()
@@ -15,9 +16,11 @@ protocol ProfileVCPresenterProtocol {
     func fetchCurrentUserFromFirebase(completion:@escaping()->())
     func fetchPostDataOfPerticularUser(completion:@escaping()->())
     func makeCollectionViewLayout() -> UICollectionViewLayout
+    func logOut(view:UIViewController)
     func goToFeedViewVC(allPost:[PostAllDataModel])
     func goToProfilePresentedView(user:UserModel)
     func goToFollowersAndFollowingVC(user:UserModel)
+    func goToPostPresentedView(post:PostAllDataModel)
     func goToEditProfileVC()
 }
 
@@ -84,6 +87,24 @@ extension ProfileVCPresenter : ProfileVCPresenterProtocol {
         return flowLayout
     }
     
+    func logOut(view:UIViewController){
+        Alert.shared.alertYesNo(title: "Log Out!", message: "Do you want to logOut?.", presentingViewController: view) { _ in
+            MessageLoader.shared.showLoader(withText: "Logging out..")
+            do {
+                try Auth.auth().signOut()
+                print("Logout successful")
+            } catch {
+                print("Logout error: \(error.localizedDescription)")
+            }
+            DispatchQueue.main.asyncAfter(deadline:.now()+1){
+                MessageLoader.shared.hideLoader()
+                self.router.goToSignInVC()
+            }
+        } noHandler: { _ in
+            print("No")
+        }
+    }
+    
     func goToFeedViewVC(allPost: [PostAllDataModel]) {
         router.goToFeedViewVC(allPost:allPost)
     }
@@ -98,6 +119,10 @@ extension ProfileVCPresenter : ProfileVCPresenterProtocol {
     
     func goToEditProfileVC(){
         router.goToEditProfileVC()
+    }
+    
+    func goToPostPresentedView(post:PostAllDataModel){
+        router.goToPostPresentedView(post: post)
     }
     
 }
