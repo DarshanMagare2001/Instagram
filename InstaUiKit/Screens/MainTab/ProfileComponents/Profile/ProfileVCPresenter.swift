@@ -10,6 +10,8 @@ import UIKit
 
 protocol ProfileVCPresenterProtocol {
     func viewDidload()
+    func viewWillAppear()
+    func fetchUserData()
     func fetchCurrentUserFromFirebase(completion:@escaping()->())
     func fetchPostDataOfPerticularUser(completion:@escaping()->())
     func makeCollectionViewLayout() -> UICollectionViewLayout
@@ -34,6 +36,13 @@ extension ProfileVCPresenter : ProfileVCPresenterProtocol {
         view?.setUpSideMenu()
         view?.startSkeleton()
         view?.setUpCellsLayout(flowLayout:makeCollectionViewLayout())
+    }
+    
+    func viewWillAppear() {
+        fetchUserData()
+    }
+    
+    func fetchUserData(){
         dispatchGroup.enter()
         fetchCurrentUserFromFirebase{
             self.dispatchGroup.leave()

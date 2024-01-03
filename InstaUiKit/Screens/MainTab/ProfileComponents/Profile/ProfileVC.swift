@@ -42,6 +42,10 @@ class ProfileVC: UIViewController {
         presenter?.viewDidload()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        presenter?.viewWillAppear()
+    }
+    
     
     @objc func didTapPostTxtLbl(){
         let storyboard = UIStoryboard.Common
