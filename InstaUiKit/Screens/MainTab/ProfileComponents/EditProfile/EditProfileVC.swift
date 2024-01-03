@@ -38,24 +38,11 @@ class EditProfileVC: UIViewController {
         configuration()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        navigationItem.hidesBackButton = true
-        navigationItem.title = "Edit Profile"
-        let cancleBtn = UIBarButtonItem(title:"Cancle", style: .plain, target: self, action: #selector(cancleBtnPressed))
-        cancleBtn.tintColor = .black
-        navigationItem.leftBarButtonItem = cancleBtn
-        
-        let doneBtn = UIBarButtonItem(title:"Done", style: .plain, target: self, action: #selector(doneBtnPressed))
-        doneBtn.tintColor = UIColor(named: "GlobalBlue")
-        navigationItem.rightBarButtonItem = doneBtn
-    }
-    
-    
-    @objc func cancleBtnPressed() {
+    func cancleBtnPressed() {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func doneBtnPressed() {
+    func doneBtnPressed() {
         MessageLoader.shared.showLoader(withText: "Please wait saving User data..")
         viewModel.saveDataToFirebase(name: nameTxtFld.text, username: userNameTxtFld.text, bio: bioTxtFld.text, countryCode: interactor?.countryCode, phoneNumber: phoneNumberTxtFld.text, gender: interactor?.gender, isPrivate: interactor?.isPrivate){ value in
             if value{
