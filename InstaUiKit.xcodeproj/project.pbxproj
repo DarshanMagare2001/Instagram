@@ -41,6 +41,7 @@
 		133AD3D02B453F9A00F21E57 /* UploadVCBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3CF2B453F9A00F21E57 /* UploadVCBuilder.swift */; };
 		133AD3D22B454A4400F21E57 /* UploadVCInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3D12B454A4400F21E57 /* UploadVCInteractor.swift */; };
 		133AD3D42B454A5100F21E57 /* UploadVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3D32B454A5100F21E57 /* UploadVCPresenter.swift */; };
+		133AD3D82B454F4D00F21E57 /* LikesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3D72B454F4C00F21E57 /* LikesVC.swift */; };
 		134C72FA2B3AD877000B0D46 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C72F92B3AD877000B0D46 /* SignInVC.swift */; };
 		134C72FC2B3AD88A000B0D46 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C72FB2B3AD889000B0D46 /* SignUpVC.swift */; };
 		134C72FE2B3AD895000B0D46 /* SwitchAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C72FD2B3AD895000B0D46 /* SwitchAccountCell.swift */; };
@@ -106,7 +107,6 @@
 		1392D0102A80B3BE004B6654 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392D00F2A80B3BE004B6654 /* RoundedCorner.swift */; };
 		1392D0192A80B48D004B6654 /* MainTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1392D0182A80B48D004B6654 /* MainTab.storyboard */; };
 		1392D0222A80B50C004B6654 /* MainTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392D0212A80B50B004B6654 /* MainTabVC.swift */; };
-		1392D02A2A80B541004B6654 /* LikesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392D0292A80B541004B6654 /* LikesVC.swift */; };
 		1392D02C2A80B54A004B6654 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392D02B2A80B54A004B6654 /* ProfileVC.swift */; };
 		1396275E2AFBA5050034F139 /* CommentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1396275D2AFBA5050034F139 /* CommentsVC.swift */; };
 		139627602AFBA57D0034F139 /* CommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1396275F2AFBA57D0034F139 /* CommentsViewModel.swift */; };
@@ -180,6 +180,7 @@
 		133AD3CF2B453F9A00F21E57 /* UploadVCBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVCBuilder.swift; sourceTree = "<group>"; };
 		133AD3D12B454A4400F21E57 /* UploadVCInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVCInteractor.swift; sourceTree = "<group>"; };
 		133AD3D32B454A5100F21E57 /* UploadVCPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVCPresenter.swift; sourceTree = "<group>"; };
+		133AD3D72B454F4C00F21E57 /* LikesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesVC.swift; sourceTree = "<group>"; };
 		134C72F92B3AD877000B0D46 /* SignInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		134C72FB2B3AD889000B0D46 /* SignUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		134C72FD2B3AD895000B0D46 /* SwitchAccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchAccountCell.swift; sourceTree = "<group>"; };
@@ -242,7 +243,6 @@
 		1392D00F2A80B3BE004B6654 /* RoundedCorner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundedCorner.swift; path = InstaUiKit/Utilities/RoundedCorner.swift; sourceTree = SOURCE_ROOT; };
 		1392D0182A80B48D004B6654 /* MainTab.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = MainTab.storyboard; path = InstaUiKit/Storyboard/MainTab/MainTab.storyboard; sourceTree = SOURCE_ROOT; };
 		1392D0212A80B50B004B6654 /* MainTabVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainTabVC.swift; path = InstaUiKit/Storyboard/Authentication/MainTabVC.swift; sourceTree = SOURCE_ROOT; };
-		1392D0292A80B541004B6654 /* LikesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikesVC.swift; path = InstaUiKit/Screens/MainTab/Likes/View/LikesVC.swift; sourceTree = SOURCE_ROOT; };
 		1392D02B2A80B54A004B6654 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileVC.swift; path = InstaUiKit/Screens/MainTab/Profile/View/ProfileVC.swift; sourceTree = SOURCE_ROOT; };
 		1396275D2AFBA5050034F139 /* CommentsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsVC.swift; sourceTree = "<group>"; };
 		1396275F2AFBA57D0034F139 /* CommentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewModel.swift; sourceTree = "<group>"; };
@@ -485,7 +485,7 @@
 				13FE5BEE2B3C3F32001FFA08 /* HomeComponents */,
 				13BAAD882B43E7EF0069CC82 /* SearchComponents */,
 				133AD3C12B45354A00F21E57 /* PostComponents */,
-				131166862A7146F600CD0373 /* Likes */,
+				133AD3D62B454F2400F21E57 /* LikesComponents */,
 				131166872A7146FD00CD0373 /* Profile */,
 			);
 			path = MainTab;
@@ -532,8 +532,10 @@
 		131166862A7146F600CD0373 /* Likes */ = {
 			isa = PBXGroup;
 			children = (
-				1391100A2A86507500CABCD5 /* View */,
-				139110092A86506A00CABCD5 /* ViewModel */,
+				133AD3D52B454F1400F21E57 /* LikesCell */,
+				134C73192B3AE4CE000B0D46 /* LikesVCBuilder.swift */,
+				133AD3D72B454F4C00F21E57 /* LikesVC.swift */,
+				1391100E2A8650AF00CABCD5 /* LikesViewModel.swift */,
 			);
 			path = Likes;
 			sourceTree = "<group>";
@@ -629,6 +631,23 @@
 				139110072A86503700CABCD5 /* PostViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		133AD3D52B454F1400F21E57 /* LikesCell */ = {
+			isa = PBXGroup;
+			children = (
+				138BC5E42A73A4B300020297 /* LikesCell.xib */,
+				138BC5E32A73A4B300020297 /* LikesCell.swift */,
+			);
+			path = LikesCell;
+			sourceTree = "<group>";
+		};
+		133AD3D62B454F2400F21E57 /* LikesComponents */ = {
+			isa = PBXGroup;
+			children = (
+				131166862A7146F600CD0373 /* Likes */,
+			);
+			path = LikesComponents;
 			sourceTree = "<group>";
 		};
 		134C72DE2B3ACB28000B0D46 /* CoreDataRepository */ = {
@@ -866,15 +885,6 @@
 			path = CollectionView;
 			sourceTree = "<group>";
 		};
-		138BC5E22A73A46400020297 /* TableView */ = {
-			isa = PBXGroup;
-			children = (
-				138BC5E32A73A4B300020297 /* LikesCell.swift */,
-				138BC5E42A73A4B300020297 /* LikesCell.xib */,
-			);
-			path = TableView;
-			sourceTree = "<group>";
-		};
 		138BC5EB2A73B7B400020297 /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -897,24 +907,6 @@
 				138BC5DA2A7395C800020297 /* DirectMsgCell.swift */,
 			);
 			path = DirectMsgCell;
-			sourceTree = "<group>";
-		};
-		139110092A86506A00CABCD5 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				1391100E2A8650AF00CABCD5 /* LikesViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		1391100A2A86507500CABCD5 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				134C73192B3AE4CE000B0D46 /* LikesVCBuilder.swift */,
-				1392D0292A80B541004B6654 /* LikesVC.swift */,
-				138BC5E22A73A46400020297 /* TableView */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		1392D0322A80B664004B6654 /* Authentication */ = {
@@ -1391,6 +1383,7 @@
 				139110062A86502400CABCD5 /* PostModel.swift in Sources */,
 				137E67A12B18A2FD00525169 /* NotificationVC.swift in Sources */,
 				137E549C2B14768800186558 /* FollowersAndFollowingVC.swift in Sources */,
+				133AD3D82B454F4D00F21E57 /* LikesVC.swift in Sources */,
 				138BC66A2B3D6BF800B04FC6 /* NotificationVCInteractor.swift in Sources */,
 				1368D1872B174C9800B42AC4 /* InstaUiKit.xcdatamodeld in Sources */,
 				134C731A2B3AE4CE000B0D46 /* LikesVCBuilder.swift in Sources */,
@@ -1422,7 +1415,6 @@
 				13C508C82B108B3B0013C52D /* AddStoryVC.swift in Sources */,
 				13FE5BE32B3C21FE001FFA08 /* SwitchAccountVCInteractor.swift in Sources */,
 				13FE5BEB2B3C31FF001FFA08 /* SignUpVCRouter.swift in Sources */,
-				1392D02A2A80B541004B6654 /* LikesVC.swift in Sources */,
 				138BC65E2B3D416D00B04FC6 /* HomeVCInteractor.swift in Sources */,
 				134C73102B3ADF5A000B0D46 /* MainTabVCBuilder.swift in Sources */,
 				138BC5E52A73A4B300020297 /* LikesCell.swift in Sources */,
