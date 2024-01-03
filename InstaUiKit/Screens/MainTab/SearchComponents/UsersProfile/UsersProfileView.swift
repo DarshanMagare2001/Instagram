@@ -15,6 +15,7 @@ protocol UsersProfileViewProtocol : class {
     func setUpUI()
     func makeLblsUserInteractable()
     func makeLblsUserUnInteractable()
+    func followBtnAction()
 }
 
 class UsersProfileView: UIViewController {
@@ -40,50 +41,10 @@ class UsersProfileView: UIViewController {
         super.viewDidLoad()
         presenter?.viewDidload()
     }
-   
+    
     
     @IBAction func folloBtnPressed(_ sender: UIButton) {
-        if let user = interactor?.user {
-            if let uid = user.uid , let isPrivate = user.isPrivate  {
-                FetchUserData.shared.fetchCurrentUserFromFirebase { result in
-                    switch result {
-                    case.success(let userData):
-                        if let userData = userData {
-                            if let followings = userData.followings , let followingRequest = userData.followingsRequest {
-                                if (followings.contains(uid)) || (followingRequest.contains(uid)) {
-                                    self.unFollow()
-                                    self.removeFollowRequest()
-                                    self.folloBtn.setTitle("Follow", for: .normal)
-                                    self.msgBtn.isHidden = true
-                                    if isPrivate == "true"{
-                                        self.isPrivateAccountBoard.isHidden = false
-                                        self.makeLblsUserUnInteractable()
-                                    }else{
-                                        self.isPrivateAccountBoard.isHidden = true
-                                        self.makeLblsUserInteractable()
-                                    }
-                                }else{
-                                    if isPrivate == "false" {
-                                        self.follow()
-                                        self.folloBtn.setTitle("UnFollow", for: .normal)
-                                        self.msgBtn.isHidden = false
-                                        self.isPrivateAccountBoard.isHidden = true
-                                        self.makeLblsUserInteractable()
-                                    }else{
-                                        self.followRequest()
-                                        self.folloBtn.setTitle("Requested", for: .normal)
-                                        self.isPrivateAccountBoard.isHidden = false
-                                        self.makeLblsUserUnInteractable()
-                                    }
-                                }
-                            }
-                        }
-                    case.failure(let error):
-                        print(error)
-                    }
-                }
-            }
-        }
+        followBtnAction()
     }
     
     @IBAction func messageBtnPressed(_ sender: UIButton) {
@@ -235,6 +196,44 @@ extension UsersProfileView  : UsersProfileViewProtocol {
             
         }
     }
+    
+    func followBtnAction() {
+        if let user = interactor?.user {
+            if let uid = user.uid , let isPrivate = user.isPrivate  {
+                if let userData = interactor?.currentUser {
+                    if let followings = userData.followings , let followingRequest = userData.followingsRequest {
+                        if (followings.contains(uid)) || (followingRequest.contains(uid)) {
+                            self.unFollow()
+                            self.removeFollowRequest()
+                            self.folloBtn.setTitle("Follow", for: .normal)
+                            self.msgBtn.isHidden = true
+                            if isPrivate == "true"{
+                                self.isPrivateAccountBoard.isHidden = false
+                                self.makeLblsUserUnInteractable()
+                            }else{
+                                self.isPrivateAccountBoard.isHidden = true
+                                self.makeLblsUserInteractable()
+                            }
+                        }else{
+                            if isPrivate == "false" {
+                                self.follow()
+                                self.folloBtn.setTitle("UnFollow", for: .normal)
+                                self.msgBtn.isHidden = false
+                                self.isPrivateAccountBoard.isHidden = true
+                                self.makeLblsUserInteractable()
+                            }else{
+                                self.followRequest()
+                                self.folloBtn.setTitle("Requested", for: .normal)
+                                self.isPrivateAccountBoard.isHidden = false
+                                self.makeLblsUserUnInteractable()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     
     func makeLblsUserInteractable(){
         followingsTextLbl.isUserInteractionEnabled = true
