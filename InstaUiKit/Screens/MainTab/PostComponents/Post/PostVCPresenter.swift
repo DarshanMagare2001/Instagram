@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import UIKit
 
 protocol PostVCPresenterProtocol {
     func viewDidload()
+    func goToUploadVC(img:[UIImage])
 }
 
 class PostVCPresenter {
@@ -21,7 +23,13 @@ class PostVCPresenter {
 }
 
 extension PostVCPresenter : PostVCPresenterProtocol {
+    
     func viewDidload() {
         view?.presentImagePicker()
     }
+    
+    func goToUploadVC(img: [UIImage]) {
+        router.goToUploadVC(img: img)
+    }
+    
 }

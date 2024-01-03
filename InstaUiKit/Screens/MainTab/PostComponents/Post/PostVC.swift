@@ -31,13 +31,6 @@ class PostVC: UIViewController {
         imgPicker = YPImagePicker(configuration: config)
     }
     
-    private func gotoUploadVC(images:[UIImage]){
-        let storyboard = UIStoryboard.MainTab
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "UploadVC") as! UploadVC
-        destinationVC.img = images
-        self.navigationController?.pushViewController(destinationVC, animated: true)
-    }
-    
 }
 
 extension PostVC : PostVCProtocol {
@@ -66,7 +59,7 @@ extension PostVC : PostVCProtocol {
             
             self?.disPatchGroup.notify(queue: .main) {
                 guard  images.count > 0 else {return}
-                self?.gotoUploadVC(images:images)
+                self?.presenter?.goToUploadVC(img: images)
             }
             
         }

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol PostVCRouterProtocol {
-    
+    func goToUploadVC(img:[UIImage])
 }
 
 class PostVCRouter {
@@ -20,5 +20,8 @@ class PostVCRouter {
 }
 
 extension PostVCRouter : PostVCRouterProtocol {
-    
+    func goToUploadVC(img: [UIImage]) {
+        let uploadVC = UploadVCBuilder.build(img:img)
+        viewController.navigationController?.pushViewController(uploadVC, animated: true)
+    }
 }
