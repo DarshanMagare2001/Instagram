@@ -14,6 +14,10 @@ protocol ProfileVCProtocol : class {
     func setUpTapgestures()
     func setUpSideMenu()
     func startSkeleton()
+    func stopSkeleton()
+    func setUpUserInfo()
+    func setUpCellsLayout(flowLayout:UICollectionViewLayout)
+    func updatePhotosCollectionView()
 }
 
 class ProfileVC: UIViewController {
@@ -31,23 +35,18 @@ class ProfileVC: UIViewController {
     
     var presenter : ProfileVCPresenterProtocol?
     var interactor : ProfileVCInteractorProtocol?
-    
     var viewModel2 = ProfileViewModel()
-    var allPost = [PostAllDataModel]()
-    var currentUser : UserModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.viewDidload()
-        configuration()
-        updateUI()
     }
     
     
     @objc func didTapPostTxtLbl(){
         let storyboard = UIStoryboard.Common
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedViewVC") as! FeedViewVC
-        destinationVC.allPost = allPost
+        destinationVC.allPost = interactor?.allPost
         navigationController?.pushViewController(destinationVC, animated: true)
     }
     
@@ -55,7 +54,7 @@ class ProfileVC: UIViewController {
     @objc func didTapUserImg(){
         let storyboard = UIStoryboard.Common
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "ProfilePresentedView") as! ProfilePresentedView
-        destinationVC.user = currentUser
+        destinationVC.user = interactor?.currentUser
         destinationVC.modalPresentationStyle = .overFullScreen
         present(destinationVC, animated: true, completion: nil)
     }
@@ -75,30 +74,6 @@ class ProfileVC: UIViewController {
             self.sideMenuView.transform = CGAffineTransform(translationX: 0, y: 0)
         }
     }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
-            switch result {
-            case.success(let data):
-                if let data = data {
-                    self.currentUser = data
-                }
-            case.failure(let error):
-                print(error)
-            }
-        }
-        
-        DispatchQueue.main.async {
-            self.configuration()
-            self.updateUI()
-        }
-        self.photosCollectionView.isSkeletonable = true
-        self.photosCollectionView.showAnimatedGradientSkeleton()
-    }
-    
     
     
     func goToFollowerAndFollowing(){
@@ -162,7 +137,7 @@ class ProfileVC: UIViewController {
 
 extension ProfileVC : ProfileVCProtocol {
    
-    func setUpTapgestures() {
+    func setUpTapgestures(){
         let followingTapGesture = UITapGestureRecognizer(target: self, action: #selector(followingCountLabelTapped))
         followingsTxtLbl.isUserInteractionEnabled = true
         followingsTxtLbl.addGestureRecognizer(followingTapGesture)
@@ -185,33 +160,19 @@ extension ProfileVC : ProfileVCProtocol {
         self.sideMenuView.transform = CGAffineTransform(translationX: +self.sideMenuView.bounds.width, y: 0)
     }
     
-    func startSkeleton() {
+    func startSkeleton(){
         self.view.showAnimatedGradientSkeleton()
+        self.photosCollectionView.isSkeletonable = true
+        self.photosCollectionView.showAnimatedGradientSkeleton()
     }
     
-}
-
-
-extension ProfileVC {
-    
-    func configuration(){
-        updateCell()
-        
-    }
-   
-    func updateCell() {
-        // Configure the collection view flow layout
-        let flowLayout = UICollectionViewFlowLayout()
-        let cellWidth = UIScreen.main.bounds.width / 3 - 2
-        flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
-        flowLayout.minimumInteritemSpacing = 2 // Adjust the spacing between cells horizontally
-        flowLayout.minimumLineSpacing = 2 // Adjust the spacing between cells vertically
-        photosCollectionView.collectionViewLayout = flowLayout
+    func stopSkeleton(){
+        self.photosCollectionView.stopSkeletonAnimation()
+        self.view.stopSkeletonAnimation()
+        self.photosCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
     }
     
-    
-    
-    func updateUI(){
+    func setUpUserInfo() {
         if let url = FetchUserData.fetchUserInfoFromUserdefault(type: .profileUrl) {
             if let imageURL = URL(string: url) {
                 ImageLoader.loadImage(for: imageURL, into: self.userImg, withPlaceholder: UIImage(systemName: "person.fill"))
@@ -226,50 +187,35 @@ extension ProfileVC {
             self.userBio.text = bio
         }
         
-        if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid) {
-            PostViewModel.shared.fetchPostDataOfPerticularUser(forUID: uid) { result in
-                switch result {
-                case .success(let images):
-                    // Handle the images
-                    print("Fetched images: \(images)")
-                    
-                    DispatchQueue.main.async{
-                        self.allPost = images
-                        self.postCountLbl.text = "\(self.allPost.count)"
-                        self.photosCollectionView.stopSkeletonAnimation()
-                        self.view.stopSkeletonAnimation()
-                        self.photosCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
-                        self.photosCollectionView.reloadData()
-                    }
-                    
-                case .failure(let error):
-                    // Handle the error
-                    print("Error fetching images: \(error)")
-                }
-            }
-            
-            FetchUserData.shared.fetchCurrentUserFromFirebase { [self] result in
-                switch result {
-                case .success(let userData):
-                    if let userData = userData,let followers = userData.followers?.count,let followings = userData.followings?.count {
-                        followersCountLbl.text = "\(followers)"
-                        followingCountLbl.text = "\(followings)"
-                    }
-                case .failure(let error):
-                    print(error)
-                }
-            }
-            
+        if let userName = FetchUserData.fetchUserInfoFromUserdefault(type: .userName){
+            self.userName.text = userName
         }
         
+        if let userData = interactor?.currentUser,let followers = userData.followers?.count,let followings = userData.followings?.count {
+            followersCountLbl.text = "\(followers)"
+            followingCountLbl.text = "\(followings)"
+        }
+        
+        if let postCount = self.interactor?.allPost.count {
+            self.postCountLbl.text = "\(postCount)"
+        }
     }
     
+    func setUpCellsLayout(flowLayout:UICollectionViewLayout){
+        photosCollectionView.collectionViewLayout = flowLayout
+    }
+    
+    func updatePhotosCollectionView() {
+        stopSkeleton()
+        photosCollectionView.reloadData()
+    }
     
 }
 
+
 extension ProfileVC:  SkeletonCollectionViewDataSource  , SkeletonCollectionViewDelegate , UIGestureRecognizerDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allPost.count
+        return interactor?.allPost.count ?? 0
     }
     
     func collectionSkeletonView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -283,12 +229,12 @@ extension ProfileVC:  SkeletonCollectionViewDataSource  , SkeletonCollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosCell", for: indexPath) as! PhotosCell
-        let cellData = allPost[indexPath.row]
-        if let imageURL = URL(string: cellData.postImageURLs?[0] ?? "") {
+        let cellData = interactor?.allPost[indexPath.row]
+        if let imageURL = URL(string: cellData?.postImageURLs?[0] ?? "") {
             ImageLoader.loadImage(for: imageURL, into: cell.img, withPlaceholder: UIImage(systemName: "person.fill"))
         }
         
-        if let postCount = cellData.postImageURLs?.count {
+        if let postCount = cellData?.postImageURLs?.count {
             cell.multiplePostIcon.isHidden = ( postCount > 1 ?  false : true )
         }
         
