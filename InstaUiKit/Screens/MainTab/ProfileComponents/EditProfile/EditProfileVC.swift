@@ -10,7 +10,7 @@ import ADCountryPicker
 import YPImagePicker
 
 protocol EditProfileVCProtocol : class {
-    
+    func setUpImagePicker()
 }
 
 
@@ -47,10 +47,7 @@ class EditProfileVC: UIViewController {
         presenter?.viewDidload()
         
         configuration()
-        config.library.maxNumberOfItems = 4
-        config.screens = [.library, .photo, .video]
-        config.library.mediaType = .photoAndVideo
-        imgPicker = YPImagePicker(configuration: config)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -97,10 +94,6 @@ class EditProfileVC: UIViewController {
                 return
             }
         }
-        config.library.maxNumberOfItems = 4
-        config.screens = [.library, .photo]
-        config.library.mediaType = .photoAndVideo
-        imgPicker = YPImagePicker(configuration: config)
         imgPicker.didFinishPicking { [weak self] items, cancelled in
             for item in items {
                 switch item {
@@ -179,6 +172,15 @@ class EditProfileVC: UIViewController {
     
     @IBAction func countryPickerBtnPressed(_ sender: UIButton) {
         countryPickerLabelTapped()
+    }
+}
+
+extension EditProfileVC : EditProfileVCProtocol {
+    func setUpImagePicker() {
+        config.library.maxNumberOfItems = 1
+        config.screens = [.library,.photo]
+        config.library.mediaType = .photoAndVideo
+        imgPicker = YPImagePicker(configuration: config)
     }
 }
 
@@ -286,6 +288,4 @@ extension EditProfileVC : ADCountryPickerDelegate , UIViewControllerTransitionin
     }
 }
 
-extension EditProfileVC : EditProfileVCProtocol {
-    
-}
+
