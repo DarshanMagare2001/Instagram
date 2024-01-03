@@ -15,6 +15,10 @@ protocol ProfileVCPresenterProtocol {
     func fetchCurrentUserFromFirebase(completion:@escaping()->())
     func fetchPostDataOfPerticularUser(completion:@escaping()->())
     func makeCollectionViewLayout() -> UICollectionViewLayout
+    func goToFeedViewVC(allPost:[PostAllDataModel])
+    func goToProfilePresentedView(user:UserModel)
+    func goToFollowersAndFollowingVC(user:UserModel)
+    func goToEditProfileVC()
 }
 
 class ProfileVCPresenter {
@@ -30,7 +34,7 @@ class ProfileVCPresenter {
 }
 
 extension ProfileVCPresenter : ProfileVCPresenterProtocol {
-    
+   
     func viewDidload() {
         view?.setUpTapgestures()
         view?.setUpSideMenu()
@@ -78,6 +82,22 @@ extension ProfileVCPresenter : ProfileVCPresenterProtocol {
         flowLayout.minimumInteritemSpacing = 2 // Adjust the spacing between cells horizontally
         flowLayout.minimumLineSpacing = 2 // Adjust the spacing between cells vertically
         return flowLayout
+    }
+    
+    func goToFeedViewVC(allPost: [PostAllDataModel]) {
+        router.goToFeedViewVC(allPost:allPost)
+    }
+    
+    func goToProfilePresentedView(user:UserModel){
+        router.goToProfilePresentedView(user: user)
+    }
+    
+    func goToFollowersAndFollowingVC(user:UserModel){
+        router.goToFollowersAndFollowingVC(user:user)
+    }
+    
+    func goToEditProfileVC(){
+        router.goToEditProfileVC()
     }
     
 }

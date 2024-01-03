@@ -18,6 +18,8 @@ protocol ProfileVCProtocol : class {
     func setUpUserInfo()
     func setUpCellsLayout(flowLayout:UICollectionViewLayout)
     func updatePhotosCollectionView()
+    func sideBtnTapped()
+    func goToFollowerAndFollowing()
 }
 
 class ProfileVC: UIViewController {
@@ -46,56 +48,6 @@ class ProfileVC: UIViewController {
         presenter?.viewWillAppear()
     }
     
-    
-    @objc func didTapPostTxtLbl(){
-        let storyboard = UIStoryboard.Common
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedViewVC") as! FeedViewVC
-        destinationVC.allPost = interactor?.allPost
-        navigationController?.pushViewController(destinationVC, animated: true)
-    }
-    
-    
-    @objc func didTapUserImg(){
-        let storyboard = UIStoryboard.Common
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "ProfilePresentedView") as! ProfilePresentedView
-        destinationVC.user = interactor?.currentUser
-        destinationVC.modalPresentationStyle = .overFullScreen
-        present(destinationVC, animated: true, completion: nil)
-    }
-    
-    @objc func followingCountLabelTapped() {
-        goToFollowerAndFollowing()
-    }
-    
-    @objc func followersCountLabelTapped() {
-        goToFollowerAndFollowing()
-    }
-    
-    
-    func sideBtnTapped(){
-        UIView.animate(withDuration: 0.5) {
-            self.sideMenuView.alpha = 1.0
-            self.sideMenuView.transform = CGAffineTransform(translationX: 0, y: 0)
-        }
-    }
-    
-    
-    func goToFollowerAndFollowing(){
-        FetchUserData.shared.fetchCurrentUserFromFirebase { result in
-            switch result {
-            case.success(let user):
-                if let user = user {
-                    let storyboard = UIStoryboard.Common
-                    let destinationVC = storyboard.instantiateViewController(withIdentifier: "FollowersAndFollowingVC") as! FollowersAndFollowingVC
-                    destinationVC.user = user
-                    self.navigationController?.pushViewController(destinationVC, animated: true)
-                }
-            case.failure(let error):
-                print(error)
-            }
-        }
-    }
-    
     @IBAction func sideMenuCloseBtnPressed(_ sender: UIButton) {
         UIView.animate(withDuration: 0.5) {
             self.sideMenuView.alpha = 0.0
@@ -105,11 +57,7 @@ class ProfileVC: UIViewController {
     
     
     @IBAction func editProfileBtnPressed(_ sender: UIButton) {
-        Navigator.shared.navigate(storyboard: UIStoryboard.MainTab, destinationVCIdentifier: "EditProfileVC"){ destinationVC in
-            if let destinationVC = destinationVC {
-                self.navigationController?.pushViewController(destinationVC, animated: true)
-            }
-        }
+        presenter?.goToEditProfileVC()
     }
     
     
@@ -140,7 +88,7 @@ class ProfileVC: UIViewController {
 
 
 extension ProfileVC : ProfileVCProtocol {
-   
+    
     func setUpTapgestures(){
         let followingTapGesture = UITapGestureRecognizer(target: self, action: #selector(followingCountLabelTapped))
         followingsTxtLbl.isUserInteractionEnabled = true
@@ -212,6 +160,39 @@ extension ProfileVC : ProfileVCProtocol {
     func updatePhotosCollectionView() {
         stopSkeleton()
         photosCollectionView.reloadData()
+    }
+    
+    func sideBtnTapped(){
+        UIView.animate(withDuration: 0.5) {
+            self.sideMenuView.alpha = 1.0
+            self.sideMenuView.transform = CGAffineTransform(translationX: 0, y: 0)
+        }
+    }
+    
+    func goToFollowerAndFollowing(){
+        if let currentUser = interactor?.currentUser{
+            presenter?.goToFollowersAndFollowingVC(user:currentUser)
+        }
+    }
+    
+    @objc func didTapPostTxtLbl(){
+        if let allPost = interactor?.allPost {
+            presenter?.goToFeedViewVC(allPost:allPost)
+        }
+    }
+    
+    @objc func didTapUserImg(){
+        if let currentUser = interactor?.currentUser {
+            presenter?.goToProfilePresentedView(user: currentUser)
+        }
+    }
+    
+    @objc func followingCountLabelTapped() {
+        goToFollowerAndFollowing()
+    }
+    
+    @objc func followersCountLabelTapped() {
+        goToFollowerAndFollowing()
     }
     
 }

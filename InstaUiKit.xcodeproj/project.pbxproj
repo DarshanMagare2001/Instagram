@@ -50,6 +50,7 @@
 		133AD3E62B45618300F21E57 /* ProfileVCInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3E52B45618300F21E57 /* ProfileVCInteractor.swift */; };
 		133AD3E82B45619400F21E57 /* ProfileVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3E72B45619400F21E57 /* ProfileVCPresenter.swift */; };
 		133AD3EA2B4561A200F21E57 /* ProfileVCRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3E92B4561A200F21E57 /* ProfileVCRouter.swift */; };
+		133AD3EC2B45790B00F21E57 /* EditProfileVCBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3EB2B45790B00F21E57 /* EditProfileVCBuilder.swift */; };
 		134C72FA2B3AD877000B0D46 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C72F92B3AD877000B0D46 /* SignInVC.swift */; };
 		134C72FC2B3AD88A000B0D46 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C72FB2B3AD889000B0D46 /* SignUpVC.swift */; };
 		134C72FE2B3AD895000B0D46 /* SwitchAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C72FD2B3AD895000B0D46 /* SwitchAccountCell.swift */; };
@@ -194,6 +195,7 @@
 		133AD3E52B45618300F21E57 /* ProfileVCInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVCInteractor.swift; sourceTree = "<group>"; };
 		133AD3E72B45619400F21E57 /* ProfileVCPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVCPresenter.swift; sourceTree = "<group>"; };
 		133AD3E92B4561A200F21E57 /* ProfileVCRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVCRouter.swift; sourceTree = "<group>"; };
+		133AD3EB2B45790B00F21E57 /* EditProfileVCBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVCBuilder.swift; sourceTree = "<group>"; };
 		134C72F92B3AD877000B0D46 /* SignInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		134C72FB2B3AD889000B0D46 /* SignUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		134C72FD2B3AD895000B0D46 /* SwitchAccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchAccountCell.swift; sourceTree = "<group>"; };
@@ -964,8 +966,9 @@
 		1392D03C2A80B79D004B6654 /* EditProfile */ = {
 			isa = PBXGroup;
 			children = (
-				136B84A32A83B8FC00C102F1 /* EditProfileViewModel.swift */,
 				138BC5D32A73806E00020297 /* EditProfileVC.swift */,
+				136B84A32A83B8FC00C102F1 /* EditProfileViewModel.swift */,
+				133AD3EB2B45790B00F21E57 /* EditProfileVCBuilder.swift */,
 			);
 			path = EditProfile;
 			sourceTree = "<group>";
@@ -1324,6 +1327,7 @@
 				133AD3C82B4536C600F21E57 /* PostVCPresenter.swift in Sources */,
 				134C73182B3AE4A6000B0D46 /* PostVCBuilder.swift in Sources */,
 				134C72FC2B3AD88A000B0D46 /* SignUpVC.swift in Sources */,
+				133AD3EC2B45790B00F21E57 /* EditProfileVCBuilder.swift in Sources */,
 				13FC207F2AF2687D00D7EEFD /* StoreUserData.swift in Sources */,
 				13BAAD902B43E95E0069CC82 /* SearchVCRouter.swift in Sources */,
 				136B84A42A83B8FC00C102F1 /* EditProfileViewModel.swift in Sources */,
