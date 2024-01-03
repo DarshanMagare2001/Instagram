@@ -13,7 +13,6 @@ import UIKit
 
 class EditProfileViewModel {
     static let shared = EditProfileViewModel()
-    var eventHandler: ((_ event : Event) -> Void)?
    
     func saveDataToFirebase(name:String?,username:String?,bio:String?,countryCode:String?,phoneNumber:String?,gender:String? , isPrivate : String?, completionHandler:@escaping(Bool) -> Void){
         guard let name = name , let username = username , let bio = bio, let countryCode = countryCode , let phoneNumber = phoneNumber , let gender = gender , let isPrivate = isPrivate else { return }
@@ -182,13 +181,4 @@ class EditProfileViewModel {
         }
     }
     
-}
-
-extension EditProfileViewModel {
-    enum Event {
-        case loading
-        case stopLoading
-        case loaded
-        case error(Error?)
-    }
 }

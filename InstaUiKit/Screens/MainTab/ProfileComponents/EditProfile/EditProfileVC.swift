@@ -87,9 +87,15 @@ class EditProfileVC: UIViewController {
                                         case .success(let data):
                                             print(data)
                                             MessageLoader.shared.hideLoader()
+                                            if let navigationController = self?.navigationController {
+                                                navigationController.popViewController(animated: true)
+                                            }
                                         case .failure(let error):
                                             print(error)
                                             MessageLoader.shared.hideLoader()
+                                            if let navigationController = self?.navigationController {
+                                                navigationController.popViewController(animated: true)
+                                            }
                                         }
                                     }
                                 }
