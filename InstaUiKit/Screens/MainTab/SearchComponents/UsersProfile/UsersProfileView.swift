@@ -35,7 +35,6 @@ class UsersProfileView: UIViewController {
     
     var presenter : UsersProfileViewPresenterProtocol?
     var interactor : UsersProfileViewInteractorProtocol?
-    var viewModel = UsersProfileViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,66 +47,9 @@ class UsersProfileView: UIViewController {
     }
     
     @IBAction func messageBtnPressed(_ sender: UIButton) {
-        if let currentUser = interactor?.currentUser , let  senderId = currentUser.uid , let receiverId = interactor?.user?.uid {
-            StoreUserData.shared.saveUsersChatList(senderId: senderId, receiverId: receiverId) { _ in}
-        }
+        presenter?.saveUsersChatList()
         if let user = interactor?.user {
-            let storyboard = UIStoryboard(name: "MainTab", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChatVC") as! ChatVC
-            destinationVC.receiverUser = user
-            self.navigationController?.pushViewController(destinationVC, animated: true)
-        }
-    }
-    
-    func follow(){
-        viewModel.saveFollower(uid: interactor?.user?.uid) { result  in
-            switch result {
-            case.success(let value):
-                if let name = FetchUserData.fetchUserInfoFromUserdefault(type: .name) {
-                    if let fmcToken = self.interactor?.user?.fcmToken {
-                        PushNotification.shared.sendPushNotification(to: fmcToken, title: "InstaUiKit" , body: "\(name) Started following you.")
-                    }
-                }
-            case.failure(let error):
-                print(error)
-            }
-        }
-    }
-    
-    func unFollow(){
-        viewModel.removeFollower(uid: interactor?.user?.uid) { result in
-            switch result {
-            case.success(let value):
-                print(value)
-            case.failure(let error):
-                print(error)
-            }
-        }
-    }
-    
-    func followRequest(){
-        viewModel.requestFollower(uid: interactor?.user?.uid) { result  in
-            switch result {
-            case.success(let value):
-                if let name = FetchUserData.fetchUserInfoFromUserdefault(type: .name) {
-                    if let fmcToken = self.interactor?.user?.fcmToken {
-                        PushNotification.shared.sendPushNotification(to: fmcToken, title: "Follow Request" , body: "\(name) requested to follow you.")
-                    }
-                }
-            case.failure(let error):
-                print(error)
-            }
-        }
-    }
-    
-    func removeFollowRequest(){
-        viewModel.removeFollowRequest(uid: interactor?.user?.uid) { result  in
-            switch result {
-            case.success(let value):
-                print(value)
-            case.failure(let error):
-                print(error)
-            }
+            presenter?.goToChatVC(user: user)
         }
     }
     
@@ -203,8 +145,8 @@ extension UsersProfileView  : UsersProfileViewProtocol {
                 if let userData = interactor?.currentUser {
                     if let followings = userData.followings , let followingRequest = userData.followingsRequest {
                         if (followings.contains(uid)) || (followingRequest.contains(uid)) {
-                            self.unFollow()
-                            self.removeFollowRequest()
+                            presenter?.unFollow()
+                            presenter?.removeFollowRequest()
                             self.folloBtn.setTitle("Follow", for: .normal)
                             self.msgBtn.isHidden = true
                             if isPrivate == "true"{
@@ -216,13 +158,13 @@ extension UsersProfileView  : UsersProfileViewProtocol {
                             }
                         }else{
                             if isPrivate == "false" {
-                                self.follow()
+                                presenter?.follow()
                                 self.folloBtn.setTitle("UnFollow", for: .normal)
                                 self.msgBtn.isHidden = false
                                 self.isPrivateAccountBoard.isHidden = true
                                 self.makeLblsUserInteractable()
                             }else{
-                                self.followRequest()
+                                presenter?.followRequest()
                                 self.folloBtn.setTitle("Requested", for: .normal)
                                 self.isPrivateAccountBoard.isHidden = false
                                 self.makeLblsUserUnInteractable()

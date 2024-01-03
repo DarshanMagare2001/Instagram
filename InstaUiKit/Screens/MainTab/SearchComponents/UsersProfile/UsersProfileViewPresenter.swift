@@ -16,6 +16,12 @@ protocol UsersProfileViewPresenterProtocol {
     func goToFeedViewVC(allPost: [PostAllDataModel])
     func goToProfilePresentedView(user:UserModel)
     func goToFollowersAndFollowingVC(user:UserModel)
+    func goToChatVC(user: UserModel)
+    func saveUsersChatList()
+    func follow()
+    func unFollow()
+    func followRequest()
+    func removeFollowRequest()
 }
 
 class UsersProfileViewPresenter {
@@ -30,7 +36,7 @@ class UsersProfileViewPresenter {
 }
 
 extension UsersProfileViewPresenter : UsersProfileViewPresenterProtocol {
-  
+    
     func viewDidload() {
         view?.setUpMsgBtnAndFollowBtn()
         view?.verifyIsPrivateOrNot()
@@ -78,6 +84,30 @@ extension UsersProfileViewPresenter : UsersProfileViewPresenterProtocol {
     
     func goToFollowersAndFollowingVC(user: UserModel) {
         router.goToFollowersAndFollowingVC(user: user)
+    }
+    
+    func goToChatVC(user: UserModel) {
+        router.goToChatVC(user: user)
+    }
+    
+    func saveUsersChatList(){
+        interactor.saveUsersChatList()
+    }
+    
+    func follow(){
+        interactor.follow()
+    }
+    
+    func unFollow(){
+        interactor.unFollow()
+    }
+    
+    func followRequest(){
+        interactor.followRequest()
+    }
+    
+    func removeFollowRequest(){
+        interactor.removeFollowRequest()
     }
     
 }

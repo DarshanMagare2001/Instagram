@@ -12,6 +12,7 @@ protocol UsersProfileViewRouterProtocol {
     func goToFeedViewVC(allPost: [PostAllDataModel])
     func goToProfilePresentedView(user:UserModel)
     func goToFollowersAndFollowingVC(user:UserModel)
+    func goToChatVC(user: UserModel)
 }
 
 class UsersProfileViewRouter {
@@ -22,7 +23,7 @@ class UsersProfileViewRouter {
 }
 
 extension UsersProfileViewRouter : UsersProfileViewRouterProtocol {
-   
+    
     func goToFeedViewVC(allPost: [PostAllDataModel]) {
         let feedViewVC = FeedViewVCBuilder.build(allPost: allPost)
         viewController.navigationController?.pushViewController(feedViewVC, animated: true)
@@ -41,6 +42,11 @@ extension UsersProfileViewRouter : UsersProfileViewRouterProtocol {
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "FollowersAndFollowingVC") as! FollowersAndFollowingVC
         destinationVC.user = user
        viewController.navigationController?.pushViewController(destinationVC, animated: true)
+    }
+    
+    func goToChatVC(user: UserModel){
+        let chatVC = ChatVCBuilder.build(user: user)
+        viewController.navigationController?.pushViewController(chatVC, animated: true)
     }
     
 }
