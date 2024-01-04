@@ -88,7 +88,12 @@ class FeedCell: UITableViewCell {
     
     @IBAction func stepperControlPressed(_ sender: UIPageControl) {
         steperControlPressed?(sender.currentPage)
+        // Calculate the new content offset based on the current page
+        let newContentOffsetX = CGFloat(sender.currentPage) * postsCollectionView.bounds.width
+        // Scroll the collectionView to the new content offset
+        postsCollectionView.setContentOffset(CGPoint(x: newContentOffsetX, y: 0), animated: true)
     }
+    
     
     @IBAction func likeBtnPressed(_ sender: UIButton) {
         likeBtnTapped?()
@@ -152,13 +157,6 @@ class FeedCell: UITableViewCell {
         
         steperControl.numberOfPages = post?.postImageURLs?.count ?? 0
         steperControl.currentPage = 0
-        
-        steperControlPressed = { [weak self] pageIndex in
-            DispatchQueue.main.async { [weak self] in
-                
-            }
-        }
-        
         
         DispatchQueue.main.async { [weak self] in
             ImageLoader.loadImage(for: URL(string:profileImgUrl), into: (self?.userImg1)!, withPlaceholder: UIImage(systemName: "person.fill"))
@@ -295,6 +293,11 @@ extension FeedCell : UICollectionViewDelegate , UICollectionViewDataSource ,UICo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let collectionViewWidth = collectionView.bounds.width
         return CGSize(width: collectionViewWidth, height: collectionView.bounds.height)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentPage = Int(scrollView.contentOffset.x / scrollView.bounds.width)
+        steperControl.currentPage = currentPage
     }
     
 }
