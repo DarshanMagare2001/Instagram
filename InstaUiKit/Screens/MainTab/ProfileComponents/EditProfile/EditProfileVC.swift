@@ -13,6 +13,8 @@ import SwiftUI
 protocol EditProfileVCProtocol : class {
     func setUpImagePicker()
     func setUpUserInfo()
+    func saveUserData()
+    func saveProfileImage(image:UIImage)
 }
 
 class EditProfileVC: UIViewController {
@@ -43,20 +45,7 @@ class EditProfileVC: UIViewController {
     }
     
     func doneBtnPressed() {
-        MessageLoader.shared.showLoader(withText: "Please wait saving User data..")
-        interactor?.saveDataToFirebase(name: nameTxtFld.text, username: userNameTxtFld.text, bio: bioTxtFld.text, countryCode: interactor?.countryCode, phoneNumber: phoneNumberTxtFld.text, gender: interactor?.gender, isPrivate: interactor?.isPrivate){ value in
-            if value{
-                MessageLoader.shared.hideLoader()
-                if let navigationController = self.navigationController {
-                    navigationController.popViewController(animated: true)
-                }
-            }else{
-                MessageLoader.shared.hideLoader()
-                if let navigationController = self.navigationController {
-                    navigationController.popViewController(animated: true)
-                }
-            }
-        }
+        saveUserData()
     }
     
     @IBAction func changeProfileBtnPressed(_ sender: UIButton) {
@@ -73,21 +62,8 @@ class EditProfileVC: UIViewController {
             for item in items {
                 switch item {
                 case .photo(let photo):
-                    MessageLoader.shared.showLoader(withText: "Profile Photo Uploading..")
                     let image = photo.image
-                    self?.presenter?.saveUserImageData(image: image, completion: { result in
-                        switch result {
-                        case .success(let bool):
-                            print(bool)
-                            MessageLoader.shared.hideLoader()
-                            if let navigationController = self?.navigationController {
-                                navigationController.popViewController(animated: true)
-                            }
-                        case .failure(let error):
-                            print(error)
-                            Alert.shared.alertOk(title:"Error!", message: error.localizedDescription, presentingViewController: self!) { _ in}
-                        }
-                    })
+                    self?.saveProfileImage(image:image)
                 case .video(let video):
                     break
                 }
@@ -96,7 +72,7 @@ class EditProfileVC: UIViewController {
         }
         present(imgPicker, animated: true, completion: nil)
     }
-
+    
     
     @IBAction func genderSelectionBtnPressed(_ sender: UIButton) {
         if sender.tag == 1 {
@@ -199,6 +175,40 @@ extension EditProfileVC : EditProfileVCProtocol {
         } else {
             print("URL is nil or empty")
         }
+    }
+    
+    func saveUserData(){
+        MessageLoader.shared.showLoader(withText: "Please wait saving User data..")
+        presenter?.saveDataToFirebase(name: nameTxtFld.text ?? "", username: userNameTxtFld.text ?? "", bio: bioTxtFld.text ?? "", countryCode: interactor?.countryCode ?? "", phoneNumber: phoneNumberTxtFld.text ?? "", gender: interactor?.gender ?? "", isPrivate: interactor?.isPrivate ?? "", completionHandler: { result in
+            switch result{
+            case.success(let bool):
+                print(bool)
+                MessageLoader.shared.hideLoader()
+                if let navigationController = self.navigationController {
+                    navigationController.popViewController(animated: true)
+                }
+            case.failure(let error):
+                print(error)
+                Alert.shared.alertOk(title: "Error!", message: error.localizedDescription, presentingViewController: self) { _ in}
+            }
+        })
+    }
+    
+    func saveProfileImage(image:UIImage){
+        MessageLoader.shared.showLoader(withText: "Profile Photo Uploading..")
+        self.presenter?.saveUserImageData(image: image, completion: { result in
+            switch result {
+            case .success(let bool):
+                print(bool)
+                MessageLoader.shared.hideLoader()
+                if let navigationController = self.navigationController {
+                    navigationController.popViewController(animated: true)
+                }
+            case .failure(let error):
+                print(error)
+                Alert.shared.alertOk(title:"Error!", message: error.localizedDescription, presentingViewController: self){ _ in}
+            }
+        })
     }
     
 }

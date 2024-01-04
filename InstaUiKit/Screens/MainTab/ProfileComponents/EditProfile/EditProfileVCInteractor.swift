@@ -18,7 +18,7 @@ protocol EditProfileVCInteractorProtocol {
     var isPrivate : String { get set }
     func saveUserImageToFirebase(image: UIImage,completion: @escaping (Result<URL, Error>) -> Void)
     func saveUserProfileImageToFirebaseDatabase(uid: String, imageUrl: String?, completion: @escaping (Result<Void, Error>) -> Void)
-    func saveDataToFirebase(name:String?,username:String?,bio:String?,countryCode:String?,phoneNumber:String?,gender:String? , isPrivate : String?, completionHandler:@escaping(Bool) -> Void)
+    func saveDataToFirebase(name:String?,username:String?,bio:String?,countryCode:String?,phoneNumber:String?,gender:String? , isPrivate : String?, completionHandler:@escaping(Result<Bool,Error>)->())
 }
 
 class EditProfileVCInteractor {
@@ -30,32 +30,30 @@ class EditProfileVCInteractor {
 
 extension EditProfileVCInteractor : EditProfileVCInteractorProtocol {
     
-    func saveDataToFirebase(name:String?,username:String?,bio:String?,countryCode:String?,phoneNumber:String?,gender:String? , isPrivate : String?, completionHandler:@escaping(Bool) -> Void){
+    func saveDataToFirebase(name:String?,username:String?,bio:String?,countryCode:String?,phoneNumber:String?,gender:String? , isPrivate : String?, completionHandler:@escaping(Result<Bool,Error>)->()){
         guard let name = name , let username = username , let bio = bio, let countryCode = countryCode , let phoneNumber = phoneNumber , let gender = gender , let isPrivate = isPrivate else { return }
         if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid){
             self.saveUserToFirebase(uid: uid, name: name, username: username, bio: bio, phoneNumber: phoneNumber, gender: gender, countryCode: countryCode, isPrivate: isPrivate){ result in
                 switch result {
                 case .success():
                     print("User data saved successfully in database.")
-                    
                     FetchUserData.shared.fetchUserDataByUid(uid: uid) { result in
                         switch result {
                         case .success(let data):
                             if let data = data {
                                 self.saveUserInfo(data: data){ value in
                                     print(value)
-                                    completionHandler(true)
+                                    completionHandler(.success(true))
                                 }
                             }
                         case .failure(let failure):
                             print(failure)
-                            completionHandler(false)
+                            completionHandler(.failure(failure))
                         }
                     }
-                    
                 case .failure(let error):
                     print("Error saving user data: \(error)")
-                    completionHandler(false)
+                    completionHandler(.failure(error))
                 }
             }
         }
@@ -109,36 +107,6 @@ extension EditProfileVCInteractor : EditProfileVCInteractorProtocol {
             completionHandler(false)
         }
     }
-   
-    // Function which fetch Userinfo from firebase
-    
-    func fetchUserProfileImageURLWithUid( uid :String?,completion: @escaping (Result<URL?, Error>) -> Void) {
-        let storage = Storage.storage()
-        let storageRef = storage.reference()
-        if let uid = uid {
-            let profileImagesRef = storageRef.child("profile_images/\(uid)")
-            profileImagesRef.listAll { (result, error) in
-                if let error = error {
-                    completion(.failure(error))
-                } else {
-                    if let firstItem = result?.items.first {
-                        firstItem.downloadURL { (url, error) in
-                            if let downloadURL = url {
-                                completion(.success(downloadURL))
-                            } else {
-                                if let error = error {
-                                    completion(.failure(error))
-                                }
-                            }
-                        }
-                    } else {
-                        completion(.success(nil))
-                    }
-                }
-            }
-        }
-    }
-    
     
     func saveUserProfileImageToFirebaseDatabase(uid: String, imageUrl: String?, completion: @escaping (Result<Void, Error>) -> Void){
         let db = Firestore.firestore()

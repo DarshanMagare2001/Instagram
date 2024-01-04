@@ -14,6 +14,7 @@ protocol EditProfileVCPresenterProtocol {
     func saveUserImageToFirebase(image: UIImage , completion:@escaping(Result<String,Error>)->())
     func saveUserImageDataToCoreData(url:String,completion:@escaping()->())
     func saveUserProfileImageToFirebaseDatabase(imageUrl:String,completion:@escaping()->())
+    func saveDataToFirebase(name: String, username: String, bio: String, countryCode: String, phoneNumber: String, gender: String, isPrivate: String, completionHandler: @escaping(Result<Bool,Error>)->())
 }
 
 class EditProfileVCPresenter {
@@ -27,11 +28,17 @@ class EditProfileVCPresenter {
 }
 
 extension EditProfileVCPresenter : EditProfileVCPresenterProtocol {
-   
+    
     func viewDidload() {
         DispatchQueue.main.async {
             self.view?.setUpImagePicker()
             self.view?.setUpUserInfo()
+        }
+    }
+    
+    func saveDataToFirebase(name: String, username: String, bio: String, countryCode: String, phoneNumber: String, gender: String, isPrivate: String, completionHandler: @escaping(Result<Bool,Error>)->()){
+        interactor.saveDataToFirebase(name: name, username: username, bio: bio, countryCode: countryCode, phoneNumber: phoneNumber, gender: gender, isPrivate: isPrivate){ result in
+            completionHandler(result)
         }
     }
     
@@ -59,7 +66,7 @@ extension EditProfileVCPresenter : EditProfileVCPresenterProtocol {
                     }
                     
                 case.failure(let error):
-                print(error)
+                    print(error)
                     DispatchQueue.main.async {
                         completion(.failure(error))
                     }
