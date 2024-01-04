@@ -8,6 +8,7 @@
 import UIKit
 
 class FeedCell: UITableViewCell {
+    
     @IBOutlet weak var userImg1: UIImageView!
     @IBOutlet weak var userImg2: UIImageView!
     @IBOutlet weak var userImg3: CircleImageView!
@@ -18,7 +19,6 @@ class FeedCell: UITableViewCell {
     @IBOutlet weak var likedBysectionView: UIView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var postLocationLbl: UILabel!
-    @IBOutlet weak var postImg: UIImageView!
     @IBOutlet weak var postCaption: UILabel!
     @IBOutlet weak var commentBtn: UIButton!
     @IBOutlet weak var likeBtn: UIButton!
@@ -39,29 +39,14 @@ class FeedCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         setUpCollectionViewCell()
-        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didDoubleTap))
         tapGesture.numberOfTapsRequired = 2
-        
-        let rightSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleRightSwipe(_:)))
-        rightSwipeGesture.direction = .right
-        postImg.addGestureRecognizer(rightSwipeGesture)
-        // Add left swipe gesture
-        let leftSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleLeftSwipe(_:)))
-        leftSwipeGesture.direction = .left
-        postImg.addGestureRecognizer(leftSwipeGesture)
-        // Make sure user interaction is enabled
-        postImg.isUserInteractionEnabled = true
-        
         userImg2View.isHidden = false
         userImg3View.isHidden = false
         userImg4View.isHidden = false
         likedBysectionView.isHidden = false
-        postImg.addGestureRecognizer(tapGesture)
-        postImg.isUserInteractionEnabled = true
-        postImg.clipsToBounds = true
+        
     }
     
     @objc func didDoubleTap(_ gesture: UITapGestureRecognizer) {
@@ -126,7 +111,7 @@ class FeedCell: UITableViewCell {
         postsCollectionView.register(nib, forCellWithReuseIdentifier: "PostsCollectionViewCell")
         postsCollectionView.delegate = self
         postsCollectionView.dataSource = self
-
+        
         if let flowLayout = postsCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             flowLayout.scrollDirection = .horizontal
             flowLayout.minimumLineSpacing = 0
@@ -134,7 +119,7 @@ class FeedCell: UITableViewCell {
         }
         postsCollectionView.isPagingEnabled = true
     }
-
+    
     
     func configureCellData(post:PostAllDataModel?,view:UIViewController) {
         
@@ -143,7 +128,6 @@ class FeedCell: UITableViewCell {
         userImg3.image = nil
         userImg4.image = nil
         userName.text = nil
-        postImg.image = nil
         postLocationLbl.text = nil
         postCaption.text = nil
         totalLikesCount.text = nil
@@ -169,13 +153,9 @@ class FeedCell: UITableViewCell {
         steperControl.numberOfPages = post?.postImageURLs?.count ?? 0
         steperControl.currentPage = 0
         
-        DispatchQueue.main.async { [weak self] in
-            ImageLoader.loadImage(for: URL(string: postImageURLs[0]), into: (self?.postImg)! , withPlaceholder: UIImage(systemName: "photo.artframe"))
-        }
-        
         steperControlPressed = { [weak self] pageIndex in
             DispatchQueue.main.async { [weak self] in
-                ImageLoader.loadImage(for: URL(string: postImageURLs[pageIndex]), into: (self?.postImg)! , withPlaceholder: UIImage(systemName: "photo.artframe"))
+                
             }
         }
         
@@ -305,7 +285,10 @@ extension FeedCell : UICollectionViewDelegate , UICollectionViewDataSource ,UICo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostsCollectionViewCell", for: indexPath) as! PostsCollectionViewCell
         let profileImgUrl = postImageURLs[indexPath.row]
-        ImageLoader.loadImage(for: URL(string: profileImgUrl), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+        cell.postImg.image = nil
+        DispatchQueue.main.async {
+            ImageLoader.loadImage(for: URL(string: profileImgUrl), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+        }
         return cell
     }
     
