@@ -8,6 +8,7 @@
 import UIKit
 import ADCountryPicker
 import YPImagePicker
+import SwiftUI
 
 protocol EditProfileVCProtocol : class {
     func setUpImagePicker()
@@ -31,7 +32,6 @@ class EditProfileVC: UIViewController {
     var interactor : EditProfileVCInteractorProtocol?
     var config = YPImagePickerConfiguration()
     var imgPicker = YPImagePicker()
-    var viewModel = EditProfileViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +44,7 @@ class EditProfileVC: UIViewController {
     
     func doneBtnPressed() {
         MessageLoader.shared.showLoader(withText: "Please wait saving User data..")
-        viewModel.saveDataToFirebase(name: nameTxtFld.text, username: userNameTxtFld.text, bio: bioTxtFld.text, countryCode: interactor?.countryCode, phoneNumber: phoneNumberTxtFld.text, gender: interactor?.gender, isPrivate: interactor?.isPrivate){ value in
+        interactor?.saveDataToFirebase(name: nameTxtFld.text, username: userNameTxtFld.text, bio: bioTxtFld.text, countryCode: interactor?.countryCode, phoneNumber: phoneNumberTxtFld.text, gender: interactor?.gender, isPrivate: interactor?.isPrivate){ value in
             if value{
                 MessageLoader.shared.hideLoader()
                 if let navigationController = self.navigationController {
@@ -74,47 +74,29 @@ class EditProfileVC: UIViewController {
                 switch item {
                 case .photo(let photo):
                     MessageLoader.shared.showLoader(withText: "Profile Photo Uploading..")
-                    self?.viewModel.saveUserImageToFirebase(image: photo.image) { result in
+                    let image = photo.image
+                    self?.presenter?.saveUserImageData(image: image, completion: { result in
                         switch result {
-                        case .success(let url):
-                            print(url)
-                            // Convert the URL to a string before saving
-                            let urlString = url.absoluteString
-                            Data.shared.saveData(urlString, key: "ProfileUrl") { _ in
-                                if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid) {
-                                    self?.viewModel.saveUserProfileImageToFirebaseDatabase(uid: uid, imageUrl: urlString) { result in
-                                        switch result {
-                                        case .success(let data):
-                                            print(data)
-                                            MessageLoader.shared.hideLoader()
-                                            if let navigationController = self?.navigationController {
-                                                navigationController.popViewController(animated: true)
-                                            }
-                                        case .failure(let error):
-                                            print(error)
-                                            MessageLoader.shared.hideLoader()
-                                            if let navigationController = self?.navigationController {
-                                                navigationController.popViewController(animated: true)
-                                            }
-                                        }
-                                    }
-                                }
+                        case .success(let bool):
+                            print(bool)
+                            MessageLoader.shared.hideLoader()
+                            if let navigationController = self?.navigationController {
+                                navigationController.popViewController(animated: true)
                             }
                         case .failure(let error):
                             print(error)
-                            MessageLoader.shared.hideLoader()
+                            Alert.shared.alertOk(title:"Error!", message: error.localizedDescription, presentingViewController: self!) { _ in}
                         }
-                    }
-                case .video(let video): break
-                    
+                    })
+                case .video(let video):
+                    break
                 }
             }
             self?.dismiss(animated: true, completion: nil)
         }
         present(imgPicker, animated: true, completion: nil)
     }
-    
-    
+
     
     @IBAction func genderSelectionBtnPressed(_ sender: UIButton) {
         if sender.tag == 1 {

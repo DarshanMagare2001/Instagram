@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import Firebase
+import FirebaseStorage
 
 protocol FetchUserDataProtocol {
     func fetchUniqueUsersFromFirebase(completionHandler: @escaping (Result<[UserModel], Error>) -> Void)
@@ -204,4 +205,34 @@ extension FetchUserData : FetchUserDataProtocol {
             }
         }
     }
+    
+    // MARK: - Function which fetch URL of Profile Image of currentUser
+    
+    func fetchUserProfileImageURL(completion: @escaping (Result<URL?, Error>) -> Void) {
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+        if let uid = FetchUserData.fetchUserInfoFromUserdefault(type: .uid){
+            let profileImagesRef = storageRef.child("profile_images/\(uid)")
+            profileImagesRef.listAll { (result, error) in
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    if let firstItem = result?.items.first {
+                        firstItem.downloadURL { (url, error) in
+                            if let downloadURL = url {
+                                completion(.success(downloadURL))
+                            } else {
+                                if let error = error {
+                                    completion(.failure(error))
+                                }
+                            }
+                        }
+                    } else {
+                        completion(.success(nil))
+                    }
+                }
+            }
+        }
+    }
+    
 }
