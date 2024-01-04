@@ -758,7 +758,7 @@
                                             <constraint firstItem="3Iq-d7-inL" firstAttribute="leading" secondItem="gy6-Gg-g0z" secondAttribute="leading" id="1zk-w3-4xa"/>
                                             <constraint firstAttribute="trailing" secondItem="3Iq-d7-inL" secondAttribute="trailing" id="FkQ-3W-06j"/>
                                             <constraint firstItem="3Iq-d7-inL" firstAttribute="top" secondItem="gy6-Gg-g0z" secondAttribute="top" id="Udf-OW-VcP"/>
-                                            <constraint firstAttribute="bottom" secondItem="3Iq-d7-inL" secondAttribute="bottom" id="crN-SV-z84"/>
+                                            <constraint firstAttribute="bottom" secondItem="3Iq-d7-inL" secondAttribute="bottom" id="VIc-Oe-1zd"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OXc-Iy-5sl" userLabel="collectionView">
@@ -839,7 +839,7 @@
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="oGL-o2-fM0" secondAttribute="trailing" id="IgQ-n9-4gO"/>
                                             <constraint firstItem="oGL-o2-fM0" firstAttribute="top" secondItem="OXc-Iy-5sl" secondAttribute="top" id="U4Y-pn-0gk"/>
-                                            <constraint firstAttribute="bottom" secondItem="oGL-o2-fM0" secondAttribute="bottom" id="YHR-2U-8pY"/>
+                                            <constraint firstAttribute="bottom" secondItem="oGL-o2-fM0" secondAttribute="bottom" id="cVt-NE-gR1"/>
                                             <constraint firstItem="oGL-o2-fM0" firstAttribute="leading" secondItem="OXc-Iy-5sl" secondAttribute="leading" id="wbG-aa-WyV"/>
                                         </constraints>
                                     </view>
@@ -849,11 +849,11 @@
                                     <constraint firstItem="gy6-Gg-g0z" firstAttribute="leading" secondItem="hyY-cu-P0b" secondAttribute="leading" id="5Ta-O0-KJh"/>
                                     <constraint firstItem="gy6-Gg-g0z" firstAttribute="top" secondItem="hyY-cu-P0b" secondAttribute="top" id="A77-4S-QdH"/>
                                     <constraint firstAttribute="trailing" secondItem="OXc-Iy-5sl" secondAttribute="trailing" id="HmB-g7-Uoh"/>
+                                    <constraint firstAttribute="bottom" secondItem="gy6-Gg-g0z" secondAttribute="bottom" id="JcH-MT-LRl"/>
                                     <constraint firstItem="OXc-Iy-5sl" firstAttribute="leading" secondItem="hyY-cu-P0b" secondAttribute="leading" id="Nfr-48-nIK"/>
-                                    <constraint firstAttribute="bottom" secondItem="gy6-Gg-g0z" secondAttribute="bottom" id="TBv-RH-3Nf"/>
-                                    <constraint firstAttribute="bottom" secondItem="OXc-Iy-5sl" secondAttribute="bottom" id="UJl-hj-4s5"/>
                                     <constraint firstItem="OXc-Iy-5sl" firstAttribute="top" secondItem="hyY-cu-P0b" secondAttribute="top" id="gBa-mA-RCX"/>
                                     <constraint firstAttribute="trailing" secondItem="gy6-Gg-g0z" secondAttribute="trailing" id="rMT-Hp-3OQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="OXc-Iy-5sl" secondAttribute="bottom" id="yfG-XS-uns"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -865,8 +865,8 @@
                             <constraint firstItem="S91-E3-5Kk" firstAttribute="trailing" secondItem="fzn-7x-KWL" secondAttribute="trailing" id="8eB-3X-RKj"/>
                             <constraint firstItem="hyY-cu-P0b" firstAttribute="trailing" secondItem="S91-E3-5Kk" secondAttribute="trailing" id="LyU-qt-YGz"/>
                             <constraint firstItem="fzn-7x-KWL" firstAttribute="top" secondItem="S91-E3-5Kk" secondAttribute="top" constant="10" id="Zsn-eR-Cyp"/>
+                            <constraint firstItem="hyY-cu-P0b" firstAttribute="bottom" secondItem="S91-E3-5Kk" secondAttribute="bottom" id="dLM-1J-mCt"/>
                             <constraint firstItem="hyY-cu-P0b" firstAttribute="leading" secondItem="S91-E3-5Kk" secondAttribute="leading" id="h4E-rF-CbZ"/>
-                            <constraint firstAttribute="bottom" secondItem="hyY-cu-P0b" secondAttribute="bottom" id="oQS-37-AMX"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="InstaMagnifyGlass" id="h4J-kq-sjr">
