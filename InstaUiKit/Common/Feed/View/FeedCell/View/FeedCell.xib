@@ -94,13 +94,16 @@
                                                 </collectionViewFlowLayout>
                                             </collectionView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="2hy-gP-nU5" secondAttribute="trailing" id="3de-6Y-Mqe"/>
                                             <constraint firstAttribute="bottom" secondItem="2hy-gP-nU5" secondAttribute="bottom" id="ElS-9z-7pK"/>
                                             <constraint firstItem="2hy-gP-nU5" firstAttribute="leading" secondItem="NVX-Tt-ecD" secondAttribute="leading" id="WLP-It-CZT"/>
                                             <constraint firstItem="2hy-gP-nU5" firstAttribute="top" secondItem="NVX-Tt-ecD" secondAttribute="top" id="vp1-UT-Svg"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                     </view>
                                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="4bU-Sz-AMf">
                                         <rect key="frame" x="250.5" y="291" width="115.5" height="20"/>
@@ -433,9 +436,6 @@
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
