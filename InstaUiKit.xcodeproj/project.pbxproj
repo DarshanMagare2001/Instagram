@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1303EC702B29778D004EC523 /* ProfilePresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303EC6F2B29778D004EC523 /* ProfilePresentedView.swift */; };
 		1303EC732B29AB63004EC523 /* PostPresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303EC722B29AB63004EC523 /* PostPresentedView.swift */; };
+		1306A2EF2B46AE1A0010FFA8 /* PostsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1306A2ED2B46AE1A0010FFA8 /* PostsCollectionViewCell.swift */; };
+		1306A2F02B46AE1A0010FFA8 /* PostsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1306A2EE2B46AE1A0010FFA8 /* PostsCollectionViewCell.xib */; };
 		130C23422B2031EA0033B763 /* AddChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C23412B2031EA0033B763 /* AddChatVC.swift */; };
 		130C23462B20363E0033B763 /* AddChatVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C23452B20363E0033B763 /* AddChatVCCell.swift */; };
 		130C23582B20469F0033B763 /* MessageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C23572B20469F0033B763 /* MessageLoader.swift */; };
@@ -163,6 +165,8 @@
 /* Begin PBXFileReference section */
 		1303EC6F2B29778D004EC523 /* ProfilePresentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresentedView.swift; sourceTree = "<group>"; };
 		1303EC722B29AB63004EC523 /* PostPresentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPresentedView.swift; sourceTree = "<group>"; };
+		1306A2ED2B46AE1A0010FFA8 /* PostsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsCollectionViewCell.swift; sourceTree = "<group>"; };
+		1306A2EE2B46AE1A0010FFA8 /* PostsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostsCollectionViewCell.xib; sourceTree = "<group>"; };
 		130C23412B2031EA0033B763 /* AddChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChatVC.swift; sourceTree = "<group>"; };
 		130C23452B20363E0033B763 /* AddChatVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChatVCCell.swift; sourceTree = "<group>"; };
 		130C23572B20469F0033B763 /* MessageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageLoader.swift; sourceTree = "<group>"; };
@@ -345,6 +349,15 @@
 				1303EC722B29AB63004EC523 /* PostPresentedView.swift */,
 			);
 			path = PostPresentedview;
+			sourceTree = "<group>";
+		};
+		1306A2EC2B46ADEA0010FFA8 /* PostsCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				1306A2ED2B46AE1A0010FFA8 /* PostsCollectionViewCell.swift */,
+				1306A2EE2B46AE1A0010FFA8 /* PostsCollectionViewCell.xib */,
+			);
+			path = PostsCollectionViewCell;
 			sourceTree = "<group>";
 		};
 		130C23432B2032330033B763 /* DirectMsgVC */ = {
@@ -1136,6 +1149,7 @@
 			children = (
 				13FB7D5E2A722DE000D8FC5C /* FeedCell.xib */,
 				13FB7D5D2A722DE000D8FC5C /* FeedCell.swift */,
+				1306A2EC2B46ADEA0010FFA8 /* PostsCollectionViewCell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1257,6 +1271,7 @@
 				13DBE7782AEB93AE0006F3B9 /* Common.storyboard in Resources */,
 				13FB7D602A722DE000D8FC5C /* FeedCell.xib in Resources */,
 				131166412A70FB9A00CD0373 /* Assets.xcassets in Resources */,
+				1306A2F02B46AE1A0010FFA8 /* PostsCollectionViewCell.xib in Resources */,
 				1392D0192A80B48D004B6654 /* MainTab.storyboard in Resources */,
 				138BC5E62A73A4B300020297 /* LikesCell.xib in Resources */,
 				1311663F2A70FB9900CD0373 /* Authentication.storyboard in Resources */,
@@ -1428,6 +1443,7 @@
 				138BC6602B3D418B00B04FC6 /* HomeVCRouter.swift in Sources */,
 				1392D0222A80B50C004B6654 /* MainTabVC.swift in Sources */,
 				1355B8D22B0CCB840027A2AF /* Notification.swift in Sources */,
+				1306A2EF2B46AE1A0010FFA8 /* PostsCollectionViewCell.swift in Sources */,
 				1368D1602B1719C800B42AC4 /* CDUsersModel.swift in Sources */,
 				134C72FA2B3AD877000B0D46 /* SignInVC.swift in Sources */,
 				138BC5D42A73806E00020297 /* EditProfileVC.swift in Sources */,

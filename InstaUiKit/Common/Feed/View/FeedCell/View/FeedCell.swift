@@ -25,6 +25,8 @@ class FeedCell: UITableViewCell {
     @IBOutlet weak var totalLikesCount: UILabel!
     @IBOutlet weak var likedByLbl: UILabel!
     @IBOutlet weak var steperControl: UIPageControl!
+    @IBOutlet weak var postsCollectionView: UICollectionView!
+    
     var likeBtnTapped: (() -> Void)?
     var commentsBtnTapped: (() -> Void)?
     var doubleTapAction: (() -> Void)?
@@ -32,8 +34,14 @@ class FeedCell: UITableViewCell {
     var viewModel = FeedCellViewModel()
     let disPatchGroup = DispatchGroup()
     var isLiked: Bool = false
+    var postImageURLs = [String]()
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        setUpCollectionViewCell()
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didDoubleTap))
         tapGesture.numberOfTapsRequired = 2
         
@@ -113,6 +121,20 @@ class FeedCell: UITableViewCell {
         steperControl.numberOfPages = count
     }
     
+    private func setUpCollectionViewCell() {
+        let nib = UINib(nibName: "PostsCollectionViewCell", bundle: nil)
+        postsCollectionView.register(nib, forCellWithReuseIdentifier: "PostsCollectionViewCell")
+        postsCollectionView.delegate = self
+        postsCollectionView.dataSource = self
+
+        if let flowLayout = postsCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.scrollDirection = .horizontal
+            flowLayout.minimumLineSpacing = 0
+            flowLayout.minimumInteritemSpacing = 0
+        }
+        postsCollectionView.isPagingEnabled = true
+    }
+
     
     func configureCellData(post:PostAllDataModel?,view:UIViewController) {
         
@@ -138,6 +160,11 @@ class FeedCell: UITableViewCell {
               let postLikesCounts = post?.likesCount,
               let postLikedBy = post?.likedBy,
               let postPostDocumentID = post?.postDocumentID else { return }
+        
+        DispatchQueue.main.async {
+            self.postImageURLs = postImageURLs
+            self.postsCollectionView.reloadData()
+        }
         
         steperControl.numberOfPages = post?.postImageURLs?.count ?? 0
         steperControl.currentPage = 0
@@ -212,13 +239,13 @@ class FeedCell: UITableViewCell {
                 self?.disPatchGroup.leave()
                 return
             }
-
+            
             let maxUsersToShow = min(3, postLikedBy.count)
             var imageView: UIImageView?  // Declare imageView as an optional variable
-
+            
             for i in 0..<maxUsersToShow {
                 let likedUser = postLikedBy[i]
-
+                
                 DispatchQueue.global(qos: .background).async { [weak self] in
                     FetchUserData.shared.fetchUserDataByUid(uid: likedUser) { result in
                         switch result {
@@ -245,7 +272,7 @@ class FeedCell: UITableViewCell {
                                 default:
                                     return
                                 }
-
+                                
                                 DispatchQueue.main.async { [weak self] in
                                     if let imageView = imageView {
                                         ImageLoader.loadImage(for: URL(string: profileImgUrl), into: imageView, withPlaceholder: UIImage(systemName: "person.fill"))
@@ -255,7 +282,7 @@ class FeedCell: UITableViewCell {
                         case .failure(let error):
                             print(error)
                         }
-
+                        
                         if i == maxUsersToShow - 1 {
                             self?.disPatchGroup.leave()
                         }
@@ -263,9 +290,28 @@ class FeedCell: UITableViewCell {
                 }
             }
         }
-   
+        
         disPatchGroup.notify(queue: .main){}
     }
     
 }
 
+extension FeedCell : UICollectionViewDelegate , UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return postImageURLs.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostsCollectionViewCell", for: indexPath) as! PostsCollectionViewCell
+        let profileImgUrl = postImageURLs[indexPath.row]
+        ImageLoader.loadImage(for: URL(string: profileImgUrl), into: cell.postImg, withPlaceholder: UIImage(systemName: "person.fill"))
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let collectionViewWidth = collectionView.bounds.width
+        return CGSize(width: collectionViewWidth, height: collectionView.bounds.height)
+    }
+    
+}

@@ -89,6 +89,28 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NVX-Tt-ecD">
+                                        <rect key="frame" x="0.0" y="0.0" width="616" height="330"/>
+                                        <subviews>
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="2hy-gP-nU5">
+                                                <rect key="frame" x="0.0" y="0.0" width="616" height="330"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="5cr-g3-U5W">
+                                                    <size key="itemSize" width="128" height="330"/>
+                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                </collectionViewFlowLayout>
+                                            </collectionView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                        <constraints>
+                                            <constraint firstItem="2hy-gP-nU5" firstAttribute="top" secondItem="NVX-Tt-ecD" secondAttribute="top" id="dpb-fD-u0x"/>
+                                            <constraint firstAttribute="trailing" secondItem="2hy-gP-nU5" secondAttribute="trailing" id="rJd-17-322"/>
+                                            <constraint firstAttribute="bottom" secondItem="2hy-gP-nU5" secondAttribute="bottom" id="sWU-7e-5BM"/>
+                                            <constraint firstItem="2hy-gP-nU5" firstAttribute="leading" secondItem="NVX-Tt-ecD" secondAttribute="leading" id="yKr-jF-sqx"/>
+                                        </constraints>
+                                    </view>
                                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="4bU-Sz-AMf">
                                         <rect key="frame" x="250.5" y="290" width="115.5" height="20"/>
                                         <constraints>
@@ -109,9 +131,13 @@
                                     <constraint firstAttribute="height" constant="330" id="3Yj-2g-fip"/>
                                     <constraint firstItem="LF5-lR-dk5" firstAttribute="leading" secondItem="0aH-hi-dOe" secondAttribute="leading" id="7XE-jo-hKh"/>
                                     <constraint firstAttribute="bottom" secondItem="LF5-lR-dk5" secondAttribute="bottom" id="Bgf-4J-xGs"/>
+                                    <constraint firstAttribute="trailing" secondItem="NVX-Tt-ecD" secondAttribute="trailing" id="P3M-K0-URD"/>
                                     <constraint firstAttribute="bottom" secondItem="4bU-Sz-AMf" secondAttribute="bottom" constant="20" id="SUQ-3u-MbU"/>
+                                    <constraint firstItem="NVX-Tt-ecD" firstAttribute="top" secondItem="0aH-hi-dOe" secondAttribute="top" id="WTq-gJ-M3s"/>
                                     <constraint firstItem="4bU-Sz-AMf" firstAttribute="centerX" secondItem="0aH-hi-dOe" secondAttribute="centerX" id="XME-B1-jQh"/>
                                     <constraint firstItem="LF5-lR-dk5" firstAttribute="top" secondItem="0aH-hi-dOe" secondAttribute="top" id="cIy-hf-xsn"/>
+                                    <constraint firstItem="NVX-Tt-ecD" firstAttribute="leading" secondItem="0aH-hi-dOe" secondAttribute="leading" id="hnv-Sb-BiP"/>
+                                    <constraint firstAttribute="bottom" secondItem="NVX-Tt-ecD" secondAttribute="bottom" id="qaQ-Ab-Tqm"/>
                                     <constraint firstAttribute="trailing" secondItem="LF5-lR-dk5" secondAttribute="trailing" id="r6v-bX-75s"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -397,6 +423,7 @@
                 <outlet property="postCaption" destination="w5c-Pt-eTN" id="RHN-6i-G5U"/>
                 <outlet property="postImg" destination="LF5-lR-dk5" id="MbZ-mh-Zlf"/>
                 <outlet property="postLocationLbl" destination="BCd-Rg-aY6" id="bV0-rb-89R"/>
+                <outlet property="postsCollectionView" destination="2hy-gP-nU5" id="95k-oR-Fwh"/>
                 <outlet property="steperControl" destination="4bU-Sz-AMf" id="Cex-VK-FGR"/>
                 <outlet property="totalLikesCount" destination="T9r-vC-fcc" id="Rr8-K8-VQF"/>
                 <outlet property="userImg1" destination="R1T-Wr-Tns" id="bJk-gv-GiQ"/>
@@ -417,6 +444,9 @@
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
