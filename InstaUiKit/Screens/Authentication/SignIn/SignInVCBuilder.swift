@@ -14,8 +14,9 @@ final class SignInVCBuilder {
         let signInVC = storyboard.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
         let interactor = SignInVCInteractor()
         let router = SignInVCRouter(view: signInVC, interactor: interactor)
-        let presenter = SignInVCPresenter(view: signInVC, interactor: interactor, router: router)
-        signInVC.presenter = presenter
+        signInVC.presenterProducer = {
+            SignInVCPresenter(view: signInVC, interactor: interactor, router: router, input: $0)
+        }
         return factory(signInVC)
     }
 }

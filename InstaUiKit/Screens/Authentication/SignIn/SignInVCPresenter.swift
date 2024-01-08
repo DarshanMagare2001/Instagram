@@ -7,13 +7,32 @@
 
 import Foundation
 import UIKit
+import RxCocoa
+import RxSwift
 
 protocol SignInVCPresenterProtocol {
+    
     func viewDidload()
     func fetchCDUsers()
     func showSwitchAccountVC()
     func goToSignUpVC()
     func signIn(emailTxtFld:String? , passwordTxtFld:String? , view : UIViewController)
+    
+    typealias Input = (
+        email : Driver<String>,
+        password : Driver<String>,
+        login:Driver<Void>
+    )
+    
+    typealias Output = (
+        enableLogin : Driver<Bool>,()
+    )
+    
+    typealias Producer = (SignInVCPresenterProtocol.Input) -> SignInVCPresenterProtocol
+    
+    var input : Input { get }
+    var output : Output { get }
+    
 }
 
 class SignInVCPresenter {
@@ -21,12 +40,16 @@ class SignInVCPresenter {
     weak var view : SignInVCProtocol?
     var interactor : SignInVCInteractorProtocol
     var router : SignInVCRouterProtocol
+    var input:Input
+    var output:Output
     var coreDataUsers = [CDUsersModel]()
     
-    init(view:SignInVCProtocol,interactor:SignInVCInteractor,router:SignInVCRouter){
+    init(view:SignInVCProtocol,interactor:SignInVCInteractor,router:SignInVCRouter,input:Input){
         self.view = view
         self.interactor = interactor
         self.router = router
+        self.input = input
+        self.output = SignInVCPresenter.output(input: input)
     }
     
 }
@@ -82,6 +105,8 @@ extension SignInVCPresenter : SignInVCPresenterProtocol {
     
     func viewDidload(){
         fetchCDUsers()
+        view?.updateTxtFlds()
+        view?.setUpBinding()
     }
     
     func fetchCDUsers() {
@@ -89,6 +114,18 @@ extension SignInVCPresenter : SignInVCPresenterProtocol {
             let coreDataUsers = await interactor.fetchCoreDataUsers()
             self.coreDataUsers = coreDataUsers
         }
+    }
+    
+}
+
+private extension SignInVCPresenter {
+    
+    static func output(input:Input) -> Output {
+        let enableLoginDriver =  Driver.combineLatest(input.email.map{( $0.isEmailValid() )},
+                                                      input.password.map{( !$0.isEmpty && $0.isPasswordValid() )}).map{( $0 && $1 )}
+        return (
+            enableLogin:enableLoginDriver,()
+        )
     }
     
 }

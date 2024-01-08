@@ -55,6 +55,7 @@
 		133AD3EC2B45790B00F21E57 /* EditProfileVCBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3EB2B45790B00F21E57 /* EditProfileVCBuilder.swift */; };
 		133AD3EE2B45925600F21E57 /* EditProfileVCInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3ED2B45925600F21E57 /* EditProfileVCInteractor.swift */; };
 		133AD3F02B45926200F21E57 /* EditProfileVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133AD3EF2B45926200F21E57 /* EditProfileVCPresenter.swift */; };
+		134548532B4C0F9100F91FD4 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134548522B4C0F9100F91FD4 /* String+Extensions.swift */; };
 		134C72FA2B3AD877000B0D46 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C72F92B3AD877000B0D46 /* SignInVC.swift */; };
 		134C72FC2B3AD88A000B0D46 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C72FB2B3AD889000B0D46 /* SignUpVC.swift */; };
 		134C72FE2B3AD895000B0D46 /* SwitchAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C72FD2B3AD895000B0D46 /* SwitchAccountCell.swift */; };
@@ -202,6 +203,7 @@
 		133AD3EB2B45790B00F21E57 /* EditProfileVCBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVCBuilder.swift; sourceTree = "<group>"; };
 		133AD3ED2B45925600F21E57 /* EditProfileVCInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVCInteractor.swift; sourceTree = "<group>"; };
 		133AD3EF2B45926200F21E57 /* EditProfileVCPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVCPresenter.swift; sourceTree = "<group>"; };
+		134548522B4C0F9100F91FD4 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		134C72F92B3AD877000B0D46 /* SignInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		134C72FB2B3AD889000B0D46 /* SignUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		134C72FD2B3AD895000B0D46 /* SwitchAccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchAccountCell.swift; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 				139110002A864CBD00CABCD5 /* ImageLoader+Extensions.swift */,
 				13DBE7742AEB938C0006F3B9 /* Storyboard+Extensions.swift */,
 				13844A4D2B2B10A500ABB9F0 /* UIApplication+Extensions.swift */,
+				134548522B4C0F9100F91FD4 /* String+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1393,6 +1396,7 @@
 				13BAAD8A2B43E8280069CC82 /* SearchVC.swift in Sources */,
 				139110062A86502400CABCD5 /* PostModel.swift in Sources */,
 				137E67A12B18A2FD00525169 /* NotificationVC.swift in Sources */,
+				134548532B4C0F9100F91FD4 /* String+Extensions.swift in Sources */,
 				137E549C2B14768800186558 /* FollowersAndFollowingVC.swift in Sources */,
 				133AD3D82B454F4D00F21E57 /* LikesVC.swift in Sources */,
 				138BC66A2B3D6BF800B04FC6 /* NotificationVCInteractor.swift in Sources */,

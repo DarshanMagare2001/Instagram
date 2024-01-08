@@ -177,6 +177,7 @@
                     <navigationItem key="navigationItem" id="ruB-Jt-Otr"/>
                     <connections>
                         <outlet property="emailTxtFld" destination="PMF-Ik-Axi" id="ljy-5c-AX6"/>
+                        <outlet property="logInBtn" destination="b1S-r1-tOc" id="CBM-hj-0v6"/>
                         <outlet property="passwordHideShowBtn" destination="RSy-fS-Pgb" id="jev-jX-NbM"/>
                         <outlet property="passwordTxtFld" destination="CYr-9R-SQ9" id="1rl-YX-OhW"/>
                     </connections>

@@ -6,9 +6,13 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 protocol SignInVCProtocol : class {
-    
+    func updateTxtFlds()
+    func setupInputs()
+    func setUpBinding()
 }
 
 class SignInVC: UIViewController {
@@ -16,14 +20,17 @@ class SignInVC: UIViewController {
     @IBOutlet weak var emailTxtFld: UITextField!
     @IBOutlet weak var passwordTxtFld: UITextField!
     @IBOutlet weak var passwordHideShowBtn: UIButton!
+    @IBOutlet weak var logInBtn: RoundedButtonWithBorder!
     
     var isPasswordShow = false
     var presenter : SignInVCPresenterProtocol?
+    var presenterProducer : SignInVCPresenterProtocol.Producer!
+    private let bag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupInputs()
         presenter?.viewDidload()
-        updateTxtFlds()
     }
     
     
@@ -61,5 +68,19 @@ class SignInVC: UIViewController {
 }
 
 extension SignInVC : SignInVCProtocol {
+    
+    func setupInputs() {
+        presenter = presenterProducer((
+            email : emailTxtFld.rx.text.orEmpty.asDriver(),
+            password : passwordTxtFld.rx.text.orEmpty.asDriver(),
+            login:logInBtn.rx.tap.asDriver()
+        ))
+    }
+    
+    func setUpBinding(){
+        presenter?.output.enableLogin.debug("Enable Login Driver" , trimOutput: false)
+            .drive(logInBtn.rx.isEnabled)
+            .disposed(by: bag)
+    }
     
 }
