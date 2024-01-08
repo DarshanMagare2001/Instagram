@@ -440,6 +440,7 @@
                         <outlet property="emailTxtFld" destination="rNe-C5-4fH" id="G38-WD-VcA"/>
                         <outlet property="passwordHideShowBtn" destination="oYm-Xd-snD" id="p12-lF-l9Q"/>
                         <outlet property="passwordTxtFld" destination="XPV-Be-xCY" id="nSw-G6-Xb3"/>
+                        <outlet property="signUpBtn" destination="A5h-nv-LAu" id="qlQ-q2-3iP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tVW-nT-sa6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

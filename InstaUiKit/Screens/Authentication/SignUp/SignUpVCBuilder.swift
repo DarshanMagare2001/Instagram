@@ -13,8 +13,9 @@ final class SignUpVCBuilder {
         let signUpVC = storyboard.instantiateViewController(withIdentifier: "SignUpVC") as! SignUpVC
         let router = SignUpVCRouter(viewController: signUpVC)
         let interactor = SignUpVCInteractor()
-        let presenter = SignUpVCPresenter(view: signUpVC, interactor: interactor, router: router)
-        signUpVC.presenter = presenter 
+        signUpVC.presenterProducer = {
+            SignUpVCPresenter(view: signUpVC, interactor: interactor, router: router, input: $0)
+        }
         signUpVC.navigationItem.hidesBackButton = true
         return signUpVC
     }

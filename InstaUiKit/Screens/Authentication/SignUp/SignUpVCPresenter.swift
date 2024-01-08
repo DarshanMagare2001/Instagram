@@ -7,10 +7,29 @@
 
 import Foundation
 import UIKit
+import RxCocoa
+import RxSwift
 
 protocol SignUpVCPresenterProtocol {
+    
     func viewDidload()
     func signUp(emailTxtFld:String? , passwordTxtFld:String? , view : UIViewController)
+    
+    typealias Input = (
+        email : Driver<String>,
+        password : Driver<String>,
+        login:Driver<Void>
+    )
+    
+    typealias Output = (
+        enableLogin : Driver<Bool>,()
+    )
+    
+    typealias Producer = (SignUpVCPresenterProtocol.Input) -> SignUpVCPresenterProtocol
+    
+    var input : Input { get }
+    var output : Output { get }
+    
 }
 
 class SignUpVCPresenter {
@@ -18,11 +37,15 @@ class SignUpVCPresenter {
     weak var view : SignUpVCProtocol?
     var interactor : SignUpVCInteractorProtocol
     var router : SignUpVCRouterProtocol
+    var input:Input
+    var output:Output
     
-    init(view:SignUpVCProtocol,interactor:SignUpVCInteractorProtocol,router:SignUpVCRouterProtocol){
+    init(view:SignUpVCProtocol,interactor:SignUpVCInteractorProtocol,router:SignUpVCRouterProtocol,input:Input){
         self.view = view
         self.interactor = interactor
         self.router = router
+        self.input = input
+        self.output = SignUpVCPresenter.output(input: input)
     }
     
 }
@@ -30,7 +53,8 @@ class SignUpVCPresenter {
 extension SignUpVCPresenter : SignUpVCPresenterProtocol {
     
     func viewDidload() {
-        
+        view?.updateTxtFlds()
+        view?.setUpBinding()
     }
     
     func signUp(emailTxtFld: String?, passwordTxtFld: String?, view: UIViewController) {
@@ -69,6 +93,18 @@ extension SignUpVCPresenter : SignUpVCPresenterProtocol {
                 }
             }
         }
+    }
+    
+}
+
+private extension SignUpVCPresenter {
+    
+    static func output(input:Input) -> Output {
+        let enableLoginDriver =  Driver.combineLatest(input.email.map{( $0.isEmailValid() )},
+                                                      input.password.map{( !$0.isEmpty && $0.isPasswordValid() )}).map{( $0 && $1 )}
+        return (
+            enableLogin:enableLoginDriver,()
+        )
     }
     
 }

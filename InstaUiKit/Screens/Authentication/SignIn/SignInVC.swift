@@ -60,14 +60,16 @@ class SignInVC: UIViewController {
         passwordTxtFld.isSecureTextEntry.toggle()
     }
     
+    
+}
+
+extension SignInVC : SignInVCProtocol {
+    
     func updateTxtFlds(){
         emailTxtFld.placeholder = "Enter email"
         passwordTxtFld.placeholder = "Enter password"
     }
     
-}
-
-extension SignInVC : SignInVCProtocol {
     
     func setupInputs() {
         presenter = presenterProducer((
