@@ -36,18 +36,11 @@ class SignUpVC: UIViewController {
         presenter?.viewDidload()
     }
     
-    @IBAction func forgetPasswordBtnPressed(_ sender: UIButton) {
-        
-    }
     
     @IBAction func signUpBtnPressed(_ sender: UIButton) {
         presenter?.signUp(emailTxtFld: emailTxtFld.text, passwordTxtFld: passwordTxtFld.text, view: self)
     }
     
-    
-    @IBAction func logInWithFaceBookBtnPressed(_ sender: UIButton) {
-        
-    }
     
     @IBAction func signInBtnPressed(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
@@ -88,6 +81,5 @@ extension SignUpVC : SignUpVCProtocol {
             .drive(signUpBtn.rx.isEnabled)
             .disposed(by: bag)
     }
-    
     
 }

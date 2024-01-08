@@ -60,6 +60,10 @@ class SignInVC: UIViewController {
         passwordTxtFld.isSecureTextEntry.toggle()
     }
     
+    @IBAction func forgotPasswordBtnPressed(_ sender: UIButton) {
+        
+    }
+    
     
 }
 
